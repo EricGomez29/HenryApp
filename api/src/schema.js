@@ -10,6 +10,8 @@ const typeDefs = gql`
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        email: String
+        password: String
     }
 
     input UsersInput {
@@ -20,6 +22,8 @@ const typeDefs = gql`
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        email: String
+        password: String
     }
 
     type Query {
