@@ -10,15 +10,20 @@ const typeDefs = gql`
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        email: String
+        password: String
     }
 
     input UsersInput {
+        _id: String
         username: String
         firstName: String
         lastName: String
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        email: String
+        password: String
     }
 
     type Query {
@@ -28,6 +33,8 @@ const typeDefs = gql`
 
     type Mutation {
         addUser(input: UsersInput): Users
+        editUser( input: UsersInput): Users
+        removeUser (username: String): Users
     }
 `;
 
