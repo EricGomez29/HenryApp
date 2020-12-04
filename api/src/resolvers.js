@@ -1,5 +1,6 @@
 import User from './models/Users';
 
+
 const resolvers = {
     Query: {
         user: async (parent, { id }, context) => await User.findById(id).exec(),
