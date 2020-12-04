@@ -7,7 +7,8 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: async (parent, { input }, context) => await User.create(input)
+        addUser: async (parent, { input }, context) => await User.create(input),
+        editUser: async (parent, { input }, context) => await  User.findOneAndUpdate({ "_id": input._id }, input )
     }
 }
 
