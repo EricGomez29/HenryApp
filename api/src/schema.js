@@ -13,6 +13,7 @@ const typeDefs = gql`
     }
 
     input UsersInput {
+        _id: String
         username: String
         firstName: String
         lastName: String
@@ -29,6 +30,7 @@ const typeDefs = gql`
     type Mutation {
         addUser(input: UsersInput): Users
         editUser( input: UsersInput): Users
+        removeUser (id: String): Users
     }
 `;
 
