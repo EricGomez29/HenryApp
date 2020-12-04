@@ -12,8 +12,23 @@ const resolvers = {
             const hash = await bcrypt.hash(password, 9);
             return await User.create({...input, password: hash})},
 
-            editUser: async (parent, { input }, context) => await  User.findOneAndUpdate({ "username": input.username }, input ),
-        removeUser: async (parent, { username }, context) => await  User.findOneAndRemove( {"username":username})       
+            editUser: async (parent, { input }, context) => {
+                const {password} = input;
+                const user = await User.findOne( {"username": input.username})
+                if (!user){
+                    throw new Error("No se encontro el usuario")
+                }else{
+                    console.log(user);
+                    const verificatedPassword = await bcrypt.compare(password, user.password);
+                    if (!verificatedPassword){
+                        throw new Error("Contraseña Incorrecta")
+                    }else{
+                         
+                        return await  User.findOneAndUpdate({ "username": input.username }, {...input, password: input.password})
+                    }
+                }
+            },
+            removeUser: async (parent, { username }, context) => await  User.findOneAndRemove( {"username":username})       
     }
 }
 export default resolvers;
