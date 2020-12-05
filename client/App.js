@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Register" component={Register}/>
@@ -30,3 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+fontSize: [10, 20, 30]
+

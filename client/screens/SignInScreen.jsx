@@ -23,7 +23,8 @@ export default function SignInForm ({navigation}) {
                     <Text style={{marginTop: 15}}>Contraseña</Text>
                     <TextInput
                         style={styles.input}
-                        onChangeText={handleChange('passrowd')}
+                        secureTextEntry={true}
+                        onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
                         value={values.password}
                     />

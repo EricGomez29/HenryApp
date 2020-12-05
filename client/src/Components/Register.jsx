@@ -27,6 +27,7 @@ export default function Register({navigation}){
                  <Text style={{marginTop: 15}}>Contraseña</Text>
                 <TextInput
                 style={styles.input}
+                secureTextEntry={true}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
@@ -34,6 +35,7 @@ export default function Register({navigation}){
                 <Text style={{marginTop: 15}}>Repite la Contraseña</Text>
                 <TextInput
                 style={styles.input}
+                secureTextEntry={true}
                 onChangeText={handleChange('repeatPassword')}
                 onBlur={handleBlur('repeatPassword')}
                 value={values.repeatPassword}
@@ -45,7 +47,7 @@ export default function Register({navigation}){
                 <TouchableOpacity style={{marginTop: 15}} onPress={() => navigation.navigate('Login')}>
                     <Text style={{fontWeight: 'bold'}}>Ya tenes cuenta? Inicia Sesion</Text>
                 </TouchableOpacity>
-                
+               
             </View>
             )}
         </Formik>
