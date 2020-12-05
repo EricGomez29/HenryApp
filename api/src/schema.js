@@ -27,7 +27,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        user(id: String): Users
+        user(username: String): Users
         users(where: JSON): [Users]
     }
 
@@ -35,6 +35,7 @@ const typeDefs = gql`
         addUser(input: UsersInput): Users
         editUser( input: UsersInput): Users
         removeUser (username: String): Users
+        login (email: String!, password: String!): String
     }
 `;
 
