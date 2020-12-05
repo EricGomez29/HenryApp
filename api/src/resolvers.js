@@ -23,8 +23,8 @@ const resolvers = {
                     if (!verificatedPassword){
                         throw new Error("Contraseña Incorrecta")
                     }else{
-                         
-                        return await  User.findOneAndUpdate({ "username": input.username }, {...input, password: input.password})
+                        let usuario = await  User.findOneAndUpdate({ "username": input.username }, {...input, password: input.password})
+                        return usuario
                     }
                 }
             },
