@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 
-export default function Register(){
+export default function Register({navigation}){
     return (
         <Formik
             initialValues={{ name: '', email: '', password: '', repeatPassword: '' }}
@@ -10,28 +10,28 @@ export default function Register(){
         >
             {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View style={styles.container}>
-                <Text style={{marginTop: '15px'}}>Name</Text>
+                <Text style={{marginTop: 15}}>Nombre</Text>
                 <TextInput
                 style={styles.input}
                 onChangeText={handleChange('name')}
                 onBlur={handleBlur('name')}
                 value={values.name}
                 />
-                 <Text style={{marginTop: '15px'}}>Email</Text>
+                 <Text style={{marginTop: 15}}>Email</Text>
                 <TextInput
                 style={styles.input}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
                 />
-                 <Text style={{marginTop: '15px'}}>Contraseña</Text>
+                 <Text style={{marginTop: 15}}>Contraseña</Text>
                 <TextInput
                 style={styles.input}
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
                 />
-                <Text style={{marginTop: '15px'}}>Repite la Contraseña</Text>
+                <Text style={{marginTop: 15}}>Repite la Contraseña</Text>
                 <TextInput
                 style={styles.input}
                 onChangeText={handleChange('repeatPassword')}
@@ -39,7 +39,11 @@ export default function Register(){
                 value={values.repeatPassword}
                 />
                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                    <Text style={{fontWeight: 'bold'}}>Registrame</Text>
+                    <Text style={{fontWeight: 'bold'}}>Registrarme</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{marginTop: 15}} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{fontWeight: 'bold'}}>Ya tenes cuenta? Inicia Sesion</Text>
                 </TouchableOpacity>
                 
             </View>
@@ -59,20 +63,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-      borderRadius: '15px',
-      border: '1px solid yellow',
-      height: '30px',
+      borderRadius: 15,
+      borderWidth: 1,
+      borderColor: 'yellow',
+      height: 30,
       width: '70%',
-      marginTop:'5px'
+      marginTop: 5
   },
   boton: {
       backgroundColor: 'yellow',
-      borderRadius: '15px',
-      height: '30px', 
+      borderRadius: 15,
+      height: 30, 
       width: '70%',
       alignItems: "center",
       justifyContent: "center",
-      marginTop: '15px'
+      marginTop: 15
   }
 
 });
