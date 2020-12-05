@@ -30,8 +30,11 @@ function decodeToken(bearer) {
       message: "El token ha expirado"
     });
   }
-  console.log(payload)
   return payload.sub;
+}
+
+function destroyToken(bearer){
+  
 }
 
 module.exports = {
