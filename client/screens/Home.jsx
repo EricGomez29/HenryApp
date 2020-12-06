@@ -1,22 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { 
-    View,
-    TouchableOpacity, 
-    StyleSheet, 
-    Text,
-    Image
-} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { Container } from '../styles/Container'
 
 export default function Home({navigation}){
     return (
-        <View style={styles.container}>
+        <Container>
             <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Login')} >
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
                     Comenzar
                 </Text>
             </TouchableOpacity>
-        </View>
+        </Container>
     )
 }
 
