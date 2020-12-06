@@ -17,23 +17,16 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-gesture-handler": "~1.7.0",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.4",
+    "react-native-screens": "~2.10.1",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "react-native-gesture-handler": "~1.7.0",
-    "react-native-reanimated": "~1.13.0",
-    "react-native-safe-area-context": "3.1.4",
-<<<<<<< HEAD
-    "react-native-screens": "~2.10.1",
-    "react-native-web": "~0.13.12",
-    "styled-components": "^5.2.1"
-<<<<<<< HEAD
-=======
-    "react-native-screens": "~2.10.1"
->>>>>>> 6797188a85a762404bff0f8d736125ffe4fe31fc
-=======
->>>>>>> 7783f876db1101e0d8c73b02eb3ee160e3d5635c
+    "styled-components": "^5.2.1",
+    "yup": "^0.32.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
