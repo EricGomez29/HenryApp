@@ -18,11 +18,8 @@ const validations= yup.object().shape({
     <Container>
         <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={values => {
-                console.log(values)
-            }}
+            onSubmit={ values => { console.log(values) }}
             validationSchema={validations}
-            
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
                 <View>
@@ -33,7 +30,8 @@ const validations= yup.object().shape({
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         value={values.email}
-                    /> {touched.email && errors.email &&
+                    />
+                    {touched.email && errors.email &&
                     <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.email}</Text>}
                     <Text style={{textAlign:"center"}}>Contraseña</Text>
                     <TextInput
@@ -43,6 +41,7 @@ const validations= yup.object().shape({
                         onBlur={handleBlur('password')}
                         value={values.password}
                     /> 
+                    
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
@@ -54,7 +53,7 @@ const validations= yup.object().shape({
                     </TouchableOpacity>
                     <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}}  disabled={!isValid} onPress={() => navigation.navigate('resetearContraseña')}>
                         <Text style={{fontWeight: 'bold'}}>Olvide mi contraseña</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
                     
                 </View>
             )}
