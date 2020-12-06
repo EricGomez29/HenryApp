@@ -28,9 +28,12 @@
     "react-native-screens": "~2.10.1",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.2.1"
+<<<<<<< HEAD
 =======
     "react-native-screens": "~2.10.1"
 >>>>>>> 6797188a85a762404bff0f8d736125ffe4fe31fc
+=======
+>>>>>>> 7783f876db1101e0d8c73b02eb3ee160e3d5635c
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
