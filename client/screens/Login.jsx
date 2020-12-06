@@ -4,6 +4,9 @@ import {Formik} from 'formik';
 import  * as yup from 'yup'
 
 export default function SignInForm ({navigation}) {
+
+    
+
 const validations= yup.object().shape({
                 email: yup.string()
                 .email('El email tiene que ser un Email valido')

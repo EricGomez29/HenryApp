@@ -2,8 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup'
+import { useQuery, gql } from '@apollo/client';
 
 export default function Register({navigation}){
+
+   
+
 
  const validations= yup.object().shape({
                 name: yup.string()
@@ -21,10 +25,40 @@ export default function Register({navigation}){
                 .required('este campo es obligatorio, por favor pone la confirmacion de tu contraseña')
             })
 
+            const handlerSubmit = (values) => {
+                 const {loading, error, data}= useQuery(gql`
+                    mutation{
+                        addUser(input: {
+                        username: ${values.name},
+                        lastName: aye,
+                        henryCoins:1000,
+                            firstName: "Facundo",
+                        cohorte:1000,
+                        isAdmin: false,
+                        email: ${values.email},
+                        password: ${values.password}
+                        }){
+                        _id
+                        username
+                        lastName
+                            firstName
+                        email
+                        password
+                        cohorte
+                        henryCoins
+                        }
+                        }
+            
+                    `)
+                    if (error) console.log(error)
+                        console.log("esto es data")
+                        console.log(data)
+            }
+
     return (
         <Formik
             initialValues={{ name: '', email: '', password: '', repeatPassword: '' }}
-            onSubmit={values => console.log(values)}
+            onSubmit={handlerSubmit}
             validationSchema={validations}
 
         >
