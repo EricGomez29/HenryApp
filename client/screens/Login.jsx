@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
-import Style from '../styles/signIn';
 import {Formik} from 'formik';
 
 export default function SignInForm ({navigation}) {
@@ -29,7 +28,7 @@ export default function SignInForm ({navigation}) {
                         value={values.password}
                     />
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}}>Iniciar</Text>
+                        <Text style={{fontWeight: 'bold'}} onPress={() => navigation.navigate('Welcome')}>Iniciar</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity  style={{marginTop: 15}} onPress={() => navigation.navigate('Register')}>
