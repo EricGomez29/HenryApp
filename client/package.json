@@ -28,6 +28,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "yup": "^0.32.1"
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
