@@ -26,15 +26,29 @@ const typeDefs = gql`
         password: String
     }
 
+    type Cohortes {
+        Number: Int!
+        Users: [Users]
+    }
+
+    input CohortesInput {
+        Number: Int!
+    }
+
     type Query {
-        user(id: String): Users
+        user(username: String): Users
         users(where: JSON): [Users]
+        cohortes(where: JSON): [Cohortes]
     }
 
     type Mutation {
         addUser(input: UsersInput): Users
+        addCohorte(input: CohortesInput): Cohortes
+
         editUser( input: UsersInput): Users
         removeUser (username: String): Users
+
+        login (email: String!, password: String!): String
     }
 `;
 
