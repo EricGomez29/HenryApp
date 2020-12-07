@@ -5,10 +5,13 @@ import typeDefs from './schema';
 import context from './context'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import isAuth from './middleware/is-auth';
 
 dotenv.config();
 
 const { DATABASE_URL } = process.env;
+
+
 
 mongoose.connect(DATABASE_URL, {
     useFindAndModify: false ,
@@ -20,7 +23,7 @@ mongoose.connect(DATABASE_URL, {
 const server = new ApolloServer({ typeDefs, resolvers, context })
 
 const app = express();
-
+// app.use(isAuth)
 server.applyMiddleware({ app });
 
 app.listen(3000, () => console.log('Server on port 3000'));

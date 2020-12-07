@@ -1,26 +1,17 @@
-const jwt = require("jwt-simple");
-const moment = require("moment");
+const jwt = require("jsonwebtoken");
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 function createToken(user) {
-  const payload = {
-    sub: {
-      _id: user._id,
-      email: user.email,
-      username: user.username
-    },
-    iat: moment().unix(),
-    exp: moment()
-      .add(14, "days")
-      .unix()
-  };
-  console.log(payload)
-  return jwt.encode(payload, process.env.SECRET_TOKEN);
+  const payload = {userId: user._id, email: user.email};
+  const token =jwt.sign(payload, process.env.SECRET_TOKEN, {expiresIn: "1h"});
+  // console.log(token)
+  return { userId: user._id, token: token, tokenExpiration: 1} 
 }
 
 function decodeToken(bearer) {
+  console.log(bearer)
   const token = bearer.split(" ")[1];
   const payload = jwt.decode(token, process.env.SECRET_TOKEN);
 
@@ -33,9 +24,6 @@ function decodeToken(bearer) {
   return payload.sub;
 }
 
-function destroyToken(bearer){
-  
-}
 
 module.exports = {
   createToken,

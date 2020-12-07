@@ -7,7 +7,7 @@ const context = async ({ req }) => {
 
     try {
       authToken = req.headers.authorization;
-
+      // console.log(req.headers)
       if (authToken) {
         user = await decodeToken(authToken);
       }

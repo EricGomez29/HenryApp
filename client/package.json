@@ -27,7 +27,7 @@
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "yup": "^0.32.1"
+    "yup": "^0.32.1",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
