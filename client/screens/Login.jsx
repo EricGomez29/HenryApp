@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'yellow',
         height: 30,
-        width: 250,
+        width: '70%',
         marginTop: 5,
         justifyContent: "center"
     },
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         height: 30, 
         width: '70%',
-        marginLeft:36,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 20,
