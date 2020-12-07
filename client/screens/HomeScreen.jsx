@@ -1,11 +1,24 @@
+import {gql, useQuery} from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 
 export default function Home({navigation}){
+    const GET_USERS = gql`
+     {
+      users {
+       username
+      }
+     }
+    `
+   const { data } = useQuery(GET_USERS);
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity style={styles.boton} onPress={() => {
+                navigation.navigate('Login')
+                console.log(data)
+                }}>
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>Comenzar</Text>
             </TouchableOpacity>
         </View>
