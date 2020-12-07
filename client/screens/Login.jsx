@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import  * as yup from 'yup'
+import { Container } from '../styles/Container'
 
 export default function Login ({navigation}) {
 
@@ -52,11 +53,11 @@ export default function Login ({navigation}) {
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}} onPress={() => navigation.navigate('Welcome')}>Iniciar</Text>
+                        <Text style={{fontWeight: 'bold'}} onPress={() => navigation.navigate('Welcome')}>INGRESAR</Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity  style={{marginTop: 15}} onPress={() => navigation.navigate('Register')}>
-                        <Text style={{fontWeight: 'bold'}}>No tenes cuenta? Registrate</Text>
+                    <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}} onPress={() => navigation.navigate('Register')}>
+                        <Text style={{fontWeight: 'bold'}}>Registrarse</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity  style={{marginTop: 15}}  disabled={!isValid} onPress={() => navigation.navigate('ForgotPassword')}>
@@ -108,20 +109,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+  
     input: {
         borderRadius: 15,
         borderWidth: 1,
         borderColor: 'yellow',
         height: 30,
-        width: '70%',
+        width: 250,
         marginTop: 5,
         justifyContent: "center"
     },
     boton: {
         backgroundColor: 'yellow',
-        borderRadius: 15,
+        borderRadius: 16,
         height: 30, 
         width: '70%',
+        marginLeft:36,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 20,
