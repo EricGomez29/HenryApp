@@ -1,37 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
-import {Formik} from 'formik';
+import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { Formik } from 'formik';
 import  * as yup from 'yup'
 
-export default function SignInForm ({navigation}) {
+export default function Login ({navigation}) {
 
-    
-
-const validations= yup.object().shape({
-                email: yup.string()
-                .email('El email tiene que ser un Email valido')
-                .required('este campo es obligatorio, por favor decime tu email'),
-                password: yup.string()
-                .min(8, ({min})=> `La contraseña debe tener al menos ${min} caracteres`)
-                .required('este campo es obligatorio, por favor pone tu contraseña')
-            })
+    const validations= yup.object().shape({
+        username: yup.string()
+            .required('Campo obligatorio'),
+        password: yup.string()
+            .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
+            .required('Campo obligatorio')
+    })
     return (
-        <Formik
-            initialValues={{ email: '', password: '' }}
-            onSubmit={ values => { console.log(values) }}
-            validationSchema={validations}
-        >
+        <>
+        <View style={styles.rect}>
+            <Image
+                source={require("../assets/logoHenry.png")}
+                resizeMode="contain"
+                style={styles.henry}
+            ></Image>
+            
+        </View>
+        <View style={styles.rect2}>
+            <Text style={styles.title}>LOGIN</Text>
+            <Formik
+                initialValues={{ username: '', password: '' }}
+                onSubmit={ values => { console.log(values) }}
+                validationSchema={validations}
+            >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                <View style={styles.container}>
-                    <Text style={{marginTop: 15}}>Email</Text>
+                <View style={styles.form}>
+                    <Text>Usuario</Text>
                     <TextInput
                         style={styles.input}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
+                        onChangeText={handleChange('username')}
+                        onBlur={handleBlur('username')}
+                        value={values.username}
                     />
-                    {touched.email && errors.email &&
-                    <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.email}</Text>}
+                    {touched.username && errors.username &&
+                    <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.username}</Text>}
                     <Text style={{marginTop: 15}}>Contraseña</Text>
                     
                     <TextInput
@@ -41,7 +49,6 @@ const validations= yup.object().shape({
                         onBlur={handleBlur('password')}
                         value={values.password}
                     /> 
-                    
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
@@ -52,24 +59,54 @@ const validations= yup.object().shape({
                         <Text style={{fontWeight: 'bold'}}>No tenes cuenta? Registrate</Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity  style={{marginTop: 15}}  disabled={!isValid} onPress={() => navigation.navigate('resetearContraseña')}>
+                    <TouchableOpacity  style={{marginTop: 15}}  disabled={!isValid} onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={{fontWeight: 'bold'}}>Olvide mi contraseña</Text>
                     </TouchableOpacity> 
-                    
+                        
                 </View>
-            )}
-        </Formik>
+                )}
+            </Formik>
+        </View>
+        </>
     )
 }
 
-//estilos
+// Estilos
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white',
-      alignItems: 'center',
-      justifyContent: 'center',
+    rect: {
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: 150,
+        backgroundColor: "rgba(255,255,1,1)",
+        overflow: "visible",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rect2 : {
+        flex: 1,
+        backgroundColor: "white", 
+        zIndex: -1,
+    },
+    henry: {
+        marginTop: 130,
+        width: 200,
+        height: 200,
+        zIndex: 1,
+    },
+    title: {
+        marginTop: 100,
+        marginBottom: -25,
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    form: {
+        marginTop: 0,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     input: {
         borderRadius: 15,
@@ -78,7 +115,7 @@ const styles = StyleSheet.create({
         height: 30,
         width: '70%',
         marginTop: 5,
-        
+        justifyContent: "center"
     },
     boton: {
         backgroundColor: 'yellow',
@@ -87,8 +124,8 @@ const styles = StyleSheet.create({
         width: '70%',
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 15,
-        
+        marginTop: 20,
+        marginBottom: 30
     },
    
   });
