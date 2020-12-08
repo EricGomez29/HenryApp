@@ -1,38 +1,46 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
-import {Formik} from 'formik';
+import React from 'react';
+import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { Container } from '../styles/Container'
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { ValuesOfCorrectTypeRule } from 'graphql';
 
- 
 const LOGIN = gql`
-mutation Login($email: String!, $password: String! ) {
-    login(email: $email, password: $password) {
-        userId
-        token
-    }
-}
-`;
+    mutation Login($email: String!, $password: String! ) {
+        login(email: $email, password: $password) {
+            userId
+            token
+        }
+}`;
 
-export default function SignInForm ({ navigation}) {
-    let mail, passw;
+export default function Login ({navigation}) {
+
+    const  [login, {data} ]= useMutation(LOGIN);
+    
     const validations= yup.object().shape({
-       email: yup.string()
-       .email('El email tiene que ser un Email valido')
-       .required('Campo obligatorio'),
-       password: yup.string()
-       .min(8, ({min})=> `La contraseña debe tener al menos ${min} caracteres`)
-       .required('Campo obligatorio')
+        username: yup.string()
+            .required('Campo obligatorio'),
+        password: yup.string()
+            .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
+            .required('Campo obligatorio')
     })
-    const  [login, {data} ]= useMutation(LOGIN)
-    // const  {data} = useQuery(LOGIN, {variables: {
-    //     email: "facu@gmail.com", password: "12345678"}}) 
+
+
     return (
-        <Container>
+        <>
+        <View style={styles.rect}>
+            <Image
+                source={require("../assets/logoHenry.png")}
+                resizeMode="contain"
+                style={styles.henry}
+            ></Image>
+            
+        </View>
+        <View style={styles.rect2}>
+            <Text style={styles.title}>LOGIN</Text>
             <Formik
-                initialValues={{ email: '', password: '' }}
+                initialValues={{ username: '', password: '' }}
                 onSubmit={ async (values) => {
                     const res = await login({ variables: { email: values.email, password: values.password } });
                     if (!res){
@@ -41,35 +49,28 @@ export default function SignInForm ({ navigation}) {
                     navigation.navigate("Welcome")
                 }
             }
-            
-                validationSchema={validations}
+            validationSchema={validations}
             >
-
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                 
-                        <View>
-                    {/* <Text style={styles.title}>LOGIN</Text> */}
-                    <Text style={{textAlign:"center"}}>Email</Text>
+                <View style={styles.form}>
+                    <Text>Usuario</Text>
                     <TextInput
-                    ref={node => mail =node}
                         style={styles.input}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                        
+                        onChangeText={handleChange('username')}
+                        onBlur={handleBlur('username')}
+                        value={values.username}
                     />
-                    {touched.email && errors.email &&
-                    <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.email}</Text>}
-                    <Text style={{textAlign:"center"}}>Contraseña</Text>
+                    {touched.username && errors.username &&
+                    <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.username}</Text>}
+                    <Text style={{marginTop: 15}}>Contraseña</Text>
+                    
                     <TextInput
-                    ref={node => passw = node}
                         style={styles.input}
                         secureTextEntry={true}
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
                         value={values.password}
-                        /> 
-                    {/* {console.log(data)} */}
+                    /> 
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
                     <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
@@ -79,26 +80,55 @@ export default function SignInForm ({ navigation}) {
                     <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}} onPress={() => navigation.navigate('Register')}>
                         <Text style={{fontWeight: 'bold'}}>Registrarse</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}}  disabled={!isValid} onPress={() => navigation.navigate('resetearContraseña')}>
+                    
+                    <TouchableOpacity  style={{marginTop: 15}}  disabled={!isValid} onPress={() => navigation.navigate('ForgotPassword')}>
                         <Text style={{fontWeight: 'bold'}}>Olvide mi contraseña</Text>
                     </TouchableOpacity> 
-                    
+                        
                 </View>
-                       
-            )}
-        </Formik>
-    </Container>
+                )}
+            </Formik>
+        </View>
+        </>
     )
 }
 
-//estilos
+// Estilos
 
 const styles = StyleSheet.create({
+    rect: {
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: 150,
+        backgroundColor: "rgba(255,255,1,1)",
+        overflow: "visible",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    rect2 : {
+        flex: 1,
+        backgroundColor: "white", 
+        zIndex: -1,
+    },
+    henry: {
+        marginTop: 130,
+        width: 200,
+        height: 200,
+        zIndex: 1,
+    },
     title: {
-        marginTop:100,
-        fontSize: 20,
-        textAlign:"center",
-        fontWeight: 'bold',
+        marginTop: 100,
+        marginBottom: -25,
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    form: {
+        marginTop: 0,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
   
     input: {
@@ -106,22 +136,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'yellow',
         height: 30,
-        width: 250,
+        width: '70%',
         marginTop: 5,
-        alignItems: "center",
-        
-        
+        justifyContent: "center"
     },
     boton: {
         backgroundColor: 'yellow',
         borderRadius: 16,
         height: 30, 
         width: '70%',
-        marginLeft:36,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 15,
-        
+        marginTop: 20,
+        marginBottom: 30
     },
    
   });
