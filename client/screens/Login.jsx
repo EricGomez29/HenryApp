@@ -42,11 +42,12 @@ export default function Login ({navigation}) {
             <Formik
                 initialValues={{ username: '', password: '' }}
                 onSubmit={ async (values) => {
-                    const res = await login({ variables: { email: values.email, password: values.password } });
+                    await login({ variables: { email: values.email, password: values.password } });
                     if (!res){
                         throw new Error("No hay usuario");
                     }
                     navigation.navigate("Welcome")
+                    console.log(data)
                 }
             }
             validationSchema={validations}
