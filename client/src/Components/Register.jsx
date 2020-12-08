@@ -2,12 +2,37 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
+
 
 export default function Register({navigation}){
 
-   
+const ADD_USER = gql`
+mutation  AddUser ($username: String!, $email:String!, $password: String!, $lastname: String, $henryCoins: Integer, $firstname: String, $cohorte: Integer) {
+    AddUser(input: {
+    username: $name,
+    lastName: aye,
+    henryCoins:1000,
+        firstName: $name,
+    cohorte:1000,
+    isAdmin: false,
+    email: $email,
+    password: $password
+    }){
+    _id
+    username
+    lastName
+        firstName
+    email
+    password
+    cohorte
+    henryCoins
+    }
+    }
 
+`
+const [addUser, {data}] = useMutation(ADD_USER)
+console.log(TextInput.value)
 
  const validations= yup.object().shape({
                 name: yup.string()
@@ -25,8 +50,8 @@ export default function Register({navigation}){
                 .required('este campo es obligatorio, por favor pone la confirmacion de tu contraseña')
             })
 
-            const handlerSubmit = (values) => {
-                 const {loading, error, data}= useQuery(gql`
+            /* const handlerSubmit = (values) => {
+                 const [addUser, {data}]= useMutation(gql`
                     mutation{
                         addUser(input: {
                         username: ${values.name},
@@ -53,12 +78,12 @@ export default function Register({navigation}){
                     if (error) console.log(error)
                         console.log("esto es data")
                         console.log(data)
-            }
+            }  */
 
     return (
         <Formik
             initialValues={{ name: '', email: '', password: '', repeatPassword: '' }}
-            onSubmit={handlerSubmit}
+            onSubmit={addUser({variables: {name: TextInput.value, email: TextInput.value, password: TextInput.value, repeatPassword:TextInput.value}})}
             validationSchema={validations}
 
         >
@@ -89,6 +114,7 @@ export default function Register({navigation}){
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
+                
                 />
                 {touched.password && errors.password &&
                 <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
@@ -102,7 +128,7 @@ export default function Register({navigation}){
                 />
                 {touched.repeatPassword && errors.repeatPassword &&
                 <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.repeatPassword}</Text>}
-                <TouchableOpacity style={styles.boton}  disabled={!isValid} onPress={handleSubmit}>
+                <TouchableOpacity style={styles.boton}  disabled={!isValid}  >
                     <Text style={{fontWeight: 'bold'}}>Registrarme</Text>
                 </TouchableOpacity>
 

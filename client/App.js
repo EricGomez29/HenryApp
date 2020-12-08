@@ -12,12 +12,15 @@ import Login from './screens/SignInScreen';
 import Home from './screens/HomeScreen';
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 
+
 const Stack = createStackNavigator();
 
 const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
   cache: new InMemoryCache()
 });
+
+
 
 export default function App() {
   
