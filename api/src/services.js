@@ -1,13 +1,21 @@
 const jwt = require("jsonwebtoken");
+import moment from "moment";
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-function createToken(user) {
-  const payload = {userId: user._id, email: user.email};
-  const token =jwt.sign(payload, process.env.SECRET_TOKEN, {expiresIn: "1h"});
-  // console.log(token)
-  return { userId: user._id, token: token, tokenExpiration: 1} 
+function createToken(user, res) {
+  const payload = {
+    sub: user._id,
+    ait: moment().unix(),
+    exp: moment().add(14, 'days').unix,
+  }
+
+  const accessToken = jwt.sign({ payload}, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "14days"
+  });
+
+   return { userId: user._id, token: accessToken} 
 }
 
 function decodeToken(bearer) {

@@ -10,7 +10,7 @@ const resolvers = {
         user: async (parent, { username }, context) => await User.find(username).exec(),
         users: async (parent, { where }, context) => await User.find(where).exec(),
          //AUTH
-         login: async(_, { email, password }) => {
+         login: async(_, { email, password }, res) => {
             //  console.log(email)
             const user = await User.findOne({ email: email });
             if (!user) {
@@ -21,8 +21,16 @@ const resolvers = {
             if (!valid) {
                 throw new Error("Incorrect password");
             }
-            return createToken(user);
+            
+              return createToken(user, res);
         },
+        me: (_, __, { req }) => {
+            if (!req.userId) {
+              return null;
+            }
+      
+            return User.findOne(req.userId);
+          },
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec()
     },

@@ -1,27 +1,16 @@
 import 'react-native-gesture-handler';
 //import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-<<<<<<< HEAD
 //import store from "./Redux/Store/index.js";
 //import { Provider } from "react-redux";
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Register from './src/Components/Register'
-import Login from './screens/SignInScreen';
-import Home from './screens/HomeScreen';
-import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
-=======
-import store from "./Redux/Store/index.js";
-import { Provider } from "react-redux";
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Register from './screens/Register'
 import Login from './screens/Login';
 import Home from './screens/Home';
-import Welcome from './screens/Welcome';
->>>>>>> 1ab92be7a5ae981cfede94530006bfddc71b454d
+import Welcome from './screens/Welcome'
+import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 
 const Stack = createStackNavigator(  );
 
@@ -47,7 +36,3 @@ export default function App() {
   );
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ab92be7a5ae981cfede94530006bfddc71b454d

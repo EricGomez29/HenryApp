@@ -6,6 +6,7 @@ import context from './context'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import isAuth from './middleware/is-auth';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -23,6 +24,19 @@ mongoose.connect(DATABASE_URL, {
 const server = new ApolloServer({ typeDefs, resolvers, context })
 
 const app = express();
+
+// app.use(cookieParser());
+
+// app.use((req, _, next) => {
+//   const accessToken = req.cookies["access-token"];
+//   console.log(req.cookie)
+//   try {
+//     const data = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+//     (req).userId = data.userId;
+//   } catch {}
+//   next();
+// });
+
 // app.use(isAuth)
 server.applyMiddleware({ app });
 

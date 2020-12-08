@@ -17,11 +17,9 @@ const typeDefs = gql`
     type AuthData {
         userId: ID!
         token: String!
-        tokenExpiration: Int!
     }
-
+    
     input UsersInput {
-        _id: String
         username: String
         firstName: String
         lastName: String
@@ -36,16 +34,18 @@ const typeDefs = gql`
         Number: Int!
         Users: [Users]
     }
-
+    
     input CohortesInput {
         Number: Int!
     }
-
+    
     type Query {
         user(username: String): Users
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         login(email: String!, password: String!): AuthData!
+        me: Users
+        
     }
 
     type Mutation {
@@ -55,7 +55,6 @@ const typeDefs = gql`
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
 
-        login (email: String!, password: String!): String
     }
 `;
 

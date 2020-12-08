@@ -3,11 +3,30 @@ import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, TouchableN
 import {Formik} from 'formik';
 import  * as yup from 'yup'
 import { Container } from '../styles/Container'
+import { gql, useQuery } from '@apollo/client';
 
+const LOGIN = gql`
+{
+    login(email: $email, password:$password) {
+    userId
+    token
+    }
+}
+`;   
 
 export default function SignInForm ({navigation}) {
+    
+    const LOGIN = gql`
+    {
+        login(email: $email, password:$password) {
+        userId
+        token
+        }
+    }
+    `;   
 
     
+   
 
 const validations= yup.object().shape({
                 email: yup.string()
@@ -21,7 +40,14 @@ const validations= yup.object().shape({
     <Container>
         <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={ values => { console.log(values) }}
+            onSubmit={ values => { 
+                const { loading, error, data }  = useQuery(LOGIN,{ variables: { email: values.email, password: values.password }, })
+                if (loading) return 'Loading...';
+                if (error) return `Error! ${error.message}`;
+                console.log(data)
+                navigation.navigate('Welcome')              
+            }
+            }
             validationSchema={validations}
         >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
@@ -48,7 +74,7 @@ const validations= yup.object().shape({
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}} onPress={() => navigation.navigate('Welcome')}>INGRESAR</Text>
+                        <Text style={{fontWeight: 'bold'}} >INGRESAR</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}} onPress={() => navigation.navigate('Register')}>

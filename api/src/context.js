@@ -4,7 +4,7 @@ import { decodeToken } from "./services";
 const context = async ({ req }) => {
     let authToken = null;
     let user = null;
-
+  console.log(req.headers.authorization)
     try {
       authToken = req.headers.authorization;
       // console.log(req.headers)
