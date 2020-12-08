@@ -43,7 +43,7 @@ const typeDefs = gql`
         user(username: String): Users
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
-        login(email: String!, password: String!): AuthData!
+        
         me: Users
         
     }
@@ -51,7 +51,7 @@ const typeDefs = gql`
     type Mutation {
         registerUser(input: UsersInput): Users
         addCohorte(input: CohortesInput): Cohortes
-
+        login(email: String!, password: String!): AuthData!
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
 

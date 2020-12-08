@@ -1,79 +1,78 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import {Formik} from 'formik';
 import  * as yup from 'yup'
 import { Container } from '../styles/Container'
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { ValuesOfCorrectTypeRule } from 'graphql';
 
+ 
 const LOGIN = gql`
-{
-    login(email: $email, password:$password) {
-    userId
-    token
-    }
-}
-`;   
-
-export default function SignInForm ({navigation}) {
-    
-    const LOGIN = gql`
-    {
-        login(email: $email, password:$password) {
+mutation Login($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
         userId
         token
-        }
     }
-    `;   
+}
+`;
 
-    
-   
-
-const validations= yup.object().shape({
-                email: yup.string()
-                .email('El email tiene que ser un Email valido')
-                .required('Campo obligatorio'),
-                password: yup.string()
-                .min(8, ({min})=> `La contraseña debe tener al menos ${min} caracteres`)
-                .required('Campo obligatorio')
-            })
+export default function SignInForm ({ navigation}) {
+    let mail, passw;
+    const validations= yup.object().shape({
+       email: yup.string()
+       .email('El email tiene que ser un Email valido')
+       .required('Campo obligatorio'),
+       password: yup.string()
+       .min(8, ({min})=> `La contraseña debe tener al menos ${min} caracteres`)
+       .required('Campo obligatorio')
+    })
+    const  [login, {data} ]= useMutation(LOGIN)
+    // const  {data} = useQuery(LOGIN, {variables: {
+    //     email: "facu@gmail.com", password: "12345678"}}) 
     return (
-    <Container>
-        <Formik
-            initialValues={{ email: '', password: '' }}
-            onSubmit={ values => { 
-                const { loading, error, data }  = useQuery(LOGIN,{ variables: { email: values.email, password: values.password }, })
-                if (loading) return 'Loading...';
-                if (error) return `Error! ${error.message}`;
-                console.log(data)
-                navigation.navigate('Welcome')              
+        <Container>
+            <Formik
+                initialValues={{ email: '', password: '' }}
+                onSubmit={ async (values) => {
+                    const res = await login({ variables: { email: values.email, password: values.password } });
+                    if (!res){
+                        throw new Error("No hay usuario");
+                    }
+                    navigation.navigate("Welcome")
+                }
             }
-            }
-            validationSchema={validations}
-        >
+            
+                validationSchema={validations}
+            >
+
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                <View>
+                 
+                        <View>
                     {/* <Text style={styles.title}>LOGIN</Text> */}
                     <Text style={{textAlign:"center"}}>Email</Text>
                     <TextInput
+                    ref={node => mail =node}
                         style={styles.input}
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                         value={values.email}
+                        
                     />
                     {touched.email && errors.email &&
                     <Text  style={{ fontSize: 12, color: '#FF0D10'}}>{errors.email}</Text>}
                     <Text style={{textAlign:"center"}}>Contraseña</Text>
                     <TextInput
+                    ref={node => passw = node}
                         style={styles.input}
                         secureTextEntry={true}
                         onChangeText={handleChange('password')}
                         onBlur={handleBlur('password')}
                         value={values.password}
-                    /> 
-                    
+                        /> 
+                    {/* {console.log(data)} */}
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
-                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
                         <Text style={{fontWeight: 'bold'}} >INGRESAR</Text>
                     </TouchableOpacity>
                     
@@ -85,6 +84,7 @@ const validations= yup.object().shape({
                     </TouchableOpacity> 
                     
                 </View>
+                       
             )}
         </Formik>
     </Container>

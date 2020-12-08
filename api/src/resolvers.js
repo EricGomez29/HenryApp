@@ -10,20 +10,7 @@ const resolvers = {
         user: async (parent, { username }, context) => await User.find(username).exec(),
         users: async (parent, { where }, context) => await User.find(where).exec(),
          //AUTH
-         login: async(_, { email, password }, res) => {
-            //  console.log(email)
-            const user = await User.findOne({ email: email });
-            if (!user) {
-                throw new Error("No hay usuario con ese email");
-            }
-            const valid = await bcrypt.compare(password, user.password);
-
-            if (!valid) {
-                throw new Error("Incorrect password");
-            }
-            
-              return createToken(user, res);
-        },
+       
         me: (_, __, { req }) => {
             if (!req.userId) {
               return null;
@@ -43,7 +30,20 @@ const resolvers = {
             const hash = await bcrypt.hash(password, 9);
             return await User.create({...input, password: hash})
         },
+        login: async(_, { email, password }, res) => {
+            //  console.log(email)
+            const user = await User.findOne({ email: email });
+            if (!user) {
+                throw new Error("No hay usuario con ese email");
+            }
+            const valid = await bcrypt.compare(password, user.password);
 
+            if (!valid) {
+                throw new Error("Incorrect password");
+            }
+            
+              return createToken(user, res);
+        },
         editUser: async (parent, { input }, context, req) => {
             console.log(context)
             // if (!req.isAuth){

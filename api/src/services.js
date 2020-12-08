@@ -19,7 +19,7 @@ function createToken(user, res) {
 }
 
 function decodeToken(bearer) {
-  console.log(bearer)
+  // console.log(bearer)
   const token = bearer.split(" ")[1];
   const payload = jwt.decode(token, process.env.SECRET_TOKEN);
 
