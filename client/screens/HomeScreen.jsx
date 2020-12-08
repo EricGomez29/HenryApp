@@ -4,15 +4,17 @@ import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 
 export default function Home({navigation}){
+    const variable = "Acuña"
     const GET_USERS = gql`
-     {
-      users {
-       username
+      query users($lastName: String ) {
+          users( where: {lastName: $lastName}) {
+              username
+          }
       }
-     }
     `
-   const { data } = useQuery(GET_USERS);
-
+    const { data } = useQuery(GET_USERS, {
+        variables: { lastName: "Acuña" }
+    });
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.boton} onPress={() => {
