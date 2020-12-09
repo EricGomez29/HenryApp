@@ -25,10 +25,9 @@ const resolvers = {
     Mutation: {
 
         //USERS
-        registerUser: async (parent, { input }, context) => {
-            const { password } = input;
-            const hash = await bcrypt.hash(password, 9);
-            return await User.create({...input, password: hash})
+        registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
+             const hash = await bcrypt.hash(password, 9);
+            return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         login: async(_, { email, password }, res) => {
             //  console.log(email)
