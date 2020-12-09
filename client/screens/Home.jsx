@@ -7,7 +7,7 @@ import { yellow, black, white }  from '../styles/globalsVariables';
 const USERS = gql`
     query Users {
         users {
-            username
+            firstName
         }
 }`;
 
