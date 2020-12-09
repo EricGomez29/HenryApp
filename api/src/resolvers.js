@@ -30,7 +30,6 @@ const resolvers = {
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         login: async(_, { email, password }, res) => {
-            //  console.log(email)
             const user = await User.findOne({ email: email });
             if (!user) {
                 throw new Error("No hay usuario con ese email");
@@ -51,13 +50,32 @@ const resolvers = {
             return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
         
-            removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
+        removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
         
-       
-
+        
+        
         //COHORTES
-        addCohorte: async (parent, { input }, context) => await Cohorte.create(input)
+        addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
+        addUserCohorte: async (parent, { number, username }, context) =>  {
+            // const user = await User.find({"username": username});
+            console.log(`${number} ${username}`);
+            const user = await Cohorte.find({"Number": number})
+            if (user.username === username){
+                throw new Error("El usuario ya esta agregado al Cohorte")
+            }
+            const cohorte = await Cohorte.updateOne({"Number": number},
+                {
+                $push : {
+                    Users :  { username } //inserted data is the object to be inserted 
+                }
+});
+return cohorte;
+            // return await Cohorte.UpdateOne({"Number": number}, [ {"Users":  user}] )
+    }}
     }
-}
+        
+        
+    
+
 
 export default resolvers;

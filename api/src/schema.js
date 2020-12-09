@@ -12,7 +12,7 @@ const typeDefs = gql`
     }
 
     type AuthData {
-        userId: ID!
+        username: String!
         token: String!
     }
     
@@ -57,7 +57,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): AuthData!
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
-
+        addUserCohorte(number: Int!, username: String!):Cohortes!
     }
 `;
 
