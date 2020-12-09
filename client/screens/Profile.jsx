@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, SafeAreaView, StyleSheet } from 'react-native';
-import { Avatar, Title, Caption, Text, TouchableRipple } from 'react-native-paper';
+import { Avatar, Title, Caption, Text } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -35,37 +35,6 @@ const Profile = () => {
                     <Icon name="email" color="#3b3b3b" size={20} />
                     <Text style={{ color: "#777777", marginLeft: 20 }}>mi@gmail.com</Text>
                 </View>
-            </View>
-
-            <View style={styles.infoBoxWrapper}>
-                <View style={[styles.infoBox, {
-                    borderRightColor: '#dddddd',
-                    borderRightWidth: 1
-                }]}>
-                    <Title>999999</Title>
-                    <Caption>Henry Coins</Caption>
-                </View>
-            </View>
-
-            <View style={styles.menuWrapper}>
-                <TouchableRipple onPress={() => { }}>
-                    <View style={styles.menuItem}>
-                        <Icon name="heart-outline" color="#FF6347" size={25} />
-                        <Text style={styles.menuItemText}>Your Favorites</Text>
-                    </View>
-                </TouchableRipple>
-                <TouchableRipple onPress={() => { }}>
-                    <View style={styles.menuItem}>
-                        <Icon name="account-check-outline" color="#FF6347" size={25} />
-                        <Text style={styles.menuItemText}>Support</Text>
-                    </View>
-                </TouchableRipple>
-                <TouchableRipple onPress={() => { }}>
-                    <View style={styles.menuItem}>
-                        <Icon name="settings-outline" color="#FF6347" size={25} />
-                        <Text style={styles.menuItemText}>Settings</Text>
-                    </View>
-                </TouchableRipple>
             </View>
         </SafeAreaView>
     );
