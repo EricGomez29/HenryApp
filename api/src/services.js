@@ -1,26 +1,25 @@
-const jwt = require("jwt-simple");
-const moment = require("moment");
+const jwt = require("jsonwebtoken");
+import moment from "moment";
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-function createToken(user) {
+function createToken(user, res) {
   const payload = {
-    sub: {
-      _id: user._id,
-      email: user.email,
-      username: user.username
-    },
-    iat: moment().unix(),
-    exp: moment()
-      .add(14, "days")
-      .unix()
-  };
-  console.log(payload)
-  return jwt.encode(payload, process.env.SECRET_TOKEN);
+    sub: user._id,
+    ait: moment().unix(),
+    exp: moment().add(14, 'days').unix,
+  }
+
+  const accessToken = jwt.sign({ payload}, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "14days"
+  });
+
+   return { userId: user._id, token: accessToken} 
 }
 
 function decodeToken(bearer) {
+  // console.log(bearer)
   const token = bearer.split(" ")[1];
   const payload = jwt.decode(token, process.env.SECRET_TOKEN);
 
@@ -30,9 +29,9 @@ function decodeToken(bearer) {
       message: "El token ha expirado"
     });
   }
-  console.log(payload)
   return payload.sub;
 }
+
 
 module.exports = {
   createToken,
