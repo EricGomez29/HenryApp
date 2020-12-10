@@ -11,11 +11,13 @@ import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const Stack = createStackNavigator(  );
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
+  uri: `${process.env.FRONT_PORT}/graphql`,
   cache: new InMemoryCache()
 })
 
