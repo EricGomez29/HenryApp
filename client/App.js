@@ -10,17 +10,11 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
-<<<<<<< HEAD
 import Profile from './screens/Profile';
-
-import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
-=======
 import Footer from './Components/Footer'
-import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
+import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
 import dotenv from 'dotenv';
 dotenv.config();
-
->>>>>>> 2f951741da6d96b7620644385c2120b32422816b
 
 const Stack = createStackNavigator();
 
@@ -29,12 +23,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-
-
 export default function App() {
 
   return (
-<<<<<<< HEAD
     <ApolloProvider client={client}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
@@ -44,25 +35,9 @@ export default function App() {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Footer" component={Footer} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
-=======
-   <ApolloProvider client={client}> 
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerShown: false } }>
-        <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="Login" component={Login}/>
-        <Stack.Screen name="Register" component={Register}/>
-        <Stack.Screen name="Welcome" component={Welcome}/>
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
-        <Stack.Screen name="Footer" component={Footer}/>
-        
-      </Stack.Navigator>
-     
-
-    </NavigationContainer>
-   </ApolloProvider>
->>>>>>> 2f951741da6d96b7620644385c2120b32422816b
   );
 }
