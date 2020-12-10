@@ -5,6 +5,7 @@ import  * as yup from 'yup'
 import { Container } from '../styles/Container'
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { ValuesOfCorrectTypeRule } from 'graphql';
+import Footer from '../Components/Footer'
 
 const LOGIN = gql`
     mutation Login($email: String!, $password: String! ) {
@@ -88,7 +89,12 @@ export default function Login ({navigation}) {
                 </View>
                 )}
             </Formik>
+
         </View>
+        <View style={{bottom: 0}}>
+          <Footer/>  
+        </View>
+        
         </>
     )
 }

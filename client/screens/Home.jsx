@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { yellow, black, white }  from '../styles/globalsVariables';
+import Footer from '../Components/Footer'
 
 
 const USERS = gql`
@@ -39,6 +40,10 @@ export default function Home({navigation}){
                     COMENZAR
                 </Text>
             </TouchableOpacity>
+            <View>
+              <Footer/>  
+            </View>
+            
         </View>
     )
 }
