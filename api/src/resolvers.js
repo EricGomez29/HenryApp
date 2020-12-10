@@ -57,22 +57,24 @@ const resolvers = {
         //COHORTES
         addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
         addUserCohorte: async (parent, { number, username }, context) =>  {
-            // const user = await User.find({"username": username});
             console.log(`${number} ${username}`);
-            const user = await Cohorte.find({"Number": number})
-            if (user.username === username){
+            const user = await Cohorte.findOne({"Number": number})
+            
+            if (user.Users.indexOf({username}) === -1){
                 throw new Error("El usuario ya esta agregado al Cohorte")
             }
-            const cohorte = await Cohorte.updateOne({"Number": number},
+            return await Cohorte.updateOne({"Number": number},
                 {
                 $push : {
                     Users :  { username } //inserted data is the object to be inserted 
                 }
-});
-return cohorte;
-            // return await Cohorte.UpdateOne({"Number": number}, [ {"Users":  user}] )
-    }}
+            });
+        }
+
+        // removeUserCohorte: async (parent, { number, username })
     }
+    
+}
         
         
     
