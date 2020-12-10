@@ -1,9 +1,20 @@
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { yellow, black, white }  from '../styles/globalsVariables';
 import Footer from '../Components/Footer'
 
+
+const USERS = gql`
+    query Users {
+        users {
+            firstName
+        }
+}`;
+
 export default function Home({navigation}){
+    const { data } = useQuery(USERS)
+    
     return (
         <View style={styles.container}>
             <View style={styles.rect}></View>
@@ -21,12 +32,18 @@ export default function Home({navigation}){
                     APP
             </Text>
         
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Login')} >
+            <TouchableOpacity style={styles.boton} onPress={() => {
+                navigation.navigate('Login')
+                console.log(data)} }
+                >
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
                     COMENZAR
                 </Text>
             </TouchableOpacity>
-            <Footer/>
+            <View>
+              <Footer/>  
+            </View>
+            
         </View>
     )
 }

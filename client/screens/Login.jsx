@@ -3,16 +3,31 @@ import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } fr
 import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { Container } from '../styles/Container'
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { ValuesOfCorrectTypeRule } from 'graphql';
+import Footer from '../Components/Footer'
+
+const LOGIN = gql`
+    mutation Login($email: String!, $password: String! ) {
+        login(email: $email, password: $password) {
+            userId
+            token
+        }
+}`;
 
 export default function Login ({navigation}) {
 
+    const  [login, {data, loading, error} ]= useMutation(LOGIN);
+    
     const validations= yup.object().shape({
         username: yup.string()
             .required('Campo obligatorio'),
-        password: yup.string()
-            .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
-            .required('Campo obligatorio')
+        // password: yup.string()
+        //     .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
+        //     .required('Campo obligatorio')
     })
+
+    console.log(data)
     return (
         <>
         <View style={styles.rect}>
@@ -27,8 +42,15 @@ export default function Login ({navigation}) {
             <Text style={styles.title}>LOGIN</Text>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={ values => { console.log(values) }}
-                validationSchema={validations}
+                onSubmit={  (values) => {
+                     login({ variables: { email: values.username, password: values.password } });
+                    if(error) {
+                     return console.log(error)
+                    } 
+                    navigation.navigate("Welcome")
+                }
+            }
+            validationSchema={validations}
             >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
                 <View style={styles.form}>
@@ -52,8 +74,8 @@ export default function Login ({navigation}) {
                     /> 
                     {touched.password && errors.password &&
                     <Text style={{ fontSize: 12, color: '#FF0D10'}}>{errors.password}</Text>}
-                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}} onPress={() => navigation.navigate('Welcome')}>INGRESAR</Text>
+                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
+                        <Text style={{fontWeight: 'bold'}} >INGRESAR</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity  style={{marginTop: 15,textAlign:"center"}} onPress={() => navigation.navigate('Register')}>
@@ -67,7 +89,12 @@ export default function Login ({navigation}) {
                 </View>
                 )}
             </Formik>
+
         </View>
+        <View style={{bottom: 0}}>
+          <Footer/>  
+        </View>
+        
         </>
     )
 }

@@ -16,7 +16,9 @@ function Footer({navigation}) {
 const styles = StyleSheet.create({
   container: {
     width: 375,
-    height: 56
+    height: 5,
+    bottom: 0,
+    marginTop: 2
   },
   materialIconTextButtonsFooter2: {
     height: 56,

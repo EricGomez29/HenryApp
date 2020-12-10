@@ -12,14 +12,16 @@ import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
 import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const Stack = createStackNavigator();
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: `${process.env.FRONT_PORT}/graphql`,
   cache: new InMemoryCache()
-});
+})
 
 
 
@@ -37,7 +39,7 @@ export default function App() {
         <Stack.Screen name="Footer" component={Footer}/>
         
       </Stack.Navigator>
-      
+     
 
     </NavigationContainer>
    </ApolloProvider>

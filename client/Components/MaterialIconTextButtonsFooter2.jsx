@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native'
 
-function MaterialIconTextButtonsFooter2(props, {navigation}) {
+
+
+function MaterialIconTextButtonsFooter2(props) {
+
+const navigation = useNavigation()
+
   return (
     <View style={[styles.container, props.style]}>
       <TouchableOpacity style={styles.buttonWrapper1}>
         <MaterialCommunityIcons
           name="account"
           style={styles.icon1}
+          
           onPress={() => navigation.navigate('Login')}
         ></MaterialCommunityIcons>
         <Text style={styles.btn1Text} >Recent</Text>
