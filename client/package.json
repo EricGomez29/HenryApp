@@ -22,19 +22,11 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
-<<<<<<< HEAD
-    "react-native-gesture-handler": "~1.7.0",
-    "react-native-paper": "^4.4.1",
-    "react-native-reanimated": "~1.13.0",
-    "react-native-safe-area-context": "3.1.4",
-    "react-native-screens": "~2.10.1",
-=======
     "react-native-gesture-handler": "^1.7.0",
     "react-native-material-bottom-navigation": "^1.0.5",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "^2.10.1",
->>>>>>> 2f951741da6d96b7620644385c2120b32422816b
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation-tabs": "^2.10.1",
