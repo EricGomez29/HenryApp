@@ -82,21 +82,21 @@ const resolvers = {
             return await Cohorte.findOne({"Number": number});
         },
 
+        //Remover Usuario de Cohorte
         removeUserCohorte: async (parent, { username }, context) => {
             const user = await User.find({"username": username});
-            console.log(user);
             if (user.length === 0){
                 throw new Error(`El Usuario ${username} no existe`);
             }else if(user[0].cohorte === null){
                 throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
             }
-            console.log(await User.findOneAndUpdate({"username": username}, {"cohorte": null}));
-            console.log(await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
+            await User.findOneAndUpdate({"username": username}, {"cohorte": null});
+            await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
             {
                 $pull : {
                     Users : {username} 
                 }
-            }));
+            });
             return Cohorte.findOne({"Number": user[0].cohorte})
         }
         
