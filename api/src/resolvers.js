@@ -26,7 +26,7 @@ const resolvers = {
 
         //USERS
         registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
-             const hash = await bcrypt.hash(password, 9);
+            const hash = await bcrypt.hash(password, 9);
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         login: async(_, { email, password }, res) => {
@@ -44,15 +44,9 @@ const resolvers = {
         },
         editUser: async (parent, { input }, context, req) => {
             console.log(context)
-            // if (!req.isAuth){
-            //     throw new Error ("El usuario no esta autenticado")
-            // }
             return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
-        
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
-        
-        
         
         //COHORTES
         addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
@@ -72,16 +66,14 @@ const resolvers = {
             const res = await Cohorte.findOneAndUpdate({"Number": number},
                 {
                 $push : {
-                    Users : username //inserted data is the object to be inserted 
+                    Users : {username} //inserted data is the object to be inserted 
                 }
             });
             console.log((res));
             return await User.findOneAndUpdate({"username": username}, {"cohorte": number})
         }
-
         // removeUserCohorte: async (parent, { number, username })
     }
-    
 }
         
         

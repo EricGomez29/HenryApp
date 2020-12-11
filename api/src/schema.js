@@ -57,7 +57,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): AuthData!
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
-        addUserCohorte(number: Int!, username: String!):Users
+        addUserCohorte(number: Int!, username: String!): Cohortes
     }
 `;
 
