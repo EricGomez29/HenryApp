@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { styles } from '../styles/styles'
+import Footer from '../Components/Footer'
 
 const LOGIN = gql`
     mutation Login($email: String!, $password: String! ) {
@@ -96,6 +97,9 @@ export default function Login ({navigation}) {
                 </View>
                 )}
             </Formik>
+        </View>
+        <View>
+          <Footer/>  
         </View>
         </>
     )

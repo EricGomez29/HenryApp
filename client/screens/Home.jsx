@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
 import { styles } from '../styles/styles'
-
+import Footer from '../Components/Footer'
 
 const USERS = gql`
     query Users {
@@ -32,7 +32,6 @@ export default function Home({navigation}){
                 <Text style={styles.homeApp}>
                         APP
                 </Text>
-            
                 <TouchableOpacity style={styles.homeBoton} onPress={() => {
                     navigation.navigate('Login')
                     console.log(data)} }
@@ -41,6 +40,9 @@ export default function Home({navigation}){
                         COMENZAR
                     </Text>
                 </TouchableOpacity>
+            </View>
+            <View>
+              <Footer/>  
             </View>
         </View>
     )
