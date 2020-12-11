@@ -15,7 +15,7 @@ function createToken(user, res) {
     expiresIn: "14days"
   });
 
-   return { userId: user._id, token: accessToken} 
+   return { username: user.username, token: accessToken} 
 }
 
 function decodeToken(bearer) {

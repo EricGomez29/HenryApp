@@ -30,7 +30,6 @@ const resolvers = {
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         login: async(_, { email, password }, res) => {
-            //  console.log(email)
             const user = await User.findOne({ email: email });
             if (!user) {
                 throw new Error("No hay usuario con ese email");
@@ -51,13 +50,42 @@ const resolvers = {
             return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
         
-            removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
+        removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
         
-       
-
+        
+        
         //COHORTES
-        addCohorte: async (parent, { input }, context) => await Cohorte.create(input)
+        addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
+        addUserCohorte: async (parent, { number, username }, context) =>  {
+            console.log(`${number} ${username}`);
+            const user = await User.find({"username": username})
+            if (number === user.Cohorte){
+                throw new Error (`El Usuario ${username} pertenece a este Cohorte (Cohorte: ${Number})`)
+            }else if (number < user.Cohorte){
+                throw new Error (`No se puede agregar usuarios a Cohortes anteriores)`)
+            }
+            console.log(user)
+            // Busco si existe el cohorte
+            const userCohorte = await Cohorte.findOne({"Number": number})
+            console.log(userCohorte)
+            // Guardo el username de ese alumno en el array Users de Cohorte
+            const res = await Cohorte.findOneAndUpdate({"Number": number},
+                {
+                $push : {
+                    Users : username //inserted data is the object to be inserted 
+                }
+            });
+            console.log((res));
+            return await User.findOneAndUpdate({"username": username}, {"cohorte": number})
+        }
+
+        // removeUserCohorte: async (parent, { number, username })
     }
+    
 }
+        
+        
+    
+
 
 export default resolvers;
