@@ -51,17 +51,12 @@ const resolvers = {
         //COHORTES
         addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
         addUserCohorte: async (parent, { number, username }, context) =>  {
-            console.log(`${number} ${username}`);
             const user = await User.find({"username": username});
             if (user.length === 0){
                 throw new Error (`El Usuario ${username} no existe.`);
             };    
-            console.log(parseInt(number) ===  user[0].cohorte);
-            console.log( user[0].cohorte);
-            console.log(parseInt(number));
             if (parseInt(number) ===  user[0].cohorte){
                 throw new Error (`El Usuario ${username} pertenece a este Cohorte.`);
-            
             }else if (parseInt(number) < user[0].cohorte){
                 throw new Error (`No se puede agregar usuarios a Cohortes anteriores`);
             }
@@ -78,19 +73,34 @@ const resolvers = {
                     Users : {username} 
                 }
             });
+            await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
+            {
+                $pull : {
+                    Users : {username} 
+                }
+            });
+            return await Cohorte.findOne({"Number": number});
+        },
+
+     
+
+        removeUserCohorte: async (parent, { username }, context) => {
+            const user = await User.find({"username": username});
+            console.log(user);
+            if (user.length === 0){
+                throw new Error(`El Usuario ${username} no existe`);
+            }else if(user[0].cohorte === null){
+                throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
+            }
+            console.log(await User.findOneAndUpdate({"username": username}, {"cohorte": null}));
             console.log(await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
             {
                 $pull : {
                     Users : {username} 
                 }
             }));
-            
-            return await Cohorte.findOne({"Number": number});
-        },
-
-     
-
-        // removeUserCohorte: async (parent, { number, username })
+            return Cohorte.findOne({"Number": user[0].cohorte})
+        }
         // sendEmail:async (parent, { email }, context) =>  {
         //     console.log(email);
         //     let transporter = nodemailer.createTransport({

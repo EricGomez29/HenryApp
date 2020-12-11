@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     },
     cohorte: {
         type: Number,
-        required: true
+        default: null
     },
     henryCoins: {
         type: Number,

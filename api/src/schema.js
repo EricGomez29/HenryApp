@@ -50,7 +50,6 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Int
         email: String
         password: String ): Users
         addCohorte(input: CohortesInput): Cohortes
@@ -58,6 +57,7 @@ const typeDefs = gql`
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
         addUserCohorte(number: Int!, username: String!): Cohortes
+        removeUserCohorte(username:String!):Cohortes!
     }
 `;
 
