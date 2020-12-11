@@ -8,7 +8,11 @@ const CohorteSchema = new Schema({
     },
     Users: {
         type: Array
-    }})
+    },
+    Modules: {
+        type: Array
+    }
+})
 
 const Cohorte = mongoose.model('Cohorte', CohorteSchema);
 

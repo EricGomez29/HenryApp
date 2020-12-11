@@ -29,7 +29,7 @@ const typeDefs = gql`
 
     type Cohortes {
         Number: Int!
-        Users: [Users]
+        Users: [Users!]!
     }
     
     input CohortesInput {
@@ -57,7 +57,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): AuthData!
         editUser( input: UsersInput): Users
         removeUser (where: JSON): Users
-        addUserCohorte(number: Int!, username: String!):Cohortes!
+        addUserCohorte(number: Int!, username: String!):Users
     }
 `;
 

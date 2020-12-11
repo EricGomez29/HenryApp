@@ -58,17 +58,25 @@ const resolvers = {
         addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
         addUserCohorte: async (parent, { number, username }, context) =>  {
             console.log(`${number} ${username}`);
-            const user = await Cohorte.findOne({"Number": number})
-            
-            if (user.Users.indexOf({username}) === -1){
-                throw new Error("El usuario ya esta agregado al Cohorte")
+            const user = await User.find({"username": username})
+            if (number === user.Cohorte){
+                throw new Error (`El Usuario ${username} pertenece a este Cohorte (Cohorte: ${Number})`)
+            }else if (number < user.Cohorte){
+                throw new Error (`No se puede agregar usuarios a Cohortes anteriores)`)
             }
-            return await Cohorte.updateOne({"Number": number},
+            console.log(user)
+            // Busco si existe el cohorte
+            const userCohorte = await Cohorte.findOne({"Number": number})
+            console.log(userCohorte)
+            // Guardo el username de ese alumno en el array Users de Cohorte
+            const res = await Cohorte.findOneAndUpdate({"Number": number},
                 {
                 $push : {
-                    Users :  { username } //inserted data is the object to be inserted 
+                    Users : username //inserted data is the object to be inserted 
                 }
             });
+            console.log((res));
+            return await User.findOneAndUpdate({"username": username}, {"cohorte": number})
         }
 
         // removeUserCohorte: async (parent, { number, username })

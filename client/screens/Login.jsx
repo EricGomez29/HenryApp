@@ -43,7 +43,7 @@ export default function Login ({navigation}) {
                 initialValues={{ username: '', password: '' }}
                 onSubmit={   (values) => {
                      login({ variables: { email: values.email, password: values.password } });
-                    
+                    console.log(values)
                     navigation.navigate("Welcome")
                     console.log(data)
                 }
