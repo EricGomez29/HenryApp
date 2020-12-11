@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -54,18 +56,114 @@ export const Profile = ({ navigation }) => {
     );
 };
 
-
 export const ProfileEdit = ({ navigation }) => {
+    const validations = yup.object().shape({
+        username: yup.string()
+            .min(3, 'Demasiado corta, intentá con un nombre mas largo')
+            .max(20, 'Demasiado larga, intentá con un nombre mas corto')
+            .required('Este campo es obligatorio, por favor decime tu usuario'),
+        email: yup.string()
+            .min(3, 'Demasiado corta, intentá con un nombre mas largo')
+            .max(20, 'Demasiado larga, intentá con un nombre mas corto')
+            .required('Este campo es obligatorio, por favor decime tu nombre'),
+        lastName: yup.string()
+            .min(3, 'Demasiado corta, intentá con un nombre mas largo')
+            .max(20, 'Demasiado larga, intentá con un nombre mas corto')
+            .required('Este campo es obligatorio, por favor decime tu apellido'),
+        email: yup.string()
+            .email('El Email tiene que ser un Email valido')
+            .required('este campo es obligatorio, por favor decime tu email'),
+        password: yup.string()
+            .min(8, ({ min }) => `La contraseña debe tener al menos ${min} caracteres`)
+            .required('este campo es obligatorio, por favor pone tu contraseña'),
+        repeatPassword: yup.string()
+            .min(8, ({ min }) => `La contraseña de confirmacion debe tener al menos ${min} caracteres`)
+            .required('este campo es obligatorio, por favor pone la confirmacion de tu contraseña')
+    })
+
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={styles.userInfoSection}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn}>
                     <Text>Atras</Text>
                 </TouchableOpacity>
             </View>
+            <View style={styles.userInfoSection}>
+                <Formik
+                    initialValues={{ username: '', email: '', firstName: '', lastName: '', cohorte: '', password: '', repeatPassword: '' }}
+                    onSubmit={(values, { resetForm }) => {
+                        register({
+                            variables: {
+                                username: values.username,
+                                firstName: values.firstName,
+                                lastName: values.lastName,
+                                cohorte: Number(values.cohorte),
+                                email: values.email,
+                                password: values.password,
+                            }
+                        })
+                        resetForm()
+                    }}
 
+                    validationSchema={validations}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
+                        <View style={styles.form}>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Argentina"
+                                onChangeText={handleChange('country')}
+                                onBlur={handleBlur('country')}
+                                value={values.country}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Irene"
+                                onChangeText={handleChange('firstName')}
+                                onBlur={handleBlur('firstName')}
+                                value={values.firstName}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Tijerina"
+                                onChangeText={handleChange('lastName')}
+                                onBlur={handleBlur('lastName')}
+                                value={values.lastName}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="@Tijerina"
+                                onChangeText={handleChange('username')}
+                                onBlur={handleBlur('username')}
+                                value={values.username}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="tijerina123@gmail.com"
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Cohorte 6"
+                                onChangeText={handleChange('cohorte')}
+                                onBlur={handleBlur('cohorte')}
+                                value={values.cohorte}
+                            />
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Telefono - Opcional"
+                                onChangeText={handleChange('nroTelefono')}
+                                onBlur={handleBlur('nroTelefono')}
+                                value={values.nroTelefono}
+                            />
+                        </View>
+                    )}
+                </Formik>
+            </View>
         </SafeAreaView>
-    );
+    )
 }
 
 export const ProfilePhoto = ({ navigation }) => {
@@ -82,6 +180,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    btn: {
+        backgroundColor: '#FFFF01',
+        color: '#fff',
+        padding: 10,
     },
     userNavigation: {
         flex: 1,
@@ -106,4 +209,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 10,
     },
+    form: {
+        marginTop: 20,
+    },
+    textInput: {
+        border: '1px solid #BBD2C5',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+    }
 });
