@@ -1,8 +1,7 @@
 import User from './models/Users';
 import bcrypt from 'bcrypt';
-import { createToken } from './services';
 import Cohorte from './models/Cohorte';
-
+import auth from '../auth';
 
 const resolvers = {
     Query: {
@@ -28,19 +27,6 @@ const resolvers = {
         registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
             const hash = await bcrypt.hash(password, 9);
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
-        },
-        login: async(_, { email, password }, res) => {
-            const user = await User.findOne({ email: email });
-            if (!user) {
-                throw new Error("No hay usuario con ese email");
-            }
-            const valid = await bcrypt.compare(password, user.password);
-
-            if (!valid) {
-                throw new Error("Incorrect password");
-            }
-            
-              return createToken(user, res);
         },
         editUser: async (parent, { input }, context, req) => {
             console.log(context)
@@ -71,8 +57,11 @@ const resolvers = {
             });
             console.log((res));
             return await User.findOneAndUpdate({"username": username}, {"cohorte": number})
+        },
+        //AUTH
+        login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
+            return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         }
-        // removeUserCohorte: async (parent, { number, username })
     }
 }
         

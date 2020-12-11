@@ -2,13 +2,14 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import resolvers from './resolvers';
 import typeDefs from './schema';
-import context from './context'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
+import models from './models';
+
 dotenv.config();
 
-const { DATABASE_URL } = process.env;
+const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
 
 mongoose.connect(DATABASE_URL, {
     useFindAndModify: false ,
@@ -17,10 +18,20 @@ mongoose.connect(DATABASE_URL, {
     useCreateIndex: true
 }).then( _ => console.log('Database is running'));
 
-const server = new ApolloServer({ typeDefs, resolvers, context })
+const server = new ApolloServer({ 
+    typeDefs, 
+    resolvers,
+    context: {
+        models,
+        ACCESS_TOKEN_SECRET,
+        user: {
+            _id: 1, username: "Bob"
+        }
+    } 
+})
 
 const app = express();
 
 server.applyMiddleware({ app });
 
-app.listen(5000, () => console.log('Server on port 5000'));
+app.listen(5000, () => console.log(`🚀 Server ready at port 5000`));

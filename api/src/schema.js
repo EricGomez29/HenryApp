@@ -11,9 +11,15 @@ const typeDefs = gql`
         password: String
     }
 
+    type Error {
+        path: String!
+        message: String!
+    }
+
     type AuthData {
-        username: String!
-        token: String!
+        success: Boolean!
+        token: String
+        errors: [Error]
     }
     
     input UsersInput {
