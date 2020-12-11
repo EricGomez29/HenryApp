@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 import moment from "moment";
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 function createToken(user, res) {
