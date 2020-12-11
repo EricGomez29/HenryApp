@@ -10,7 +10,7 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
-import Profile from './screens/Profile';
+import { Profile, ProfileEdit, ProfilePhoto } from './screens/Profile';
 import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
 import dotenv from 'dotenv';
@@ -35,6 +35,8 @@ export default function App() {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+          <Stack.Screen name="ProfilePhoto" component={ProfilePhoto} />
           <Stack.Screen name="Footer" component={Footer} />
         </Stack.Navigator>
       </NavigationContainer>

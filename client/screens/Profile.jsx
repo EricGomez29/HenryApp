@@ -1,13 +1,26 @@
 import React from 'react';
-import { View, SafeAreaView, StyleSheet } from 'react-native';
+import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Profile = () => {
+export const Profile = ({ navigation }) => {
+
+    const handleOnEdit = () => {
+        navigation.navigate('ProfileEdit');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>
+                <View style={styles.userNavigation}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text>Atras</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleOnEdit}>
+                        <Icon name="account-edit" color='#3b3b3b' size={25} />
+                    </TouchableOpacity>
+                </View>
                 <View style={{ flexDirection: 'row', marginTop: 15 }}>
                     <Avatar.Image
                         size={80}
@@ -41,12 +54,40 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+
+export const ProfileEdit = ({ navigation }) => {
+    return (
+        <SafeAreaView style={styles.container}>
+            <View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text>Atras</Text>
+                </TouchableOpacity>
+            </View>
+
+        </SafeAreaView>
+    );
+}
+
+export const ProfilePhoto = ({ navigation }) => {
+    return (
+        <SafeAreaView>
+            <View>
+                <Text>mi foto</Text>
+            </View>
+        </SafeAreaView>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    userNavigation: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     userInfoSection: {
         paddingHorizontal: 30,
