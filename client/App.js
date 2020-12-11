@@ -10,15 +10,21 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
+import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const Stack = createStackNavigator(  );
+
+const Stack = createStackNavigator();
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql',
+  uri: `${process.env.FRONT_PORT}/graphql`,
   cache: new InMemoryCache()
-});
+})
+
+
 
 export default function App() {
   
@@ -36,7 +42,11 @@ export default function App() {
         <Stack.Screen name="CrearMesa" component={CrearMesa}/>
         <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/>
         <Stack.Screen name="Mesa" component={Mesa}/>
+        <Stack.Screen name="Footer" component={Footer}/>
+        
       </Stack.Navigator>
+     
+
     </NavigationContainer>
    </ApolloProvider>
   );
