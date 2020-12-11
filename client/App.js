@@ -10,6 +10,8 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
+import UsersList from './screens/UsersList'
+import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 import dotenv from 'dotenv';
@@ -19,7 +21,7 @@ dotenv.config();
 const Stack = createStackNavigator();
 
 const client = new ApolloClient({
-  uri: `${process.env.FRONT_PORT}/graphql`,
+  uri: `http://localhost:5000/graphql`,
   cache: new InMemoryCache()
 })
 
@@ -30,7 +32,9 @@ export default function App() {
   return (
    <ApolloProvider client={client}> 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerShown: false } }>
+      <Stack.Navigator initialRouteName='CohorteList' screenOptions={ { headerShown: false } }>
+        <Stack.Screen name="CohorteList" component={CohorteList} />
+        <Stack.Screen name="UsersList" component={UsersList}/>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Register" component={Register}/>
