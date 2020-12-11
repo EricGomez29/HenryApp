@@ -82,8 +82,6 @@ const resolvers = {
             return await Cohorte.findOne({"Number": number});
         },
 
-     
-
         removeUserCohorte: async (parent, { username }, context) => {
             const user = await User.find({"username": username});
             console.log(user);
@@ -101,36 +99,7 @@ const resolvers = {
             }));
             return Cohorte.findOne({"Number": user[0].cohorte})
         }
-        // sendEmail:async (parent, { email }, context) =>  {
-        //     console.log(email);
-        //     let transporter = nodemailer.createTransport({
-        //         auth: {
-        //             user: "facugs2090@gmail.com",
-        //             pass: 'mundomitomano123'
-        //         },
-        //       });
-            
-        //       // send mail with defined transport object
-        //       let info = await transporter.sendMail({
-        //         from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        //         to: "facugs2090@gmail.com", // list of receivers
-        //         subject: "Hello ✔", // Subject line
-        //         text: "Hello world?", // plain text body
-        //         html: "<b>Hello world?</b>", // html body
-        //       });
-
-        //       transporter.sendMail(mailOptions, function(error, info){
-        //         if (error){
-        //             console.log(error);
-        //             res.send(500, err.message);
-        //         } else {
-        //             console.log("Email sent");
-        //             res.status(200).jsonp(req.body);
-        //         }
-        //     });
-        //       console.log("Enviado");
-        //       return info;
-        //     }
+        
     }
 
     

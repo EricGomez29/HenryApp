@@ -50,6 +50,7 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
+        cohorte: Int
         email: String
         password: String ): Users
         addCohorte(input: CohortesInput): Cohortes
