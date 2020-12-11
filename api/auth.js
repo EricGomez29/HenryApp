@@ -2,6 +2,11 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const auth = {
+    // checkHeaders: (req,res,next) => { -----> tema a solucionar
+    //     console.log(req.headers)
+    //     next()
+    // },
+
     getToken: ({_id}, secret) => {
         const token = jwt.sign({ user: _id }, secret, { expiresIn: '5d' })
         const refreshToken = jwt.sign({ user: _id }, secret, { expiresIn: '10m' })

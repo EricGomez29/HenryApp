@@ -6,17 +6,7 @@ import auth from '../auth';
 const resolvers = {
     Query: {
         //USERS
-        user: async (parent, { username }, context) => await User.find(username).exec(),
         users: async (parent, { where }, context) => await User.find(where).exec(),
-         //AUTH
-       
-        me: (_, __, { req }) => {
-            if (!req.userId) {
-              return null;
-            }
-      
-            return User.findOne(req.userId);
-          },
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec()
     },

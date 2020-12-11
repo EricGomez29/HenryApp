@@ -4,11 +4,15 @@ import resolvers from './resolvers';
 import typeDefs from './schema';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import auth from '../auth';
 import models from './models';
 
 dotenv.config();
 
+const app = express();
+// app.use(auth.checkHeaders) ----> tema a solucionar 
+
+//Configuraciones del archivo .env
 const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
 
 mongoose.connect(DATABASE_URL, {
@@ -29,9 +33,5 @@ const server = new ApolloServer({
         }
     } 
 })
-
-const app = express();
-
 server.applyMiddleware({ app });
-
 app.listen(5000, () => console.log(`🚀 Server ready at port 5000`));
