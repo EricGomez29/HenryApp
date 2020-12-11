@@ -20,7 +20,7 @@ dotenv.config();
 const Stack = createStackNavigator();
 
 const client = new ApolloClient({
-  uri: `${process.env.FRONT_PORT}/graphql`,
+  uri: `http://localhost:5000/graphql`,
   cache: new InMemoryCache()
 })
 

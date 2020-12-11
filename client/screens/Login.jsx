@@ -17,17 +17,17 @@ const LOGIN = gql`
 
 export default function Login ({navigation}) {
 
-    const  [login, {data, loading, error} ]= useMutation(LOGIN);
     
     const validations= yup.object().shape({
         username: yup.string()
-            .required('Campo obligatorio'),
-        // password: yup.string()
-        //     .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
-        //     .required('Campo obligatorio')
+        .required('Campo obligatorio'),
+        password: yup.string()
+        .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
+        .required('Campo obligatorio')
     })
+    
+    const  [login, {data} ]= useMutation(LOGIN);
 
-    console.log(data)
     return (
         <>
         <View style={styles.rect}>
@@ -42,12 +42,11 @@ export default function Login ({navigation}) {
             <Text style={styles.title}>LOGIN</Text>
             <Formik
                 initialValues={{ username: '', password: '' }}
-                onSubmit={  (values) => {
-                     login({ variables: { email: values.username, password: values.password } });
-                    if(error) {
-                     return console.log(error)
-                    } 
+                onSubmit={   (values) => {
+                     login({ variables: { email: values.email, password: values.password } });
+                    console.log(values)
                     navigation.navigate("Welcome")
+                    console.log(data)
                 }
             }
             validationSchema={validations}
