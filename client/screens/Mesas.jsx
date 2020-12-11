@@ -114,19 +114,21 @@ export function Mesa({navigation}){
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{flex: 1}} >
              <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Text style={{fontWeight: 'bold'}}>Atras</Text>
             </TouchableOpacity>
-            <View style={styles.mesa}>
-                <View >
-                    <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº: 1</Text>
-                    {/* <Text style={{fontSize: 18, fontWeight: 'bold'}}>1</Text> */}
+            <View style={styles.container}>
+                <View style={styles.mesa}>
+                    <View >
+                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº: 1</Text>
+                        {/* <Text style={{fontSize: 18, fontWeight: 'bold'}}>1</Text> */}
+                    </View>
+                    <Text>{personas}/8</Text>
+                    <TouchableOpacity style={styles.botonMesa} onPress={SumarPersonas} disabled={personas === 8}>
+                        <Text style={{fontWeight: 'bold'}}>Unirse</Text>
+                    </TouchableOpacity>
                 </View>
-                <Text>{personas}/8</Text>
-                <TouchableOpacity style={styles.botonMesa} onPress={SumarPersonas} disabled={personas === 8}>
-                    <Text style={{fontWeight: 'bold'}}>Unirse</Text>
-                </TouchableOpacity>
             </View>
         </View>
     )
@@ -176,7 +178,8 @@ const styles = StyleSheet.create({
         height: 100,
         backgroundColor: 'yellow',
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        borderRadius: 15
 
     },
     botonMesa: {
