@@ -1,17 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
+import moment from 'moment';
 
 const PPSchema = new Schema({
     horaDeInicio:  { 
-        type: Date,
-        default: Date.now
+        type: String,
+        default: "15:00:00"
     },
     horaDeCierre: {
-        type: Date,
-        default: () => Date.now() + 2*60*60*1000 // Valido por 2 horas
+        type: String,
+        default: "17:00:00"
     },
     dia: {
-        type: Date,
-        default: Date.now("DD/MM/YYYY")
+        type: String,
+        default: () => moment(moment.now()).format("DD/MM/YYYY")
     },
     mesas: {
         type: Array,

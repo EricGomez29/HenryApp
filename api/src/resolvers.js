@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import auth from '../auth';
+import moment from 'moment'
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
@@ -88,10 +89,14 @@ const resolvers = {
 
         //Pair Programming
         addUserPairProgramming: async (parent, {username}) => {
-            console.log(username)
+            const fecha = moment(moment.now()).format("DD/MM/YYYY");
+            console.log(fecha)
             const user = await User.find({"username": username});
-            console.log(user)
-            return await PairProgramming.create({cohorte: user[0].cohorte})
+            const existsCohorte = await PairProgramming.find({cohorte: user[0].cohorte, dia: fecha});
+            console.log(existsCohorte)
+            if (!existsCohorte){
+                return await PairProgramming.create({cohorte: user[0].cohorte})
+            }
         }
     }
 
