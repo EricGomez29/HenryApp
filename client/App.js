@@ -33,7 +33,7 @@ export default function App() {
   return (
    <ApolloProvider client={client}> 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='CohorteList' screenOptions={ { headerShown: false } }>
+      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerShown: false } }>
         <Stack.Screen name="CohorteList" component={CohorteList} />
         <Stack.Screen name="UsersList" component={UsersList}/>
         <Stack.Screen name="Home" component={Home}/>
