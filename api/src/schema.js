@@ -59,6 +59,7 @@ const typeDefs = gql`
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
+        pairProgramming(where: JSON): [PairProgramming]
     }
 
     type Mutation {
@@ -81,6 +82,7 @@ const typeDefs = gql`
         
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!
+
         addUserPairProgramming(username:String!):PairProgramming!
     }
 `;

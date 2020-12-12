@@ -12,7 +12,7 @@ const PPSchema = new Schema({
     },
     dia: {
         type: String,
-        default: () => moment(moment.now()).format("DD/MM/YYYY")
+        default: () => moment(moment.now()).format()
     },
     mesas: {
         type: Array,

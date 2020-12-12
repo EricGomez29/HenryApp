@@ -4,6 +4,7 @@ import moment from 'moment'
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
+import Mesas from './models/Mesas';
 
 const resolvers = {
     Query: {
@@ -11,7 +12,8 @@ const resolvers = {
         users: async (parent, { where }, context) => await User.find(where).exec(),
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec(),
-             //Enviar Email
+
+        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).exec(),
        
     },
 
@@ -91,12 +93,27 @@ const resolvers = {
         addUserPairProgramming: async (parent, {username}) => {
             const fecha = moment(moment.now()).format("DD/MM/YYYY");
             console.log(fecha)
+            //Veo Si existe el Usuario
             const user = await User.find({"username": username});
+            // Si esta en algun grupo de pair programming ese dia
             const existsCohorte = await PairProgramming.find({cohorte: user[0].cohorte, dia: fecha});
             console.log(existsCohorte)
-            if (!existsCohorte){
-                return await PairProgramming.create({cohorte: user[0].cohorte})
+            if (existsCohorte.length === 0){
+                //Agrego ese usuario a una mesa
+                const mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", estado: "In Process", users: [username]}, )
+                //si no se creo ningun grupo de PP Creo una nueva tabla
+                await PairProgramming.create({cohorte: user[0].cohorte, mesas: [mesa._id]});
+            }else{
+                
+                Mesas.findOneAndUpdate({"_id": x[0]._id},
+                        {
+                            $pull : {
+                                users : {username} 
+                            }
+                        }
+                    ); 
             }
+            return await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha})
         }
     }
 

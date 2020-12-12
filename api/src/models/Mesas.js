@@ -1,22 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
 
-const Mesaschema = new Schema({
+const MesasSchema = new Schema({
     users:  { 
         type: Array
     },
     estado: {
         type: String,
-        enum: ['Empty', 'In Process', 'Full'],
-        required: function() {
-            var cantidad = this.users.length;
-            if (cantidad === 0){
-                return 'Empty'
-            }else if(cantidad < 6){
-                return 'In Process'
-            }else{
-                return 'Full'
-            }
-        }
+        default: "Empty"
     },
     linkMeet: {
         type: String
@@ -25,6 +15,6 @@ const Mesaschema = new Schema({
     
 })
 
-const PairProgramming = mongoose.model('PairProgramming', PPSchema);
+const Mesas = mongoose.model('Mesas', MesasSchema);
 
-export default PairProgramming;
+export default Mesas;
