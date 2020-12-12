@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
-import { Container } from '../styles/Container'
+import { Container } from '../styled-components/Container'
 
 export default function Welcome( { navigation } ){
     
