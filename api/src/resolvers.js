@@ -1,22 +1,12 @@
 import User from './models/Users';
 import bcrypt from 'bcrypt';
-import { createToken } from './services';
 import Cohorte from './models/Cohorte';
-import nodemailer from "nodemailer";
+import auth from '../auth';
 
 const resolvers = {
     Query: {
         //USERS
         users: async (parent, { where }, context) => await User.find(where).exec(),
-         //AUTH
-       
-        me: (_, __, { req }) => {
-            if (!req.userId) {
-              return null;
-            }
-      
-            return User.findOne(req.userId);
-          },
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec(),
              //Enviar Email
@@ -30,20 +20,10 @@ const resolvers = {
              const hash = await bcrypt.hash(password, 9);
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
-        login: async(_, { email, password }, res) => {
-            const user = await User.findOne({ email: email });
-            if (!user) {
-                throw new Error("No hay usuario con ese email");
-            }
-            const valid = await bcrypt.compare(password, user.password);
-
-            if (!valid) {
-                throw new Error("Incorrect password");
-            }
-            
-              return createToken(user, res);
+        editUser: async (parent, { input }, context, req) => {
+            console.log(context)
+            return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
-        editUser: async (parent, { input }, context, req) => await  (User.updateOne({ "username": input.username }, input)),
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
         
         
@@ -98,8 +78,12 @@ const resolvers = {
                 }
             });
             return Cohorte.findOne({"Number": user[0].cohorte})
-        }
+        },
         
+        //AUTH
+        login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
+            return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
+        }
     }
 
     
