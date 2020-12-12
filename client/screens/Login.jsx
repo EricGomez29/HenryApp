@@ -19,22 +19,14 @@ export default function Login ({navigation}) {
     
     const validations= yup.object().shape({
         username: yup.string()
-<<<<<<< HEAD
             .required('Campo obligatorio'),
         password: yup.string()
             .min( 8, ( { min } )  => `La contraseña debe tener al menos ${min} caracteres`)
             .required('Campo obligatorio')
-=======
-        .required('Campo obligatorio'),
-        password: yup.string()
-        .min(8, min => `La contraseña debe tener al menos ${min} caracteres`)
-        .required('Campo obligatorio')
->>>>>>> 35cb5ffa2f3981c8165ff0600bb6bdfc0c1b0804
     })
     
     const  [login, {data} ]= useMutation(LOGIN);
 
-<<<<<<< HEAD
     const handleSubmit = (values) => {
         login( { variables: { email: values.username, password: values.password } } );
         if(error) {
@@ -44,8 +36,6 @@ export default function Login ({navigation}) {
        }
 
     console.log(data)
-=======
->>>>>>> 35cb5ffa2f3981c8165ff0600bb6bdfc0c1b0804
     return (
         <>
         <View style={styles.header}>
@@ -60,19 +50,8 @@ export default function Login ({navigation}) {
             
             <Formik
                 initialValues={{ username: '', password: '' }}
-<<<<<<< HEAD
                 onSubmit={handleSubmit}
                 validationSchema={validations}
-=======
-                onSubmit={   (values) => {
-                     login({ variables: { email: values.email, password: values.password } });
-                    console.log(values)
-                    navigation.navigate("Welcome")
-                    console.log(data)
-                }
-            }
-            validationSchema={validations}
->>>>>>> 35cb5ffa2f3981c8165ff0600bb6bdfc0c1b0804
             >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
                 <View style={styles.form}>
@@ -126,66 +105,3 @@ export default function Login ({navigation}) {
         </>
     )
 }
-<<<<<<< HEAD
-=======
-
-// Estilos
-
-const styles = StyleSheet.create({
-    rect: {
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: 150,
-        backgroundColor: "rgba(255,255,1,1)",
-        overflow: "visible",
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    rect2 : {
-        flex: 1,
-        backgroundColor: "white", 
-        zIndex: -1,
-    },
-    henry: {
-        marginTop: 130,
-        width: 200,
-        height: 200,
-        zIndex: 1,
-    },
-    title: {
-        marginTop: 100,
-        marginBottom: -25,
-        fontSize: 30,
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    form: {
-        marginTop: 0,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-  
-    input: {
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: 'yellow',
-        height: 30,
-        width: '70%',
-        marginTop: 5,
-        justifyContent: "center"
-    },
-    boton: {
-        backgroundColor: 'yellow',
-        borderRadius: 16,
-        height: 30, 
-        width: '70%',
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 20,
-        marginBottom: 30
-    },
-   
-  });
->>>>>>> 35cb5ffa2f3981c8165ff0600bb6bdfc0c1b0804
