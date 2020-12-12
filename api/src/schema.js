@@ -37,11 +37,25 @@ const typeDefs = gql`
         Number: Int!
         Users: [Users!]!
     }
-    
+        
     input CohortesInput {
         Number: Int!
     }
     
+    type PairProgramming {
+        horaDeInicio: String
+        horaDeCierre: String
+        dia: String
+        mesas: [Mesas]
+        cohorte: Int
+    }
+
+    type Mesas{
+        users: [Users]
+        estado: Boolean
+        linkMeet: String
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
@@ -67,6 +81,7 @@ const typeDefs = gql`
         
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!
+        addUserPairProgramming(username:String!):PairProgramming!
     }
 `;
 

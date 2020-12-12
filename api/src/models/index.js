@@ -6,5 +6,5 @@ import PairProgramming from './PairProgramming';
 export default {
     User,
     Cohorte,
-
+    PairProgramming
 }

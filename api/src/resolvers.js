@@ -1,7 +1,8 @@
-import User from './models/Users';
 import bcrypt from 'bcrypt';
-import Cohorte from './models/Cohorte';
 import auth from '../auth';
+import User from './models/Users';
+import Cohorte from './models/Cohorte';
+import PairProgramming from './models/PairProgramming';
 
 const resolvers = {
     Query: {
@@ -83,6 +84,14 @@ const resolvers = {
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
+        },
+
+        //Pair Programming
+        addUserPairProgramming: async (parent, {username}) => {
+            console.log(username)
+            const user = await User.find({"username": username});
+            console.log(user)
+            return await PairProgramming.create({cohorte: user[0].cohorte})
         }
     }
 
