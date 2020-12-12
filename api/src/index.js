@@ -10,7 +10,6 @@ import models from './models';
 dotenv.config();
 
 const app = express();
-// app.use(auth.checkHeaders) ----> tema a solucionar 
 
 //Configuraciones del archivo .env
 const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
@@ -34,4 +33,5 @@ const server = new ApolloServer({
     } 
 })
 server.applyMiddleware({ app });
+// app.use(auth.checkHeaders) ----> tema a solucionar 
 app.listen(5000, () => console.log(`🚀 Server ready at port 5000`));
