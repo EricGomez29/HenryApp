@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
+import { gql, useLazyQuery, useQuery } from '@apollo/client'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const USER = gql`
+    query Users($username: String){
+        users(where: { username: $username }) {
+            firstName
+            lastName
+        }
+    }
+`
+
+
 export const Profile = ({ navigation }) => {
+    const [getUser, { data }] = useLazyQuery(USER);
 
     const handleOnEdit = () => {
         navigation.navigate('ProfileEdit');
     }
+
+    useEffect(() => {
+        getUser({ variables: { username: "Aye" } });
+    }, [])
+    console.log(data);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -37,7 +53,6 @@ export const Profile = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                     <Icon name="map-marker-radius" color="#3b3b3b" size={20} />
