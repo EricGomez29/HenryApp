@@ -20,7 +20,7 @@ export default function Home({navigation}){
             </Text>
             <View>
                 <Button style={styles.homeBoton} onPress={() => {
-                    navigation.navigate('Login')}}>
+                    navigation.navigate('PruebaBoton')}}>
                     <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>Comenzar</Text>
                 </Button>
             </View>
