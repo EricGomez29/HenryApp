@@ -7,7 +7,10 @@ const CohorteSchema = new Schema({
         required: true
     },
     Users: {
-        type: Array,
+        type: Array
+    },
+    Modules: {
+        type: Array
     }
 })
 

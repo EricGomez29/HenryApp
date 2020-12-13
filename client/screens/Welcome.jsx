@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
-import { Container } from '../styles/Container'
+import { Container } from '../styled-components/Container'
 
 export default function Welcome({ navigation }) {
 
@@ -28,7 +28,7 @@ export default function Welcome({ navigation }) {
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Sala')} >
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                     PAIR PROGRAMMING
                 </Text>
