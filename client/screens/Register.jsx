@@ -2,10 +2,8 @@ import React from 'react';
 import { Text, View, Button, TextInput, TouchableOpacity, Image} from 'react-native';
 import {Formik, yupToFormErrors} from 'formik';
 import * as yup from 'yup'
-// UserQueries
 import { USER_REGISTER } from '../Querys/userQuery.js';
 import {useMutation} from '@apollo/client';
-// Styles
 import { styles } from '../styles/styles'
 
 export default function Register({navigation}) {

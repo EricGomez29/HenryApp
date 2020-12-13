@@ -6,18 +6,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         backgroundColor: `${white}`,
-        color: `${white}`,
-        textAlign: "center"    
-    },
-    header: {
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: 120,
-        backgroundColor: "rgba(255,255,1,1)",
-        overflow: "visible",
-        alignItems: 'center',
-        justifyContent: 'center',
+        textAlign: "center", 
+        justifyContent: 'center'
     },
     body: {
         backgroundColor: `${white}`,
@@ -43,14 +33,6 @@ export const styles = StyleSheet.create({
         padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: "#00FFFF",
-        borderRadius: 15,
-        backgroundColor: "#00000005",
-        width: "95%",
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: "2%",
-        marginBottom: "3%"
     },
     input: {
         borderRadius: 15,
@@ -87,9 +69,8 @@ export const styles = StyleSheet.create({
         marginTop: 5
     },
     imgHenry: {
-        marginTop: 100,
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         zIndex: 1,
         alignSelf: "center"
     },
@@ -108,7 +89,7 @@ export const styles = StyleSheet.create({
       },
     homeApp: {
         marginTop: -80,
-        fontSize: 40,
+        fontSize: 50,
         fontWeight: "bold",
         color: yellow
     },
@@ -121,5 +102,6 @@ export const styles = StyleSheet.create({
         borderRadius: 100,
         alignItems: "center",
         justifyContent: "center",
+        
     },
 });

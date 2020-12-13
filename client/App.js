@@ -14,9 +14,7 @@ import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 // import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';  //mesa privada
 import {Mesa} from './screens/Mesas';
-import dotenv from 'dotenv';
-dotenv.config();
-
+import PruebaBoton from './screens/PruebaBoton'
 
 const Stack = createStackNavigator();
 
@@ -32,7 +30,7 @@ export default function App() {
   return (
    <ApolloProvider client={client}> 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' screenOptions={ { headerShown: false } }>
+      <Stack.Navigator initialRouteName='PruebaBoton' screenOptions={ { headerShown: false } }>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Register" component={Register}/>
@@ -44,6 +42,7 @@ export default function App() {
         <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
         <Stack.Screen name="Mesa" component={Mesa}/>
         <Stack.Screen name="Footer" component={Footer}/>
+        <Stack.Screen name="PruebaBoton" component={PruebaBoton}/>
         
       </Stack.Navigator>
     </NavigationContainer>
