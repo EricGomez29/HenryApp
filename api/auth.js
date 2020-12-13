@@ -16,7 +16,6 @@ const auth = {
                 req.user = user;
             } catch(e) {
                 const newToken = await auth.checkToken(token);
-                console.log(newToken);
                 req.user = newToken.user;
                 if(newToken.token) {
                     res.set("Access-Control-Expose-Headers", "x-token");
