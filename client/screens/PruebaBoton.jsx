@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing} from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Tab, Tabs, TabHeading, Icon} from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 // import styles from '../styles/LoginStyle'
 import {styles} from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
+
 
 export default function Botones(){
     const traslateAnimation = new Animated.Value(0)
@@ -25,6 +26,12 @@ export default function Botones(){
             <Animated.View style={[{width: 250, height: 250, backgroundColor: 'gray'},
                 {opacity: fadeRegister}]}>
                 <Text>Todavia no hay nada :p</Text>
+                <Button style={{ backgroundColor: '#3B5998', borderRadius: '40%', width: 50, height: 50 }}>
+                    <Icon name="logo-facebook" style={{fontSize:22}}/>
+                </Button>
+                <Button style={{ backgroundColor: 'red', borderRadius: '40%', width: 50, height: 50 }}>
+                    <Icon name="logo-google" style={{fontSize:22}}/>
+                </Button>
             </Animated.View>
         )
     };
@@ -89,6 +96,7 @@ export default function Botones(){
         <View style={{flex: 1}}>
             <View style={styles.container}>
                 <View style={styles.cuadro}>
+
                     <View style={styles.botones}>
                         <Animated.View
                         style={[{height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100},
@@ -100,13 +108,13 @@ export default function Botones(){
                         <Button style={styles.boton} onPress={moverDerecha}>
                             <Text style={{ fontWeight: 'bold', color: 'black'}}>Registrarse</Text>
                         </Button >
-
                     </View>
 
-                    <View style={{marginTop: 40}}>
+                    <View style={{marginTop: 30}}>
                         <Iniciar/>
                         <Registrarse/>
                     </View>
+
                 </View>
             </View>
         </View>

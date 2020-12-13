@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
     },
     olvideContraseña:{
         backgroundColor: 'transparent',
-        marginTop: 50
-    }
+        marginTop: 30
+    },
+    olvideContraseña:{
+        backgroundColor: 'transparent',
+        marginTop: 30
+    },
 })

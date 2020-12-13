@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, Image, TouchableOpacity } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text} from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { gql, useMutation, useQuery } from '@apollo/client';
@@ -83,10 +83,23 @@ export default function Login ({navigation}) {
                         </View>
                         <View style={styles.containerBoton}>
                             <Button style={styles.boton} onPress={handleSubmit}>
-                                <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>INGRESAR</Text>
+                                <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>INICIAR SESION</Text>
                             </Button>
                         </View>
-                    
+                        <View style={styles.containerBoton}>
+                            <Button  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                                <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
+                            </Button>
+                        </View>
+
+                        <View style={{flexDirection: 'row', justifyContent: "center"}}>
+                            <Button style={{ backgroundColor: '#3B5998', borderRadius: '40%', width: 48, height: 48, marginRight: 10 }}>
+                                <Icon name="logo-facebook" style={{fontSize:20}}/>
+                            </Button>
+                            <Button style={{ backgroundColor: 'red', borderRadius: '40%', width: 48, height: 48, marginLeft: 10 }}>
+                                <Icon name="logo-google" style={{fontSize:20}}/>
+                            </Button>
+                        </View>
                     </View>
                     )}
                 </Formik>
