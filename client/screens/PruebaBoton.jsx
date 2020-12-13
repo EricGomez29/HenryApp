@@ -9,11 +9,12 @@ export default function Botones(){
     const traslateAnimation = new Animated.Value(0)
     const fadeRegister = new Animated.Value(0)
     const fadeIniciar = new Animated.Value(1)
+    const index = new Animated.Value(3)
 
     function Iniciar(){
         return(
             <Animated.View style={[{width: 200, height: 200, position: "absolute"}, 
-            {opacity: fadeIniciar}]}>
+            {opacity: fadeIniciar, zIndex: index}]}>
                 <Iniciarr/>
             </Animated.View>
         )
@@ -21,9 +22,9 @@ export default function Botones(){
     
     function Registrarse(){
         return(
-            <Animated.View style={[{width: 200, height: 200, backgroundColor: 'gray'},
+            <Animated.View style={[{width: 250, height: 250, backgroundColor: 'gray'},
                 {opacity: fadeRegister}]}>
-                <Text>chauuu</Text>
+                <Text>Todavia no hay nada :p</Text>
             </Animated.View>
         )
     };
@@ -39,7 +40,11 @@ export default function Botones(){
             duration: 600,
             useNativeDriver: true
         }).start()
-        
+        Animated.timing(index, {
+            toValue: -1,
+            duration: 500,
+            useNativeDriver: true
+        }).start()
     }
     function desaparecer(){
         Animated.timing(fadeRegister, {
@@ -50,6 +55,11 @@ export default function Botones(){
         Animated.timing(fadeIniciar, {
             toValue: 1,
             duration: 600,
+            useNativeDriver: true
+        }).start()
+        Animated.timing(index, {
+            toValue: 3,
+            duration: 500,
             useNativeDriver: true
         }).start()
     }
@@ -92,7 +102,8 @@ export default function Botones(){
                         </Button >
 
                     </View>
-                    <View style={{width: '90%', height: '90%', marginTop: 50}}>
+
+                    <View style={{marginTop: 40}}>
                         <Iniciar/>
                         <Registrarse/>
                     </View>
