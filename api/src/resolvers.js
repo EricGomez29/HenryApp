@@ -2,11 +2,14 @@ import User from './models/Users';
 import bcrypt from 'bcrypt';
 import Cohorte from './models/Cohorte';
 import auth from '../auth';
+import { isAutenticatedResolver } from '../permissions';
 
 const resolvers = {
     Query: {
         //USERS
-        users: async (parent, { where }, context) => await User.find(where).exec(),
+        users: isAutenticatedResolver.createResolver(
+            async (parent, { where }, context) => await User.find(where).exec()
+        ),
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec()
     },

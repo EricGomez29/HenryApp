@@ -6,10 +6,15 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import auth from '../auth';
 import models from './models';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+app.use(cors({
+    origin: ["http://localhost:5000"]
+}))
+app.use(auth.checkHeaders);
 
 //Configuraciones del archivo .env
 const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
@@ -24,14 +29,15 @@ mongoose.connect(DATABASE_URL, {
 const server = new ApolloServer({ 
     typeDefs, 
     resolvers,
-    context: {
-        models,
-        ACCESS_TOKEN_SECRET,
-        user: {
-            _id: 1, username: "Bob"
+    context: ({req}) => {
+        console.log("User ID: ", req.user)
+        return {
+            models,
+            ACCESS_TOKEN_SECRET,
+            user: req.user
         }
     } 
-})
+});
+
 server.applyMiddleware({ app });
-// app.use(auth.checkHeaders) ----> tema a solucionar 
 app.listen(5000, () => console.log(`🚀 Server ready at port 5000`));

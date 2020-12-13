@@ -1,40 +1,77 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import models from './src/models';
+
+dotenv.config()
+
+const { ACCESS_TOKEN_SECRET } = process.env
 
 const auth = {
-    // checkHeaders: (req,res,next) => { -----> tema a solucionar
-    //     console.log(req.headers)
-    //     next()
-    // },
-
-    getToken: ({_id}, secret) => {
-        const token = jwt.sign({ user: _id }, secret, { expiresIn: '5d' })
-        const refreshToken = jwt.sign({ user: _id }, secret, { expiresIn: '10m' })
-
-        return [token, refreshToken];
+    checkHeaders: async (req, res, next) => {
+        const token = req.headers["x-token"];
+        if(token) {
+            try {
+                const { user } = jwt.verify(token, ACCESS_TOKEN_SECRET);
+                req.user = user;
+            } catch(e) {
+                const newToken = await auth.checkToken(token);
+                console.log(newToken);
+                req.user = newToken.user;
+                if(newToken.token) {
+                    res.set("Access-Control-Expose-Headers", "x-token");
+                    res.set("x-token", newToken.token);
+                }
+            }
+        }
+        next();
     },
 
-    login: async (email, password, User, ACCESS_TOKEN_SECRET) => {
+    checkToken: async (token) => {
+        let idUser = null;
+        try {
+            const { user } = await jwt.decode(token);
+            idUser = user;
+        } catch(e) {
+            return {}
+        }
+        const user = await models.User.findOne({_id: idUser});
+        // console.log(user)
+        const [newToken] = auth.getToken(user)
+        return {
+            user: user._id,
+            token: newToken
+        }
+    }, 
+
+    getToken: ({_id}) => {
+        const newToken = jwt.sign({ user: _id }, ACCESS_TOKEN_SECRET, { expiresIn: '10s' })
+        // const refreshToken = jwt.sign({ user: _id }, ACCESS_TOKEN_SECRET, { expiresIn: '10m' })
+
+        return [newToken];
+    },
+
+    login: async (email, password, User) => {
         const user = await User.findOne({email})
         if(!user) {
             return {
                 success: false,
-                errors: [{path:"email", message:'Email no existe'}]
+                errors: [{path:"email", message:"Email no existe"}]
             }
         }
         const validPassword = await bcrypt.compare(password, user.password)
         if(!validPassword) {
             return {
                 success: false,
-                errors: [{path:"password", message:'Password inválido'}]
+                errors: [{path:"password", message:"Password inválido"}]
             }
         }
 
-        const [token, refreshToken] = auth.getToken(user, ACCESS_TOKEN_SECRET)
+        const [newToken] = auth.getToken(user);
 
         return {
             success: true,
-            token,
+            token: newToken,
             errors: []
         };
     }
