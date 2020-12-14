@@ -60,6 +60,7 @@ const typeDefs = gql`
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
+        mesas(where: JSON): [Mesas]
     }
 
     type Mutation {
