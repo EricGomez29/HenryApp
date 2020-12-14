@@ -1,6 +1,0 @@
-[1205/191519.703:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-[1207/111755.329:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-[1209/234750.299:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-[1210/094945.759:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)
-[1211/034456.663:ERROR:process_info.cc(98)] ReadProcessMemory UNICODE_STRING: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
-[1211/113103.876:ERROR:directory_reader_win.cc(43)] FindFirstFile: El sistema no puede encontrar la ruta especificada. (0x3)

@@ -15,8 +15,6 @@ import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
 import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';
-import dotenv from 'dotenv';
-dotenv.config();
 
 
 const Stack = createStackNavigator();
