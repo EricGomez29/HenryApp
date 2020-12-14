@@ -17,9 +17,7 @@ const resolvers = {
         //USERS
         
         users: /*isAutenticatedResolver.createResolver(*/
-            async (parent, { where }, context) => await User.find(where).exec()
-        /*)*/,
-
+            async (parent, { where }, context) => await User.find(where).exec(),
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec(),
         //GRUPOS DE PAIR PROGRAMMING 
