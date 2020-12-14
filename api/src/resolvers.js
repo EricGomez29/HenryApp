@@ -30,7 +30,7 @@ const resolvers = {
 
         //USERS
         registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
-             const hash = await bcrypt.hash(password, 9);
+            const hash = await bcrypt.hash(password, 9);
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         editUser: async (parent, { input }, context, req) => {
