@@ -12,11 +12,11 @@ const PPSchema = new Schema({
     },
     dia: {
         type: String,
-        default: () => moment(moment.now()).format()
+        default: () => moment(moment.now()).format("DD/MM/YYYY")
     },
-    mesas: {
-        type: Array,
-    },
+    mesas: [
+        { type : Schema.Types.ObjectId, ref: 'Mesas' }
+    ],
     cohorte: {
         type: Number,
     },

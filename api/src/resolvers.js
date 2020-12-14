@@ -13,8 +13,7 @@ const resolvers = {
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec(),
 
-        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).exec(),
-       
+        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('Mesas')
     },
 
     Mutation: {
@@ -92,28 +91,60 @@ const resolvers = {
         //Pair Programming
         addUserPairProgramming: async (parent, {username}) => {
             const fecha = moment(moment.now()).format("DD/MM/YYYY");
-            console.log(fecha)
+            // console.log(fecha)
             //Veo Si existe el Usuario
             const user = await User.find({"username": username});
-            // Si esta en algun grupo de pair programming ese dia
+            // console.log(user);
+            // Si esta existe un PP creado para ese dia
             const existsCohorte = await PairProgramming.find({cohorte: user[0].cohorte, dia: fecha});
+            var mesa= 0;
             console.log(existsCohorte)
             if (existsCohorte.length === 0){
                 //Agrego ese usuario a una mesa
-                const mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", estado: "In Process", users: [username]}, )
+                mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", estado: "In Process", users: [username]}, )
                 //si no se creo ningun grupo de PP Creo una nueva tabla
                 await PairProgramming.create({cohorte: user[0].cohorte, mesas: [mesa._id]});
             }else{
-                
-                Mesas.findOneAndUpdate({"_id": x[0]._id},
-                        {
-                            $pull : {
-                                users : {username} 
-                            }
+                const i = existsCohorte[0].mesas.length - 1;
+                const mesas = existsCohorte[0].mesas[i];
+                console.log(i);
+                console.log(mesas);
+                // for (let i = 0; i < mesas.length; i++) {
+                var valor = await Mesas.find({"_id": mesas});
+                // console.log(valor);
+                //     // console.log(valor);
+                //     // if (valor.length === 0){
+                //     //     throw new Error("El usuario ya esta")
+                //     // }
+                if (valor[0].users.length < 5){
+                    mesa = await Mesas.findOneAndUpdate( {"_id": valor[0]}, {
+                        $push : {
+                            users: username
                         }
-                    ); 
+                    }) .populate('Mesas', ).exec()
+                    }else{
+                        mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", estado: "In Process", users: [username]}, )
+                        //si no se creo ningun grupo de PP Creo una nueva tabla
+                        await PairProgramming.findOneAndUpdate({cohorte: user[0].cohorte, dia: fecha}, {
+                            $push : {
+                                mesas: mesa._id
+                            }
+                        }).populate('Mesas').exec()
+                    }
+                        // console.log(mesa)
+                        // console.log(resul)
+                    
+                    // Mesas.findOneAndUpdate({"_id": x[0]._id},
+                // }
+                //         {
+                //             $pull : {
+                //                 users : {username} 
+                //             }
+                //         }
+                //     ); 
             }
-            return await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha})
+            console.log(mesa);
+            return await Mesas.findOne({_id: mesa._id})
         }
     }
 

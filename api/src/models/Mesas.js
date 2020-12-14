@@ -1,13 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const MesasSchema = new Schema({
-    users:  { 
-        type: Array
-    },
-    estado: {
-        type: String,
-        default: "Empty"
-    },
+    users:  [{ 
+        type: Schema.Types.ObjectId, ref: 'User'
+    }],
+    
     linkMeet: {
         type: String
     },

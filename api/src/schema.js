@@ -83,7 +83,7 @@ const typeDefs = gql`
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!
 
-        addUserPairProgramming(username:String!):PairProgramming!
+        addUserPairProgramming(username:String!):Mesas
     }
 `;
 
