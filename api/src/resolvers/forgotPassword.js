@@ -2,8 +2,11 @@ var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
 import User from '../models/Users';
 dotenv.config();
-const sendEmail = async(input) => {
-    
+const forgotPasswordMail = async(email) => {
+    const x = Math.floor((Math.random() * (999999 - 0 + 1)) + 0);
+    console.log(x);
+    const user = await User.findOne({"email": email})
+    console.log(user)
     var transporter =  await nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -12,9 +15,9 @@ const sendEmail = async(input) => {
         }
     });
     const mailOptions = {
-        from: input.from, // sender address
-        to: input.to, // list of receivers
-        subject: input.subject, // Subject line
+        from: "henryapp-project@gmail.com", // sender address
+        to: email, // list of receivers
+        subject: "Recuperar Contraseña", // Subject line
         html: 
             `<div style="margin:0;padding:0" dir="ltr" bgcolor="#ffffff">
                 <table border="0" cellspacing="0" cellpadding="0" align="center" id="m_5856674466128473302email_table" style="border-collapse:collapse">
@@ -28,7 +31,7 @@ const sendEmail = async(input) => {
                                     </tr>
                                     <tr>
                                         <td height="1" colspan="3" style="line-height:1px">
-                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${input.to}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
+                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${user.firstName} ${user.lastName}: Hemos recibido una solicitud para modificar la contraseña de Facebook. Introduce el siguiente código para restablecer la contraseña: ${x} </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -64,42 +67,24 @@ const sendEmail = async(input) => {
                                                     <tr>
                                                         <td>
                                                             <span class="m_5856674466128473302mb_text" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16px;line-height:21px;color:#141823">
-                                                                <p>Hola, ${input.to}:</p>
-                                                                <p></p>
-                                                                <div>Hola, ${input.to}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006/">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
-                                                                    <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:9px;margin-bottom:15px">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td style="font-size:11px;font-family:LucidaGrande,tahoma,verdana,arial,sans-serif;padding:10px;background-color:#f2f2f2;border-left:1px solid #ccc;border-right:1px solid #ccc;
-                                                                                    border-top:1px solid #ccc;border-bottom:1px solid #ccc">
-                                                                                    <span class="m_5856674466128473302mb_text" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16px;line-height:21px;color:#141823"></span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                    <br>
-                                                                </div>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td height="28" style="line-height:28px">&nbsp;</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td>
-                                            <td>
-                                                <table border="0" width="100%" cellspacing="0" cellpadding="0" align="left" style="border-collapse:collapse">
-                                                    <tbody>
-                                                        <tr style="border-top:solid 1px #e5e5e5">
-                                                            <td height="19" style="line-height:19px">&nbsp;</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:11px;color:#aaaaaa;line-height:16px">Se ha enviado este mensaje a <a href="mailto:${input.to}" style="color:#3b5998;text-decoration:none" target="_blank">${input.to}</a> a petición tuya.</td>
+                                                            <p>Hola, ${user.firstName} ${user.lastName}:</p>
+                                                            <p></p>
+                                                            <div>Hemos recibido una solicitud para modificar la contraseña de Henry App.</div>Introduce el siguiente código para restablecer la contraseña:
+                                                                <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:9px;margin-bottom:15px">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="font-size:11px;font-family:LucidaGrande,tahoma,verdana,arial,sans-serif;padding:10px;background-color:#f2f2f2;border-left:1px solid #ccc;border-right:1px solid #ccc;
+                                                                                border-top:1px solid #ccc;border-bottom:1px solid #ccc">
+                                                                                <span class="m_5856674466128473302mb_text" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16px;line-height:21px;color:#141823">${x}</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <br>
+                                                                <div>
+                                                                    <span style="color:#333333;font-weight:bold">¿No has pedido este cambio?</span>
+                                                                </div>Si no has solicitado una nueva contraseña, <a href="https://www.facebook.com/login/recover/cancel/?n=185095&amp;id=100004264538193&amp;i=www" style="color:#3b5998;text-decoration:none" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.facebook.com/login/recover/cancel/?n%3D185095%26id%3D100004264538193%26i%3Dwww&amp;source=gmail&amp;ust=1608086689003000&amp;usg=AFQjCNHKQwCCkVz7omaxLtPfsnsyg6JSZA">infórmanos</a>.</span></td></tr><tr><td height="28" style="line-height:28px">&nbsp;</td></tr></tbody></table></td><td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td></tr><tr><td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td><td><table border="0" width="100%" cellspacing="0" cellpadding="0" align="left" style="border-collapse:collapse"><tbody><tr style="border-top:solid 1px #e5e5e5"><td height="19" style="line-height:19px">&nbsp;</td></tr><tr><td style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:11px;color:#aaaaaa;line-height:16px">Se ha enviado este mensaje a <a href="mailto:facugs2090@gmail.com" style="color:#3b5998;text-decoration:none" target="_blank">facugs2090@gmail.com</a> a petición tuya.
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -120,18 +105,13 @@ const sendEmail = async(input) => {
     
     await transporter.sendMail(mailOptions, function (err, info) {
         if(err)
-            console.log(err)
+            throw new Error(`No se ha podido enviar el mail al mail ${email}`)
         else
             console.log(info);
         });
-        const {from, to, subject, text} = input;         
-        return {
-            from: from,
-            to: to,
-            subject: subject,
-            text: text
-        }
+        await User.findOneAndUpdate({email: email}, {forgotPassword: x})     
+        return await User.findOne({"email": email})
     }
 module.exports= {
-    sendEmail
+    forgotPasswordMail
 }

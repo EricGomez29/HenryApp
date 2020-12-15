@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import auth from '../auth';
-import moment from 'moment'
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
 import agregarUsuarioMesa from './resolvers/mesas';
 import { sendEmail } from './resolvers/sendEmail';
-var nodemailer = require('nodemailer');
+import { forgotPasswordMail } from './resolvers/forgotPassword';
+
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -29,7 +29,7 @@ const resolvers = {
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
 
-        email: async (parent, { input }, context) => sendEmail(input)
+        
     },
 
     Mutation: {
@@ -107,7 +107,11 @@ const resolvers = {
         //Pair Programming
         addUserPairProgramming:  (parent, {username}) => {
            return agregarUsuarioMesa(username);
-        }
+        },
+        // Mail de Ingreso a la aplicación
+        sendEmail: async (parent, { input }, context) => sendEmail(input),
+        // Forgot
+        sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email)
     }
 
     
