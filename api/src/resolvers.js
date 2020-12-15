@@ -5,7 +5,11 @@ import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
-import agregarUsuarioMesa from './resolvers/mesas'
+import agregarUsuarioMesa from './resolvers/mesas';
+import { sendEmail } from './resolvers/sendEmail';
+var nodemailer = require('nodemailer');
+import dotenv from 'dotenv';
+dotenv.config()
 
 //Funcion para validación
 //          |
@@ -23,7 +27,9 @@ const resolvers = {
         //GRUPOS DE PAIR PROGRAMMING 
         pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
         //MESAS
-        mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users')
+        mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
+
+        email: async (parent, { input }, context) => sendEmail(input)
     },
 
     Mutation: {

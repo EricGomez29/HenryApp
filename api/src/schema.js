@@ -50,6 +50,20 @@ const typeDefs = gql`
         cohorte: Int
     }
 
+    type Email{
+        from: String
+        a: String
+        subject: String
+        text: String
+    }
+
+    input EmailInput{
+        from: String
+        to: String
+        subject: String
+        text: String
+    }
+
     type Mesas{
         users: [Users]
         estado: Boolean
@@ -61,6 +75,7 @@ const typeDefs = gql`
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
+        email(input: EmailInput): [Email]
     }
 
     type Mutation {

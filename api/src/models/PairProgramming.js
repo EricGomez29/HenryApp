@@ -20,6 +20,9 @@ const PPSchema = new Schema({
     cohorte: {
         type: Number,
     },
+    usuarios: {
+        type: Array
+    }
     
 })
 
