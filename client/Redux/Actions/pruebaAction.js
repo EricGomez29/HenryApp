@@ -1,8 +1,8 @@
-import { GET_PRUEBA } from "./ActionsTypes";
+// import { GET_PRUEBA } from "./ActionsTypes";
 
-export const getPrueba = () => (dispatch) => {
-  dispatch({
-    type: GET_PRUEBA,
-    payload: "funciona"
-  })
-}
+// export const getPrueba = () => (dispatch) => {
+//   dispatch({
+//     type: GET_PRUEBA,
+//     payload: "funciona"
+//   })
+// }

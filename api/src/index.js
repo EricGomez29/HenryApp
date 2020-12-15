@@ -4,11 +4,16 @@ import resolvers from './resolvers';
 import typeDefs from './schema';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { decodeToken } from "./services";
+import auth from '../auth';
+import models from './models';
 
 dotenv.config();
 
-const { DATABASE_URL } = process.env;
+const app = express();
+// app.use(auth.checkHeaders) ----> tema a solucionar 
+
+//Configuraciones del archivo .env
+const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
 
 mongoose.connect(DATABASE_URL, {
     useFindAndModify: false ,
@@ -17,29 +22,16 @@ mongoose.connect(DATABASE_URL, {
     useCreateIndex: true
 }).then( _ => console.log('Database is running'));
 
-const server = new ApolloServer({ typeDefs, resolvers, 
-    context: async ({ req }) => {
-    let authToken = null;
-    let user = null;
-
-    try {
-      authToken = req.headers.authorization;
-
-      if (authToken) {
-        user = await decodeToken(authToken);
-      }
-    } catch (e) {
-      console.warn(`No se pudo autenticar el token: ${authToken}`);
-    }
-    // console.log(authToken)
-    return {
-      authToken,
-      user
-    };
-  } })
-
-const app = express();
-
+const server = new ApolloServer({ 
+    typeDefs, 
+    resolvers,
+    context: {
+        models,
+        ACCESS_TOKEN_SECRET,
+        user: {
+            _id: 1, username: "Bob"
+        }
+    } 
+})
 server.applyMiddleware({ app });
-
-app.listen(3000, () => console.log('Server on port 3000'));
+app.listen(5000, () => console.log(`🚀 Server ready at port 5000`));

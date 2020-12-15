@@ -3,19 +3,26 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
     scalar JSON
     type Users {
-        _id: String
         username: String
         firstName: String
         lastName: String
         cohorte: Int
-        henryCoins: Int
-        isAdmin: Boolean
         email: String
         password: String
     }
 
+    type Error {
+        path: String!
+        message: String!
+    }
+
+    type AuthData {
+        success: Boolean!
+        token: String
+        errors: [Error]
+    }
+    
     input UsersInput {
-        _id: String
         username: String
         firstName: String
         lastName: String
@@ -28,27 +35,37 @@ const typeDefs = gql`
 
     type Cohortes {
         Number: Int!
-        Users: [Users]
+        Users: [Users!]!
     }
-
+    
     input CohortesInput {
         Number: Int!
     }
-
+    
     type Query {
-        user(username: String): Users
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
     }
 
     type Mutation {
-        addUser(input: UsersInput): Users
+        
+        registerUser( 
+        username: String
+        firstName: String
+        lastName: String
+        cohorte: Int
+        email: String
+        password: String ): Users
+
         addCohorte(input: CohortesInput): Cohortes
 
-        editUser( input: UsersInput): Users
-        removeUser (username: String): Users
+        login(email: String!, password: String!): AuthData!
 
-        login (email: String!, password: String!): String
+        editUser( input: UsersInput): Users
+        
+        removeUser (where: JSON): Users
+        
+        addUserCohorte(number: Int!, username: String!): Cohortes
     }
 `;
 
