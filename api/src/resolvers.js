@@ -6,7 +6,7 @@ import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
 import agregarUsuarioMesa from './resolvers/mesas';
 import { sendEmail } from './resolvers/sendEmail';
-import { forgotPasswordMail } from './resolvers/forgotPassword';
+import { forgotPasswordMail } from './resolvers/sendForgotPassword';
 
 import dotenv from 'dotenv';
 dotenv.config()
@@ -110,8 +110,21 @@ const resolvers = {
         },
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
-        // Forgot
-        sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email)
+        // FORGOT PASSWORD MAIL
+        sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),
+        //RECUPERAR CONTARSEÑA
+        compareCode: async (parent, {codigo, email}, context) => {
+            const user = await User.findOne({email: email});
+            console.log(!(user.forgotPassword==codigo));
+            if (!(user.forgotPassword == codigo)){
+                throw new Error(`El código enviado al correo ${email} no corresponde con el ingresado.`);
+            }
+            return user;
+        },
+
+
+
+
     }
 
     

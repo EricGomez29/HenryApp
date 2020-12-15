@@ -105,6 +105,8 @@ const typeDefs = gql`
         sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
+        compareCode(codigo:String, email:String): Users
+
     }
 `;
 
