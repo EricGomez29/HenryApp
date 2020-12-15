@@ -19,7 +19,6 @@ dotenv.config()
 const resolvers = {
     Query: {
         //USERS
-        
         users: /*isAutenticatedResolver.createResolver(*/
             async (parent, { where }, context) => await User.find(where).exec(),
         //COHORTES
@@ -28,19 +27,16 @@ const resolvers = {
         pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
-
-        
     },
 
     Mutation: {
-
         //USERS
         registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
             const hash = await bcrypt.hash(password, 9);
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         editUser: async (parent, { input }, context, req) => {
-            console.log(context)
+            console.log(context);
             return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
@@ -115,7 +111,6 @@ const resolvers = {
         //RECUPERAR CONTARSEÑA
         compareCode: async (parent, {codigo, email}, context) => {
             const user = await User.findOne({email: email});
-            console.log(!(user.forgotPassword==codigo));
             if (!(user.forgotPassword == codigo)){
                 throw new Error(`El código enviado al correo ${email} no corresponde con el ingresado.`);
             }

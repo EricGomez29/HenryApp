@@ -99,6 +99,7 @@ const typeDefs = gql`
         
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!
+        assignInstructorCohorte(username:String, cohorte:String): Cohortes
 
         addUserPairProgramming(username:String!):Mesas
 
@@ -106,6 +107,8 @@ const typeDefs = gql`
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:String, email:String): Users
+
+
 
     }
 `;
