@@ -11,7 +11,11 @@ const CohorteSchema = new Schema({
     },
     Modules: {
         type: Array
+    },
+    instructor:{
+        type: Schema.Types.ObjectId, ref: 'User'
     }
+
 })
 
 const Cohorte = mongoose.model('Cohorte', CohorteSchema);

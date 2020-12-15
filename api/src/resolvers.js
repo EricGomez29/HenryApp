@@ -36,7 +36,11 @@ const resolvers = {
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         editUser: async (parent, { input }, context, req) => {
-            console.log(context);
+            console.log(!input.password);
+            if(input.password ){
+                const hash = await bcrypt.hash(input.password, 9);
+                return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
+            }
             return await  (User.findOneAndUpdate({ "username": input.username }, input))
         },
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
