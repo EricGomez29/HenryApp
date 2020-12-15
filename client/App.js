@@ -14,8 +14,9 @@ import UsersList from './screens/UsersList'
 import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
 import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
-import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';
-
+// import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';  //mesa privada
+import {Mesa} from './screens/Mesas';
+import PruebaBoton from './screens/PruebaBoton'
 
 const Stack = createStackNavigator();
 
@@ -39,16 +40,15 @@ export default function App() {
         <Stack.Screen name="Register" component={Register}/>
         <Stack.Screen name="Welcome" component={Welcome}/>
         <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
-        <Stack.Screen name="Sala" component={Sala}/>
+        {/* <Stack.Screen name="Sala" component={Sala}/>
         <Stack.Screen name="MesaPrivada" component={MesaPrivada}/>
         <Stack.Screen name="CrearMesa" component={CrearMesa}/>
-        <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/>
+        <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
         <Stack.Screen name="Mesa" component={Mesa}/>
         <Stack.Screen name="Footer" component={Footer}/>
+        <Stack.Screen name="PruebaBoton" component={PruebaBoton}/>
         
       </Stack.Navigator>
-     
-
     </NavigationContainer>
    </ApolloProvider>
   );

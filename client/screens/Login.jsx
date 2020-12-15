@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { styles } from '../styles/styles'
+import { styles } from '../styles/LoginStyle'
 import Footer from '../Components/Footer'
 
 const LOGIN = gql`
@@ -18,7 +19,7 @@ export default function Login ({navigation}) {
 
     
     const validations= yup.object().shape({
-        username: yup.string()
+        email: yup.string()
             .required('Campo obligatorio'),
         password: yup.string()
             .min( 8, ( { min } )  => `La contraseña debe tener al menos ${min} caracteres`)
@@ -28,7 +29,7 @@ export default function Login ({navigation}) {
     const  [login, {data} ]= useMutation(LOGIN);
 
     const handleSubmit = (values) => {
-        login( { variables: { email: values.username, password: values.password } } );
+        login( { variables: { email: values.email, password: values.password } } );
         if(error) {
             return console.log(error)
         } 
@@ -37,71 +38,73 @@ export default function Login ({navigation}) {
 
     console.log(data)
     return (
-        <>
-        <View style={styles.header}>
-            <Image
-                source={require("../assets/logoHenry.png")}
-                resizeMode="contain"
-                style={styles.imgHenry}
-            ></Image>
-            
-        </View>
-        <View style={styles.body}>
-            
-            <Formik
-                initialValues={{ username: '', password: '' }}
-                onSubmit={handleSubmit}
-                validationSchema={validations}
-            >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                <View style={styles.form}>
-                    <Text style={styles.h1}>LOGIN</Text>
-                    {/* CAMPO USUARIO */}
-                    <Text style={styles.label}>Usuario</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={handleChange('username')}
-                        onBlur={handleBlur('username')}
-                        value={values.username}
-                    />
-                    {/* ERROR USUARIO */}
-                    {touched.username && errors.username &&
-                    <Text style={styles.errorForm}>{errors.username}</Text>}
-
-                    {/* CAMPO CONTRASEÑA */}
-                    <Text style={styles.label}>Contraseña</Text>
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry={true}
-                        onChangeText={handleChange('password')}
-                        onBlur={handleBlur('password')}
-                        value={values.password}
-                    /> 
-
-                    {/* ERROR CONTRASEÑA */}
-                    {touched.password && errors.password &&
-                    <Text style={styles.errorForm}>{errors.password}</Text>}
-
-                    {/* BOTON INGRESAR */}
-                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={ {fontWeight: "bold" } } >INGRESAR</Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={styles.linkForm}>Registrarse</Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-                        <Text style={styles.linkForm}>Recuperar contraseña</Text>
-                    </TouchableOpacity> 
+        <View style={{flex: 1}}>
+            <View style={{width: 270}}>
+                
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={handleSubmit}
+                    validationSchema={validations}
+                >
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
+                    <View style={{width: '90%'}}>
                         
-                </View>
-                )}
-            </Formik>
+                        <View >
+                            <Item floatingLabel>
+                                <Label>Email</Label>
+                                <Input onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                                style={{height: 50}}/>
+                            </Item>
+                        </View>
+                        {/* ERROR EMAIL */}
+                        {touched.username && errors.email &&
+                        <Text style={styles.errorForm}>{errors.email}</Text>}
+
+                        <View style={{marginTop: 10}}>
+                            <Item floatingLabel>
+                                <Label>Contraseña</Label>
+                                <Input secureTextEntry={true}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                                style={{height: 50}}/>
+                            </Item>
+                        </View>
+                        {/* ERROR CONTRASEÑA */}
+                        {touched.password && errors.password &&
+                        <Text style={styles.errorForm}>{errors.password}</Text>}
+
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                                <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.containerBoton}>
+                            <Button style={styles.boton} onPress={handleSubmit}>
+                                <Text style={{color: 'black', fontWeight: 'bold'}}>INICIAR SESION</Text>
+                            </Button>
+                        </View>
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                                <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
+                            <Button style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
+                                <Icon name="logo-facebook" style={{fontSize:20}}/>
+                            </Button>
+                            <Button style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
+                                <Icon name="logo-google" style={{fontSize:20}}/>
+                            </Button>
+                        </View>
+                    </View>
+                    )}
+                </Formik>
+                    
+            </View>
         </View>
-        <View>
-          <Footer/>  
-        </View>
-        </>
     )
 }

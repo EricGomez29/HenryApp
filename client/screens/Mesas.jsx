@@ -3,107 +3,107 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 
-export function Sala({navigation}){
-    return (
-        <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight: 'bold'}}>Atras</Text>
-            </TouchableOpacity>
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')}>
-                    <Text style={{fontWeight: 'bold'}}>Mesa Publica</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('MesaPrivada')}>
-                    <Text style={{fontWeight: 'bold'}}>Mesa Privada</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
-};
+// export function Sala({navigation}){
+//     return (
+//         <View style={{flex: 1}}>
+//             <TouchableOpacity onPress={() => navigation.goBack()}>
+//                 <Text style={{fontWeight: 'bold'}}>Atras</Text>
+//             </TouchableOpacity>
+//             <View style={styles.container}>
+//                 <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')}>
+//                     <Text style={{fontWeight: 'bold'}}>Mesa Publica</Text>
+//                 </TouchableOpacity>
+//                 <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('MesaPrivada')}>
+//                     <Text style={{fontWeight: 'bold'}}>Mesa Privada</Text>
+//                 </TouchableOpacity>
+//             </View>
+//         </View>
+//     )
+// };
 
 
 
-export function MesaPrivada({navigation}){
-    return(
-        <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight: 'bold'}}>Atras</Text>
-            </TouchableOpacity>
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('CrearMesa')}>
-                    <Text style={{fontWeight: 'bold'}}>Crear Mesa</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('UnirseAMesa')}>
-                    <Text style={{fontWeight: 'bold'}}>Unirse a una mesa</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
-}
+// export function MesaPrivada({navigation}){
+//     return(
+//         <View style={{flex: 1}}>
+//             <TouchableOpacity onPress={() => navigation.goBack()}>
+//                 <Text style={{fontWeight: 'bold'}}>Atras</Text>
+//             </TouchableOpacity>
+//             <View style={styles.container}>
+//                 <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('CrearMesa')}>
+//                     <Text style={{fontWeight: 'bold'}}>Crear Mesa</Text>
+//                 </TouchableOpacity>
+//                 <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('UnirseAMesa')}>
+//                     <Text style={{fontWeight: 'bold'}}>Unirse a una mesa</Text>
+//                 </TouchableOpacity>
+//             </View>
+//         </View>
+//     )
+// }
 
-export function CrearMesa({navigation}){
-    return(
-        <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight: 'bold'}}>Atras</Text>
-            </TouchableOpacity>
-            <Formik
-                initialValues={{ codigo: ''}}
-                // onSubmit={handlerSubmit}
-                // validationSchema={validations}
-            >
-                {({ handleChange, handleBlur, handleSubmit, values}) => (
-                <View style={styles.container} >
-                    <Text>Crear una mesa para hacer Pair Programing con tus amigos!</Text>
-                    <Text style={{fontWeight: 'bold', marginTop: 10}}>CODIGO:</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={handleChange('codigo')}
-                        onBlur={handleBlur('codigo')}
-                        value={values.codigo}
-                    />
-                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}}>Crear</Text>
-                    </TouchableOpacity>
-                </View>
-                )}
-            </Formik>
-        </View>
-    )
-}
+// export function CrearMesa({navigation}){
+//     return(
+//         <View style={{flex: 1}}>
+//             <TouchableOpacity onPress={() => navigation.goBack()}>
+//                 <Text style={{fontWeight: 'bold'}}>Atras</Text>
+//             </TouchableOpacity>
+//             <Formik
+//                 initialValues={{ codigo: ''}}
+//                 // onSubmit={handlerSubmit}
+//                 // validationSchema={validations}
+//             >
+//                 {({ handleChange, handleBlur, handleSubmit, values}) => (
+//                 <View style={styles.container} >
+//                     <Text>Crear una mesa para hacer Pair Programing con tus amigos!</Text>
+//                     <Text style={{fontWeight: 'bold', marginTop: 10}}>CODIGO:</Text>
+//                     <TextInput
+//                         style={styles.input}
+//                         onChangeText={handleChange('codigo')}
+//                         onBlur={handleBlur('codigo')}
+//                         value={values.codigo}
+//                     />
+//                     <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
+//                         <Text style={{fontWeight: 'bold'}}>Crear</Text>
+//                     </TouchableOpacity>
+//                 </View>
+//                 )}
+//             </Formik>
+//         </View>
+//     )
+// }
 
-export function UnirseAMesa({navigation}){
+// export function UnirseAMesa({navigation}){
 
 
-    return(
-        <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight: 'bold'}}>Atras</Text>
-            </TouchableOpacity>
-            <Formik
-                initialValues={{ codigo: ''}}
-                // onSubmit={handlerSubmit}
-                // validationSchema={validations}
-            >
-                {({ handleChange, handleBlur, handleSubmit, values}) => (
-                <View style={styles.container} >
-                    <Text>Escribe el codigo para unirte a la mesa!</Text>
-                    <Text style={{fontWeight: 'bold', marginTop: 10}}>CODIGO:</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={handleChange('codigo')}
-                        onBlur={handleBlur('codigo')}
-                        value={values.codigo}
-                    />
-                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
-                        <Text style={{fontWeight: 'bold'}}>Unirse</Text>
-                    </TouchableOpacity>
-                </View>
-                )}
-            </Formik>
-        </View>
-    )
-}
+//     return(
+//         <View style={{flex: 1}}>
+//             <TouchableOpacity onPress={() => navigation.goBack()}>
+//                 <Text style={{fontWeight: 'bold'}}>Atras</Text>
+//             </TouchableOpacity>
+//             <Formik
+//                 initialValues={{ codigo: ''}}
+//                 // onSubmit={handlerSubmit}
+//                 // validationSchema={validations}
+//             >
+//                 {({ handleChange, handleBlur, handleSubmit, values}) => (
+//                 <View style={styles.container} >
+//                     <Text>Escribe el codigo para unirte a la mesa!</Text>
+//                     <Text style={{fontWeight: 'bold', marginTop: 10}}>CODIGO:</Text>
+//                     <TextInput
+//                         style={styles.input}
+//                         onChangeText={handleChange('codigo')}
+//                         onBlur={handleBlur('codigo')}
+//                         value={values.codigo}
+//                     />
+//                     <TouchableOpacity style={styles.boton}  onPress={handleSubmit}>
+//                         <Text style={{fontWeight: 'bold'}}>Unirse</Text>
+//                     </TouchableOpacity>
+//                 </View>
+//                 )}
+//             </Formik>
+//         </View>
+//     )
+// }
 
 export function Mesa({navigation}){
     const [personas, setPersonas] = useState(0)
