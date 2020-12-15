@@ -59,12 +59,12 @@ export default function Register({navigation}) {
                     validationSchema={validations}
                 >
                     {({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
-                        <View style={{width: '90%', height: 320}}>
+                        <View style={{width: '100%', height: 320}}>
 
                             <ScrollView style={{width: '90%', height: 300}}>
                                 <View >
                                     <Item floatingLabel>
-                                        <Label>Usuario</Label>
+                                        <Label>Nombre de Usuario</Label>
                                         <Input 
                                             onChangeText={handleChange('username')}
                                             onBlur={handleBlur('username')}
