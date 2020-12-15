@@ -9,6 +9,7 @@ const typeDefs = gql`
         cohorte: Int
         email: String
         password: String
+        forgotPassword:String
     }
 
     type Error {
@@ -37,14 +38,45 @@ const typeDefs = gql`
         Number: Int!
         Users: [Users!]!
     }
-    
+        
     input CohortesInput {
         Number: Int!
     }
     
+    type PairProgramming {
+        horaDeInicio: String
+        horaDeCierre: String
+        dia: String
+        mesas: [Mesas]
+        cohorte: Int
+    }
+
+    type Email{
+        from: String
+        to: String
+        subject: String
+        text: String
+    }
+
+    input EmailInput{
+        from: String
+        to: String
+        subject: String
+        text: String
+    }
+
+    type Mesas{
+        users: [Users]
+        estado: Boolean
+        linkMeet: String
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
+        pairProgramming(where: JSON): [PairProgramming]
+        mesas(where: JSON): [Mesas]
+        
     }
 
     type Mutation {
@@ -66,6 +98,13 @@ const typeDefs = gql`
         removeUser (where: JSON): Users
         
         addUserCohorte(number: Int!, username: String!): Cohortes
+        removeUserCohorte(username:String!):Cohortes!
+
+        addUserPairProgramming(username:String!):Mesas
+
+        sendEmail(email: String): Email
+
+        sendForgotPasswordMail(email: String): Users
     }
 `;
 
