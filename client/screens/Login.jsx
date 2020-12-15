@@ -39,7 +39,7 @@ export default function Login ({navigation}) {
     console.log(data)
     return (
         <View style={{flex: 1}}>
-            <View style={{width: 270, alignItems: "center"}}>
+            <View style={{width: 270}}>
                 
                 <Formik
                     initialValues={{ email: '', password: '' }}
@@ -77,26 +77,26 @@ export default function Login ({navigation}) {
                         <Text style={styles.errorForm}>{errors.password}</Text>}
 
                         <View style={styles.containerBoton}>
-                            <Button  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
-                            </Button>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.containerBoton}>
                             <Button style={styles.boton} onPress={handleSubmit}>
-                                <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>INICIAR SESION</Text>
+                                <Text style={{color: 'black', fontWeight: 'bold'}}>INICIAR SESION</Text>
                             </Button>
                         </View>
                         <View style={styles.containerBoton}>
-                            <Button  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
-                            </Button>
+                            </TouchableOpacity>
                         </View>
 
-                        <View style={{flexDirection: 'row', justifyContent: "center"}}>
-                            <Button style={{ backgroundColor: '#3B5998', borderRadius: '40%', width: 48, height: 48, marginRight: 10 }}>
+                        <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
+                            <Button style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
                                 <Icon name="logo-facebook" style={{fontSize:20}}/>
                             </Button>
-                            <Button style={{ backgroundColor: 'red', borderRadius: '40%', width: 48, height: 48, marginLeft: 10 }}>
+                            <Button style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
                                 <Icon name="logo-google" style={{fontSize:20}}/>
                             </Button>
                         </View>

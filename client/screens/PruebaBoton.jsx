@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing} from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView} from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 // import styles from '../styles/LoginStyle'
 import {styles} from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
-
+import Register from './Register';
 
 export default function Botones(){
     const traslateAnimation = new Animated.Value(0)
@@ -23,15 +23,9 @@ export default function Botones(){
     
     function Registrarse(){
         return(
-            <Animated.View style={[{width: 250, height: 250, backgroundColor: 'gray'},
+            <Animated.View style={[{width: 250, height: 350},
                 {opacity: fadeRegister}]}>
-                <Text>Todavia no hay nada :p</Text>
-                <Button style={{ backgroundColor: '#3B5998', borderRadius: '40%', width: 50, height: 50 }}>
-                    <Icon name="logo-facebook" style={{fontSize:22}}/>
-                </Button>
-                <Button style={{ backgroundColor: 'red', borderRadius: '40%', width: 50, height: 50 }}>
-                    <Icon name="logo-google" style={{fontSize:22}}/>
-                </Button>
+                <Register/>
             </Animated.View>
         )
     };
@@ -101,13 +95,13 @@ export default function Botones(){
                         <Animated.View
                         style={[{height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100},
                         {transform:[{translateX: traslateAnimation}]}]}/>
-                        <Button style={styles.boton} onPress={moverIzquierda}>
+                        <TouchableOpacity style={styles.boton} onPress={moverIzquierda}>
                             <Text style={{fontWeight: 'bold', color: 'black'}}>Iniciar Sesion</Text>
-                        </Button>
+                        </TouchableOpacity>
                         
-                        <Button style={styles.boton} onPress={moverDerecha}>
+                        <TouchableOpacity style={styles.boton} onPress={moverDerecha}>
                             <Text style={{ fontWeight: 'bold', color: 'black'}}>Registrarse</Text>
-                        </Button >
+                        </TouchableOpacity >
                     </View>
 
                     <View style={{marginTop: 30}}>

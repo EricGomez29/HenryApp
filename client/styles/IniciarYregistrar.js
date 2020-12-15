@@ -29,14 +29,17 @@ export const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         zIndex: 4,
         width: 125,
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: 'center'
+        
     },
     cuadro:{
         width:'80%',
-        height: '70%',
+        height: 450,
         borderRadius: 30,
         backgroundColor: 'white',
         alignItems: "center",
+        // justifyContent: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
