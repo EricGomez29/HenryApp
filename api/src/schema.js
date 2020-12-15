@@ -102,7 +102,7 @@ const typeDefs = gql`
 
         addUserPairProgramming(username:String!):Mesas
 
-        sendEmail(input: EmailInput): Email
+        sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
     }

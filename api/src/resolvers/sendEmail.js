@@ -2,8 +2,9 @@ var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
 import User from '../models/Users';
 dotenv.config();
-const sendEmail = async(input) => {
-    
+const sendEmail = async(email) => {
+    const from = "henryapp-project@gmail.com";
+    const subject = "Bienvenido/a a Henry"
     var transporter =  await nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -12,9 +13,9 @@ const sendEmail = async(input) => {
         }
     });
     const mailOptions = {
-        from: input.from, // sender address
-        to: input.to, // list of receivers
-        subject: input.subject, // Subject line
+        from: from, // sender address
+        to: email, // list of receivers
+        subject: subject, // Subject line
         html: 
             `<div style="margin:0;padding:0" dir="ltr" bgcolor="#ffffff">
                 <table border="0" cellspacing="0" cellpadding="0" align="center" id="m_5856674466128473302email_table" style="border-collapse:collapse">
@@ -28,7 +29,7 @@ const sendEmail = async(input) => {
                                     </tr>
                                     <tr>
                                         <td height="1" colspan="3" style="line-height:1px">
-                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${input.to}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
+                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${email}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -64,9 +65,9 @@ const sendEmail = async(input) => {
                                                     <tr>
                                                         <td>
                                                             <span class="m_5856674466128473302mb_text" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16px;line-height:21px;color:#141823">
-                                                                <p>Hola, ${input.to}:</p>
+                                                                <p>Hola, ${email}:</p>
                                                                 <p></p>
-                                                                <div>Hola, ${input.to}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006/">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
+                                                                <div>Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006/">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
                                                                     <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:9px;margin-bottom:15px">
                                                                         <tbody>
                                                                             <tr>
@@ -99,7 +100,7 @@ const sendEmail = async(input) => {
                                                             <td height="19" style="line-height:19px">&nbsp;</td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:11px;color:#aaaaaa;line-height:16px">Se ha enviado este mensaje a <a href="mailto:${input.to}" style="color:#3b5998;text-decoration:none" target="_blank">${input.to}</a> a petición tuya.</td>
+                                                            <td style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:11px;color:#aaaaaa;line-height:16px">Se ha enviado este mensaje a <a href="mailto:${email}" style="color:#3b5998;text-decoration:none" target="_blank">${email}</a> a petición tuya.</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -120,16 +121,15 @@ const sendEmail = async(input) => {
     
     await transporter.sendMail(mailOptions, function (err, info) {
         if(err)
-            console.log(err)
+            throw new Error(`El email no ha podido enviarse a ${email}`)
         else
             console.log(info);
-        });
-        const {from, to, subject, text} = input;         
+        });         
         return {
             from: from,
-            to: to,
+            to: email,
             subject: subject,
-            text: text
+            text: `Mensaje enviado a ${email}` 
         }
     }
 module.exports= {

@@ -109,7 +109,7 @@ const resolvers = {
            return agregarUsuarioMesa(username);
         },
         // Mail de Ingreso a la aplicación
-        sendEmail: async (parent, { input }, context) => sendEmail(input),
+        sendEmail: async (parent, { email }, context) => sendEmail(email),
         // Forgot
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email)
     }
