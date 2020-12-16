@@ -11,6 +11,7 @@ import UsersList from './screens/UsersList'
 import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
 import Profile from './screens/Profile';
+import ProfileEdit from './screens/ProfileEdit';
 import { Mesa } from './screens/Mesas';
 import IniciaryRegistrar from './screens/PruebaBoton';
 import { DripsyProvider } from 'dripsy';
@@ -46,6 +47,7 @@ export default function App() {
             <Stack.Screen name="Mesa" component={Mesa} />
             <Stack.Screen name="Footer" component={Footer} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
           </Stack.Navigator>
         </NavigationContainer>
       </DripsyProvider>

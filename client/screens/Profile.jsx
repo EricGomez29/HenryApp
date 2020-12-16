@@ -5,21 +5,21 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Profile = ({ route, navigation }) => {
 
-    console.log(route.params);
+    const { username, email, firstName, lastName } = route.params.profileData.users[0];
 
-    if (loading) return <View><Text>Loading</Text></View>
-
+    const handleProfileEdit = () => {
+        navigation.navigate('ProfileEdit', {
+            modifyData: {
+                username,
+                email,
+                firstName,
+                lastName,
+            }
+        })
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>
-                <View style={styles.userNavigation}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Icon name="arrow-left" color='#3b3b3b' size={25} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('ProfileEdit', { myData: data })}>
-                        <Icon name="account-edit" color='#3b3b3b' size={25} />
-                    </TouchableOpacity>
-                </View>
                 <View style={{ flexDirection: 'row', marginTop: 15 }}>
                     <Avatar.Image
                         size={80}
@@ -29,8 +29,8 @@ const Profile = ({ route, navigation }) => {
                         <Title style={[styles.title, {
                             marginTop: 15,
                             marginBottom: 5,
-                        }]}>{data.users[0].firstName + ' ' + data.users[0].lastName}</Title>
-                        <Caption style={styles.caption}>{data.users[0].username}</Caption>
+                        }]}>{firstName}</Title>
+                        <Caption style={styles.caption}>{username}</Caption>
                     </View>
                 </View>
             </View>
@@ -45,60 +45,21 @@ const Profile = ({ route, navigation }) => {
                 </View>
                 <View style={styles.row}>
                     <Icon name="email" color="#3b3b3b" size={20} />
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>{data.users[0].email}</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{email}</Text>
                 </View>
+            </View>
+            <View style={styles.userInfoSection}>
+                <TouchableOpacity style={styles.btn} onPress={handleProfileEdit}>
+                    <View style={styles.row}>
+                        <Icon name="account-edit" style={{ color: '#000000' }} size={20} />
+                        <Text style={{ marginLeft: 20, color: '#000000', fontWeight: 'bold' }}>Editar Perfil</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
-};
+}
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    btn: {
-        backgroundColor: '#FFFF01',
-        color: '#fff',
-        padding: 10,
-    },
-    userNavigation: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    userInfoSection: {
-        paddingHorizontal: 30,
-        marginVertical: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    caption: {
-        fontSize: 14,
-        lineHeight: 14,
-        fontWeight: '500',
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 10,
-    },
-    form: {
-        marginTop: 20,
-    },
-    textLabel: {
-        color: '#777777',
-        marginBottom: 5,
-        marginTop: 5,
-    },
-    textInput: {
-        border: '1px solid #BBD2C5',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 10,
-    }
-});
+
 
 export default Profile;

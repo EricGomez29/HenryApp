@@ -1,11 +1,12 @@
 import React from 'react'
 import { Formik } from 'formik';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { Avatar, Title, Caption, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
-export default ProfileEdit = ({ route, navigation }) => {
+const ProfileEdit = ({ route, navigation }) => {
 
-    const { myData } = route.params;
+    console.log(route.params);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>
@@ -17,12 +18,12 @@ export default ProfileEdit = ({ route, navigation }) => {
                 <Formik
                     initialValues={{
                         country: '',
-                        firstName: myData.users[0].firstName,
-                        lastName: myData.users[0].lastName,
-                        username: myData.users[0].username,
-                        email: myData.users[0].email,
-                        cohorte: myData.users[0].cohorte,
-                        nroTelefono: ''
+                        firstName: '',
+                        lastName: '',
+                        username: '',
+                        email: '',
+                        cohorte: '',
+                        nroTelefono: '',
                     }}
                     onSubmit={(values) => {
                         console.log(values);
@@ -86,6 +87,11 @@ export default ProfileEdit = ({ route, navigation }) => {
                                 onBlur={handleBlur('nroTelefono')}
                                 value={values.nroTelefono}
                             />
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>INICIAR SESION</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     )}
                 </Formik>
@@ -93,3 +99,46 @@ export default ProfileEdit = ({ route, navigation }) => {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    boton: {
+        marginTop: 10,
+        width: 180,
+        height: 40,
+        backgroundColor: 'yellow',
+        borderRadius: 100,
+        justifyContent: "center",
+        alignItems: 'center'
+    },
+    boton: {
+        backgroundColor: '#FFFF01',
+        color: '#fff',
+        padding: 10,
+        borderRadius: 5,
+    },
+    userInfoSection: {
+        paddingHorizontal: 30,
+        marginVertical: 20,
+    },
+    form: {
+        marginTop: 20,
+    },
+    textLabel: {
+        color: '#777777',
+        marginBottom: 5,
+        marginTop: 5,
+    },
+    textInput: {
+        border: '1px solid #BBD2C5',
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+    }
+})
+
+
+export default ProfileEdit;
