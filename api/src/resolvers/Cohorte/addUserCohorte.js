@@ -20,5 +20,5 @@ export const addUserCohorte = async(number, username) => {
             users : {username} 
         }
     });
-    return await Cohorte.findOne({"Number": number});
+    return await (await Cohorte.findOne({"Number": number}));
 };
