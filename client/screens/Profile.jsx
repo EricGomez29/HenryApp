@@ -2,6 +2,7 @@ import React from 'react';
 import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { styles } from '../styles/ProfileStyles';
 
 const Profile = ({ route, navigation }) => {
 
@@ -59,7 +60,5 @@ const Profile = ({ route, navigation }) => {
         </SafeAreaView>
     );
 }
-
-
 
 export default Profile;
