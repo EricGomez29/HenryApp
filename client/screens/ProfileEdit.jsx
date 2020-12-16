@@ -6,7 +6,12 @@ import { styles } from '../styles/ProfileEditStyles';
 
 const ProfileEdit = ({ route, navigation }) => {
 
-    console.log(route.params);
+    const { username, email, firstName, lastName } = route.params.modifyData;
+
+    const handleSubmit = (values) => {
+        //modify values here
+        navigation.navigate('Welcome');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -14,16 +19,14 @@ const ProfileEdit = ({ route, navigation }) => {
                 <Formik
                     initialValues={{
                         country: '',
-                        firstName: '',
-                        lastName: '',
-                        username: '',
-                        email: '',
+                        firstName,
+                        lastName,
+                        username,
+                        email,
                         cohorte: '',
                         nroTelefono: '',
                     }}
-                    onSubmit={(values) => {
-                        console.log(values);
-                    }}
+                    onSubmit={values => handleSubmit(values)}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (
                         <View style={styles.form}>
