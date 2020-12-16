@@ -98,7 +98,7 @@ const typeDefs = gql`
 
         editUser( input: UsersInput): Users
         
-        removeUser (where: JSON): Users
+        removeUser (username:String): Users
         
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!

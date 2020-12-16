@@ -2,9 +2,8 @@ import Cohorte from '../models/Cohorte'
 
 export const existCohorte = async(cohor) => {
     const numCohorte = await Cohorte.findOne({number: cohor});
-    console.log(numCohorte);
-    if (numCohorte){
-        return numCohorte._id;
+    if (!numCohorte){
+       throw new Error(`El Cohorte ${cohor} no existe.`)
     }
-    return cohor;
+    return numCohorte._id;;
 }
