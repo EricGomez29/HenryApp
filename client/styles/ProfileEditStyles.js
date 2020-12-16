@@ -5,20 +5,18 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
+    containerBoton: {
+        alignSelf: "center"
+    },
     boton: {
         marginTop: 10,
         width: 180,
         height: 40,
-        backgroundColor: 'yellow',
-        borderRadius: 100,
-        justifyContent: "center",
-        alignItems: 'center'
-    },
-    boton: {
         backgroundColor: '#FFFF01',
-        color: '#fff',
-        padding: 10,
-        borderRadius: 5,
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
     },
     userInfoSection: {
         paddingHorizontal: 30,

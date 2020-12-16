@@ -85,7 +85,7 @@ const ProfileEdit = ({ route, navigation }) => {
                             />
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>INICIAR SESION</Text>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Guardar</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
