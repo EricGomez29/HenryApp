@@ -38,6 +38,7 @@ export default function Login({ navigation }) {
         const { errors, success, token } = response.data.login;
         if (success) {
             localStorage.setItem('token', token);
+            localStorage.setItem('userEmail', values.email);
             navigation.navigate('Welcome');
         } else {
             console.error(errors);

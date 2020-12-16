@@ -1,16 +1,16 @@
-import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
 import UsersList from './screens/UsersList'
 import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
-import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
-// import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';  //mesa privada
+import Profile from './screens/Profile';
 import { Mesa } from './screens/Mesas';
 import IniciaryRegistrar from './screens/PruebaBoton';
 import { DripsyProvider } from 'dripsy';
@@ -19,10 +19,12 @@ const Stack = createStackNavigator();
 
 const client = new ApolloClient({
   uri: `http://localhost:5000/graphql`,
-  cache: new InMemoryCache()
-})
-
-
+  cache: new InMemoryCache(),
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log('graphQLErrors', graphQLErrors)
+    console.log('networkError', networkError)
+  }//debugging graphql
+});
 
 export default function App() {
 
@@ -43,6 +45,7 @@ export default function App() {
           <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
             <Stack.Screen name="Mesa" component={Mesa} />
             <Stack.Screen name="Footer" component={Footer} />
+            <Stack.Screen name="Profile" component={Profile} />
           </Stack.Navigator>
         </NavigationContainer>
       </DripsyProvider>

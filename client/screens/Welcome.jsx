@@ -1,12 +1,26 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
 import { Container } from '../styled-components/Container'
+import { GET_USER } from '../Querys/userQuery';
+import { useQuery } from '@apollo/client';
+
+const email = localStorage.getItem('userEmail');
 
 export default function Welcome({ navigation }) {
+    const { loading, data, error } = useQuery(GET_USER, {
+        variables: {
+            email,
+        }
+    });
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
         navigation.navigate('Home');
+    }
+
+    if (loading) {
+        return <View><Text>Loading</Text></View>
     }
 
     return (
@@ -18,9 +32,9 @@ export default function Welcome({ navigation }) {
                 style={styles.henry}
             ></Image>
 
-            <Text style={styles.title}>Bienvenido usuario</Text>
+            <Text style={styles.title}>{'Bienvenido ' + data.users[0].username}</Text>
 
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                     PERFIL
                 </Text>
