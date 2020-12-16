@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
     },
     containerBoton:{
         alignSelf: "center",
-        marginTop: 20
+        marginTop: 20, 
+        
     },
     errorForm: {
         fontSize: 12, 
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
     },
     input:{
         height: 50,
-        width: 200,
+        width: 230,
         borderBottomColor: 'gray',
         borderBottomWidth: 1
         

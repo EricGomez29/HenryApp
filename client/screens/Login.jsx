@@ -47,32 +47,32 @@ export default function Login ({navigation}) {
                 >
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
                     <View style={{width: '90%'}}>
-                        
-                        <View >
-                            <TextInput 
-                            placeholder= 'Email'
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
-                            style={styles.input}/> 
-                        </View>
-                        {/* ERROR EMAIL */}
-                        {touched.username && errors.email &&
-                        <Text style={styles.errorForm}>{errors.email}</Text>}
+                        <View style={styles.containerBoton}>
+                            <View >
+                                <TextInput 
+                                placeholder= 'Email'
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                                style={styles.input}/> 
+                            </View>
+                            {/* ERROR EMAIL */}
+                            {touched.username && errors.email &&
+                            <Text style={styles.errorForm}>{errors.email}</Text>}
 
-                        <View style={{marginTop: 10}}>
-                            <TextInput
-                            placeholder='Contraseña' 
-                            secureTextEntry={true}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            style={styles.input}/>
+                            <View style={{marginTop: 10}}>
+                                <TextInput
+                                placeholder='Contraseña' 
+                                secureTextEntry={true}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                                style={styles.input}/>
+                            </View>
+                            {/* ERROR CONTRASEÑA */}
+                            {touched.password && errors.password &&
+                            <Text style={styles.errorForm}>{errors.password}</Text>}
                         </View>
-                        {/* ERROR CONTRASEÑA */}
-                        {touched.password && errors.password &&
-                        <Text style={styles.errorForm}>{errors.password}</Text>}
-
                         <View style={styles.containerBoton}>
                             <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
