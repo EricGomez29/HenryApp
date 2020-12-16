@@ -8,7 +8,7 @@ export const regUser = async (username,firstName, lastName, cohorte,email, passw
     if (cohorte) {
         cohorte = await existCohorte(cohorte)
     }
-    return await User.create( {username, firstName,lastName,cohorte:cohorte,email,password: hash} )
+    return await (await User.create( {username, firstName,lastName,cohorte:cohorte,email,password: hash})).populate('cohorte');
 }
 
 export const editUsers = async (input) =>
