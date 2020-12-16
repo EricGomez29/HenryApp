@@ -3,17 +3,17 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet} from 'react-native';
 // import {Button} from 'native-base'
 import { styles } from '../styles/HomeStyle'
-import Footer from '../Components/Footer'
 import {Text, Image} from 'dripsy';
 
 
 export default function Home({navigation}){
     console.log('estoy en el home')
+
     return (
         <View style={{display: 'flex', width: '100%', height: '100%', backgroundColor: 'white'}}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '60%'}}
+                style={{width: '100%', position: 'absolute', height: '70%'}}
                 // sx={{height: [300, 500]}}
             ></Image>
             <View style={styles.container}>

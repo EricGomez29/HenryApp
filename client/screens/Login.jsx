@@ -7,16 +7,18 @@ import { styles } from '../styles/LoginStyle'
 import Footer from '../Components/Footer'
 
 const LOGIN = gql`
-    mutation Login($email: String!, $password: String! ) {
-        login(email: $email, password: $password) {
-            userId
-            token
+mutation Login($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+        success
+        token
+        errors {
+            message
         }
+    }
 }`;
 
 export default function Login ({navigation}) {
 
-    
     const validations= yup.object().shape({
         email: yup.string()
             .required('Campo obligatorio'),
@@ -27,15 +29,22 @@ export default function Login ({navigation}) {
     
     const  [login, {data} ]= useMutation(LOGIN);
 
-    const handleSubmit = (values) => {
-        login( { variables: { email: values.email, password: values.password } } );
-        if(error) {
-            return console.log(error)
-        } 
-        navigation.navigate("Welcome")
-       }
-
-    console.log(data)
+    const handleSubmit = async (values) => {
+        const response = await login({ 
+            variables: { 
+                email: values.email, 
+                password: values.password 
+            } 
+        });
+        const { errors, success, token } = response.data.login;
+        if(!success) {
+            console.log('Error')
+        } else {
+            localStorage.setItem('token', token);
+            console.log('Preguntar a Nare como redireccionar a Welcome');
+        }
+    }
+    
     return (
         <View style={{flex: 1}}>
             <View style={{width: 270}}>
