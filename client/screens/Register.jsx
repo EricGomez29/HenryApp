@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Image, ScrollView} from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text} from 'native-base';
+import { View, TextInput, TouchableOpacity, Image, ScrollView, Text} from 'react-native';
 import {Formik, yupToFormErrors} from 'formik';
 import * as yup from 'yup'
 import { USER_REGISTER } from '../Querys/userQuery.js';
@@ -59,17 +58,16 @@ export default function Register({navigation}) {
                     validationSchema={validations}
                 >
                     {({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
-                        <View style={{width: '90%', height: 320}}>
+                        <View style={{width: '100%', height: 320}}>
 
                             <ScrollView style={{width: '90%', height: 300}}>
                                 <View >
-                                    <Item floatingLabel>
-                                        <Label>Usuario</Label>
-                                        <Input 
-                                            onChangeText={handleChange('username')}
-                                            onBlur={handleBlur('username')}
-                                            value={values.username}/>
-                                    </Item>
+                                    <TextInput 
+                                        placeholder='Nombre de usuario'
+                                        onChangeText={handleChange('username')}
+                                        onBlur={handleBlur('username')}
+                                        value={values.username}
+                                        style={styles.input}/>
                                 </View>
                                 {/* ERROR USERNAME */}
                                 {touched.username && errors.username &&
@@ -77,13 +75,12 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO EMAIL */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Email</Label>
-                                        <Input 
-                                            onChangeText={handleChange('email')}
-                                            onBlur={handleBlur('email')}
-                                            value={values.email}/>
-                                    </Item>
+                                    <TextInput 
+                                        placeholder='Email'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
+                                        style={styles.input}/>
                                 </View>
                                 {/* ERROR EMAIL */}
                                 {touched.email && errors.email &&
@@ -91,13 +88,12 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO FIRST NAME */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Nombre</Label>
-                                        <Input 
-                                            onChangeText={handleChange('firstName')}
-                                            onBlur={handleBlur('firstName')}
-                                            value={values.firstName}/>
-                                    </Item>
+                                    <TextInput 
+                                        placeholder='Nombre'
+                                        onChangeText={handleChange('firstName')}
+                                        onBlur={handleBlur('firstName')}
+                                        value={values.firstName}
+                                        style={styles.input}/>
                                 </View>
                                 {/* ERROR FIRSTNAME */}
                                 {touched.firstName && errors.firstName &&
@@ -105,13 +101,12 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO LAST NAME */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Apellido</Label>
-                                        <Input 
-                                            onChangeText={handleChange('lastName')}
-                                            onBlur={handleBlur('lastName')}
-                                            value={values.lastName}/>
-                                    </Item>
+                                    <TextInput 
+                                        placeholder='Apellido'
+                                        onChangeText={handleChange('lastName')}
+                                        onBlur={handleBlur('lastName')}
+                                        value={values.lastName}
+                                        style={styles.input}/>
                                 </View>
                                 {/* ERROR LAST NAME */}
                                 {touched.lastName && errors.lastName &&
@@ -119,13 +114,12 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO  COHORTE */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Cohorte</Label>
-                                        <Input 
-                                        onChangeText={handleChange('cohorte')}
-                                        onBlur={handleBlur('cohorte')}
-                                        value={values.cohorte}/>
-                                    </Item>
+                                    <TextInput 
+                                    placeholder='Cohorte'
+                                    onChangeText={handleChange('cohorte')}
+                                    onBlur={handleBlur('cohorte')}
+                                    value={values.cohorte}
+                                    style={styles.input}/>
                                 </View>
                                 {/* ERROR COHORTE */}
                                 {touched.cohorte && errors.cohorte &&
@@ -133,14 +127,13 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO PASSWORD */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Contraseña</Label>
-                                        <Input 
-                                        secureTextEntry={true}
-                                        onChangeText={handleChange('password')}
-                                        onBlur={handleBlur('password')}
-                                        value={values.password}/>
-                                    </Item>
+                                    <TextInput 
+                                    placeholder='Contraseña'
+                                    secureTextEntry={true}
+                                    onChangeText={handleChange('password')}
+                                    onBlur={handleBlur('password')}
+                                    value={values.password}
+                                    style={styles.input}/>  
                                 </View>
                                 {/* ERROR PASSWORD */}
                                 {touched.password && errors.password &&
@@ -148,14 +141,13 @@ export default function Register({navigation}) {
 
                                 {/* CAMPO REPEAT PASSWORD */}
                                 <View style={{marginTop: 10}}>
-                                    <Item floatingLabel>
-                                        <Label>Repite la contraseña</Label>
-                                        <Input 
-                                        secureTextEntry={true}
-                                        onChangeText={handleChange('repeatPassword')}
-                                        onBlur={handleBlur('repeatPassword')}
-                                        value={values.repeatPassword}/>
-                                    </Item>
+                                    <TextInput 
+                                    placeholder='Repite la contraseña'
+                                    secureTextEntry={true}
+                                    onChangeText={handleChange('repeatPassword')}
+                                    onBlur={handleBlur('repeatPassword')}
+                                    value={values.repeatPassword}
+                                    style={styles.input}/> 
                                 </View>
                                 {/* ERROR REPEAT PASSWORD */}
                                 {touched.repeatPassword && errors.repeatPassword &&
@@ -164,9 +156,9 @@ export default function Register({navigation}) {
 
                             {/* REGISTRARSE */}
                             <View style={styles.containerBoton}>
-                                <Button style={styles.boton} disabled={!isValid} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.boton} disabled={!isValid} onPress={handleSubmit}>
                                     <Text style={{color: 'black', fontWeight: 'bold'}}>Registrarme</Text>
-                                </Button>
+                                </TouchableOpacity>
                             </View>
 
                         </View>

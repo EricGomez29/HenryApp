@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
+import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
 import  * as yup from 'yup'
 import { gql, useMutation, useQuery } from '@apollo/client';
@@ -50,27 +49,25 @@ export default function Login ({navigation}) {
                     <View style={{width: '90%'}}>
                         
                         <View >
-                            <Item floatingLabel>
-                                <Label>Email</Label>
-                                <Input onChangeText={handleChange('email')}
-                                onBlur={handleBlur('email')}
-                                value={values.email}
-                                style={{height: 50}}/>
-                            </Item>
+                            <TextInput 
+                            placeholder= 'Email'
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            value={values.email}
+                            style={styles.input}/> 
                         </View>
                         {/* ERROR EMAIL */}
                         {touched.username && errors.email &&
                         <Text style={styles.errorForm}>{errors.email}</Text>}
 
                         <View style={{marginTop: 10}}>
-                            <Item floatingLabel>
-                                <Label>Contraseña</Label>
-                                <Input secureTextEntry={true}
-                                onChangeText={handleChange('password')}
-                                onBlur={handleBlur('password')}
-                                value={values.password}
-                                style={{height: 50}}/>
-                            </Item>
+                            <TextInput
+                            placeholder='Contraseña' 
+                            secureTextEntry={true}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            style={styles.input}/>
                         </View>
                         {/* ERROR CONTRASEÑA */}
                         {touched.password && errors.password &&
@@ -82,24 +79,24 @@ export default function Login ({navigation}) {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.containerBoton}>
-                            <Button style={styles.boton} onPress={handleSubmit}>
+                            <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
                                 <Text style={{color: 'black', fontWeight: 'bold'}}>INICIAR SESION</Text>
-                            </Button>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.containerBoton}>
                             <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
                             </TouchableOpacity>
                         </View>
-
+{/* 
                         <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
-                            <Button style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
+                            <TouchableOpacity style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
                                 <Icon name="logo-facebook" style={{fontSize:20}}/>
-                            </Button>
-                            <Button style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
                                 <Icon name="logo-google" style={{fontSize:20}}/>
-                            </Button>
-                        </View>
+                            </TouchableOpacity>
+                        </View> */}
                     </View>
                     )}
                 </Formik>

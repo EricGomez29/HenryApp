@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
         height: 40,
         backgroundColor: 'yellow',
         borderRadius: 100,
-        justifyContent: "center",   
+        justifyContent: "center",  
+        alignItems: 'center' 
     },
     containerBoton:{
         alignSelf: "center",
@@ -17,5 +18,12 @@ export const styles = StyleSheet.create({
         fontSize: 12, 
         color: 'red',
         marginTop: 5,
+    },
+    input:{
+        height: 50,
+        width: 200,
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1
+        
     },
 })
