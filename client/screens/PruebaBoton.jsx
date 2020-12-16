@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView} from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
+import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView, Text} from 'react-native';
+// import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 // import styles from '../styles/LoginStyle'
 import {styles} from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
@@ -25,6 +25,7 @@ export default function Botones(){
         return(
             <Animated.View style={[{width: 250, height: 350},
                 {opacity: fadeRegister}]}>
+                
                 <Register/>
             </Animated.View>
         )
@@ -93,8 +94,8 @@ export default function Botones(){
 
                     <View style={styles.botones}>
                         <Animated.View
-                        style={[{height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100},
-                        {transform:[{translateX: traslateAnimation}]}]}/>
+                            style={[{height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100},
+                            {transform:[{translateX: traslateAnimation}]}]}/>
                         <TouchableOpacity style={styles.boton} onPress={moverIzquierda}>
                             <Text style={{fontWeight: 'bold', color: 'black'}}>Iniciar Sesion</Text>
                         </TouchableOpacity>
