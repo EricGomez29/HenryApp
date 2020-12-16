@@ -15,8 +15,7 @@ const UserSchema = new Schema({
         required: true
     },
     cohorte: {
-        type: Number,
-        required: true
+        type: Schema.Types.ObjectId, ref: 'Cohorte',
     },
     henryCoins: {
         type: Number,
@@ -35,6 +34,14 @@ const UserSchema = new Schema({
         type: String,
         require: true
     },
+    forgotPassword:{
+        type: Number,
+        default: 0
+    },
+    isInstructor:{
+        type: Boolean,
+        default: false
+    }
 })
 
 const User = mongoose.model('User', UserSchema);
