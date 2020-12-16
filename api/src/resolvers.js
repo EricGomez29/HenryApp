@@ -7,7 +7,9 @@ import Mesas from './models/Mesas';
 import agregarUsuarioMesa from './resolvers/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
-
+import { addUserCohorte } from "./resolvers/Cohorte/addUser";
+import { addCohorteInstructor } from "./resolvers/Cohorte/assignInstructorCohorte";
+import { existCohorte } from './consultasBD/cohorte'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -22,7 +24,7 @@ const resolvers = {
         users: /*isAutenticatedResolver.createResolver(*/
             async (parent, { where }, context) => await User.find(where).exec(),
         //COHORTES
-        cohortes: async (parent, { where }, context) => await Cohorte.find(where).exec(),
+        cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
         pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
         //MESAS
@@ -33,6 +35,10 @@ const resolvers = {
         //USERS
         registerUser: async (_, {username,firstName, lastName, cohorte,email, password }, res) => {
             const hash = await bcrypt.hash(password, 9);
+            //verifico si existe el cohorte si desde el registro mandan uno
+            if (cohorte) {
+                cohorte = existCohorte(cohorte)
+            }
             return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
         },
         editUser: async (parent, { input }, context, req) => {
@@ -60,26 +66,48 @@ const resolvers = {
                 throw new Error (`No se puede agregar usuarios a Cohortes anteriores`);
             }
             // Busco si existe el cohorte
-            const cohorte = await Cohorte.findOne({"Number": number})
+            const cohorte = await Cohorte.findOne({"number": number})
             if (!cohorte){
                 throw new Error("El Cohorte no existe")
             }
             // Guardo el username de ese alumno en el array Users de Cohorte
             await User.findOneAndUpdate({"username": username}, {"cohorte": number})
-            await Cohorte.findOneAndUpdate({"Number": number},
+            await Cohorte.findOneAndUpdate({"number": number},
             {
                 $push : {
                     Users : {username} 
                 }
             });
-            await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
+            await Cohorte.findOneAndUpdate({"number": user[0].cohorte},
             {
                 $pull : {
                     Users : {username} 
                 }
             });
-            return await Cohorte.findOne({"Number": number});
+            return await Cohorte.findOne({"number": number});
         },
+        addInstructor: async (parent ,{ username, cohorte }, context) =>{
+            // addCohorteInstructor(username, cohorte),
+            const user = await User.findOne({username: username});
+            if(!user){
+                throw new Error("El usuario no existe");
+            }
+            //veo si el cohorte tiene instructor
+            const cohor = await Cohorte.findOne({number: cohorte});
+            //si no le agrego el tanto al cohorte como a la propiedad isInstructor
+            console.log(!cohor.instructor);
+            await User.findOneAndUpdate({username: username}, {isInstructor: true});
+            await Cohorte.findOneAndUpdate({Number: cohorte}, {instructor: user._id});
+            // me fijo si el usuario es instructor en otros cohortes
+            const res = await Cohorte.find({instructor: cohor.instructor});
+            if (res.length === 0){
+                await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
+            }
+            
+            return await Cohorte.findOne({Number: cohorte}).populate('instructor');
+            
+        },
+         
 
         //Remover Usuario de Cohorte
         removeUserCohorte: async (parent, { username }, context) => {

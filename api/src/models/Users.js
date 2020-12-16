@@ -15,8 +15,7 @@ const UserSchema = new Schema({
         required: true
     },
     cohorte: {
-        type: Number,
-        default: null
+        type: Schema.Types.ObjectId, ref: 'Cohorte',
     },
     henryCoins: {
         type: Number,
@@ -38,6 +37,10 @@ const UserSchema = new Schema({
     forgotPassword:{
         type: Number,
         default: 0
+    },
+    isInstructor:{
+        type: Boolean,
+        default: false
     }
 })
 

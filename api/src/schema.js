@@ -10,6 +10,7 @@ const typeDefs = gql`
         email: String
         password: String
         forgotPassword:String
+        isInstructor:Boolean
     }
 
     type Error {
@@ -32,11 +33,13 @@ const typeDefs = gql`
         isAdmin: Boolean
         email: String
         password: String
+        
     }
 
     type Cohortes {
-        Number: Int!
-        Users: [Users!]!
+        Number: Int
+        Users: [Users!]
+        instructor: Users
     }
         
     input CohortesInput {
@@ -76,7 +79,6 @@ const typeDefs = gql`
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
-        
     }
 
     type Mutation {
@@ -99,7 +101,7 @@ const typeDefs = gql`
         
         addUserCohorte(number: Int!, username: String!): Cohortes
         removeUserCohorte(username:String!):Cohortes!
-        assignInstructorCohorte(username:String, cohorte:String): Cohortes
+        addInstructor(username:String, cohorte:Int): Cohortes
 
         addUserPairProgramming(username:String!):Mesas
 
