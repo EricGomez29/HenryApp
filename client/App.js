@@ -9,11 +9,11 @@ import ForgotPassword from './screens/ForgotPassword';
 import UsersList from './screens/UsersList'
 import CohorteList from './screens/CohorteList'
 import Footer from './Components/Footer'
-import { ApolloClient, InMemoryCache, gql ,ApolloProvider} from '@apollo/client';
+import { ApolloClient, InMemoryCache, gql, ApolloProvider } from '@apollo/client';
 // import {Sala, MesaPrivada, CrearMesa, UnirseAMesa, Mesa} from './screens/Mesas';  //mesa privada
-import {Mesa} from './screens/Mesas';
+import { Mesa } from './screens/Mesas';
 import IniciaryRegistrar from './screens/PruebaBoton';
-import {DripsyProvider} from 'dripsy';
+import { DripsyProvider } from 'dripsy';
 
 const Stack = createStackNavigator();
 
@@ -25,34 +25,34 @@ const client = new ApolloClient({
 
 
 export default function App() {
-  
+
   return (
-   <ApolloProvider client={client}> 
-    <DripsyProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName='Home' screenOptions={ { headerShown: true } }>
-          <Stack.Screen name="CohorteList" component={CohorteList} />
-          <Stack.Screen name="UsersList" component={UsersList}/>
-          <Stack.Screen name="Home" component={Home}/>
-          <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar}/>
-          <Stack.Screen name="Welcome" component={Welcome}/>
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
-          {/* <Stack.Screen name="Sala" component={Sala}/>
+    <ApolloProvider client={client}>
+      <DripsyProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
+            <Stack.Screen name="CohorteList" component={CohorteList} />
+            <Stack.Screen name="UsersList" component={UsersList} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
+            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            {/* <Stack.Screen name="Sala" component={Sala}/>
           <Stack.Screen name="MesaPrivada" component={MesaPrivada}/>
           <Stack.Screen name="CrearMesa" component={CrearMesa}/>
           <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
-          <Stack.Screen name="Mesa" component={Mesa}/>
-          <Stack.Screen name="Footer" component={Footer}/>  
-        </Stack.Navigator>
-      </NavigationContainer>
-    </DripsyProvider>
-   </ApolloProvider>
+            <Stack.Screen name="Mesa" component={Mesa} />
+            <Stack.Screen name="Footer" component={Footer} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </DripsyProvider>
+    </ApolloProvider>
   );
 }
 
-const theme={
+const theme = {
   colors: {
     primary: 'yellow'
   },
-  
+
 }

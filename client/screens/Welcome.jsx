@@ -1,5 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
 import { Container } from '../styled-components/Container'
 
@@ -42,7 +41,6 @@ export default function Welcome({ navigation }) {
             <TouchableOpacity onPress={handleLogout}>
                 <Text style={styles.action}>Cerrar sesión</Text>
             </TouchableOpacity>
-
         </Container>
     )
 }
