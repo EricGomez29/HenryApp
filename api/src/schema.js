@@ -92,7 +92,7 @@ const typeDefs = gql`
         email: String
         password: String ): Users
 
-        addCohorte(input: CohortesInput): Cohortes
+        addCohorte(input:CohortesInput): Cohortes
 
         login(email: String!, password: String!): AuthData!
 

@@ -4,7 +4,8 @@ const CohorteSchema = new Schema({
     number: {
         type: Number,
         unique: true,
-        required: true
+        required: true,
+        default:0
     },
     users: [{ 
         type: Schema.Types.ObjectId, ref: 'User'
@@ -15,7 +16,6 @@ const CohorteSchema = new Schema({
     instructor:{
         type: Schema.Types.ObjectId, ref: 'User'
     }
-
 })
 
 const Cohorte = mongoose.model('Cohorte', CohorteSchema);

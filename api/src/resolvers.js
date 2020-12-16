@@ -25,7 +25,7 @@ const resolvers = {
         users: /*isAutenticatedResolver.createResolver(*/
             async (parent, { where }, context) => await User.find(where).populate('cohorte').exec(),
         //COHORTES
-        cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').exec(),
+        cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
         pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
         //MESAS
@@ -41,7 +41,7 @@ const resolvers = {
         
         
         //COHORTES
-        addCohorte: async (parent, { input }, context) => await Cohorte.create(input),
+        addCohorte: async (parent,context) => await Cohorte.create({ $inc: { number: 1 } }),
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
             
         addInstructor: async (parent ,{ username, cohorte }, context) =>{
