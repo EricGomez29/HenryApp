@@ -42,10 +42,6 @@ const typeDefs = gql`
         users: [Users!]
         instructor: Users
     }
-        
-    input CohortesInput {
-        number: Int!
-    }
     
     type PairProgramming {
         horaDeInicio: String
@@ -92,7 +88,7 @@ const typeDefs = gql`
         email: String
         password: String ): Users
 
-        addCohorte(input: CohortesInput): Cohortes
+        addCohorte: Cohortes
 
         login(email: String!, password: String!): AuthData!
 
