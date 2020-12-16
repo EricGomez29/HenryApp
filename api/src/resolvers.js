@@ -41,9 +41,20 @@ const resolvers = {
         
         
         //COHORTES
-        addCohorte: async (parent,context) => await Cohorte.create({ $inc: { number: 1 } }),
+        addCohorte: async (parent, { input }, context) => {
+            //Busco los cohortes
+            const cohor = await Cohorte.find()
+            //Si la longitud de la busquedad es de 0 es porque no existen cohortes
+            if(cohor.length === 0) {
+                console.log('No existia ningun cohorte, este es el primero!')
+                return await Cohorte.create({"number": 1});
+            }
+
+            const increment = cohor[cohor.length -1].number + 1;
+            return await Cohorte.create({"number": increment});
+        },
+
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
-            
         addInstructor: async (parent ,{ username, cohorte }, context) =>{
             // addCohorteInstructor(username, cohorte),
             const user = await User.findOne({username: username});

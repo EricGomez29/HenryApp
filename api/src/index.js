@@ -11,9 +11,6 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-app.use(cors({
-    origin: ["http://localhost:5000"]
-}))
 app.use(auth.checkHeaders);
 
 //Configuraciones del archivo .env

@@ -5,7 +5,6 @@ const CohorteSchema = new Schema({
         type: Number,
         unique: true,
         required: true,
-        default:0
     },
     users: [{ 
         type: Schema.Types.ObjectId, ref: 'User'

@@ -6,12 +6,8 @@ import { ListItem } from 'react-native-elements';
 
 const COHORTES = gql `
 query Cohortes{
-    cohortes{
-       
+    cohortes{ 
         Number
-       
-        
-
     }
 }`
 
@@ -32,17 +28,10 @@ export default function ({navigation}){
                 <ListItem key={cohorte.Number}>
                     <ListItem.Content>
                       <ListItem.Title> FT0{cohorte.Number} </ListItem.Title> 
-                      
-                   
                     </ListItem.Content>
-                    
-
                 </ListItem>
                 )
             }
-
         </ScrollView>
     )
-
-
 }
