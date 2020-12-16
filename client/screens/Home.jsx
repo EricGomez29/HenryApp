@@ -1,10 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-// import {Button} from 'native-base'
+import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
 import { Text, Image } from 'dripsy';
-
 
 export default function Home({ navigation }) {
     return (

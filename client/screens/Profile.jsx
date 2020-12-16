@@ -3,7 +3,7 @@ import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const Profile = ({ route, navigation }) => {
+export default Profile = ({ route, navigation }) => {
 
     console.log(route.params);
 
