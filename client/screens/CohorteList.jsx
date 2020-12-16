@@ -7,31 +7,37 @@ import { ListItem } from 'react-native-elements';
 const COHORTES = gql `
 query Cohortes{
     cohortes{ 
-        Number
+        number
+        users {
+            username
+        }
     }
 }`
 
 export default function ({navigation}){
-
     const {data, error, loading} = useQuery(COHORTES)
-    console.log(data?.cohortes?.length)
-    
-    {data?.cohortes?.map((cohorte)=>  console.log(cohorte.Number))}
 
+    
     if(loading) return <Text> Loading...</Text>
+    
     if(error) return <Text> ` Error ... ${error.message}`</Text>
 
+    const resp = data?.cohortes.map(e => {
+        return (
+            <ListItem key={e.number}>
+                <ListItem.Content>
+                    <ListItem.Title> 
+                        Cohorte #{e.number}
+                        Alumnos: {e.users.length}
+                    </ListItem.Title> 
+                </ListItem.Content>
+            </ListItem>
+        )
+    });
+    
     return(
         <ScrollView>
-            {
-                data?.cohortes?.map((cohorte) =>
-                <ListItem key={cohorte.Number}>
-                    <ListItem.Content>
-                      <ListItem.Title> FT0{cohorte.Number} </ListItem.Title> 
-                    </ListItem.Content>
-                </ListItem>
-                )
-            }
+            {resp}
         </ScrollView>
     )
 }
