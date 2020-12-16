@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
 import { Container } from '../styled-components/Container'
 
-export default function Welcome( { navigation } ){
-    
+export default function Welcome({ navigation }) {
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigation.navigate('Home');
+    }
+
     return (
         <Container>
             <View style={styles.rect}></View>
@@ -15,28 +20,28 @@ export default function Welcome( { navigation } ){
             ></Image>
 
             <Text style={styles.title}>Bienvenido usuario</Text>
-        
+
             <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                     PERFIL
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                     MATERIAL DE ESTUDIO
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                     PAIR PROGRAMMING
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={handleLogout}>
                 <Text style={styles.action}>Cerrar sesión</Text>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
         </Container>
     )
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         backgroundColor: "rgba(255,255,1,1)",
         overflow: "visible"
-      },
+    },
     henry: {
         top: -65,
         width: 200,
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         alignSelf: "center",
         zIndex: 1,
-      },
+    },
     boton: {
         width: 250,
         height: 40,
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     }
 });
 
-/* 
+/*
 const [isEnabled, setIsEnabled] = useState(false);
 const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -94,5 +99,5 @@ const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     ios_backgroundColor="#3e3e3e"
     onValueChange={toggleSwitch}
     value={isEnabled}
-/> 
+/>
 */
