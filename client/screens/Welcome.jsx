@@ -21,42 +21,42 @@ export default function Welcome({ navigation }) {
 
     if (loading) {
         return <View><Text>Loading</Text></View>
+    } else {
+        return (
+            <Container>
+                <View style={styles.rect}></View>
+                <Image
+                    source={require("../assets/logoHenry.png")}
+                    resizeMode="contain"
+                    style={styles.henry}
+                ></Image>
+
+                <Text style={styles.title}>{'Bienvenido ' + data.users[0].username}</Text>
+
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        PERFIL
+                </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        MATERIAL DE ESTUDIO
+                </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        PAIR PROGRAMMING
+                </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleLogout}>
+                    <Text style={styles.action}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </Container>
+        )
     }
-
-    return (
-        <Container>
-            <View style={styles.rect}></View>
-            <Image
-                source={require("../assets/logoHenry.png")}
-                resizeMode="contain"
-                style={styles.henry}
-            ></Image>
-
-            <Text style={styles.title}>{'Bienvenido ' + data.users[0].username}</Text>
-
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                    PERFIL
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                    MATERIAL DE ESTUDIO
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')} >
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                    PAIR PROGRAMMING
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={handleLogout}>
-                <Text style={styles.action}>Cerrar sesión</Text>
-            </TouchableOpacity>
-        </Container>
-    )
 }
 
 // Estilos

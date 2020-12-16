@@ -3,7 +3,7 @@ import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default Profile = ({ route, navigation }) => {
+const Profile = ({ route, navigation }) => {
 
     console.log(route.params);
 
@@ -100,3 +100,5 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     }
 });
+
+export default Profile;
