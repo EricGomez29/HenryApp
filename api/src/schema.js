@@ -37,13 +37,13 @@ const typeDefs = gql`
     }
 
     type Cohortes {
-        Number: Int
-        Users: [Users!]
+        number: Int
+        users: [Users!]
         instructor: Users
     }
         
     input CohortesInput {
-        Number: Int!
+        number: Int!
     }
     
     type PairProgramming {

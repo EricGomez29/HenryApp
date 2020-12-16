@@ -6,5 +6,5 @@ export const existCohorte = async(cohor) => {
     if (numCohorte){
         return numCohorte._id;
     }
-    return cohor
+    return cohor;
 }
