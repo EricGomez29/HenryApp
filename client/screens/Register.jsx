@@ -58,9 +58,9 @@ export default function Register({navigation}) {
                     validationSchema={validations}
                 >
                     {({handleChange, handleBlur, handleSubmit, values, errors, touched, isValid}) => (
-                        <View style={{width: '100%', height: 320}}>
+                        <View style={{height: 320}}>
 
-                            <ScrollView style={{width: '90%', height: 300}}>
+                            <ScrollView style={{width: '90%', height: 300, alignSelf: 'center'}}>
                                 <View >
                                     <TextInput 
                                         placeholder='Nombre de usuario'

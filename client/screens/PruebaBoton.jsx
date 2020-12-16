@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView, Text} from 'react-native';
+import { TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView, Text} from 'react-native';
 // import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
 // import styles from '../styles/LoginStyle'
 import {styles} from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
 import Register from './Register';
+import {View} from 'dripsy';
 
 export default function Botones(){
     const traslateAnimation = new Animated.Value(0)
@@ -88,9 +89,9 @@ export default function Botones(){
 
 
     return (
-        <View style={{flex: 1}}>
-            <View style={styles.container}>
-                <View style={styles.cuadro}>
+        <View style={styles.container}>
+            {/* <View style={styles.container}> */}
+                <View style={styles.cuadro} sx={{width: [300, 400]}}>
 
                     <View style={styles.botones}>
                         <Animated.View
@@ -111,7 +112,7 @@ export default function Botones(){
                     </View>
 
                 </View>
-            </View>
+            {/* </View> */}
         </View>
     )
 }
