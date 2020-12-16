@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import User from '../models/Users';
 dotenv.config();
 const sendEmail = async(email) => {
-    const from = "henryapp-project@gmail.com";
+    const from = process.env.EMAIL;
     const subject = "Bienvenido/a a Henry"
     var transporter =  await nodemailer.createTransport({
         service: 'gmail',
@@ -13,7 +13,7 @@ const sendEmail = async(email) => {
         }
     });
     const mailOptions = {
-        from: from, // sender address
+        from: process.env.EMAIL, // sender address
         to: email, // list of receivers
         subject: subject, // Subject line
         html: 
