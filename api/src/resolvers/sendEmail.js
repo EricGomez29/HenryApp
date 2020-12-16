@@ -28,11 +28,6 @@ const sendEmail = async(email) => {
                                         <td height="20" style="line-height:20px" colspan="3">&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td height="1" colspan="3" style="line-height:1px">
-                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${email}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td>
                                         <td>
                                             <table border="0" width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
