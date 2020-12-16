@@ -22,7 +22,7 @@ const resolvers = {
     Query: {
         //USERS
         users: /*isAutenticatedResolver.createResolver(*/
-            async (parent, { where }, context) => await User.find(where).exec(),
+            async (parent, { where }, context) => await User.find(where).populate('cohorte').exec(),
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
@@ -37,9 +37,10 @@ const resolvers = {
             const hash = await bcrypt.hash(password, 9);
             //verifico si existe el cohorte si desde el registro mandan uno
             if (cohorte) {
-                cohorte = existCohorte(cohorte)
+                cohorte = await existCohorte(cohorte)
             }
-            return await User.create( {username, firstName,lastName,cohorte,email,password: hash} )
+            console.log(cohorte);
+            return await User.create( {username, firstName,lastName,cohorte:cohorte,email,password: hash} )
         },
         editUser: async (parent, { input }, context, req) => {
             console.log(!input.password);

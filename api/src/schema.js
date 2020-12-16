@@ -6,11 +6,23 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Int
+        cohorte: Cohortes
         email: String
         password: String
         forgotPassword:String
         isInstructor:Boolean
+    }
+
+    input UsersInput {
+        username: String
+        firstName: String
+        lastName: String
+        cohorte: Int
+        henryCoins: Int
+        isAdmin: Boolean
+        email: String
+        password: String
+        
     }
 
     type Error {
@@ -24,17 +36,6 @@ const typeDefs = gql`
         errors: [Error]
     }
     
-    input UsersInput {
-        username: String
-        firstName: String
-        lastName: String
-        cohorte: Int
-        henryCoins: Int
-        isAdmin: Boolean
-        email: String
-        password: String
-        
-    }
 
     type Cohortes {
         number: Int
