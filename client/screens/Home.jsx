@@ -1,10 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet} from 'react-native';
-// import {Button} from 'native-base'
+import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
-import Footer from '../Components/Footer'
-import {Text, Image} from 'dripsy';
+import { Text, Image } from 'dripsy';
 
 
 export default function Home({navigation}){
@@ -22,17 +19,14 @@ export default function Home({navigation}){
                     style={styles.homeHenry}
                 ></Image>
                 <Text style={styles.homeApp}>
-                        A P P
+                    A P P
                 </Text>
                 <View>
-                    <TouchableOpacity style={styles.homeBoton} onPress={() => {navigation.navigate('PruebaBoton')}}>
-                        <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>Comenzar</Text>
+                    <TouchableOpacity style={styles.homeBoton} onPress={() => { navigation.navigate('PruebaBoton') }}>
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Comenzar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            {/* <View>
-              <Footer/>  
-            </View> */}
         </View>
     )
 }

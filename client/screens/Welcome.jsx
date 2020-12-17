@@ -1,45 +1,62 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
 import { Container } from '../styled-components/Container'
+import { GET_USER } from '../Querys/userQuery';
+import { useQuery } from '@apollo/client';
 
-export default function Welcome( { navigation } ){
-    
-    return (
-        <Container>
-            <View style={styles.rect}></View>
-            <Image
-                source={require("../assets/logoHenry.png")}
-                resizeMode="contain"
-                style={styles.henry}
-            ></Image>
+const email = localStorage.getItem('userEmail');
 
-            <Text style={styles.title}>Bienvenido usuario</Text>
-        
-            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('#')}} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                    PERFIL
+export default function Welcome({ navigation }) {
+    const { loading, data, error } = useQuery(GET_USER, {
+        variables: {
+            email,
+        }
+    });
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
+        navigation.navigate('Home');
+    }
+
+    if (loading) {
+        return <View><Text>Loading</Text></View>
+    } else {
+        return (
+            <Container>
+                <View style={styles.rect}></View>
+                <Image
+                    source={require("../assets/logoHenry.png")}
+                    resizeMode="contain"
+                    style={styles.henry}
+                ></Image>
+
+                <Text style={styles.title}>{'Bienvenido ' + data.users[0].username}</Text>
+
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        PERFIL
                 </Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('#')}} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                    MATERIAL DE ESTUDIO
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        MATERIAL DE ESTUDIO
                 </Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('Mesa')}} >
-                <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                    PAIR PROGRAMMING
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesas')} >
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        PAIR PROGRAMMING
                 </Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={() =>{ navigation.navigate('Home')}}>
-                <Text style={styles.action}>Cerrar sesión</Text>
-            </TouchableOpacity> 
-
-        </Container>
-    )
+                <TouchableOpacity onPress={handleLogout}>
+                    <Text style={styles.action}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </Container>
+        )
+    }
 }
 
 // Estilos
@@ -53,7 +70,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         backgroundColor: "rgba(255,255,1,1)",
         overflow: "visible"
-      },
+    },
     henry: {
         top: -65,
         width: 200,
@@ -61,7 +78,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         alignSelf: "center",
         zIndex: 1,
-      },
+    },
     boton: {
         width: 250,
         height: 40,
@@ -84,7 +101,7 @@ const styles = StyleSheet.create({
     }
 });
 
-/* 
+/*
 const [isEnabled, setIsEnabled] = useState(false);
 const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -94,5 +111,5 @@ const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     ios_backgroundColor="#3e3e3e"
     onValueChange={toggleSwitch}
     value={isEnabled}
-/> 
+/>
 */
