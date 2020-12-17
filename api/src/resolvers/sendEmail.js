@@ -1,24 +1,22 @@
 var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
-import xoauth2 from 'xoauth2';
+import User from '../models/Users';
 dotenv.config();
 const sendEmail = async(email) => {
-    const from = process.env.EMAIL;
+    const from = "henryapp-project@gmail.com";
     const subject = "Bienvenido/a a Henry"
-    var transporter = await nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
+    var transporter =  await nodemailer.createTransport({
+        service: 'gmail',
+        sucure:true,
         auth: {
             user: process.env.EMAIL,
             pass: process.env.PASSWORD
         }
     });
     const mailOptions = {
-        from: process.env.EMAIL, // sender address
+        from: from, // sender address
         to: email, // list of receivers
         subject: subject, // Subject line
-        text: "Bienvenido/a Henry",
         html: 
             `<div style="margin:0;padding:0" dir="ltr" bgcolor="#ffffff">
                 <table border="0" cellspacing="0" cellpadding="0" align="center" id="m_5856674466128473302email_table" style="border-collapse:collapse">
@@ -29,6 +27,11 @@ const sendEmail = async(email) => {
                                 <tbody>
                                     <tr>
                                         <td height="20" style="line-height:20px" colspan="3">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td height="1" colspan="3" style="line-height:1px">
+                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${email}: Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td width="15" style="display:block;width:15px">&nbsp;&nbsp;&nbsp;</td>
@@ -118,20 +121,18 @@ const sendEmail = async(email) => {
     };
     
     await transporter.sendMail(mailOptions, function (err, info) {
-        if(err){
-            // console.log(`El email no ha podido enviarse a`);
-            console.log(err);
-        }else{
+        if(err)
+            throw new Error(`El email no ha podido enviarse a ${email}`)
+        else
             console.log(info);
-            return {
-                from: from,
-                to: email,
-                subject: subject,
-                text: `Mensaje enviado a ${email}` 
-            }
+        });         
+        return {
+            from: from,
+            to: email,
+            subject: subject,
+            text: `Mensaje enviado a ${email}` 
         }
-    });         
-}
+    }
 module.exports= {
     sendEmail
 }

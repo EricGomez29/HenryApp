@@ -53,11 +53,17 @@ export const agregarUsuarioMesa = async(username) => {
     return await Mesas.findOne({_id: mesa._id}).populate('users')
 }
 
-// export const removeUserPairProgramming = async(username) => {
-//     const fecha = moment(moment.now()).format("DD/MM/YYYY");
-//     //Veo Si existe el Usuario
-//     const user = await User.find({"username": username});
-//     //Pregunto si el usuario esta incluido en algun cohorte
+export const removeUserPairProgramming = async(username) => {
+    const fecha = moment(moment.now()).format("DD/MM/YYYY");
+    //Veo Si existe el Usuario
+    const user = await User.findOne({"username": username});
+    //Pregunto si el usuario esta incluido en algun cohorte
+    if (!user.cohorte){
+        throw new Error(`Usuario ${username}: usted actualmente no se encuentra asignado a ningun cohorte`);
+    }
+    //Veo si dentro de PP hay creado una tabla para ese dia de ese Cohorte
+    await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha});
+}
 //     const foundUser = await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha, users :{$match: {$set: { }}}).;
 //     // if (foundUser)
 // }
