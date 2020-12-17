@@ -12,16 +12,17 @@ export const pushCohorte = async(cohor, id) =>{
     return await Cohorte.findOneAndUpdate({"number": cohor},
     {
         $push : {
-            Users : id 
+            users : id 
         }
     });
 };
 
 export const pullCohorte = async(cohor, id) =>{
-    return await Cohorte.findOneAndUpdate({"_id": user.cohorte},
+    console.log(`${cohor} ${id}`);
+    return await Cohorte.findOneAndUpdate({"_id": cohor},
     {
         $pull : {
-            users : user._id
+            users : id
         }
     });
 }

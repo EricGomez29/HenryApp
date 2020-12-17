@@ -5,7 +5,7 @@ dotenv.config();
 const sendEmail = async(email) => {
     const from = process.env.EMAIL;
     const subject = "Bienvenido/a a Henry"
-    var transporter =  await nodemailer.createTransport({
+    var transporter =  nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: process.env.EMAIL,
@@ -114,18 +114,18 @@ const sendEmail = async(email) => {
             </div>`
     };
     
-    await transporter.sendMail(mailOptions, function (err, info) {
+    transporter.sendMail(mailOptions, function (err, info) {
         if(err)
-            throw new Error(`El email no ha podido enviarse a ${email}`)
+            console.log(`El email no ha podido enviarse a ${email}`);
         else
             console.log(info);
+            return {
+                from: from,
+                to: email,
+                subject: subject,
+                text: `Mensaje enviado a ${email}` 
+            }
         });         
-        return {
-            from: from,
-            to: email,
-            subject: subject,
-            text: `Mensaje enviado a ${email}` 
-        }
     }
 module.exports= {
     sendEmail

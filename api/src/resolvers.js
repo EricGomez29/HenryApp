@@ -7,7 +7,9 @@ import Mesas from './models/Mesas';
 import agregarUsuarioMesa from './resolvers/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
-import { addUserCohorte, addCohorteInstructor } from "./resolvers/Cohorte/cohorte";
+import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
+import { editUsers } from "./resolvers/User/user";
+
 
 import { regUser } from "./resolvers/User/user";
 import dotenv from 'dotenv';
@@ -34,7 +36,7 @@ const resolvers = {
     Mutation: {
         //USERS
         registerUser:  (_, {username,firstName, lastName, cohorte,email, password }) => regUser(username, firstName, lastName, cohorte,email, password),
-        editUser:  (parent, { input }, context, req) => editUsers(input),
+        editUser: async (parent, { input }, context, req) => await editUsers(input),
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
         
         
@@ -58,22 +60,7 @@ const resolvers = {
          
 
         //Remover Usuario de Cohorte
-        removeUserCohorte: async (parent, { username }, context) => {
-            const user = await User.find({"username": username});
-            if (user.length === 0){
-                throw new Error(`El Usuario ${username} no existe`);
-            }else if(user[0].cohorte === null){
-                throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
-            }
-            await User.findOneAndUpdate({"username": username}, {"cohorte": null});
-            await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
-            {
-                $pull : {
-                    Users : {username} 
-                }
-            });
-            return Cohorte.findOne({"Number": user[0].cohorte})
-        },
+        removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
