@@ -7,8 +7,7 @@ import Mesas from './models/Mesas';
 import agregarUsuarioMesa from './resolvers/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
-import { addUserCohorte } from "./resolvers/Cohorte/addUserCohorte";
-import { addCohorteInstructor } from "./resolvers/Cohorte/assignInstructorCohorte";
+import { addUserCohorte, addCohorteInstructor } from "./resolvers/Cohorte/cohorte";
 
 import { regUser } from "./resolvers/User/user";
 import dotenv from 'dotenv';
@@ -55,27 +54,7 @@ const resolvers = {
         },
 
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
-        addInstructor: async (parent ,{ username, cohorte }, context) =>{
-            // addCohorteInstructor(username, cohorte),
-            const user = await User.findOne({username: username});
-            if(!user){
-                throw new Error("El usuario no existe");
-            }
-            //veo si el cohorte tiene instructor
-            const cohor = await Cohorte.findOne({number: cohorte});
-            //si no le agrego el tanto al cohorte como a la propiedad isInstructor
-            console.log(!cohor.instructor);
-            await User.findOneAndUpdate({username: username}, {isInstructor: true});
-            await Cohorte.findOneAndUpdate({Number: cohorte}, {instructor: user._id});
-            // me fijo si el usuario es instructor en otros cohortes
-            const res = await Cohorte.find({instructor: cohor.instructor});
-            if (res.length === 0){
-                await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
-            }
-            
-            return await Cohorte.findOne({Number: cohorte}).populate('instructor');
-            
-        },
+        addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
          
 
         //Remover Usuario de Cohorte
