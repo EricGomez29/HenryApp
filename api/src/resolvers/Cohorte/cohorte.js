@@ -40,8 +40,6 @@ export const addCohorteInstructor = async (username, cohorte) => {
     if (res.length === 0){
         await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
     }
-    
     return await Cohorte.findOne({number: cohorte}).populate("users").populate('instructor');
-    
 }
 
