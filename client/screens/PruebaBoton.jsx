@@ -89,8 +89,17 @@ export default function Botones(){
 
 
     return (
-        <View style={styles.container}>
-            {/* <View style={styles.container}> */}
+        <View style={styles.todo}>
+            <Image
+                source={require("../assets/FondoAmarillo.png")}
+                style={{width: '100%', position: 'absolute', height: '60%'}}
+            ></Image>
+            <Image
+                source={require("../assets/logoHenry.png")}
+                style={{maxWidth: 130, height: 70, marginTop: 20}}
+            ></Image>
+            <View style={styles.container}>
+            
                 <View style={styles.cuadro} sx={{width: [300, 400]}}>
 
                     <View style={styles.botones}>
@@ -112,7 +121,8 @@ export default function Botones(){
                     </View>
 
                 </View>
-            {/* </View> */}
+            
+            </View>
         </View>
     )
 }

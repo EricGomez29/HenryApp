@@ -14,9 +14,8 @@ const LOGIN = gql`
         }
 }`;
 
-export default function Login ({navigation}) {
+export default function Login ( {navigation} ) {
 
-    
     const validations= yup.object().shape({
         email: yup.string()
             .required('Campo obligatorio'),
@@ -32,12 +31,13 @@ export default function Login ({navigation}) {
         if(error) {
             return console.log(error)
         } 
-        navigation.navigate("Welcome")
+        // navigation.navigate("Welcome")
        }
 
     console.log(data)
     return (
         <View style={{flex: 1}}>
+            
             <View style={{width: 270}}>
                 
                 <Formik
@@ -74,7 +74,7 @@ export default function Login ({navigation}) {
                             <Text style={styles.errorForm}>{errors.password}</Text>}
                         </View>
                         <View style={styles.containerBoton}>
-                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity  onPress={() => {navigation.navigate('ForgotPassword')}} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
                             </TouchableOpacity>
                         </View>
@@ -84,7 +84,7 @@ export default function Login ({navigation}) {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.containerBoton}>
-                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
                             </TouchableOpacity>
                         </View>
@@ -97,6 +97,11 @@ export default function Login ({navigation}) {
                                 <Icon name="logo-google" style={{fontSize:20}}/>
                             </TouchableOpacity>
                         </View> */}
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity   style={styles.olvideContraseña} onPress={() => {navigation.navigate('Welcome')}}>
+                                <Text >-ir a welcome-</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     )}
                 </Formik>

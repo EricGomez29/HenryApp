@@ -42,7 +42,7 @@ export default function App() {
           <Stack.Screen name="CrearMesa" component={CrearMesa}/>
           <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
           <Stack.Screen name="Mesa" component={Mesa}/>
-          <Stack.Screen name="Footer" component={Footer}/>  
+          {/* <Stack.Screen name="Footer" component={Footer}/>   */}
         </Stack.Navigator>
       </NavigationContainer>
     </DripsyProvider>

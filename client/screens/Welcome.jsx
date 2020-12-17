@@ -16,25 +16,25 @@ export default function Welcome( { navigation } ){
 
             <Text style={styles.title}>Bienvenido usuario</Text>
         
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('#')}} >
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
                     PERFIL
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
+            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('#')}} >
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
                     MATERIAL DE ESTUDIO
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')} >
+            <TouchableOpacity style={styles.boton} onPress={() => {navigation.navigate('Mesa')}} >
                 <Text style={{fontWeight: 'bold', fontSize: 20}}>
                     PAIR PROGRAMMING
                 </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <TouchableOpacity onPress={() =>{ navigation.navigate('Home')}}>
                 <Text style={styles.action}>Cerrar sesión</Text>
             </TouchableOpacity> 
 
