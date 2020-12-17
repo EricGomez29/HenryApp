@@ -1,37 +1,36 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView, Text} from 'react-native';
-// import { Container, Header, Content, Form, Item, Input, Label, Button, Text, Icon} from 'native-base';
-// import styles from '../styles/LoginStyle'
-import {styles} from '../styles/IniciarYregistrar';
+import { TextInput, Image, TouchableOpacity, StyleSheet, Animated, Easing, ScrollView, Text } from 'react-native';
+import { styles } from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
 import Register from './Register';
+import { View } from 'dripsy';
 
-export default function Botones(){
+export default function Botones({ navigation }) {
     const traslateAnimation = new Animated.Value(0)
     const fadeRegister = new Animated.Value(0)
     const fadeIniciar = new Animated.Value(1)
     const index = new Animated.Value(3)
 
-    function Iniciar(){
-        return(
-            <Animated.View style={[{width: 200, height: 200, position: "absolute"}, 
-            {opacity: fadeIniciar, zIndex: index}]}>
-                <Iniciarr/>
-            </Animated.View>
-        )
-    };
-    
-    function Registrarse(){
-        return(
-            <Animated.View style={[{width: 250, height: 350},
-                {opacity: fadeRegister}]}>
-                
-                <Register/>
+    function Iniciar() {
+        return (
+            <Animated.View style={[{ width: 200, height: 200, position: "absolute" },
+            { opacity: fadeIniciar, zIndex: index }]}>
+                <Iniciarr navigation={navigation} />
             </Animated.View>
         )
     };
 
-    function aparecer(){
+    function Registrarse() {
+        return (
+            <Animated.View style={[{ width: 250, height: 350 },
+            { opacity: fadeRegister }]}>
+
+                <Register />
+            </Animated.View>
+        )
+    };
+
+    function aparecer() {
         Animated.timing(fadeRegister, {
             toValue: 1,
             duration: 600,
@@ -48,7 +47,7 @@ export default function Botones(){
             useNativeDriver: true
         }).start()
     }
-    function desaparecer(){
+    function desaparecer() {
         Animated.timing(fadeRegister, {
             toValue: 0,
             duration: 600,
@@ -66,7 +65,7 @@ export default function Botones(){
         }).start()
     }
 
-    function moverDerecha(){
+    function moverDerecha() {
         Animated.timing(traslateAnimation, {
             toValue: 125,
             duration: 600,
@@ -76,7 +75,7 @@ export default function Botones(){
         aparecer();
     }
 
-    function moverIzquierda(){
+    function moverIzquierda() {
         Animated.timing(traslateAnimation, {
             toValue: 0,
             duration: 600,
@@ -88,28 +87,36 @@ export default function Botones(){
 
 
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.todo}>
+            <Image
+                source={require("../assets/FondoAmarillo.png")}
+                style={{width: '100%', position: 'absolute', height: '60%'}}
+            ></Image>
+            <Image
+                source={require("../assets/logoHenry.png")}
+                style={{maxWidth: 130, height: 70, marginTop: 20}}
+            ></Image>
             <View style={styles.container}>
-                <View style={styles.cuadro}>
+            
+                <View style={styles.cuadro} sx={{width: [300, 400]}}>
 
                     <View style={styles.botones}>
                         <Animated.View
-                            style={[{height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100},
-                            {transform:[{translateX: traslateAnimation}]}]}/>
+                            style={[{ height: 50, backgroundColor: 'yellow', zIndex: 2, position: "absolute", width: 125, borderRadius: 100 },
+                            { transform: [{ translateX: traslateAnimation }] }]} />
                         <TouchableOpacity style={styles.boton} onPress={moverIzquierda}>
-                            <Text style={{fontWeight: 'bold', color: 'black'}}>Iniciar Sesion</Text>
+                            <Text style={{ fontWeight: 'bold', color: 'black' }}>Iniciar Sesion</Text>
                         </TouchableOpacity>
-                        
+
                         <TouchableOpacity style={styles.boton} onPress={moverDerecha}>
-                            <Text style={{ fontWeight: 'bold', color: 'black'}}>Registrarse</Text>
+                            <Text style={{ fontWeight: 'bold', color: 'black' }}>Registrarse</Text>
                         </TouchableOpacity >
                     </View>
 
-                    <View style={{marginTop: 30}}>
-                        <Iniciar/>
-                        <Registrarse/>
+                    <View style={{ marginTop: 30 }}>
+                        <Iniciar />
+                        <Registrarse />
                     </View>
-
                 </View>
             </View>
         </View>

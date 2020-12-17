@@ -5,8 +5,8 @@ export const USER_REGISTER = gql`
         $username: String ,
         $firstName: String, 
         $lastName: String, 
-        $cohorte: Int, $
-        email: String, 
+        $cohorte: Int, 
+        $email: String, 
         $password: String 
     ){
         registerUser( 
@@ -15,10 +15,30 @@ export const USER_REGISTER = gql`
             lastName: $lastName, 
             cohorte: $cohorte, 
             email: $email, 
-            password: 
-            $password
+            password: $password
         ){
           firstName
         }
     }
 `
+
+export const GET_USER = gql`
+    query Users($email: String) {
+        users(where: {email: $email}) {
+            username
+            firstName
+            lastName
+            email
+        }
+    }`;
+
+export const GET_MESAS = gql`
+query Mesas{
+    mesas{
+        users {
+            username
+        }
+        linkMeet
+        estado
+    }
+}`;

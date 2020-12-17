@@ -1,13 +1,20 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+    todo:{
+        display: 'flex', 
+        width: '100%', 
+        height: '100%', 
+        backgroundColor: 'white'
+    },
     container:{
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        width: '100%',
     },
     botones:{
-        width: 250,
+        // width: 250,
         backgroundColor: 'white',
         borderRadius: 100,
         alignItems: "center",

@@ -2,7 +2,51 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
+import { GET_MESAS } from '../Querys/userQuery';
+import { useQuery } from '@apollo/client';
 
+export function Mesa({navigation, users}){
+    const [personas, setPersonas] = useState(users)
+
+    // function SumarPersonas(){
+    //     setPersonas(personas + 1)
+    //     navigation.navigate('#')
+    // }
+
+    return (
+        <View style={{flex: 1}} >
+             <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={{fontWeight: 'bold'}}>Atras</Text>
+            </TouchableOpacity>
+            <View style={styles.container}>
+                <View style={styles.mesa}>
+                    <View >
+                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº: 1</Text>
+                        {/* <Text style={{fontSize: 18, fontWeight: 'bold'}}>1</Text> */}
+                    </View>
+                    <Text>{personas.length}/8</Text>
+                    <TouchableOpacity style={styles.botonMesa} disabled={personas === 8}>
+                        <Text style={{fontWeight: 'bold'}}>Unirse</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+}
+
+export function Mesas(){
+    const { loading, data, error } = useQuery(GET_MESAS)
+    console.log(data?.mesas)
+    return(
+        <View>
+            {
+                data && data?.mesas.map(m => {
+                    return <Mesa users={m.users}/>
+                })
+            }
+        </View>
+    )
+}
 // export function Sala({navigation}){
 //     return (
 //         <View style={{flex: 1}}>
@@ -105,44 +149,6 @@ import { Formik } from 'formik';
 //     )
 // }
 
-export function Mesa({navigation}){
-    const [personas, setPersonas] = useState(0)
-
-    function SumarPersonas(){
-        setPersonas(personas + 1)
-        navigation.navigate('#')
-    }
-
-    return (
-        <View style={{flex: 1}} >
-             <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={{fontWeight: 'bold'}}>Atras</Text>
-            </TouchableOpacity>
-            <View style={styles.container}>
-                <View style={styles.mesa}>
-                    <View >
-                        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº: 1</Text>
-                        {/* <Text style={{fontSize: 18, fontWeight: 'bold'}}>1</Text> */}
-                    </View>
-                    <Text>{personas}/8</Text>
-                    <TouchableOpacity style={styles.botonMesa} onPress={SumarPersonas} disabled={personas === 8}>
-                        <Text style={{fontWeight: 'bold'}}>Unirse</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
-    )
-}
-
-// export function Mesas({mesas}){
-//     return(
-//         <View>
-//             {mesas.map(m => (
-//                 <Mesa/>
-//             ))}
-//         </View>
-//     )
-// }
 
 
 

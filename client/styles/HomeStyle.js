@@ -1,11 +1,17 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+    todo:{
+        display: 'flex', 
+        width: '100%', 
+        height: '100%', 
+        backgroundColor: 'white'
+    },
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "yellow"
+        
     },
     homeApp: {
         marginTop: -70,
@@ -18,7 +24,7 @@ export const styles = StyleSheet.create({
         marginBottom: 25,
         width: 250,
         height: 60,
-        backgroundColor: 'white',
+        backgroundColor: 'yellow',
         borderRadius: 100,
         alignItems: "center",
         justifyContent: "center",   
@@ -26,8 +32,5 @@ export const styles = StyleSheet.create({
     homeHenry: {
         width: 250,
         height: 200,
-        marginTop: 50,
-        marginBottom: 5,
-        alignSelf: "center"
       },
 })

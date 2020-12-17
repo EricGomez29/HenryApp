@@ -1,80 +1,91 @@
 import React from 'react';
 import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
-import  * as yup from 'yup'
-import { gql, useMutation, useQuery } from '@apollo/client';
+import * as yup from 'yup'
+import { gql, useMutation } from '@apollo/client';
 import { styles } from '../styles/LoginStyle'
-import Footer from '../Components/Footer'
 
 const LOGIN = gql`
-    mutation Login($email: String!, $password: String! ) {
-        login(email: $email, password: $password) {
-            userId
-            token
+mutation Login($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+        success
+        token
+        errors {
+            message
         }
+    }
 }`;
 
-export default function Login ({navigation}) {
+export default function Login({ navigation }) {
 
-    
-    const validations= yup.object().shape({
+    const validations = yup.object().shape({
         email: yup.string()
             .required('Campo obligatorio'),
         password: yup.string()
-            .min( 8, ( { min } )  => `La contraseña debe tener al menos ${min} caracteres`)
+            .min(8, ({ min }) => `La contraseña debe tener al menos ${min} caracteres`)
             .required('Campo obligatorio')
     })
-    
-    const  [login, {data} ]= useMutation(LOGIN);
 
-    const handleSubmit = (values) => {
-        login( { variables: { email: values.email, password: values.password } } );
-        if(error) {
-            return console.log(error)
-        } 
-        navigation.navigate("Welcome")
-       }
+    const [login, { data }] = useMutation(LOGIN);
 
-    console.log(data)
+    const handleSubmit = async (values) => {
+        const response = await login({
+            variables: {
+                email: values.email,
+                password: values.password
+            }
+        });
+        const { errors, success, token } = response.data.login;
+        if (success) {
+            localStorage.setItem('token', token);
+            localStorage.setItem('userEmail', values.email);
+            navigation.navigate('Welcome');
+        } else {
+            console.error(errors);
+        }
+    }
+
     return (
         <View style={{flex: 1}}>
+            
             <View style={{width: 270}}>
                 
                 <Formik
                     initialValues={{ email: '', password: '' }}
-                    onSubmit={handleSubmit}
+                    onSubmit={values => handleSubmit(values)}
                     validationSchema={validations}
                 >
-                {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                    <View style={{width: '90%'}}>
-                        
-                        <View >
-                            <TextInput 
-                            placeholder= 'Email'
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            value={values.email}
-                            style={styles.input}/> 
-                        </View>
-                        {/* ERROR EMAIL */}
-                        {touched.username && errors.email &&
-                        <Text style={styles.errorForm}>{errors.email}</Text>}
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                        <View style={{ width: '90%' }}>
+                            <View style={styles.containerBoton}>
+                                <View >
+                                    <TextInput
+                                        placeholder='Email'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
+                                        style={styles.input} />
+                                </View>
+                                {/* ERROR EMAIL */}
+                                {touched.username && errors.email &&
+                                    <Text style={styles.errorForm}>{errors.email}</Text>}
 
-                        <View style={{marginTop: 10}}>
-                            <TextInput
-                            placeholder='Contraseña' 
-                            secureTextEntry={true}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            value={values.password}
-                            style={styles.input}/>
-                        </View>
-                        {/* ERROR CONTRASEÑA */}
-                        {touched.password && errors.password &&
-                        <Text style={styles.errorForm}>{errors.password}</Text>}
-
+                                <View style={{ marginTop: 10 }}>
+                                    <TextInput
+                                        placeholder='Contraseña'
+                                        secureTextEntry={true}
+                                        onChangeText={handleChange('password')}
+                                        onBlur={handleBlur('password')}
+                                        value={values.password}
+                                        style={styles.input} />
+                                </View>
+                                {/* ERROR CONTRASEÑA */}
+                                {touched.password && errors.password &&
+                                <Text style={styles.errorForm}>{errors.password}</Text>}
+                            </View>
+                            
                         <View style={styles.containerBoton}>
-                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity  onPress={() => {navigation.navigate('ForgotPassword')}} style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
                             </TouchableOpacity>
                         </View>
@@ -84,7 +95,7 @@ export default function Login ({navigation}) {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.containerBoton}>
-                            <TouchableOpacity  onPress={() => navigation.navigate('ForgotPassword')} style={styles.olvideContraseña}>
+                            <TouchableOpacity style={styles.olvideContraseña}>
                                 <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
                             </TouchableOpacity>
                         </View>
@@ -97,10 +108,14 @@ export default function Login ({navigation}) {
                                 <Icon name="logo-google" style={{fontSize:20}}/>
                             </TouchableOpacity>
                         </View> */}
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity   style={styles.olvideContraseña} onPress={() => {navigation.navigate('Welcome')}}>
+                                <Text >-ir a welcome-</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     )}
                 </Formik>
-                    
             </View>
         </View>
     )
