@@ -29,5 +29,5 @@ export const editUsers = async (input) =>
             return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
         }
         await  User.findOneAndUpdate({ "username": input.username }, input);
-        return await (await User.findOne({username: input.username}).populate('cohorte'))
+        return await User.findOne({username: input.username}).populate('cohorte');
     }
