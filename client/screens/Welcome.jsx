@@ -31,7 +31,7 @@ export default function Welcome({ navigation }) {
                     style={styles.henry}
                 ></Image>
 
-                <Text style={styles.title}>{'Bienvenido ' + data.users[0].username}</Text>
+                <Text style={styles.title}>{'Bienvenido ' + data?.users[0].username}</Text>
 
                 <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>

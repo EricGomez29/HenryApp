@@ -3,9 +3,18 @@ import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
 import { Text, Image } from 'dripsy';
 
+export default function Home({ navigation }) {
 
-export default function Home({navigation}){
-    
+    const dataStorage = localStorage.getItem('userEmail')
+
+    function findUser() {
+        if(!dataStorage) {
+            navigation.navigate('PruebaBoton')
+        } else {
+            navigation.navigate('Welcome')
+        }
+    }
+
     return (
         <View style={styles.todo}>
             <Image
@@ -22,7 +31,7 @@ export default function Home({navigation}){
                     A P P
                 </Text>
                 <View>
-                    <TouchableOpacity style={styles.homeBoton} onPress={() => { navigation.navigate('PruebaBoton') }}>
+                    <TouchableOpacity style={styles.homeBoton} onPress={findUser}>
                         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Comenzar</Text>
                     </TouchableOpacity>
                 </View>
