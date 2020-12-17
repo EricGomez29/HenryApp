@@ -5,9 +5,8 @@ import { Text, Image } from 'dripsy';
 
 export default function Home({ navigation }) {
 
-    const dataStorage = localStorage.getItem('userEmail')
-
     function findUser() {
+        const dataStorage = localStorage.getItem('userEmail')
         if(!dataStorage) {
             navigation.navigate('PruebaBoton')
         } else {
