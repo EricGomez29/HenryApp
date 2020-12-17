@@ -1,20 +1,15 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet} from 'react-native';
-// import {Button} from 'native-base'
+import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
-import {Text, Image} from 'dripsy';
+import { Text, Image } from 'dripsy';
 
-
-export default function Home({navigation}){
-    console.log('estoy en el home')
-
+export default function Home({ navigation }) {
     return (
-        <View style={{display: 'flex', width: '100%', height: '100%', backgroundColor: 'white'}}>
+        <View style={{ display: 'flex', width: '100%', height: '100%', backgroundColor: 'white' }}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '70%'}}
-                // sx={{height: [300, 500]}}
+                style={{ width: '100%', position: 'absolute', height: '70%' }}
+            // sx={{height: [300, 500]}}
             ></Image>
             <View style={styles.container}>
                 <Image
@@ -23,17 +18,14 @@ export default function Home({navigation}){
                     style={styles.homeHenry}
                 ></Image>
                 <Text style={styles.homeApp}>
-                        A P P
+                    A P P
                 </Text>
                 <View>
-                    <TouchableOpacity style={styles.homeBoton} onPress={() => {navigation.navigate('PruebaBoton')}}>
-                        <Text style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>Comenzar</Text>
+                    <TouchableOpacity style={styles.homeBoton} onPress={() => { navigation.navigate('PruebaBoton') }}>
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Comenzar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            {/* <View>
-              <Footer/>  
-            </View> */}
         </View>
     )
 }

@@ -5,8 +5,8 @@ export const USER_REGISTER = gql`
         $username: String ,
         $firstName: String, 
         $lastName: String, 
-        $cohorte: Int, $
-        email: String, 
+        $cohorte: Int, 
+        $email: String, 
         $password: String 
     ){
         registerUser( 
@@ -22,3 +22,13 @@ export const USER_REGISTER = gql`
         }
     }
 `
+
+export const GET_USER = gql`
+    query Users($email: String) {
+        users(where: {email: $email}) {
+            username
+            firstName
+            lastName
+            email
+        }
+    }`;
