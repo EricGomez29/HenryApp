@@ -4,7 +4,7 @@ import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
-import agregarUsuarioMesa from './resolvers/mesas';
+import {agregarUsuarioMesa} from './resolvers/Mesas/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
@@ -28,7 +28,7 @@ const resolvers = {
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
-        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
+        pairProgramming: async (parent, { where }, context) => await ( await PairProgramming.find(where).populate('mesas').populate('users')),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
     },
@@ -68,9 +68,7 @@ const resolvers = {
         },
 
         //Pair Programming
-        addUserPairProgramming:  (parent, {username}) => {
-           return agregarUsuarioMesa(username);
-        },
+        addUserPairProgramming: async (parent, {username}) => await agregarUsuarioMesa(username),
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL
