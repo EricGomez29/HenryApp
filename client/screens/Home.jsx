@@ -16,11 +16,10 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <View style={{ display: 'flex', width: '100%', height: '100%', backgroundColor: 'white' }}>
+        <View style={styles.todo}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{ width: '100%', position: 'absolute', height: '70%' }}
-            // sx={{height: [300, 500]}}
+                style={{width: '100%', position: 'absolute', height: '60%'}}
             ></Image>
             <View style={styles.container}>
                 <Image

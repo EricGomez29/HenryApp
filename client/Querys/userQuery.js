@@ -31,3 +31,14 @@ export const GET_USER = gql`
             email
         }
     }`;
+
+export const GET_MESAS = gql`
+query Mesas{
+    mesas{
+        users {
+            username
+        }
+        linkMeet
+        estado
+    }
+}`;

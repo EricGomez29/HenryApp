@@ -45,7 +45,7 @@ export default function Welcome({ navigation }) {
                 </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesa')} >
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesas')} >
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
                         PAIR PROGRAMMING
                 </Text>
