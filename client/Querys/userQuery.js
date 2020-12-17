@@ -15,8 +15,7 @@ export const USER_REGISTER = gql`
             lastName: $lastName, 
             cohorte: $cohorte, 
             email: $email, 
-            password: 
-            $password
+            password: $password
         ){
           firstName
         }
