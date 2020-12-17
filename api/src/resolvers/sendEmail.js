@@ -1,12 +1,14 @@
 var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
-import User from '../models/Users';
+import xoauth2 from 'xoauth2';
 dotenv.config();
 const sendEmail = async(email) => {
     const from = process.env.EMAIL;
     const subject = "Bienvenido/a a Henry"
-    var transporter =  await nodemailer.createTransport({
-        service: 'gmail',
+    var transporter = await nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
         auth: {
             user: process.env.EMAIL,
             pass: process.env.PASSWORD
@@ -16,6 +18,7 @@ const sendEmail = async(email) => {
         from: process.env.EMAIL, // sender address
         to: email, // list of receivers
         subject: subject, // Subject line
+        text: "Bienvenido/a Henry",
         html: 
             `<div style="margin:0;padding:0" dir="ltr" bgcolor="#ffffff">
                 <table border="0" cellspacing="0" cellpadding="0" align="center" id="m_5856674466128473302email_table" style="border-collapse:collapse">
@@ -115,18 +118,20 @@ const sendEmail = async(email) => {
     };
     
     await transporter.sendMail(mailOptions, function (err, info) {
-        if(err)
-            throw new Error(`El email no ha podido enviarse a ${email}`)
-        else
+        if(err){
+            // console.log(`El email no ha podido enviarse a`);
+            console.log(err);
+        }else{
             console.log(info);
-        });         
-        return {
-            from: from,
-            to: email,
-            subject: subject,
-            text: `Mensaje enviado a ${email}` 
+            return {
+                from: from,
+                to: email,
+                subject: subject,
+                text: `Mensaje enviado a ${email}` 
+            }
         }
-    }
+    });         
+}
 module.exports= {
     sendEmail
 }

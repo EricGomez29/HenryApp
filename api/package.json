@@ -28,7 +28,8 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.3",
     "nodemailer": "^6.4.16",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",

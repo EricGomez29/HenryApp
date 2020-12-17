@@ -2,6 +2,7 @@ import User from '../../models/Users';
 import Cohorte from '../../models/Cohorte';
 import bcrypt from 'bcrypt';
 import { existCohorte } from '../../consultasBD/cohorte';
+import  {addUserCohorte} from '../Cohorte/cohorte'
 
 export const regUser = async (username,firstName, lastName, cohorte,email, password) =>{
     const hash = await bcrypt.hash(password, 9);
@@ -27,5 +28,6 @@ export const editUsers = async (input) =>
             const hash = await bcrypt.hash(input.password, 9);
             return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
         }
-        return await  (User.findOneAndUpdate({ "username": input.username }, input))
+        await  User.findOneAndUpdate({ "username": input.username }, input);
+        return await (await User.findOne({username: input.username}).populate('cohorte'))
     }
