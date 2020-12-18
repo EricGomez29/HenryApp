@@ -18,7 +18,7 @@ export default function Home({ navigation }) {
         <View style={styles.todo}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '60%'}}
+                style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
             <View style={styles.container}>
                 <Image
