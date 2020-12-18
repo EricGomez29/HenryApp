@@ -71,7 +71,7 @@ const typeDefs = gql`
         users: [Users]
         estado: Boolean
         linkMeet: String
-        cohorte: Int!
+        cohorte: Int
     }
 
     type Query {
