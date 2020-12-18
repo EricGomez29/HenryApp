@@ -18,6 +18,8 @@ mutation Login($email: String!, $password: String! ) {
 
 export default function Login({ navigation }) {
 
+    const dataStorage = localStorage.getItem('userEmail');
+
     const validations = yup.object().shape({
         email: yup.string()
             .required('Campo obligatorio'),
@@ -44,7 +46,7 @@ export default function Login({ navigation }) {
             console.error(errors);
         }
     }
-
+    
     return (
         <View style={{flex: 1}}>
             
