@@ -4,7 +4,7 @@ import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
-import {agregarUsuarioMesa} from './resolvers/Mesas/mesas';
+import { agregarUsuarioMesa, removeUserPairProgramming } from './resolvers/Mesas/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
@@ -60,7 +60,8 @@ const resolvers = {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         },
         //Pair Programming
-        addUserPairProgramming: async (parent, {username, id} ) => await agregarUsuarioMesa(username, id),
+        addUserPairProgramming: async (_ , {username, id}) => await agregarUsuarioMesa(username, id),
+        removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username, idMesa),
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL
