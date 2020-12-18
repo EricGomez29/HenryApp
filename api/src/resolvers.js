@@ -4,11 +4,12 @@ import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
-import agregarUsuarioMesa from './resolvers/mesas';
+import {agregarUsuarioMesa} from './resolvers/Mesas/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
-import { addUserCohorte } from "./resolvers/Cohorte/addUserCohorte";
-import { addCohorteInstructor } from "./resolvers/Cohorte/assignInstructorCohorte";
+import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
+import { editUsers } from "./resolvers/User/user";
+
 
 import { regUser } from "./resolvers/User/user";
 import dotenv from 'dotenv';
@@ -27,7 +28,7 @@ const resolvers = {
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
-        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('mesas'),
+        pairProgramming: async (parent, { where }, context) => await ( await PairProgramming.find(where).populate('mesas').populate('users')),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
     },
@@ -35,7 +36,7 @@ const resolvers = {
     Mutation: {
         //USERS
         registerUser:  (_, {username,firstName, lastName, cohorte,email, password }) => regUser(username, firstName, lastName, cohorte,email, password),
-        editUser:  (parent, { input }, context, req) => editUsers(input),
+        editUser: async (parent, { input }, context, req) => await editUsers(input),
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
         
         
@@ -55,46 +56,11 @@ const resolvers = {
         },
 
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
-        addInstructor: async (parent ,{ username, cohorte }, context) =>{
-            // addCohorteInstructor(username, cohorte),
-            const user = await User.findOne({username: username});
-            if(!user){
-                throw new Error("El usuario no existe");
-            }
-            //veo si el cohorte tiene instructor
-            const cohor = await Cohorte.findOne({number: cohorte});
-            //si no le agrego el tanto al cohorte como a la propiedad isInstructor
-            console.log(!cohor.instructor);
-            await User.findOneAndUpdate({username: username}, {isInstructor: true});
-            await Cohorte.findOneAndUpdate({Number: cohorte}, {instructor: user._id});
-            // me fijo si el usuario es instructor en otros cohortes
-            const res = await Cohorte.find({instructor: cohor.instructor});
-            if (res.length === 0){
-                await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
-            }
-            
-            return await Cohorte.findOne({Number: cohorte}).populate('instructor');
-            
-        },
+        addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
          
 
         //Remover Usuario de Cohorte
-        removeUserCohorte: async (parent, { username }, context) => {
-            const user = await User.find({"username": username});
-            if (user.length === 0){
-                throw new Error(`El Usuario ${username} no existe`);
-            }else if(user[0].cohorte === null){
-                throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
-            }
-            await User.findOneAndUpdate({"username": username}, {"cohorte": null});
-            await Cohorte.findOneAndUpdate({"Number": user[0].cohorte},
-            {
-                $pull : {
-                    Users : {username} 
-                }
-            });
-            return Cohorte.findOne({"Number": user[0].cohorte})
-        },
+        removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
@@ -102,9 +68,7 @@ const resolvers = {
         },
 
         //Pair Programming
-        addUserPairProgramming:  (parent, {username}) => {
-           return agregarUsuarioMesa(username);
-        },
+        addUserPairProgramming: async (parent, {username}) => await agregarUsuarioMesa(username),
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL

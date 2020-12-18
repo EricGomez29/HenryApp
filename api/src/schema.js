@@ -48,7 +48,7 @@ const typeDefs = gql`
         horaDeCierre: String
         dia: String
         mesas: [Mesas]
-        cohorte: Int
+        cohorte: Cohortes
     }
 
     type Email{

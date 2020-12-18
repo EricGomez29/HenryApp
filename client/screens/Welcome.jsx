@@ -20,10 +20,11 @@ export default function Welcome({ navigation }) {
         localStorage.removeItem('userEmail');
         navigation.navigate('Home');
     }
-
-    // if (loading) {
-    //     return <View><Text>Loading</Text></View>
-    // } else {
+    if(error) {
+        navigation.navigate('Home')
+    } else if (loading) {
+        return <View><Text>Loading</Text></View>
+    } else {
         return (
             <View style={styles.todo}>
                 <Image
@@ -85,6 +86,7 @@ export default function Welcome({ navigation }) {
             </View>
         )
     }
+}
 
 
 /*

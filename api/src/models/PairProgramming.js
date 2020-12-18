@@ -18,11 +18,11 @@ const PPSchema = new Schema({
         { type : Schema.Types.ObjectId, ref: 'Mesas' }
     ],
     cohorte: {
-        type: Number,
+        type : Schema.Types.ObjectId, ref: 'Cohorte' 
     },
-    usuarios: {
-        type: Array
-    }
+    users: [{
+        type : Schema.Types.ObjectId, ref: 'User' 
+    }]
     
 })
 

@@ -8,6 +8,9 @@ const forgotPasswordMail = async(email) => {
     const user = await User.findOne({"email": email})
     console.log(user)
     var transporter =  await nodemailer.createTransport({
+        // host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         service: 'gmail',
         auth: {
             user: process.env.EMAIL,
