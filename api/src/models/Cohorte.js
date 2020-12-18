@@ -1,16 +1,19 @@
 import mongoose, { Schema } from 'mongoose';
 
 const CohorteSchema = new Schema({
-    Number: {
+    number: {
         type: Number,
         unique: true,
-        required: true
+        required: true,
     },
-    Users: {
-        type: Array
+    users: [{ 
+        type: Schema.Types.ObjectId, ref: 'User'
+    }],
+    modules: {
+        type: Schema.Types.ObjectId, ref: "Modules"
     },
-    Modules: {
-        type: Array
+    instructor:{
+        type: Schema.Types.ObjectId, ref: 'User'
     }
 })
 

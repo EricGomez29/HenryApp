@@ -1,24 +1,27 @@
 import React from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { styles } from '../styles/styles'
-import Footer from '../Components/Footer'
+import { gql, useMutation } from '@apollo/client';
+import { styles } from '../styles/LoginStyle'
 
 const LOGIN = gql`
-    mutation Login($email: String!, $password: String! ) {
-        login(email: $email, password: $password) {
-            userId
-            token
+mutation Login($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+        success
+        token
+        errors {
+            message
         }
+    }
 }`;
 
 export default function Login({ navigation }) {
 
+    const dataStorage = localStorage.getItem('userEmail');
 
     const validations = yup.object().shape({
-        username: yup.string()
+        email: yup.string()
             .required('Campo obligatorio'),
         password: yup.string()
             .min(8, ({ min }) => `La contraseña debe tener al menos ${min} caracteres`)
@@ -27,78 +30,95 @@ export default function Login({ navigation }) {
 
     const [login, { data }] = useMutation(LOGIN);
 
-    const handleSubmit = (values) => {
-        login({ variables: { email: values.username, password: values.password } });
-        navigation.navigate("Welcome")
+    const handleSubmit = async (values) => {
+        const response = await login({
+            variables: {
+                email: values.email,
+                password: values.password
+            }
+        });
+        const { errors, success, token } = response.data.login;
+        if (success) {
+            localStorage.setItem('token', token);
+            localStorage.setItem('userEmail', values.email);
+            navigation.navigate('Welcome');
+        } else {
+            console.error(errors);
+        }
     }
-
-    console.log(data)
+    
     return (
-        <>
-            <View style={styles.header}>
-                <Image
-                    source={require("../assets/logoHenry.png")}
-                    resizeMode="contain"
-                    style={styles.imgHenry}
-                ></Image>
-
-            </View>
-            <View style={styles.body}>
-
+        <View style={{flex: 1}}>
+            
+            <View style={{width: 270}}>
+                
                 <Formik
-                    initialValues={{ username: '', password: '' }}
-                    onSubmit={handleSubmit}
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={values => handleSubmit(values)}
                     validationSchema={validations}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
-                        <View style={styles.form}>
-                            <Text style={styles.h1}>LOGIN</Text>
-                            {/* CAMPO USUARIO */}
-                            <Text style={styles.label}>Usuario</Text>
-                            <TextInput
-                                style={styles.input}
-                                onChangeText={handleChange('username')}
-                                onBlur={handleBlur('username')}
-                                value={values.username}
-                            />
-                            {/* ERROR USUARIO */}
-                            {touched.username && errors.username &&
-                                <Text style={styles.errorForm}>{errors.username}</Text>}
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                        <View style={{ width: '90%' }}>
+                            <View style={styles.containerBoton}>
+                                <View >
+                                    <TextInput
+                                        placeholder='Email'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
+                                        style={styles.input} />
+                                </View>
+                                {/* ERROR EMAIL */}
+                                {touched.username && errors.email &&
+                                    <Text style={styles.errorForm}>{errors.email}</Text>}
 
-                            {/* CAMPO CONTRASEÑA */}
-                            <Text style={styles.label}>Contraseña</Text>
-                            <TextInput
-                                style={styles.input}
-                                secureTextEntry={true}
-                                onChangeText={handleChange('password')}
-                                onBlur={handleBlur('password')}
-                                value={values.password}
-                            />
-
-                            {/* ERROR CONTRASEÑA */}
-                            {touched.password && errors.password &&
+                                <View style={{ marginTop: 10 }}>
+                                    <TextInput
+                                        placeholder='Contraseña'
+                                        secureTextEntry={true}
+                                        onChangeText={handleChange('password')}
+                                        onBlur={handleBlur('password')}
+                                        value={values.password}
+                                        style={styles.input} />
+                                </View>
+                                {/* ERROR CONTRASEÑA */}
+                                {touched.password && errors.password &&
                                 <Text style={styles.errorForm}>{errors.password}</Text>}
-
-                            {/* BOTON INGRESAR */}
-                            <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                <Text style={{ fontWeight: "bold" }} >INGRESAR</Text>
+                            </View>
+                            
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity  onPress={() => {navigation.navigate('ForgotPassword')}} style={styles.olvideContraseña}>
+                                <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
                             </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                                <Text style={styles.linkForm}>Registrarse</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-                                <Text style={styles.linkForm}>Recuperar contraseña</Text>
-                            </TouchableOpacity>
-
                         </View>
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                <Text style={{color: 'black', fontWeight: 'bold'}}>INICIAR SESION</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity style={styles.olvideContraseña}>
+                                <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
+                            </TouchableOpacity>
+                        </View>
+{/* 
+                        <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
+                            <TouchableOpacity style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
+                                <Icon name="logo-facebook" style={{fontSize:20}}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
+                                <Icon name="logo-google" style={{fontSize:20}}/>
+                            </TouchableOpacity>
+                        </View> */}
+                        <View style={styles.containerBoton}>
+                            <TouchableOpacity   style={styles.olvideContraseña} onPress={() => {navigation.navigate('Welcome')}}>
+                                <Text >-ir a welcome-</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     )}
                 </Formik>
             </View>
-            <View>
-                <Footer />
-            </View>
-        </>
+        </View>
     )
 }

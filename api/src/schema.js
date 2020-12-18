@@ -3,12 +3,27 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
     scalar JSON
     type Users {
+        _id: String!
+        username: String
+        firstName: String
+        lastName: String
+        cohorte: Cohortes
+        email: String
+        password: String
+        forgotPassword:String
+        isInstructor:Boolean
+    }
+
+    input UsersInput {
         username: String
         firstName: String
         lastName: String
         cohorte: Int
+        henryCoins: Int
+        isAdmin: Boolean
         email: String
         password: String
+        
     }
 
     type Error {
@@ -22,29 +37,48 @@ const typeDefs = gql`
         errors: [Error]
     }
     
-    input UsersInput {
-        username: String
-        firstName: String
-        lastName: String
-        cohorte: Int
-        henryCoins: Int
-        isAdmin: Boolean
-        email: String
-        password: String
-    }
 
     type Cohortes {
-        Number: Int!
-        Users: [Users!]!
+        number: Int
+        users: [Users!]
+        instructor: Users
     }
     
-    input CohortesInput {
-        Number: Int!
+    type PairProgramming {
+        horaDeInicio: String
+        horaDeCierre: String
+        dia: String
+        mesas: [Mesas]
+        cohorte: Cohortes
     }
-    
+
+    type Email{
+        from: String
+        to: String
+        subject: String
+        text: String
+    }
+
+    input EmailInput{
+        from: String
+        to: String
+        subject: String
+        text: String
+    }
+
+    type Mesas{
+        _id: String!
+        users: [Users]
+        estado: Boolean
+        linkMeet: String
+        cohorte: Int!
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
+        pairProgramming(where: JSON): [PairProgramming]
+        mesas(where: JSON): [Mesas]
     }
 
     type Mutation {
@@ -57,15 +91,25 @@ const typeDefs = gql`
         email: String
         password: String ): Users
 
-        addCohorte(input: CohortesInput): Cohortes
+        addCohorte: Cohortes
 
         login(email: String!, password: String!): AuthData!
 
         editUser( input: UsersInput): Users
         
-        removeUser (where: JSON): Users
+        removeUser (username:String): Users
         
         addUserCohorte(number: Int!, username: String!): Cohortes
+        removeUserCohorte(username:String!):Cohortes!
+        addInstructor(username:String, cohorte:Int): Cohortes
+
+        addUserPairProgramming(username:String!, id: String):Mesas
+        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
+
+        sendEmail(email: String): Email
+
+        sendForgotPasswordMail(email: String): Users
+        compareCode(codigo:String, email:String): Users
     }
 `;
 

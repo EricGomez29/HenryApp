@@ -1,48 +1,39 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-import { styles } from '../styles/styles'
-import Footer from '../Components/Footer'
+import { View, TouchableOpacity } from 'react-native';
+import { styles } from '../styles/HomeStyle'
+import { Text, Image } from 'dripsy';
 
-const USERS = gql`
-    query Users {
-        users {
-            firstName
+export default function Home({ navigation }) {
+
+    function findUser() {
+        const dataStorage = localStorage.getItem('userEmail')
+        if(!dataStorage) {
+            navigation.navigate('PruebaBoton')
+        } else {
+            navigation.navigate('Welcome')
         }
-}`;
+    }
 
-export default function Home({navigation}){
-    const { data } = useQuery(USERS)
-    
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    source={require("../assets/cohete.svg")}
-                    resizeMode="contain"
-                    style={styles.imgCohete}
-                ></Image>
-            </View>
-            <View style={styles.form}>
+        <View style={styles.todo}>
+            <Image
+                source={require("../assets/FondoAmarillo.png")}
+                style={{width: '100%', position: 'absolute', height: '70%'}}
+            ></Image>
+            <View style={styles.container}>
                 <Image
                     source={require("../assets/henry.png")}
                     resizeMode="contain"
                     style={styles.homeHenry}
                 ></Image>
                 <Text style={styles.homeApp}>
-                        APP
+                    A P P
                 </Text>
-                <TouchableOpacity style={styles.homeBoton} onPress={() => {
-                    navigation.navigate('Login')
-                    console.log(data)} }
-                    >
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>
-                        COMENZAR
-                    </Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-              <Footer/>  
+                <View>
+                    <TouchableOpacity style={styles.homeBoton} onPress={findUser}>
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Comenzar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
