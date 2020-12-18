@@ -6,6 +6,8 @@ import { styles } from '../styles/ProfileStyles';
 
 const Profile = ({ route, navigation }) => {
 
+    console.log(route)
+
     const { username, email, firstName, lastName } = route.params.profileData.users[0];
 
     const handleProfileEdit = () => {

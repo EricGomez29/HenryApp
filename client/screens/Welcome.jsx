@@ -4,9 +4,9 @@ import { Container } from '../styled-components/Container'
 import { GET_USER } from '../Querys/userQuery';
 import { useQuery } from '@apollo/client';
 
-const email = localStorage.getItem('userEmail');
 
 export default function Welcome({ navigation }) {
+    const email = localStorage.getItem('userEmail');
     const { loading, data, error } = useQuery(GET_USER, {
         variables: {
             email,
@@ -18,8 +18,9 @@ export default function Welcome({ navigation }) {
         localStorage.removeItem('userEmail');
         navigation.navigate('Home');
     }
-
-    if (loading) {
+    if(error) {
+        navigation.navigate('Home')
+    } else if (loading) {
         return <View><Text>Loading</Text></View>
     } else {
         return (
