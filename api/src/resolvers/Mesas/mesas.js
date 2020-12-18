@@ -74,7 +74,7 @@ export const agregarUsuarioMesa = async(username, id) => {
     return await Mesas.findOne({_id: mesa._id}).populate('users')
 }
 
-export const removeUserPairProgramming = async(username) => {
+export const removeUserPairProgramming = async (username, idMesa) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     //Veo Si existe el Usuario
     const user = await User.findOne({"username": username});
@@ -85,10 +85,39 @@ export const removeUserPairProgramming = async(username) => {
     //Veo si dentro de PP hay creado una tabla para ese dia de ese Cohorte
     await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha});
 
+    //===========VER CON FACU====================
+
+
+    const mesaUser = await Mesas.findOne({"_id": idMesa})
+    const userId = user._id
+    const ppUser = await PairProgramming.find({"users": userId})
     
+    if(mesaUser.users.includes(userId)) {
+        await Mesas.updateOne({_id: idMesa}, {
+            $pull: {
+                users: userId
+            }
+        })
+        await PairProgramming.updateOne({}, {
+            $pull: {
+                users: userId
+            }
+        })
+    } else {
+        throw new Error('No match')
+    }
 
+    const emptyM = await Mesas.findOne({"_id": idMesa})
+    const emptyPP = await PairProgramming.findOne({"users": userId})
 
+    if(emptyM.users.length === 0) {
+        await Mesas.findOneAndDelete({_id: idMesa})
+        await PairProgramming.findOneAndDelete({"mesas": idMesa})
+    }
+    return await Mesas.findOne({'_id': idMesa}).populate('users')
 }
+
+
 //     const foundUser = await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha, users :{$match: {$set: { }}}).;
 //     // if (foundUser)
 // }

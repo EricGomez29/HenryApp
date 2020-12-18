@@ -16,7 +16,6 @@ export const addUserCohorte = async(number, username) => {
         }else if (number < exist.number){
             throw new Error (`No se puede agregar usuarios a Cohortes anteriores`);
         }
-
     }
     // Busco si existe el cohorte
     const cohorte = await existCohorte(number);

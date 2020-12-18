@@ -104,14 +104,12 @@ const typeDefs = gql`
         addInstructor(username:String, cohorte:Int): Cohortes
 
         addUserPairProgramming(username:String!, id: String):Mesas
+        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
 
         sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:String, email:String): Users
-
-
-
     }
 `;
 
