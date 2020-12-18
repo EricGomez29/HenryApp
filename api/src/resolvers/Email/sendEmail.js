@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
-import User from '../models/Users';
+import User from '../../models/Users';
 dotenv.config();
 const sendEmail = async(email) => {
     const from = "henryapp-project@gmail.com";

@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
-import User from '../models/Users';
+import User from '../../models/Users';
 dotenv.config();
 const forgotPasswordMail = async(email) => {
     const x = Math.floor((Math.random() * (999999 - 0 + 1)) + 0);
