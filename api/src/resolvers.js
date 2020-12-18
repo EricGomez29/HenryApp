@@ -4,7 +4,7 @@ import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
-import {agregarUsuarioMesa} from './resolvers/Mesas/mesas';
+import {agregarUsuarioMesa, removeUserPairProgramming} from './resolvers/Mesas/mesas';
 import { sendEmail } from './resolvers/sendEmail';
 import { forgotPasswordMail } from './resolvers/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
@@ -55,12 +55,12 @@ const resolvers = {
             return await Cohorte.create({"number": increment});
         },
 
+        //COHORTE-------------------> USER: add, remove, change
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
+        removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
          
 
-        //Remover Usuario de Cohorte
-        removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
@@ -69,7 +69,11 @@ const resolvers = {
 
         //Pair Programming
         addUserPairProgramming: async (parent, {username}) => await agregarUsuarioMesa(username),
+        removeUserPairProgramming: async (parent, { username }) => await removeUserPairProgramming(username),
+        
+        
         // Mail de Ingreso a la aplicación
+
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),

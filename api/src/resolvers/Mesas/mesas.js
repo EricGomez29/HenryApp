@@ -62,8 +62,17 @@ export const removeUserPairProgramming = async(username) => {
         throw new Error(`Usuario ${username}: usted actualmente no se encuentra asignado a ningun cohorte`);
     }
     //Veo si dentro de PP hay creado una tabla para ese dia de ese Cohorte
-    await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha});
+    const existUser = await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha}, {
+        $match: {
+            users: user._id
+        }
+    });
+    console.log(existUser.mesas)
+    if(!existUser){
+        throw new Error("El usuario no esta agregado");
+    }
 }
+
 //     const foundUser = await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha, users :{$match: {$set: { }}}).;
 //     // if (foundUser)
 // }
