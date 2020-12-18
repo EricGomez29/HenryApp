@@ -2,13 +2,15 @@ import moment from 'moment'
 import User from '../../models/Users';
 import PairProgramming from '../../models/PairProgramming';
 import Mesas from '../../models/Mesas';
+import Cohorte from '../../models/Cohorte';
 
 export const agregarUsuarioMesa = async(username) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     //Veo Si existe el Usuario
     const user = await User.find({"username": username});
+    const cohorteMesa = await Cohorte.find({"_id": [user[0].cohorte]})
     //Pregunto si el usuario esta incluido en algun cohorte
-    console.log(!user[0].cohorte);
+    // console.log(!user[0].cohorte);
     if (!user[0].cohorte){
         throw new Error ("El usuario no puede ser agregado a ningun grupo de PP debido a que no esta asignado a ningun cohorte")
     }
@@ -17,11 +19,11 @@ export const agregarUsuarioMesa = async(username) => {
     var mesa= 0;
     if (existsCohorte.length === 0){
         //Agrego ese usuario a una mesa
-        mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id]}, )
-        //si no se creo ningun grupo de PP Creo una nueva tabla
+        mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id], cohorte: cohorteMesa[0].number }, )
+        //si no se creo ningun grupo de PP Creo una nueva coleccion
         await PairProgramming.create({cohorte: user[0].cohorte, mesas: [mesa._id], users: user[0]._id});
     }else{
-        console.log(existsCohorte[0].users.includes(user[0]._id));
+        // console.log(existsCohorte[0].users.includes(user[0]._id));
         if(existsCohorte[0].users.includes(user[0]._id)){
             throw new Error(`El usuario ${user[0].username} ya esta asignado/a a una Mesa`)
         };
@@ -36,7 +38,7 @@ export const agregarUsuarioMesa = async(username) => {
             });
         }else{
             mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id]}, )
-            //si no se creo ningun grupo de PP Creo una nueva tabla
+            //si no se creo ningun grupo de PP Creo una nueva coleccion
             await PairProgramming.findOneAndUpdate({cohorte: user[0].cohorte, dia: fecha}, {
                 $push : {
                     mesas: mesa._id,

@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
     scalar JSON
     type Users {
+        _id: String!
         username: String
         firstName: String
         lastName: String
@@ -66,9 +67,11 @@ const typeDefs = gql`
     }
 
     type Mesas{
+        _id: String!
         users: [Users]
         estado: Boolean
         linkMeet: String
+        cohorte: Int!
     }
 
     type Query {

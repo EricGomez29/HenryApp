@@ -18,13 +18,12 @@ dotenv.config()
 //Funcion para validación
 //          |
 //          V
-// import { isAutenticatedResolver } from '../permissions';
+import { isAutenticatedResolver } from '../permissions';
 
 const resolvers = {
     Query: {
         //USERS
-        users: /*isAutenticatedResolver.createResolver(*/
-            async (parent, { where }, context) => await User.find(where).populate('cohorte').exec(),
+        users: /*isAutenticatedResolver.createResolver(*/async (parent, { where }, context) => await User.find(where).populate('cohorte').exec()/*)*/,
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
@@ -81,14 +80,7 @@ const resolvers = {
             }
             return user;
         },
-
-
-
-
     }
-
-    
-    
 }
         
 
