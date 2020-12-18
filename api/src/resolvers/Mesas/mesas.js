@@ -56,7 +56,7 @@ export const agregarUsuarioMesa = async(username, id) => {
                 }
             });
         }else{
-            mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id]}, )
+            mesa = await Mesas.create({ linkMeet: "http://meet.com.ar", users: [user[0]._id], cohorte: cohorteMesa[0].number})
             //si no se creo ningun grupo de PP Creo una nueva coleccion
             await PairProgramming.findOneAndUpdate({cohorte: user[0].cohorte, dia: fecha}, {
                 $push : {
@@ -90,7 +90,6 @@ export const removeUserPairProgramming = async (username, idMesa) => {
 
     const mesaUser = await Mesas.findOne({"_id": idMesa})
     const userId = user._id
-    const ppUser = await PairProgramming.find({"users": userId})
     
     if(mesaUser.users.includes(userId)) {
         await Mesas.updateOne({_id: idMesa}, {
@@ -108,17 +107,10 @@ export const removeUserPairProgramming = async (username, idMesa) => {
     }
 
     const emptyM = await Mesas.findOne({"_id": idMesa})
-    const emptyPP = await PairProgramming.findOne({"users": userId})
 
     if(emptyM.users.length === 0) {
         await Mesas.findOneAndDelete({_id: idMesa})
         await PairProgramming.findOneAndDelete({"mesas": idMesa})
     }
     return await Mesas.findOne({'_id': idMesa}).populate('users')
-}
-
-
-//     const foundUser = await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha, users :{$match: {$set: { }}}).;
-//     // if (foundUser)
-// }
-
+};
