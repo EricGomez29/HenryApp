@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, Switch, StyleSheet, Image } from 'react-native';
+import {  Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View ,Text} from 'dripsy';
 import { Container } from '../styled-components/Container'
 import { GET_USER } from '../Querys/userQuery';
 import { useQuery } from '@apollo/client';
+import {styles} from '../styles/WelcomeStyle';
 
-const email = localStorage.getItem('userEmail');
 
 export default function Welcome({ navigation }) {
+    const email = localStorage.getItem('userEmail');
     const { loading, data, error } = useQuery(GET_USER, {
         variables: {
             email,
@@ -19,87 +21,71 @@ export default function Welcome({ navigation }) {
         navigation.navigate('Home');
     }
 
-    if (loading) {
-        return <View><Text>Loading</Text></View>
-    } else {
+    // if (loading) {
+    //     return <View><Text>Loading</Text></View>
+    // } else {
         return (
-            <Container>
-                <View style={styles.rect}></View>
+            <View style={styles.todo}>
                 <Image
-                    source={require("../assets/logoHenry.png")}
-                    resizeMode="contain"
-                    style={styles.henry}
+                source={require("../assets/FondoAmarillo.png")}
+                style={{width: '100%', position: 'absolute', height: '60%'}}
                 ></Image>
+            
+                <View style={styles.container}>
+                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido ' + data?.users[0].firstName + '!'}</Text>
 
-                <Text style={styles.title}>{'Bienvenido ' + data?.users[0].username}</Text>
-
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Profile', { profileData: data })} >
-                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                        PERFIL
-                </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('#')} >
-                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                        MATERIAL DE ESTUDIO
-                </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('Mesas')} >
-                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                        PAIR PROGRAMMING
-                </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={handleLogout}>
-                    <Text style={styles.action}>Cerrar sesión</Text>
-                </TouchableOpacity>
-            </Container>
+                    <View style={styles.boton} sx={{width: [300, 600], height: [130, 200]}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Profile', { profileData: data })}>
+                            <Image
+                            source={require("../assets/materialEstudio2.jpg")}
+                            style={styles.tarjeta} sx={{width: [300, 600], height:[130, 200]}}
+                            >
+                            </Image>
+                            <View style={{width: '100%', justifyContent: 'center'}} sx={{height: [130, 200]}}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', color: 'white'}}>
+                                    Perfil
+                                </Text>
+                            </View>    
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.boton} sx={{width: [300, 600], height: [130, 200]}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Mesas')}>
+                            <Image
+                            source={require("../assets/PairPrograming.jpg")}
+                            style={styles.tarjeta} sx={{width: [300, 600], height:[130, 200]}}
+                            >
+                            </Image>
+                            <View style={{width: '100%', justifyContent: 'center'}} sx={{height: [130, 200]}}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', color: 'white'}}>
+                                    Pair Programing
+                                </Text>
+                            </View>    
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.boton} sx={{width: [300, 600], height: [130, 200]}}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Mesas')}>
+                            <Image
+                            source={require("../assets/standUp.jpg")}
+                            style={styles.tarjeta} sx={{width: [300, 600], height:[130, 200]}}
+                            >
+                            </Image>
+                            <View style={{width: '100%',justifyContent: 'center'}} sx={{height: [130, 200]}}>
+                                <Text style={{ fontWeight: 'bold', fontSize: 30, textAlign: 'center', color: 'white'}}>
+                                    Stand Up
+                                </Text>
+                            </View>    
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={handleLogout}>
+                            <Text style={styles.action}>Cerrar sesión</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
         )
     }
-}
 
-// Estilos
-
-const styles = StyleSheet.create({
-    rect: {
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: 150,
-        position: "absolute",
-        backgroundColor: "rgba(255,255,1,1)",
-        overflow: "visible"
-    },
-    henry: {
-        top: -65,
-        width: 200,
-        height: 200,
-        marginBottom: 0,
-        alignSelf: "center",
-        zIndex: 1,
-    },
-    boton: {
-        width: 250,
-        height: 40,
-        backgroundColor: '#FFFF01',
-        borderRadius: 100,
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: 20,
-    },
-    title: {
-        marginTop: 0,
-        marginBottom: 20,
-        fontSize: 15,
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    action: {
-        fontWeight: 'bold',
-        marginTop: 20,
-    }
-});
 
 /*
 const [isEnabled, setIsEnabled] = useState(false);
