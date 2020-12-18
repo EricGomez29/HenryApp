@@ -37,9 +37,7 @@ const resolvers = {
         registerUser:  (_, {username,firstName, lastName, cohorte,email, password }) => regUser(username, firstName, lastName, cohorte,email, password),
         editUser: async (parent, { input }, context, req) => await editUsers(input),
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
-        
-        
-        
+
         //COHORTES
         addCohorte: async (parent, { input }, context) => {
             //Busco los cohortes
@@ -53,21 +51,16 @@ const resolvers = {
             const increment = cohor[cohor.length -1].number + 1;
             return await Cohorte.create({"number": increment});
         },
-
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
-         
-
         //Remover Usuario de Cohorte
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
-        
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         },
-
         //Pair Programming
-        addUserPairProgramming: async (parent, {username}) => await agregarUsuarioMesa(username),
+        addUserPairProgramming: async (parent, {username, id} ) => await agregarUsuarioMesa(username, id),
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL

@@ -4,7 +4,7 @@ import PairProgramming from '../../models/PairProgramming';
 import Mesas from '../../models/Mesas';
 import Cohorte from '../../models/Cohorte';
 
-export const agregarUsuarioMesa = async(username) => {
+export const agregarUsuarioMesa = async(username, id) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     //Veo Si existe el Usuario
     const user = await User.find({"username": username});
@@ -17,6 +17,25 @@ export const agregarUsuarioMesa = async(username) => {
     // Si existe un PP creado para ese dia
     const existsCohorte = await PairProgramming.find({cohorte: user[0].cohorte, dia: fecha});
     var mesa= 0;
+
+
+    if(id) {
+        const mesa = await Mesas.find({"_id": id})
+        if(existsCohorte[0].users.includes(user[0]._id)) {
+            throw new Error(`Ya esta en una mesa`)
+        }
+        if(mesa[0].users.length === 5) {
+            throw new Error('Mesa llena')
+        } else {
+            await Mesas.findOneAndUpdate({ "_id": id }, {
+                $push : {
+                    users: user[0]._id
+                }
+            })
+        }
+    }
+
+    
     if (existsCohorte.length === 0){
         //Agrego ese usuario a una mesa
         mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id], cohorte: cohorteMesa[0].number }, )
@@ -65,6 +84,10 @@ export const removeUserPairProgramming = async(username) => {
     }
     //Veo si dentro de PP hay creado una tabla para ese dia de ese Cohorte
     await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha});
+
+    
+
+
 }
 //     const foundUser = await PairProgramming.findOne({cohorte: user[0].cohorte, dia: fecha, users :{$match: {$set: { }}}).;
 //     // if (foundUser)
