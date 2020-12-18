@@ -103,7 +103,7 @@ const typeDefs = gql`
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
-        addUserPairProgramming(username:String!):Mesas
+        addUserPairProgramming(username:String!, id: String):Mesas
 
         sendEmail(email: String): Email
 
