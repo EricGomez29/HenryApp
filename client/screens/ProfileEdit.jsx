@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik';
 import { View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
+import { EDIT_USER } from '../Querys/userQuery';
+import { useMutation } from '@apollo/client';
 
 const ProfileEdit = ({ route, navigation }) => {
 
