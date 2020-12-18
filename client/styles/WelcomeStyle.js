@@ -7,11 +7,6 @@ export const styles = StyleSheet.create({
         height: '100%', 
         backgroundColor: 'white'
     },
-    // container:{
-    //     display: 'flex',
-    //     alignItems: "center",
-    //     justifyContent: "center"
-    // },
     boton: {
         display: 'flex',
         alignSelf: 'center',
@@ -19,8 +14,6 @@ export const styles = StyleSheet.create({
         // justifyContent: "center",
         marginTop: 20,
         borderRadius: 30,
-        // width: 600,
-        // height: 200,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -39,10 +32,19 @@ export const styles = StyleSheet.create({
     },
     tarjeta:{
         position: 'absolute', 
-        
         borderRadius: 30, 
         filter: "brightness(0.6)",
         
+    },
+    botonCerrar:{
+        width: 200,
+        height: 50,
+        backgroundColor: 'yellow',
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 20
     }
 
 })
