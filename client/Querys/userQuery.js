@@ -35,6 +35,21 @@ export const GET_USER = gql`
         }
     }`;
 
+export const EDIT_USER = gql`
+    mutation editUser($username: String, $lastName: String, $firstName: String, $email: String) {
+	    editUser (input: {
+            username: $username
+            lastName: $lastName
+		    firstName: $firstName
+            email: $email
+        }){
+            username
+            email
+            firstName
+            lastName
+        }
+}`;
+
 export const GET_TODASMESAS = gql`
 query Mesas{
     mesas{
@@ -59,7 +74,7 @@ query Mesas($cohorte: String){
     }
 }`;
 
-export const ADD_USERMESA= gql`
+export const ADD_USERMESA = gql`
 mutation AddUserPairProgramming($username: String!){
     addUserPairProgramming(
         username: $username
