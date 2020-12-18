@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {View, Text} from 'dripsy'
 import { TextInput } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
-import { GET_MESAS } from '../Querys/userQuery';
-import { useQuery } from '@apollo/client';
+import { GET_MESASCOHORTE, GET_USER, ADD_USERMESA } from '../Querys/userQuery';
+import { useQuery, useMutation } from '@apollo/client';
 import {styles} from '../styles/MesaStyle';
+import { useIsFocused } from "@react-navigation/native";
 
-export function Mesa({navigation, users}){
+export function Mesa({navigation, users, funcion}){
     const [personas, setPersonas] = useState(users.length)
 
     function SumarPersonas(){
@@ -26,7 +27,7 @@ export function Mesa({navigation, users}){
                         </View>
                         <Text style={{fontSize: 18, fontWeight: 'bold', marginTop:10}}>Alumnos: {personas}/5</Text>
                         <Text style={{fontSize: 18, fontWeight: 'bold', color: 'red'}}>Mesa Llena!</Text>
-                        <TouchableOpacity style={styles.botonDisabled} onPress={SumarPersonas} disabled={personas === 5}>
+                        <TouchableOpacity style={styles.botonDisabled} onPress={funcion} disabled={personas === 5}>
                             <Text style={{fontWeight: 'bold'}}>Unirse</Text>
                         </TouchableOpacity>
                     </View>
@@ -42,7 +43,7 @@ export function Mesa({navigation, users}){
                             <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº: 1</Text>
                         </View>
                         <Text style={{fontSize: 18, fontWeight: 'bold', marginTop:10}}>Alumnos: {personas}/5</Text>
-                        <TouchableOpacity style={styles.botonMesa} onPress={SumarPersonas} disabled={personas === 5}>
+                        <TouchableOpacity style={styles.botonMesa} onPress={funcion} disabled={personas === 5}>
                             <Text style={{fontWeight: 'bold'}}>Unirse</Text>
                         </TouchableOpacity>
                     </View>
@@ -60,22 +61,55 @@ export function Mesa({navigation, users}){
 }
 
 
-export function Mesas(){
-    const { loading, data, error } = useQuery(GET_MESAS)
-    console.log(data?.mesas)
+export function Mesas({navigation}){
     
-    const SalaVacia = () => {
-        if (data?.users.length === 0){
+    const cohorte = localStorage.getItem('Cohorte');
+    const userName = localStorage.getItem('userName')
+    const { loading, data, error } = useQuery(GET_MESASCOHORTE, {
+        variables: {
+            cohorte: cohorte,
+        }
+    })
+    // const isFocused = useIsFocused();
+    // const numMesas= data?.mesas.length
+    // const [mesas, setMesas] = useState([])
+    const [addUserPairProgramming] = useMutation(ADD_USERMESA);
+    const handleSubmit = async () => {
+        const response = await addUserPairProgramming({
+            variables: {
+                username: userName,
+            }
+        })
+        console.log(response.data)
+        const { errors, success } = response.data.addUserPairProgramming;
+        navigation.navigate('SalaDeMesa');
+    }
+    
+    
+    
+    function SalaVacia () {
+        if (data?.mesas.length === 0){
             return (
-                <View>
+                <View style={styles.container}>
                     <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center'}}>Sala Vacia</Text>
-                    <TouchableOpacity>
-                        <Text>Se el primero en crear una mesa</Text>
-                    </TouchableOpacity>
+                    <View style={styles.botonSalaVacia} sx={{width: [250, 400], height: [50, 70]}}>
+                        <TouchableOpacity onPress={handleSubmit}>
+                            <Text style={{textAlign: 'center', fontWeight: 'bold'}} sx={{fontSize: [15, 22]}}>Se el primero en crear una mesa!</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )
-            
         }
+        else return (
+            <View >  
+                <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center'}}>Sala </Text>  
+                {
+                    data && data?.mesas.map(m => {
+                        return <Mesa users={m.users} funcion={handleSubmit}/>
+                    })
+                }
+            </View>
+        )
     }
     return(
         <View style={styles.todo}>
@@ -83,14 +117,7 @@ export function Mesas(){
                 source={require("../assets/FondoAmarillo.png")}
                 style={{width: '100%', position: 'absolute', height: '60%'}}
             ></Image>
-            <View >
-                
-                {
-                    data && data?.mesas.map(m => {
-                        return <Mesa users={m.users}/>
-                    })
-                }
-            </View>
+            {SalaVacia()}
         </View>
     )
 }
