@@ -74,6 +74,12 @@ const typeDefs = gql`
         cohorte: Int
     }
 
+    type StandUp{
+        PM: [Users]
+        users: [Users]
+        cohorte: Int
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
@@ -110,6 +116,8 @@ const typeDefs = gql`
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:String, email:String): Users
+
+        addStandUp(cohorte:Int): StandUp
     }
 `;
 

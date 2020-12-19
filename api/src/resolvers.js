@@ -9,6 +9,7 @@ import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { compareCode, editUsers, regUser } from "./resolvers/User/user";
+import { addStandUp } from './resolvers/StandUp/standup'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -39,8 +40,8 @@ const resolvers = {
         addCohorte: async (parent, { input }, context) => addCohorte(input),
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
-        //Remover Usuario de Cohorte
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
+        
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
@@ -49,13 +50,17 @@ const resolvers = {
         addUserPairProgramming: async (_ , {username, id}) => await agregarUsuarioMesa(username, id),
         removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username, idMesa),
         
+
         //EMAIL
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),
         // Comparar codigo de recuperación
-        compareCode: async (parent, {codigo, email}, context) => compareCode(codigo, email)
+        compareCode: async (parent, {codigo, email}, context) => compareCode(codigo, email),
+
+        //STAND-UP
+        addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
     }
 }
         
