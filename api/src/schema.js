@@ -78,6 +78,8 @@ const typeDefs = gql`
         PM: [Users]
         users: [Users]
         cohorte: Int
+        name:String
+        number:Int
     }
 
     type Query {
@@ -85,6 +87,7 @@ const typeDefs = gql`
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
+        standup(where: JSON): [StandUp]
     }
 
     type Mutation {
@@ -118,6 +121,7 @@ const typeDefs = gql`
         compareCode(codigo:String, email:String): Users
 
         addStandUp(cohorte:Int): StandUp
+        assignPMStandUp(username:String, name:String): StandUp
     }
 `;
 

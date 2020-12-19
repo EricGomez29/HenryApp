@@ -9,7 +9,7 @@ import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { compareCode, editUsers, regUser } from "./resolvers/User/user";
-import { addStandUp } from './resolvers/StandUp/standup'
+import { addStandUp, assignPMStandUp } from './resolvers/StandUp/standup'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -17,6 +17,7 @@ dotenv.config()
 //          |
 //          V
 import { isAutenticatedResolver } from '../permissions';
+import StandUp from './models/Stand-Up';
 
 const resolvers = {
     Query: {
@@ -28,6 +29,8 @@ const resolvers = {
         pairProgramming: async (parent, { where }, context) => await ( await PairProgramming.find(where).populate('mesas').populate('users')),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
+        //STAND-UP
+        standup: async (parent, { where }, context) =>await StandUp.find(where).populate('users').populate('PM').exec(),
     },
 
     Mutation: {
@@ -61,6 +64,7 @@ const resolvers = {
 
         //STAND-UP
         addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
+        assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
     }
 }
         
