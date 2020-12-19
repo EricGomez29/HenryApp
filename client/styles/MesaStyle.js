@@ -32,6 +32,21 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 0
     },
+    botonSalaVacia:{
+        backgroundColor: 'white',
+        borderRadius: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+    },
     cuadro:{
         height: 150,
         borderRadius: 30,

@@ -14,10 +14,17 @@ export default function Welcome({ navigation }) {
             email,
         }
     });
+    const cohorte = data?.users[0].cohorte?.number;
+    const userName = data?.users[0].username;
+    // console.log(data?.users[0].username)
+    const cohorteStorage = localStorage.setItem('Cohorte', cohorte)
+    const userNameStorage = localStorage.setItem('userName', userName)
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('Cohorte');
         navigation.navigate('Home');
     }
     if(error) {
@@ -77,9 +84,9 @@ export default function Welcome({ navigation }) {
                             </View>    
                         </TouchableOpacity>
                     </View>
-                    <View>
-                        <TouchableOpacity onPress={handleLogout}>
-                            <Text style={styles.action}>Cerrar sesión</Text>
+                    <View style={{alignSelf: 'center'}}>
+                        <TouchableOpacity style={styles.botonCerrar}onPress={handleLogout}>
+                            <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 20}}>Cerrar sesión</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

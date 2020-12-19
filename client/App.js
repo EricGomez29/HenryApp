@@ -15,6 +15,7 @@ import ProfileEdit from './screens/ProfileEdit';
 import { Mesa, Mesas } from './screens/Mesas';
 import IniciaryRegistrar from './screens/PruebaBoton';
 import { DripsyProvider } from 'dripsy';
+import SalaDeMesa from './screens/SalaDeMesa';
 
 const Stack = createStackNavigator();
 
@@ -41,14 +42,15 @@ export default function App() {
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             {/* <Stack.Screen name="Sala" component={Sala}/>
-          <Stack.Screen name="MesaPrivada" component={MesaPrivada}/>
-          <Stack.Screen name="CrearMesa" component={CrearMesa}/>
-          <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
+            <Stack.Screen name="MesaPrivada" component={MesaPrivada}/>
+            <Stack.Screen name="CrearMesa" component={CrearMesa}/>
+            <Stack.Screen name="UnirseAMesa" component={UnirseAMesa}/> */}
             {/* <Stack.Screen name="Mesa" component={Mesa} /> */}
             <Stack.Screen name="Mesas" component={Mesas} />
             {/* <Stack.Screen name="Footer" component={Footer} /> */}
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+            <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
           </Stack.Navigator>
         </NavigationContainer>
       </DripsyProvider>

@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik } from 'formik';
 import { View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
+import { EDIT_USER } from '../Querys/userQuery';
+import { useMutation } from '@apollo/client';
 
 const ProfileEdit = ({ route, navigation }) => {
 
-    const { username, email, firstName, lastName } = route.params.modifyData;
+    const [data, setData] = useState(route.params.modifyData);
+    const [editProfile] = useMutation(EDIT_USER);
 
-    const handleSubmit = (values) => {
-        //modify values here
-        navigation.navigate('Welcome');
+    const handleSubmit = async (values) => {
+        const response = await editProfile({
+            variables: {
+                username: values.username,
+                lastName: values.lastName,
+                firstName: values.firstName,
+                email: values.email,
+            }
+        })
+        setData(response.data.editUser);
+        navigation.navigate('Profile', {
+            profileData: {
+                users: [response.data.editUser],
+            }
+        })
+
     }
 
     return (
@@ -19,12 +35,12 @@ const ProfileEdit = ({ route, navigation }) => {
                 <Formik
                     initialValues={{
                         country: '',
-                        firstName,
-                        lastName,
-                        username,
-                        email,
-                        cohorte: '',
-                        nroTelefono: '',
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        username: data.username,
+                        email: data.email,
+                        cohorte: 'no definido',
+                        nroTelefono: 'no definido',
                     }}
                     onSubmit={values => handleSubmit(values)}
                 >

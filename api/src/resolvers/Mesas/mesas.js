@@ -56,7 +56,7 @@ export const agregarUsuarioMesa = async(username, id) => {
                 }
             });
         }else{
-            mesa = await Mesas.create( { linkMeet: "http://meet.com.ar", users: [user[0]._id]}, )
+            mesa = await Mesas.create({ linkMeet: "http://meet.com.ar", users: [user[0]._id], cohorte: cohorteMesa[0].number})
             //si no se creo ningun grupo de PP Creo una nueva coleccion
             await PairProgramming.findOneAndUpdate({cohorte: user[0].cohorte, dia: fecha}, {
                 $push : {
