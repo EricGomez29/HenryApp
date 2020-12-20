@@ -74,11 +74,20 @@ const typeDefs = gql`
         cohorte: Int
     }
 
+    type StandUp{
+        PM: [Users]
+        users: [Users]
+        cohorte: Int
+        name:String
+        number:Int
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
+        standup(where: JSON): [StandUp]
     }
 
     type Mutation {
@@ -110,6 +119,9 @@ const typeDefs = gql`
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:String, email:String): Users
+
+        addStandUp(cohorte:Int): StandUp
+        assignPMStandUp(username:String, name:String): StandUp
     }
 `;
 

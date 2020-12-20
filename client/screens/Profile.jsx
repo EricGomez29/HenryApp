@@ -5,9 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from '../styles/ProfileStyles';
 
 const Profile = ({ route, navigation }) => {
-
-    console.log(route)
-
     const { username, email, firstName, lastName } = route.params.profileData.users[0];
 
     const handleProfileEdit = () => {
@@ -20,6 +17,7 @@ const Profile = ({ route, navigation }) => {
             }
         })
     }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>

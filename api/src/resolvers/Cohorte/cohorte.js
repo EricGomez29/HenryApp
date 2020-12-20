@@ -3,6 +3,20 @@ import Cohorte from '../../models/Cohorte';
 import { existUser } from '../../consultasBD/user';
 import { existCohorte, pullCohorte, pushCohorte } from '../../consultasBD/cohorte';
 
+//AGREGAR COHORTE
+export const addCohorte = async() => {
+    //Busco los cohortes
+    const cohor = await Cohorte.find()
+    //Si la longitud de la busquedad es de 0 es porque no existen cohortes
+    if(cohor.length === 0) {
+        console.log('No existia ningun cohorte, este es el primero!')
+        return await Cohorte.create({"number": 1});
+    }
+    
+    const increment = cohor[cohor.length -1].number + 1;
+    return await Cohorte.create({"number": increment});
+}
+    
 //AGREGAR USUARIO AL COHORTE
 
 export const addUserCohorte = async(number, username) => {
