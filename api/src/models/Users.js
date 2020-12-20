@@ -41,6 +41,10 @@ const UserSchema = new Schema({
     isInstructor:{
         type: Boolean,
         default: false
+    },
+    StandUp:{
+        type: String,
+        default: null
     }
 })
 

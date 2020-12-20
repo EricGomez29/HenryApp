@@ -23,10 +23,29 @@ export const assignPMStandUp = async ( username, name ) =>{
     const user = await User.findOne({username: username});
     if(!user){
         throw new Error(`El usuario ${username} no esta registrado.`)
+    }else if(user){
+
     }
     return await StandUp.findOneAndUpdate({name: name}, {
         $push: {
             PM: user._id
         }
+    }).populate('PM');
+ };
+
+ export const addUserStandUp = async ( username, name ) =>{
+    const stand = await StandUp.findOne({name: name})
+    if(!stand){
+        throw new Error("El StandUp no existe");
+    }
+    const user = await User.findOne({username: username});
+    if(!user){
+        throw new Error(`El usuario ${username} no esta registrado.`)
+    }
+    if (!username)
+    return await StandUp.findOneAndUpdate({name: name}, {
+        $push: {
+            users: user._id
+        }
     }).populate('users');
- }
+ };

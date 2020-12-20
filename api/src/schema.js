@@ -12,6 +12,7 @@ const typeDefs = gql`
         password: String
         forgotPassword:String
         isInstructor:Boolean
+        StandUp: String
     }
 
     input UsersInput {
@@ -122,6 +123,7 @@ const typeDefs = gql`
 
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp
+        addUserStandUp(idUser:String, idStandUp: String):StandUp
     }
 `;
 
