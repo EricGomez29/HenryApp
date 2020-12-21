@@ -1,3 +1,4 @@
+import { pullStandUp, pushStandUp } from '../../consultasBD/standUp';
 import Cohorte from '../../models/Cohorte'
 import StandUp from '../../models/Stand-Up';
 import User from '../../models/Users';
@@ -21,31 +22,36 @@ export const assignPMStandUp = async ( username, name ) =>{
         throw new Error("El StandUp no existe");
     }
     const user = await User.findOne({username: username});
-    if(!user){
-        throw new Error(`El usuario ${username} no esta registrado.`)
-    }else if(user){
-
+    if(!user.cohorte){
+        throw new Error(`El usuario ${username} no esta inscripto en ningun cohorte.`)
+    }else if(!user.standUp === standUp.cohorte){
+        throw new Error(`El usuario ${username} no esta incripto en el cohorte ${stand.cohorte}, sino en el cohorte ${user.cohorte}`);
+    }else if(!user.isInstructor){
+        await User.findOneAndUpdate({ username: username }, { isInstructor: true})
+    }else if(user.standUp === name){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al es PM del Stand ${name}`)
     }
-    return await StandUp.findOneAndUpdate({name: name}, {
-        $push: {
-            PM: user._id
-        }
-    }).populate('PM');
- };
+    await User.findOneAndUpdate( {username: username}, {isInstructor: true, standUp: name})
+    pushStandUp(name, user.id, "PM");
+    return await StandUp.findOne({name: name}).populate("PM");
+};
 
  export const addUserStandUp = async ( username, name ) =>{
     const stand = await StandUp.findOne({name: name})
     if(!stand){
         throw new Error("El StandUp no existe");
-    }
+    } 
     const user = await User.findOne({username: username});
-    if(!user){
-        throw new Error(`El usuario ${username} no esta registrado.`)
+    if(!user.cohorte){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} no esta registrado.`)
+    }else if(stand.users.includes(user._id)){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al Stand ${name}`)
     }
-    if (!username)
-    return await StandUp.findOneAndUpdate({name: name}, {
-        $push: {
-            users: user._id
-        }
-    }).populate('users');
- };
+    if (!user.standUp){
+        pushStandUp(name, user.id, "users");
+    }else{
+        pullStandUp(user.standUp, user.id);
+        pushStandUp(name, user.id, "users");
+    };
+    return await StandUp.findOne({name: name}).populate("users");
+};

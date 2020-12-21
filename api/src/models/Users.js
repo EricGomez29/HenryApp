@@ -42,7 +42,11 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    StandUp:{
+    isPM:{
+        type: Boolean,
+        default: false
+    },
+    standUp:{
         type: String,
         default: null
     }

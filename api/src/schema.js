@@ -8,11 +8,14 @@ const typeDefs = gql`
         firstName: String
         lastName: String
         cohorte: Cohortes
+        henryCoins: String
+        isAdmin:String
         email: String
         password: String
         forgotPassword:String
         isInstructor:Boolean
-        StandUp: String
+        isPM: String
+        standUp: String
     }
 
     input UsersInput {
@@ -51,6 +54,7 @@ const typeDefs = gql`
         dia: String
         mesas: [Mesas]
         cohorte: Cohortes
+        users: [Users]
     }
 
     type Email{
@@ -123,7 +127,7 @@ const typeDefs = gql`
 
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp
-        addUserStandUp(idUser:String, idStandUp: String):StandUp
+        addUserStandUp(username:String, name: String):StandUp
     }
 `;
 
