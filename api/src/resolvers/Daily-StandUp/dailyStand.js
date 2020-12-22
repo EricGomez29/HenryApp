@@ -7,17 +7,20 @@ import DailyStand from '../../models/DailyStand';
 import StandUp from '../../models/Stand-Up';
 
 
-export const addDailyStandUp = async( username ) => {
+export const addDailyStandUp = async( username, name ) => {
+    const fecha = moment(moment.now()).format("DD/MM/YYYY");
     const user = await User.findOne({ username: username});
     if (!user.isPM){
         throw new Error(`No tiene los permisos para crear una Daily's StandUp`)
     }
-    const pm = await StandUp.findOne({$match : {
-        PM: user._id
-    }})
-    console.log(pm)
-    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha})
-    // if ()
+    if (!user.listPM.includes(name)){
+        throw new Error(`El usuario ${username} no es PM del Cohorte ${name}`);
+    }
+    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha, name: name})
+    if (daily){
+        return daily;
+    }
+    return await DailyStand.create({fecha: fecha, linkMeet: "http://meet.com.ar"})
 }
 
 export const addDailyUser = async(username) => {

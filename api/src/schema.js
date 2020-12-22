@@ -16,6 +16,7 @@ const typeDefs = gql`
         isInstructor:Boolean
         isPM: String
         standUp: String
+        listPM: [String]
     }
 
     input UsersInput {
@@ -140,7 +141,7 @@ const typeDefs = gql`
         removeUserStandUp( username: String ):StandUp
 
         addDailyUser(username:String): DailyStandUp
-        addDailyStandUp(username:String): DailyStandUp
+        addDailyStandUp(username:String, name:String): DailyStandUp
     }
 `;
 

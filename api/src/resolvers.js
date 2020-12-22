@@ -76,7 +76,7 @@ const resolvers = {
     
         //Daily Stand-Up
         addDailyUser: ( parent, { username }, context) => addDailyUser( username ),
-        addDailyStandUp: ( parent, { username }, context) => addDailyStandUp( username ),
+        addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp( username, name ),
     }
 }
         

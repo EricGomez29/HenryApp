@@ -26,7 +26,9 @@ export const assignPMStandUp = async ( username, name ) =>{
     if(!user.cohorte){
         throw new Error(`El usuario ${username} no esta inscripto en ningun cohorte.`)
     }else if(user.standUp.includes(name)){
-        throw new Error(`El usuario ${user.firstName} ${user.lastName} es PM del Stand ${name}`)
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} es alumno del Stand ${name}`)
+    }else if(user.listPM.includes(name)){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya es PM del Stand ${name}`)
     }
     await User.findOneAndUpdate( {username: username}, {isPM: true, })
     pushUser(user._id, stand.name, "listPM");
@@ -63,9 +65,6 @@ export const addUserStandUp = async ( username, name ) =>{
     //Busco al usuario
     const user = await User.findOne({username: username});
     const cohorte = await Cohorte.findOne({number: stand.cohorte});
-    console.log(user.cohorte.toString() == cohorte._id.toString());
-    console.log(user.cohorte);
-    console.log(cohorte._id);
     //Si no tiene Cohorte, es porque no esta asignado a ninguno
     if(!user.cohorte){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no esta registrado.`)
