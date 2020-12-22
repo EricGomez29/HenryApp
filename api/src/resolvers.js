@@ -9,7 +9,7 @@ import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { compareCode, editUsers, regUser } from "./resolvers/User/user";
-import { addStandUp, addUserStandUp, assignPMStandUp } from './resolvers/StandUp/standup'
+import { addStandUp, addUserStandUp, assignPMStandUp, removeUserStandUp } from './resolvers/StandUp/standup'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -66,6 +66,7 @@ const resolvers = {
         addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
         assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
         addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp( username, name),
+        removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp( username ),
     }
 }
         

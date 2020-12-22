@@ -40,15 +40,12 @@ export const assignPMStandUp = async ( username, name ) =>{
     //Busco al usuario
     const user = await User.findOne({username: username});
     const cohorte = await Cohorte.findOne({number: stand.cohorte});
-    console.log(user.cohorte);
-    console.log(cohorte._id);
-    console.log(user.cohorte !== cohorte._id);
     //Si no tiene Cohorte, es porque no esta asignado a ninguno
     if(!user.cohorte){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no esta registrado.`)
     }else if(stand.users.includes(user._id)){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al Stand ${name}`)
-    }else if(user.cohorte !== cohorte._id){
+    }else if(!user.cohorte === cohorte._id){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no puede ser agregado a un cohorte al cual no pertenece.`)
     }
     if (!user.standUp){
@@ -60,3 +57,16 @@ export const assignPMStandUp = async ( username, name ) =>{
     await User.findOneAndUpdate({username: username}, {standUp: name});
     return await StandUp.findOne({name: name}).populate("users");
 };
+
+export const removeUserStandUp = async ( username ) => {
+    const user = await User.findOne({username: username});
+    if (!user){
+        throw new Error(`El usuario ${username} no existe.`)
+    }
+    if (!user.standUp){
+        throw new Error(`El usuario ${username} no pertenece a ningún Stand`);
+    }
+    pullStandUp(user.standUp, user._id, "users");
+    await User.findOneAndUpdate({username: username}, {standUp: null})
+    return await StandUp.findOne({name: user.standUp}).populate("users").populate('PM')
+}

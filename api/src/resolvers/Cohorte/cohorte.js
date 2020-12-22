@@ -2,6 +2,7 @@ import User from '../../models/Users';
 import Cohorte from '../../models/Cohorte';
 import { existUser } from '../../consultasBD/user';
 import { existCohorte, pullCohorte, pushCohorte } from '../../consultasBD/cohorte';
+import { pullStandUp } from '../../consultasBD/standUp';
 
 //AGREGAR COHORTE
 export const addCohorte = async() => {
@@ -69,7 +70,11 @@ export const removeUserCohorte = async(username) => {
     if(user.cohorte === null){
         throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
     }
-    await User.findOneAndUpdate({"username": username}, {"cohorte": null});
+    await User.findOneAndUpdate({"username": username}, {"cohorte": null, stanUp: null});
     await pullCohorte(user.cohorte, user._id);
-    return await Cohorte.findOne({"_id": user.cohorte})
+    //Si el usuario pertenece a Stand dentro de un cohorte es borrado del Stand
+    if(user.stand){
+        pullStandUp(user.stand, user._id, "users")
+    }
+    return await Cohorte.findOne({"_id": user.cohorte}).populate("users")
 }

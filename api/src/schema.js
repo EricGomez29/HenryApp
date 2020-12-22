@@ -128,6 +128,7 @@ const typeDefs = gql`
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp
         addUserStandUp(username:String, name: String):StandUp
+        removeUserStandUp( username: String ):StandUp
     }
 `;
 
