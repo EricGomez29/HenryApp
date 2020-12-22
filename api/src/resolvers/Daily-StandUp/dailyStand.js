@@ -4,9 +4,23 @@ import PairProgramming from '../../models/PairProgramming';
 import Mesas from '../../models/Mesas';
 import Cohorte from '../../models/Cohorte';
 import DailyStand from '../../models/DailyStand';
+import StandUp from '../../models/Stand-Up';
 
 
-export const addDailyUser = async(username, id) => {
+export const addDailyStandUp = async( username ) => {
+    const user = await User.findOne({ username: username});
+    if (!user.isPM){
+        throw new Error(`No tiene los permisos para crear una Daily's StandUp`)
+    }
+    const pm = await StandUp.findOne({$match : {
+        PM: user._id
+    }})
+    console.log(pm)
+    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha})
+    // if ()
+}
+
+export const addDailyUser = async(username) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     //Veo Si existe el Usuario
     const user = await User.findOne({"username": username});
@@ -16,7 +30,7 @@ export const addDailyUser = async(username, id) => {
         throw new Error(`El usuario ${username} no pertenece a ningún grupo de Stand-Up`);
     }
     //Veo si ya esta creado la Daily del Stand
-    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha})
+    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha});
     if(!daily){
         throw new Error(`La Daily del grupo ${user.standUp} no ha sido creada aún.`)
     }else if(daily.users.includes(user._id)){

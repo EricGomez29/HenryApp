@@ -9,7 +9,8 @@ import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { compareCode, editUsers, regUser } from "./resolvers/User/user";
-import { addStandUp, addUserStandUp, assignPMStandUp, removeUserStandUp } from './resolvers/StandUp/standup'
+import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
+import { addDailyStandUp, addDailyUser } from './resolvers/Daily-StandUp/dailyStand'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -18,6 +19,7 @@ dotenv.config()
 //          V
 import { isAutenticatedResolver } from '../permissions';
 import StandUp from './models/Stand-Up';
+import DailyStand from './models/DailyStand';
 
 const resolvers = {
     Query: {
@@ -31,6 +33,9 @@ const resolvers = {
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
         //STAND-UP
         standup: async (parent, { where }, context) =>await StandUp.find(where).populate('users').populate('PM').exec(),
+        //DAILY STAND-UP
+        dailyStandUp: async (parent, { where }, context) =>await DailyStand.find(where).populate('users').exec(),
+        
     },
 
     Mutation: {
@@ -65,10 +70,13 @@ const resolvers = {
         //STAND-UP
         addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
         assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
+        removePMStandUp: async (parent, { username, name }, context) => removePMStandUp(username, name),
         addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp( username, name),
         removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp( username ),
     
         //Daily Stand-Up
+        addDailyUser: ( parent, { username }, context) => addDailyUser( username ),
+        addDailyStandUp: ( parent, { username }, context) => addDailyStandUp( username ),
     }
 }
         
