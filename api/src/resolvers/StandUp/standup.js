@@ -29,7 +29,7 @@ export const assignPMStandUp = async ( username, name ) =>{
     }
     await User.findOneAndUpdate( {username: username}, {isInstructor: true, standUp: name})
     pushStandUp(name, user.id, "PM");
-    return await StandUp.findOne({name: name}).populate("PM");
+    return await StandUp.findOne({name: name}).populate("PM").populate('users');
 };
 
  export const addUserStandUp = async ( username, name ) =>{
@@ -55,7 +55,7 @@ export const assignPMStandUp = async ( username, name ) =>{
         pushStandUp(name, user.id, "users");
     };
     await User.findOneAndUpdate({username: username}, {standUp: name});
-    return await StandUp.findOne({name: name}).populate("users");
+    return await StandUp.findOne({name: name}).populate("users").populate('PM');
 };
 
 export const removeUserStandUp = async ( username ) => {

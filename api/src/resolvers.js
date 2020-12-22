@@ -67,6 +67,8 @@ const resolvers = {
         assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
         addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp( username, name),
         removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp( username ),
+    
+        //Daily Stand-Up
     }
 }
         
