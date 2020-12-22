@@ -84,10 +84,7 @@ export const removeUserPairProgramming = async (username, idMesa) => {
     }
     //Veo si dentro de PP hay creado una tabla para ese dia de ese Cohorte
     await PairProgramming.findOneAndUpdate({cohorte: user.cohorte, dia: fecha});
-
-    //===========VER CON FACU====================
-
-
+    //Busco dentro del PP existe esa mesa
     const mesaUser = await Mesas.findOne({"_id": idMesa})
     const userId = user._id
     
