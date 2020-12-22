@@ -5,13 +5,11 @@ import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
 import Mesas from './models/Mesas';
 import { agregarUsuarioMesa, removeUserPairProgramming } from './resolvers/Mesas/mesas';
-import { sendEmail } from './resolvers/sendEmail';
-import { forgotPasswordMail } from './resolvers/sendForgotPassword';
-import { addUserCohorte, addCohorteInstructor, removeUserCohorte } from "./resolvers/Cohorte/cohorte";
-import { editUsers } from "./resolvers/User/user";
-
-
-import { regUser } from "./resolvers/User/user";
+import { sendEmail } from './resolvers/Email/sendEmail';
+import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
+import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
+import { compareCode, editUsers, regUser } from "./resolvers/User/user";
+import { addStandUp, addUserStandUp, assignPMStandUp, removeUserStandUp } from './resolvers/StandUp/standup'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -19,6 +17,7 @@ dotenv.config()
 //          |
 //          V
 import { isAutenticatedResolver } from '../permissions';
+import StandUp from './models/Stand-Up';
 
 const resolvers = {
     Query: {
@@ -30,6 +29,8 @@ const resolvers = {
         pairProgramming: async (parent, { where }, context) => await ( await PairProgramming.find(where).populate('mesas').populate('users')),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
+        //STAND-UP
+        standup: async (parent, { where }, context) =>await StandUp.find(where).populate('users').populate('PM').exec(),
     },
 
     Mutation: {
@@ -39,41 +40,35 @@ const resolvers = {
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
 
         //COHORTES
-        addCohorte: async (parent, { input }, context) => {
-            //Busco los cohortes
-            const cohor = await Cohorte.find()
-            //Si la longitud de la busquedad es de 0 es porque no existen cohortes
-            if(cohor.length === 0) {
-                console.log('No existia ningun cohorte, este es el primero!')
-                return await Cohorte.create({"number": 1});
-            }
-
-            const increment = cohor[cohor.length -1].number + 1;
-            return await Cohorte.create({"number": increment});
-        },
+        addCohorte:  (parent, context) => addCohorte(),
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
-        //Remover Usuario de Cohorte
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
+        
         //AUTH
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         },
-        //Pair Programming
+        //PAIR-PROGRAMMING / MESAS
         addUserPairProgramming: async (_ , {username, id}) => await agregarUsuarioMesa(username, id),
         removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username, idMesa),
+        
+
+        //EMAIL
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
         // FORGOT PASSWORD MAIL
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),
-        //RECUPERAR CONTARSEÑA
-        compareCode: async (parent, {codigo, email}, context) => {
-            const user = await User.findOne({email: email});
-            if (!(user.forgotPassword == codigo)){
-                throw new Error(`El código enviado al correo ${email} no corresponde con el ingresado.`);
-            }
-            return user;
-        },
+        // Comparar codigo de recuperación
+        compareCode: async (parent, {codigo, email}, context) => compareCode(codigo, email),
+
+        //STAND-UP
+        addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
+        assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
+        addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp( username, name),
+        removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp( username ),
+    
+        //Daily Stand-Up
     }
 }
         
