@@ -10,7 +10,7 @@ import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { compareCode, editUsers, regUser } from "./resolvers/User/user";
 import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
-import { addDailyStandUp, addDailyUser } from './resolvers/Daily-StandUp/dailyStand'
+import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Daily-StandUp/dailyStand'
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -77,6 +77,7 @@ const resolvers = {
         //Daily Stand-Up
         addDailyUser: ( parent, { username }, context) => addDailyUser( username ),
         addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp( username, name ),
+        removeDailyUser:  ( parent, { username }, context) => removeDailyUser( username ),
     }
 }
         
