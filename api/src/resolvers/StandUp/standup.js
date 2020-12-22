@@ -19,17 +19,13 @@ export const addStandUp = async ( cohorte ) =>{
 export const assignPMStandUp = async ( username, name ) =>{
     const stand = await StandUp.findOne({name: name})
     if(!stand){
-        throw new Error("El StandUp no existe");
+        throw new Error(`El StandUp ${name} no existe`);
     }
     const user = await User.findOne({username: username});
     if(!user.cohorte){
         throw new Error(`El usuario ${username} no esta inscripto en ningun cohorte.`)
-    }else if(!user.standUp === standUp.cohorte){
-        throw new Error(`El usuario ${username} no esta incripto en el cohorte ${stand.cohorte}, sino en el cohorte ${user.cohorte}`);
-    }else if(!user.isInstructor){
-        await User.findOneAndUpdate({ username: username }, { isInstructor: true})
     }else if(user.standUp === name){
-        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al es PM del Stand ${name}`)
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} es PM del Stand ${name}`)
     }
     await User.findOneAndUpdate( {username: username}, {isInstructor: true, standUp: name})
     pushStandUp(name, user.id, "PM");
@@ -41,17 +37,26 @@ export const assignPMStandUp = async ( username, name ) =>{
     if(!stand){
         throw new Error("El StandUp no existe");
     } 
+    //Busco al usuario
     const user = await User.findOne({username: username});
+    const cohorte = await Cohorte.findOne({number: stand.cohorte});
+    console.log(user.cohorte);
+    console.log(cohorte._id);
+    console.log(user.cohorte !== cohorte._id);
+    //Si no tiene Cohorte, es porque no esta asignado a ninguno
     if(!user.cohorte){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no esta registrado.`)
     }else if(stand.users.includes(user._id)){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al Stand ${name}`)
+    }else if(user.cohorte !== cohorte._id){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} no puede ser agregado a un cohorte al cual no pertenece.`)
     }
     if (!user.standUp){
         pushStandUp(name, user.id, "users");
     }else{
-        pullStandUp(user.standUp, user.id);
+        pullStandUp(user.standUp, user.id, "users");
         pushStandUp(name, user.id, "users");
     };
+    await User.findOneAndUpdate({username: username}, {standUp: name});
     return await StandUp.findOne({name: name}).populate("users");
 };

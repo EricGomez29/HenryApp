@@ -6,7 +6,7 @@ export const pushStandUp = async(stand, id, place) =>{
         $push : {
             [place] : id 
         }
-    }).populate(place);
+    })
 };
 
 export const pullStandUp = async(stand, id, place) =>{
@@ -15,5 +15,5 @@ export const pullStandUp = async(stand, id, place) =>{
         $pull : {
             [place] : id
         }
-    }).populate(place);
+    })
 }

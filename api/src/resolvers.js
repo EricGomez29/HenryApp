@@ -40,7 +40,7 @@ const resolvers = {
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
 
         //COHORTES
-        addCohorte: async (parent, { input }, context) => addCohorte(input),
+        addCohorte:  (parent, context) => addCohorte(),
         addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
