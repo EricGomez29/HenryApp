@@ -46,7 +46,7 @@ const resolvers = {
 
         //COHORTES
         addCohorte:  (parent, context) => addCohorte(),
-        addUserCohorte: async (parent, { number, username }, context) => addUserCohorte(number, username),
+        addUserCohorte: async (parent, { number, username }, context) =>  addUserCohorte(number, username),
         addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         

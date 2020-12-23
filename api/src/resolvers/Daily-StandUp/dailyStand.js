@@ -61,9 +61,7 @@ export const removeDailyUser = async(username) => {
     //Veo si ya esta creado la Daily del Stand
     const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha});
     if(!daily.users.includes(user._id)){
-        throw new Error(`El usurio ${user.firstName} ${user.lastName} no ha sido sido agregado al Daily Stand-Up del grupo ${user.standUp}`)
-    }else if(!daily.users.includes(user._id)){
-        throw new Error(`El usuario ${username} no esta incluido en el grupo de Stand-Up`);
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya ha sido sido agregado al Daily Stand-Up del grupo ${user.standUp}`)
     }
     await DailyStand.findOneAndUpdate({name: user.standUp, fecha: fecha}, {
         $pull: {
