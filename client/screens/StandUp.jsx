@@ -4,7 +4,7 @@ import { STAND_UP } from '../constants/index';
 
 const StandUp = ({ navigation, me }) => {
 
-    const StandUPCohorte3Example = {
+    const pairProgrammingCohorte3Example = {
         mesas: [
             {
                 id: 1,
@@ -21,6 +21,19 @@ const StandUp = ({ navigation, me }) => {
                     }, {
                         username: 'Chingon'
                     }
+                ],
+                leads: [
+                    {
+                        id: 123,
+                        username: 'FIlds',
+                        firstName: 'Bryan',
+                        lastName: 'Plata',
+                    }, {
+                        id: 124,
+                        username: 'Golds',
+                        firstName: 'GOnzales',
+                        lastName: 'Roris'
+                    }
                 ]
             },
             {
@@ -32,6 +45,19 @@ const StandUp = ({ navigation, me }) => {
                     }, {
                         username: 'HBL20'
                     }
+                ],
+                leads: [
+                    {
+                        id: 120,
+                        username: 'FIlds',
+                        firstName: 'Bryan',
+                        lastName: 'Plata',
+                    }, {
+                        id: 121,
+                        username: 'Golds',
+                        firstName: 'GOnzales',
+                        lastName: 'Roris'
+                    }
                 ]
             }, {
                 id: 3,
@@ -42,7 +68,20 @@ const StandUp = ({ navigation, me }) => {
                     }, {
                         username: 'HBL20'
                     }, {
-                        username: 'reiren'
+                        userame: 'reiren'
+                    }
+                ],
+                leads: [
+                    {
+                        id: 4,
+                        username: 'FIlds',
+                        firstName: 'Bryan',
+                        lastName: 'Plata',
+                    }, {
+                        id: 5,
+                        username: 'Golds',
+                        firstName: 'GOnzales',
+                        lastName: 'Roris'
                     }
                 ]
             }
@@ -50,8 +89,9 @@ const StandUp = ({ navigation, me }) => {
     }
     return (
         <Mesas
+            navigation={navigation}
             type={STAND_UP}
-            users={StandUPCohorte3Example.mesas}
+            mesas={pairProgrammingCohorte3Example.mesas}
         />
     );
 }

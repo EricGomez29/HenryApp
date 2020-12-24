@@ -1,5 +1,6 @@
 import React from 'react';
 import Mesas from '../Components/Mesas';
+import { PAIR_PROGRAMMING } from '../constants';
 
 const PairProgramming = ({ navigation }) => {
 
@@ -50,7 +51,8 @@ const PairProgramming = ({ navigation }) => {
 
     return (
         <Mesas
-            type={{ name: 'Pair Programming' }}
+            navigation={navigation}
+            type={PAIR_PROGRAMMING}
             mesas={pairProgrammingCohorte3Example.mesas}
         />
     );
