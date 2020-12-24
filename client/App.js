@@ -42,7 +42,6 @@ export default function App() {
             <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            {/* <Stack.Screen name="Mesas" component={Mesas} /> */}
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
             <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
