@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const DailyStandStandSchema = new Schema({
     fecha: {
-        type: Date
+        type: String
     },
     users:  [{ 
         type: Schema.Types.ObjectId, ref: 'User'
