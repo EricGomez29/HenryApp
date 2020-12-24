@@ -42,7 +42,7 @@ const StandUp = ({ navigation, me }) => {
                     }, {
                         username: 'HBL20'
                     }, {
-                        userame: 'reiren'
+                        username: 'reiren'
                     }
                 ]
             }
@@ -51,7 +51,7 @@ const StandUp = ({ navigation, me }) => {
     return (
         <Mesas
             type={STAND_UP}
-            users={StandUPCohorte3Example}
+            users={StandUPCohorte3Example.mesas}
         />
     );
 }
