@@ -15,7 +15,9 @@ query Mesas{
 export const GET_MESASCOHORTE = gql`
 query Mesas($cohorte: String){
     mesas(where: {cohorte: $cohorte}){
+        _id
         users {
+            _id
             username
         }
         linkMeet
