@@ -44,8 +44,11 @@ const UserSchema = new Schema({
     },
     isPM:{
         type: Boolean,
-        default: false
+        default: false,
     },
+    listPM: [ 
+        { type: String }
+    ],
     standUp:{
         type: String,
         default: null
