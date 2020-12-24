@@ -14,15 +14,12 @@ const Mesa = ({ navigation, type, users, leads }) => {
         <View style={{ flex: 1, margin: 20 }} >
             <View style={styles.container}>
                 <View style={isFull() ? styles.cuadroDisabled : styles.cuadro} sx={{ width: [300, 500] }}>
-                    <View >
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{type.name}</Text>
-                    </View>
                     {type === STAND_UP &&
                         <View>
                             {leads.map(user => <Text key={user.id}>{`PM: ${user.firstName} ${user.lastName}`}</Text>)}
                         </View>
                     }
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>{users.length}</Text>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>{`En Linea: ${users.length}`}</Text>
                     {isFull()
                         ?
                         <TouchableOpacity style={styles.botonDisabled} disabled>
