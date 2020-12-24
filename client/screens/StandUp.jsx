@@ -1,8 +1,12 @@
 import React from 'react';
+import Mesa from '../Components/Mesa';
 
-const StandUp = () => {
+const StandUp = ({ navigation, me }) => {
     return (
-        <div>Hello</div>
+        <Mesa
+            type={{ name: 'stand-up' }}
+            users={['1', '2', '3']}
+        />
     );
 }
 

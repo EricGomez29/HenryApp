@@ -4,17 +4,24 @@ import { View, Text } from 'dripsy';
 
 import { styles } from '../styles/MesaStyle';
 
-const Mesa = ({ navigation, users, leader }) => {
+const Mesa = ({ type, users, leader }) => {
+
+    const isFull = () => {
+        return users.length === 5 ? true : false
+    }
+
     return (
         <View style={{ flex: 1, margin: 20 }} >
             <View style={styles.container}>
-                <View style={styles.cuadroDisabled} sx={{ width: [300, 500] }}>
+                <View style={styles.cuadro} sx={{ width: [300, 500] }}>
                     <View >
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Mesa Nº: 1</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{type.name}</Text>
                     </View>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>Alumnos: {personas}/5</Text>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'red' }}>Mesa Llena!</Text>
-                    <TouchableOpacity style={styles.botonDisabled} onPress={funcion} disabled={personas === 5}>
+                    <View>
+                        <Text>{leader.username}</Text>
+                    </View>
+                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 10 }}>{users.length}</Text>
+                    <TouchableOpacity style={styles.botonMesa}>
                         <Text style={{ fontWeight: 'bold' }}>Unirse</Text>
                     </TouchableOpacity>
                 </View>
