@@ -1,11 +1,9 @@
 import React from 'react';
-import { Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Image, View, Text } from 'dripsy';
-import { Container } from '../styled-components/Container'
-import { GET_USER } from '../Querys/userQuery';
+import { GET_USER } from '../apollo/user';
 import { useQuery } from '@apollo/client';
 import { styles } from '../styles/WelcomeStyle';
-
 
 export default function Welcome({ navigation }) {
     const email = localStorage.getItem('userEmail');
@@ -14,6 +12,7 @@ export default function Welcome({ navigation }) {
             email,
         }
     });
+
     const cohorte = data?.users[0].cohorte?.number;
     const userName = data?.users[0].username;
     // console.log(data?.users[0].username)
@@ -27,8 +26,9 @@ export default function Welcome({ navigation }) {
         localStorage.removeItem('Cohorte');
         navigation.navigate('Home');
     }
+
     if (error) {
-        navigation.navigate('Home')
+        handleLogout();
     } else if (loading) {
         return <View><Text>Loading</Text></View>
     } else {
