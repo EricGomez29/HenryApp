@@ -8,10 +8,15 @@ const typeDefs = gql`
         firstName: String
         lastName: String
         cohorte: Cohortes
+        henryCoins: String
+        isAdmin:String
         email: String
         password: String
         forgotPassword:String
         isInstructor:Boolean
+        isPM: String
+        standUp: String
+        listPM: [String]
     }
 
     input UsersInput {
@@ -50,6 +55,7 @@ const typeDefs = gql`
         dia: String
         mesas: [Mesas]
         cohorte: Cohortes
+        users: [Users]
     }
 
     type Email{
@@ -82,12 +88,20 @@ const typeDefs = gql`
         number:Int
     }
 
+    type DailyStandUp{
+        fecha: String
+        users: [Users]
+        name: String
+        linkMeet: String
+    }
+
     type Query {
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
         standup(where: JSON): [StandUp]
+        dailyStandUp(where: JSON): [DailyStandUp]
     }
 
     type Mutation {
@@ -122,6 +136,13 @@ const typeDefs = gql`
 
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp
+        removePMStandUp(username:String, name:String): StandUp
+        addUserStandUp(username:String, name: String):StandUp
+        removeUserStandUp( username: String ):StandUp
+
+        addDailyUser(username:String): DailyStandUp
+        addDailyStandUp(username:String, name:String): DailyStandUp
+        removeDailyUser(username: String):DailyStandUp
     }
 `;
 

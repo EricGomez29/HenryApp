@@ -41,6 +41,17 @@ const UserSchema = new Schema({
     isInstructor:{
         type: Boolean,
         default: false
+    },
+    isPM:{
+        type: Boolean,
+        default: false,
+    },
+    listPM: [ 
+        { type: String }
+    ],
+    standUp:{
+        type: String,
+        default: null
     }
 })
 
