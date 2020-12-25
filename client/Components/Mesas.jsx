@@ -1,25 +1,19 @@
 import React from 'react';
-import { View } from 'dripsy';
+import { TouchableOpacity } from 'react-native';
+import { View, Text } from 'dripsy';
 import Mesa from './Mesa';
+import { useJoinRoom } from '../hooks';
 import { styles } from '../styles/MesaStyle';
-import { ADD_USERMESA } from '../apollo/pairProgramming';
 
 const Mesas = ({ navigation, type, mesas }) => {
-
+    const [handleJoin] = useJoinRoom(type);
     const isEmpty = () => {
         return mesas.length === 0 ? true : false;
     }
 
-    const handleSubmit = async () => {
-        const response = await joinRoom({
-            variables: {
-                username: userName,
-            }
-        })
-        console.log(response);
+    const handleSubmit = () => {
+        handleJoin(type);
     }
-
-    const [joinRoom] = useMutation(setMutation());
 
     if (isEmpty()) {
         return (

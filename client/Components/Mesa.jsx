@@ -2,16 +2,12 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text } from 'dripsy';
 import { PAIR_PROGRAMMING, STAND_UP, LIMIT_USERS_PAIR } from '../constants/index';
-import { ADD_USERMESA } from '../apollo/pairProgramming';
+import { useJoinRoom } from '../hooks';
 import { styles } from '../styles/MesaStyle';
 
 const Mesa = ({ navigation, type, users, leads }) => {
 
-    const setMutation = () => {
-        if (type === PAIR_PROGRAMMING) ADD_USERMESA;
-        if (type === STAND_UP) ADD_USERMESA;
-    }
-
+    const [handleJoin] = useJoinRoom(type);
     const isFull = () => {
         return users.length === LIMIT_USERS_PAIR ? true : false;
     }
@@ -20,9 +16,10 @@ const Mesa = ({ navigation, type, users, leads }) => {
         return users.length === 0 ? true : false;
     }
 
-
-
-    const [joinRoom] = useMutation(setMutation());
+    const handleSubmit = () => {
+        handleJoin('Bryan00');
+        navigation.navigate('SalaDeMesa');
+    }
 
     return (
         <View style={{ flex: 1, margin: 20 }} >
