@@ -24,7 +24,7 @@ import DailyStand from './models/DailyStand';
 const resolvers = {
     Query: {
         //USERS
-        users: /*isAutenticatedResolver.createResolver(*/async (parent, { where }, context) => await User.find(where).populate('cohorte').exec()/*)*/,
+        users: /*isAutenticatedResolver.createResolver(*/async (parent, { where }, context) => await User.find(where).exec()/*)*/,
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 

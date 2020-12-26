@@ -7,7 +7,7 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Cohortes
+        cohorte: Int
         henryCoins: String
         isAdmin:String
         email: String
@@ -18,6 +18,9 @@ const typeDefs = gql`
         standUp: String
         listPM: [String]
         image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     input UsersInput {
@@ -30,6 +33,9 @@ const typeDefs = gql`
         email: String
         password: String
         image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     type Error {
@@ -52,6 +58,7 @@ const typeDefs = gql`
     }
     
     type PairProgramming {
+        _id:String
         horaDeInicio: String
         horaDeCierre: String
         dia: String
@@ -83,6 +90,7 @@ const typeDefs = gql`
     }
 
     type StandUp{
+        _id:String
         PM: [Users]
         users: [Users]
         cohorte: Int
@@ -91,6 +99,7 @@ const typeDefs = gql`
     }
 
     type DailyStandUp{
+        _id:String
         fecha: String
         users: [Users]
         name: String

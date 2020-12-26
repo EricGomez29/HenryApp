@@ -15,7 +15,17 @@ const UserSchema = new Schema({
         required: true
     },
     cohorte: {
-        type: Schema.Types.ObjectId, ref: 'Cohorte',
+        type: Number,
+        default: null
+    },
+    adress: {
+        type: String
+    },
+    nationality: {
+        type: String
+    },
+    phone: {
+        type: String
     },
     henryCoins: {
         type: Number,

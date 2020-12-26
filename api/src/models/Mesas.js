@@ -4,6 +4,10 @@ const MesasSchema = new Schema({
     cohorte: {
         type: Number
     },
+    fecha: {
+        type: String,
+        default: () => moment(moment.now()).format("DD/MM/YYYY")
+    },    
     users:  [{ 
         type: Schema.Types.ObjectId, ref: 'User'
     }],

@@ -8,24 +8,15 @@ import { pullStandUp } from '../../consultasBD/standUp';
 export const addCohorte = async() => {
     //Busco los cohortes
     const cohor = await Cohorte.find()
-    //Si la longitud de la busquedad es de 0 es porque no existen cohortes
-    if(cohor.length === 0) {
-        console.log('No existia ningun cohorte, este es el primero!')
-        return await Cohorte.create({"number": 1});
-    }
-    
-    const increment = cohor[cohor.length -1].number + 1;
-    return await Cohorte.create({"number": increment});
+    return await Cohorte.create({"number": cohor.length + 1});
 }
     
 //AGREGAR USUARIO AL COHORTE
 
 export const addUserCohorte = async(number, username) => {
-    console.log(`${number} ${username}`);
     var user = await existUser(username);
-    console.log(!!user.cohorte)
     if(user.cohorte !== null){
-        var exist = await Cohorte.findOne({_id: user.cohorte});
+        var exist = await Cohorte.findOne({number: user.cohorte});
         if (exist.number ===  number){
             throw new Error (`El Usuario ${username} pertenece a este Cohorte.`);
         }else if (number < exist.number){
@@ -35,14 +26,14 @@ export const addUserCohorte = async(number, username) => {
     // Busco si existe el cohorte
     const cohorte = await existCohorte(number);
     // Guardo el _id de ese alumno en el array Users de Cohorte
-    console.log( await pushCohorte(cohorte.number, user._id));
+    pushCohorte(cohorte.number, user._id);
     //Borro de un anterior cohorte al usuario
-    if(!!user.cohorte){
-        console.log( await pullCohorte(user.cohorte, user._id));
+    if(user.cohorte){
+        pullCohorte(user.cohorte, user._id);
     }
     // Guardo el _id de ese Cohorte en Users 
-    await User.findOneAndUpdate({"username": username}, {"cohorte": cohorte._id});
-    return await Cohorte.findOne({"number": number}).populate('users');
+    await User.findOneAndUpdate({"username": username}, {"cohorte": cohorte.number});
+    return await Cohorte.findOne({"number": number}).populate('users').populate('instructor');
 };
 
 //AGREGAR INSTRUCTOR AL COHORTE
@@ -70,11 +61,11 @@ export const removeUserCohorte = async(username) => {
     if(user.cohorte === null){
         throw new Error(`El Usuario ${username} no esta agregado a ningun cohorte`);
     }
-    await User.findOneAndUpdate({"username": username}, {"cohorte": null, stanUp: null});
+    await User.findOneAndUpdate({"username": username}, {"cohorte": null, standUp: null});
     await pullCohorte(user.cohorte, user._id);
     //Si el usuario pertenece a Stand dentro de un cohorte es borrado del Stand
     if(user.stand){
         pullStandUp(user.stand, user._id, "users")
     }
-    return await Cohorte.findOne({"_id": user.cohorte}).populate("users")
+    return await Cohorte.findOne({"number": user.cohorte}).populate("users").populate('instructor')
 }
