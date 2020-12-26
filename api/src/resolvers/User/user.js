@@ -22,12 +22,25 @@ export const regUser = async (username,firstName, lastName, cohorte,email, passw
     return await User.create( {username, firstName,lastName,cohorte:cohorte,email,password: hash}).populate('cohorte');
 }
 
-export const editUsers = async (input) =>
-    {
-        if(input.password ){
-            const hash = await bcrypt.hash(input.password, 9);
-            return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
-        }
-        await  User.findOneAndUpdate({ "username": input.username }, input);
-        return await User.findOne({username: input.username}).populate('cohorte');
+export const editUsers = async (input) =>{
+
+    if(input.password ){
+        const hash = await bcrypt.hash(input.password, 9);
+        return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
     }
+    if(input.image){
+        console.log(input.image);
+        input.image= input.image.toString()
+    }
+    await  User.findOneAndUpdate({ "username": input.username }, input);
+    return await User.findOne({username: input.username}).populate('cohorte');
+}
+
+export const compareCode = async (input) =>{
+    if(input.password ){
+        const hash = await bcrypt.hash(input.password, 9);
+        return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
+    }
+    await  User.findOneAndUpdate({ "username": input.username }, input);
+    return await User.findOne({username: input.username}).populate('cohorte');
+}
