@@ -10,14 +10,15 @@ import { EDIT_USER } from '../Querys/userQuery';
 
 export default function PhotoProfile({ route, navigation }) {
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(route.params.data.image);
     const [editProfile] = useMutation(EDIT_USER);
     const [data, setData] = useState();
-
-    const handleSubmit = async (values) => {
+    console.log(route.params)
+    const handleSubmit = async () => {
         const response = await editProfile({
             variables: {
-                image: image
+                image: image,
+                username: route.params.data.username
             }
         })
         setData(response.data.editUser);

@@ -37,17 +37,19 @@ export const GET_USER = gql`
     }`;
 
 export const EDIT_USER = gql`
-    mutation editUser($username: String, $lastName: String, $firstName: String, $email: String) {
+    mutation editUser($username: String, $lastName: String, $firstName: String, $email: String, $image: String) {
 	    editUser (input: {
             username: $username
             lastName: $lastName
 		    firstName: $firstName
             email: $email
+            image: $image
         }){
             username
             email
             firstName
             lastName
+            image
         }
 }`;
 

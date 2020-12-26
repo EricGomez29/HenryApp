@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik';
 import { View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { Avatar } from 'react-native-paper';
 import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
 import { EDIT_USER } from '../Querys/userQuery';
@@ -18,6 +19,7 @@ const ProfileEdit = ({ route, navigation }) => {
                 lastName: values.lastName,
                 firstName: values.firstName,
                 email: values.email,
+                cohorte: parseInt(values.cohorte)
             }
         })
         setData(response.data.editUser);
@@ -39,13 +41,23 @@ const ProfileEdit = ({ route, navigation }) => {
                         lastName: data.lastName,
                         username: data.username,
                         email: data.email,
-                        cohorte: 'no definido',
+                        cohorte: data.cohorte.number,
                         nroTelefono: 'no definido',
+                        image: data.image || 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
                     }}
                     onSubmit={values => handleSubmit(values)}
+                    navigation = {navigation}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values }) => (
+                    {({ handleChange, handleBlur, handleSubmit, values, navigation }) => (
                         <View style={styles.form}>
+                            
+                                <Avatar.Image
+                                    size={200}
+                                    source={values.image}
+                                    onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
+                               
+                                />
+
                             <Text style={styles.textLabel}>Pais</Text>
                             <TextInput
                                 style={styles.textInput}
