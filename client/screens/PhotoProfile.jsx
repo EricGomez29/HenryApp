@@ -5,9 +5,30 @@ import { Formik } from "formik";
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import { useMutation } from '@apollo/client';
+import { EDIT_USER } from '../Querys/userQuery';
 
-export default function form(props) {
+export default function PhotoProfile({ route, navigation }) {
+
     const [image, setImage] = useState(null);
+    const [editProfile] = useMutation(EDIT_USER);
+    const [data, setData] = useState();
+
+    const handleSubmit = async (values) => {
+        const response = await editProfile({
+            variables: {
+                image: image
+            }
+        })
+        setData(response.data.editUser);
+        navigation.navigate('Profile', {
+            profileData: {
+                users: [response.data.editUser],
+            }
+        })
+
+    }
+
     const getPermissionAsync = async () => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -16,6 +37,7 @@ export default function form(props) {
             }
         }
     }
+    
     const _pickImage = async () => {
         getPermissionAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -60,7 +82,11 @@ export default function form(props) {
             />
             {image && <Image source={{ uri: image }} style={{borderRadius:100, width: 200, height: 200 }} />}
             
-        {/* <Button title="submit" color="coral" onPress={formikprops.handleSubmit} /> */}
+        <Button
+            title="Aceptar"
+            mode="contained"
+            onPress={ handleSubmit }
+            />
     </View>
   );
 }

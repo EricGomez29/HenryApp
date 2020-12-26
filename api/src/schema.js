@@ -44,6 +44,7 @@ const typeDefs = gql`
     
 
     type Cohortes {
+        _id: ID
         number: Int
         users: [Users!]
         instructor: Users
