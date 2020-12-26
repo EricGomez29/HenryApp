@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import {useNavigation} from '@react-navigation/native'
-
-
+import { useNavigation } from '@react-navigation/native'
 
 function MaterialIconTextButtonsFooter2(props) {
 
-const navigation = useNavigation()
+  const navigation = useNavigation()
 
   return (
     <View style={[styles.container, props.style]}>
@@ -15,17 +13,17 @@ const navigation = useNavigation()
         <MaterialCommunityIcons
           name="account"
           style={styles.icon1}
-          
+
           onPress={() => navigation.navigate('Login')}
         ></MaterialCommunityIcons>
         <Text style={styles.btn1Text} >Recent</Text>
-         
+
       </TouchableOpacity>
       <TouchableOpacity style={styles.activeButtonWrapper}>
         <MaterialCommunityIcons
           name="home"
           style={styles.activeIcon}
-          onPress={()=> navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Home')}
         ></MaterialCommunityIcons>
         <Text style={styles.activeContent}>Home</Text>
       </TouchableOpacity>
@@ -33,7 +31,7 @@ const navigation = useNavigation()
         <MaterialCommunityIcons
           name="account"
           style={styles.icon2}
-          onPress={()=> navigation.navigate('Login')}
+          onPress={() => navigation.navigate('Login')}
         ></MaterialCommunityIcons>
         <Text style={styles.btn2Text}>Perfil</Text>
       </TouchableOpacity>

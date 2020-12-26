@@ -4,7 +4,7 @@ import { View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
-import { EDIT_USER } from '../Querys/userQuery';
+import { EDIT_USER } from '../apollo/user';
 import { useMutation } from '@apollo/client';
 
 const ProfileEdit = ({ route, navigation }) => {
