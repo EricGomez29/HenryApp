@@ -16,6 +16,7 @@ import { Mesa, Mesas } from './screens/Mesas';
 import IniciaryRegistrar from './screens/PruebaBoton';
 import { DripsyProvider } from 'dripsy';
 import SalaDeMesa from './screens/SalaDeMesa';
+import PhotoProfile from './screens/PhotoProfile';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
+          <Stack.Navigator initialRouteName='PhotoProfile' screenOptions={{ headerShown: true }}>
             <Stack.Screen name="CohorteList" component={CohorteList} />
             <Stack.Screen name="UsersList" component={UsersList} />
             <Stack.Screen name="Home" component={Home} />
@@ -51,6 +52,7 @@ export default function App() {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
             <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
+            <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
           </Stack.Navigator>
         </NavigationContainer>
       </DripsyProvider>
