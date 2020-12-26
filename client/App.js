@@ -16,6 +16,7 @@ import ProfileEdit from './screens/ProfileEdit';
 import StandUp from './screens/StandUp';
 import IniciaryRegistrar from './screens/PruebaBoton';
 import SalaDeMesa from './screens/SalaDeMesa';
+import PhotoProfile from './screens/PhotoProfile';
 import PairProgramming from './screens/PairProgramming';
 
 const Stack = createStackNavigator();
@@ -45,6 +46,7 @@ export default function App() {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
             <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
+            <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
             <Stack.Screen name="PairProgramming" component={PairProgramming} />
             <Stack.Screen name="StandUp" component={StandUp} />
           </Stack.Navigator>
