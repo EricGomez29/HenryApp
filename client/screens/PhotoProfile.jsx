@@ -30,6 +30,12 @@ export default function PhotoProfile({ route, navigation }) {
     }
 
     const getPermissionAsync = async () => {
+        if (Constants.platform.android) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
@@ -41,10 +47,11 @@ export default function PhotoProfile({ route, navigation }) {
     const _pickImage = async () => {
         getPermissionAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1
+            quality: 0.5,
+            base64: true
         });
         console.log(result)
         if (!result.cancelled) {
@@ -55,11 +62,13 @@ export default function PhotoProfile({ route, navigation }) {
     };
 
     const takePhoto = async () => {
+        getPermissionAsync()
         let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1
+            quality: 0,
+            base64: true
         });
         if (!result.cancelled) {
             setImage(result.uri)

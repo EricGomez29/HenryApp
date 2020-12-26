@@ -17,6 +17,7 @@ const typeDefs = gql`
         isPM: String
         standUp: String
         listPM: [String]
+        image: String
     }
 
     input UsersInput {
@@ -28,7 +29,7 @@ const typeDefs = gql`
         isAdmin: Boolean
         email: String
         password: String
-        
+        image: String
     }
 
     type Error {

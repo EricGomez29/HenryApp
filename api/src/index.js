@@ -6,12 +6,14 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import auth from '../auth';
 import models from './models';
-
+import bodyParser from 'body-parser'
 dotenv.config();
 
 const app = express();
 
 app.use(auth.checkHeaders);
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 
 //Configuraciones del archivo .env
 const { DATABASE_URL, ACCESS_TOKEN_SECRET } = process.env;
