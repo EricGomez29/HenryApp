@@ -59,12 +59,10 @@ const typeDefs = gql`
     
     type PairProgramming {
         _id:String
-        horaDeInicio: String
-        horaDeCierre: String
         dia: String
-        mesas: [Mesas]
-        cohorte: Cohortes
+        cohorte: Int
         users: [Users]
+        linkMeet: String
     }
 
     type Email{
@@ -137,8 +135,8 @@ const typeDefs = gql`
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
-        addUserPairProgramming(username:String!, id: String):Mesas
-        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
+        addUserPairProgramming(username:String!, id: String):PairProgramming
+        removeUserPairProgramming(username:String! ):PairProgramming
 
         sendEmail(email: String): Email
 
