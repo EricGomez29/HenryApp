@@ -3,8 +3,7 @@ import auth from '../auth';
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
-import Mesas from './models/Mesas';
-import { agregarUsuarioMesa, removeUserPairProgramming } from './resolvers/Mesas/mesas';
+import { addUserPairProgramming, removeUserPairProgramming } from './resolvers/PairProgramming/pairprogramming';
 import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
@@ -24,11 +23,11 @@ import DailyStand from './models/DailyStand';
 const resolvers = {
     Query: {
         //USERS
-        users: /*isAutenticatedResolver.createResolver(*/async (parent, { where }, context) => await User.find(where).populate('cohorte').exec()/*)*/,
+        users: /*isAutenticatedResolver.createResolver(*/async (parent, { where }, context) => await User.find(where).exec()/*)*/,
         //COHORTES
         cohortes: async (parent, { where }, context) => await Cohorte.find(where).populate('instructor').populate('users').exec(),
         //GRUPOS DE PAIR PROGRAMMING 
-        pairProgramming: async (parent, { where }, context) => await ( await PairProgramming.find(where).populate('mesas').populate('users')),
+        pairProgramming: async (parent, { where }, context) => await PairProgramming.find(where).populate('users'),
         //MESAS
         mesas: async (parent, { where }, context) => await Mesas.find(where).populate('users'),
         //STAND-UP
@@ -55,8 +54,8 @@ const resolvers = {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         },
         //PAIR-PROGRAMMING / MESAS
-        addUserPairProgramming: async (_ , {username, id}) => await agregarUsuarioMesa(username, id),
-        removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username, idMesa),
+        addUserPairProgramming: async (_ , {username, id}) => await addUserPairProgramming(username, id),
+        removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username),
         
 
         //EMAIL
@@ -77,7 +76,7 @@ const resolvers = {
         //Daily Stand-Up
         addDailyUser: ( parent, { username }, context) => addDailyUser( username ),
         addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp( username, name ),
-        removeDailyUser:  ( parent, { username }, context) => removeDailyUser( username ),
+        removeDailyUser:  ( parent, { username, name }, context) => removeDailyUser( username, name ),
     }
 }
         
