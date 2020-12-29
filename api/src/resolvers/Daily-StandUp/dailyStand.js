@@ -9,17 +9,31 @@ import StandUp from '../../models/Stand-Up';
 export const addDailyStandUp = async( username, name ) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     const user = await User.findOne({ username: username});
+    // ES PM?
     if (!user.isPM){
         throw new Error(`No tiene los permisos para crear una Daily's StandUp`)
     }
+    // ES PM DE ESE GRUPO DE STAND-UP
     if (!user.listPM.includes(name)){
         throw new Error(`El usuario ${username} no es PM del Cohorte ${name}`);
     }
-    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha})
+    // VEO SI YA ESTACREADO UN DAILY STAND PARA ESE DIA DE ESE GRUPO
+    const daily = await DailyStand.findOne({"name":name, fecha: fecha});
     if (daily){
-        return daily;
+        console.log(daily)
+        if(daily.users.includes(user._id)){
+            throw new Error(`El Stand ya para el grupo ${name} del día ${fecha} ya ha sido creado.`);
+        }
+        await DailyStand.findOneAndUpdate({_id: daily._id}, {
+            $push: {
+                users: user._id
+            }
+        })
+        return await DailyStand.findOne({_id: daily._id}).populate('users').populate('PM');
+    }else{
+        const number = await DailyStand.create({fecha: fecha, linkMeet: "http://meet.com.ar", name: name, users: [user._id]});
+        return await DailyStand.findOne({_id: number._id}).populate('users').populate('PM');
     }
-    return await DailyStand.create({fecha: fecha, linkMeet: "http://meet.com.ar", name: name, users: [users._id]})
 }
 
 //Agregar usuario al Stand-Up Daily dependiendo del grupo del cohorte y del dia.
@@ -48,21 +62,22 @@ export const addDailyUser = async(username) => {
 }
 
 //Remover usuario del Stand-Up Daily dependiendo del grupo del cohorte y del dia.
-export const removeDailyUser = async(username) => {
+export const removeDailyUser = async(username, name) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");
     //Veo Si existe el Usuario
     const user = await User.findOne({"username": username});
-    if (!user.cohorte){
-        throw new Error(`El usuario ${username} no pertenece a ningún Cohorte`);
-    }else if(!user.standUp){
-        throw new Error(`El usuario ${username} no pertenece a ningún grupo de Stand-Up`);
+    if(!user){
+        throw new Error(`El Usuario ${username} no existe.`);
     }
     //Veo si ya esta creado la Daily del Stand
-    const daily = await DailyStand.findOne({"name":user.standUp, fecha: fecha});
-    if(!daily.users.includes(user._id)){
-        throw new Error(`El usuario ${user.firstName} ${user.lastName} ya ha sido sido agregado al Daily Stand-Up del grupo ${user.standUp}`)
+    const daily = await DailyStand.findOne({"name":name, fecha: fecha});
+    if(!daily){
+        throw new Error(`El Daily Stand-Up del grupo ${name} no fue creado.`)
     }
-    await DailyStand.findOneAndUpdate({name: user.standUp, fecha: fecha}, {
+    if(!daily.users.includes(user._id)){
+        throw new Error(`El usuario ${user.firstName} ${user.lastName} no ha sido sido agregado al Daily Stand-Up del grupo ${name}`)
+    }
+    await DailyStand.findOneAndUpdate({name: name, fecha: fecha}, {
         $pull: {
             users: user._id
         }

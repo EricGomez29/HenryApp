@@ -149,9 +149,9 @@ const typeDefs = gql`
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
 
-        addDailyUser(username:String): DailyStandUp
-        addDailyStandUp(username:String, name:String): DailyStandUp
-        removeDailyUser(username: String):DailyStandUp
+        addDailyUser(username:String!): DailyStandUp
+        addDailyStandUp(username:String!, name:String!): DailyStandUp
+        removeDailyUser(username: String, name: String!):DailyStandUp
     }
 `;
 
