@@ -23,9 +23,10 @@ export const assignPMStandUp = async ( username, name ) =>{
         throw new Error(`El StandUp ${name} no existe`);
     }
     const user = await User.findOne({username: username});
+    console.log(user.standUp)
     if(!user.cohorte){
         throw new Error(`El usuario ${username} no esta inscripto en ningun cohorte.`)
-    }else if(user.standUp.includes(name)){
+    }else if(user.standUp===name){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} es alumno del Stand ${name}`)
     }else if(user.listPM.includes(name)){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} ya es PM del Stand ${name}`)
@@ -70,7 +71,7 @@ export const addUserStandUp = async ( username, name ) =>{
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no esta registrado.`)
     }else if(stand.users.includes(user._id)){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} ya pertenece al Stand ${name}`)
-    }else if(user.cohorte.toString() !== cohorte._id.toString()){
+    }else if(user.cohorte.toString() !== cohorte.number.toString()){
         throw new Error(`El usuario ${user.firstName} ${user.lastName} no puede ser agregado a un cohorte al cual no pertenece.`)
     }
     if (!user.standUp){

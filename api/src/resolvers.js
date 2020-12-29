@@ -3,7 +3,6 @@ import auth from '../auth';
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
 import PairProgramming from './models/PairProgramming';
-import Mesas from './models/Mesas';
 import { addUserPairProgramming, removeUserPairProgramming } from './resolvers/PairProgramming/pairprogramming';
 import { sendEmail } from './resolvers/Email/sendEmail';
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';

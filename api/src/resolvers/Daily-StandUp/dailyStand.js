@@ -1,7 +1,6 @@
 import moment from 'moment'
 import User from '../../models/Users';
 import PairProgramming from '../../models/PairProgramming';
-import Mesas from '../../models/Mesas';
 import Cohorte from '../../models/Cohorte';
 import DailyStand from '../../models/DailyStand';
 import StandUp from '../../models/Stand-Up';

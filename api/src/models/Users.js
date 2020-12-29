@@ -61,11 +61,9 @@ const UserSchema = new Schema({
     ],
     standUp:{
         type: String,
-        default: null
     },
     image: {
         type: String,
-        maxlength: 2000000
     }
 })
 

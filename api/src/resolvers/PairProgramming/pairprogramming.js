@@ -1,8 +1,6 @@
 import moment from 'moment'
 import User from '../../models/Users';
 import PairProgramming from '../../models/PairProgramming';
-import Mesas from '../../models/Mesas';
-import Cohorte from '../../models/Cohorte';
 
 export const addUserPairProgramming = async(username, id) => {
     const fecha = moment(moment.now()).format("DD/MM/YYYY");

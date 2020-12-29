@@ -36,24 +36,6 @@ export const addUserCohorte = async(number, username) => {
     return await Cohorte.findOne({"number": number}).populate('users').populate('instructor');
 };
 
-//AGREGAR INSTRUCTOR AL COHORTE
-
-export const addCohorteInstructor = async (username, cohorte) => {
-    // addCohorteInstructor(username, cohorte),
-    const user = await existUser(username);
-    //veo si el cohorte tiene instructor
-    const cohor = await Cohorte.findOne({number: cohorte});
-    //si no, le agrego el tanto al cohorte como a la propiedad isInstructor
-    await User.findOneAndUpdate({username: username}, {isInstructor: true});
-    await Cohorte.findOneAndUpdate({number: cohorte}, {instructor: user._id});
-    // me fijo si el usuario es instructor en otros cohortes para setearle la propiedad isIntructor
-    const res = await Cohorte.find({instructor: cohor.instructor});
-    if (res.length === 0){
-        await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
-    }
-    return await Cohorte.findOne({number: cohorte}).populate("users").populate('instructor');
-}
-
 //REMOVER USUARIO DEL COHORTE
 
 export const removeUserCohorte = async(username) => {
@@ -69,3 +51,25 @@ export const removeUserCohorte = async(username) => {
     }
     return await Cohorte.findOne({"number": user.cohorte}).populate("users").populate('instructor')
 }
+
+//AGREGAR INSTRUCTOR AL COHORTE
+
+export const addCohorteInstructor = async (username, cohorte) => {
+    // addCohorteInstructor(username, cohorte),
+    const user = await existUser(username);
+    //veo si el cohorte tiene instructor
+    const cohor = await Cohorte.findOne({number: cohorte});
+    //si no, le agrego el tanto al cohorte como a la propiedad isInstructor
+    if(user.cohorte >= cohorte){
+        throw new Error(`El usuario ${username} no puede ser Instructor de un cohorte anterior o igual al que pertenece.`)
+    }
+    await User.findOneAndUpdate({username: username}, {isInstructor: true});
+    await Cohorte.findOneAndUpdate({number: cohorte}, {instructor: user._id});
+    // me fijo si el usuario es instructor en otros cohortes para setearle la propiedad isIntructor
+    const res = await Cohorte.find({instructor: cohor.instructor});
+    if (res.length === 0){
+        await User.findOneAndUpdate({_id: cohor.instructor},{isInstructor: false});
+    }
+    return await Cohorte.findOne({number: cohorte}).populate("users").populate('instructor');
+}
+
