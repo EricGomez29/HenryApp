@@ -1,37 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Switch, StyleSheet, TouchableOpacity } from 'react-native';
 import { Image, View ,Text} from 'dripsy';
 import { Container } from '../styled-components/Container'
 import { GET_USER } from '../Querys/userQuery';
 import { useQuery } from '@apollo/client';
 import {styles} from '../styles/WelcomeStyle';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Welcome({ navigation }) {
-    const email = localStorage.getItem('userEmail');
-    const { loading, data, error } = useQuery(GET_USER, {
-        variables: {
-            email,
-        }
-    });
-    const cohorte = data?.users[0].cohorte?.number;
-    const userName = data?.users[0].username;
-    // console.log(data?.users[0].username)
-    const cohorteStorage = localStorage.setItem('Cohorte', cohorte)
-    const userNameStorage = localStorage.setItem('userName', userName)
+   const [email2, setEmail2] = useState(false)
+//    const [cohorte2, setCohorte2] = useState([])
+//    const [userName2, setUserName2] = useState([])
+
+   useEffect(() => {
+       async function email() {
+           try{
+               const mail = await AsyncStorage.getItem('userEmail');
+               const { loading, data, error } = useQuery(GET_USER, {
+                   variables: {
+                       mail,
+                   }
+               });
+               const cohorte = data?.users[0].cohorte?.number;
+               const userName = data?.users[0].username;
+               await AsyncStorage.setItem('Cohorte', cohorte);
+               await AsyncStorage.setItem('userName', userName);
+           }
+           catch(e){
+               console.log(e)
+           }
+       }
+
+    //    email()
+    }, []);
+
+           
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('Cohorte');
+        AsyncStorage.removeItem('token');
+        AsyncStorage.removeItem('userEmail');
+        AsyncStorage.removeItem('userName');
+        AsyncStorage.removeItem('Cohorte');
         navigation.navigate('Home');
     }
-    if(error) {
-        navigation.navigate('Home')
-    } else if (loading) {
-        return <View><Text>Loading</Text></View>
-    } else {
+
+    // if(error) {
+    //     navigation.navigate('Home')
+    // } else if (loading) {
+    //     return <View><Text>Loading</Text></View>
+    // } else {
         return (
             <View style={styles.todo}>
                 <Image
@@ -40,7 +57,7 @@ export default function Welcome({ navigation }) {
                 ></Image>
             
                 <View style={styles.container}>
-                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido ' + data?.users[0].firstName + '!'}</Text>
+                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ '!'}</Text>
 
                     <View style={styles.boton} sx={{width: [300, 600], height: [130, 200]}}>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile', { profileData: data })}>
@@ -92,7 +109,7 @@ export default function Welcome({ navigation }) {
                 </View>
             </View>
         )
-    }
+    // }
 }
 
 

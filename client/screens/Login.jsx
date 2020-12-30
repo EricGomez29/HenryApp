@@ -4,21 +4,13 @@ import { Formik } from 'formik';
 import * as yup from 'yup'
 import { gql, useMutation } from '@apollo/client';
 import { styles } from '../styles/LoginStyle'
+import {LOGIN} from '../Querys/userQuery'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LOGIN = gql`
-mutation Login($email: String!, $password: String! ) {
-    login(email: $email, password: $password) {
-        success
-        token
-        errors {
-            message
-        }
-    }
-}`;
 
 export default function Login({ navigation }) {
 
-    const dataStorage = localStorage.getItem('userEmail');
+    // const dataStorage = localStorage.getItem('userEmail');
 
     const validations = yup.object().shape({
         email: yup.string()
@@ -39,8 +31,8 @@ export default function Login({ navigation }) {
         });
         const { errors, success, token } = response.data.login;
         if (success) {
-            localStorage.setItem('token', token);
-            localStorage.setItem('userEmail', values.email);
+            await AsyncStorage.setItem('token', token);
+            await AsyncStorage.setItem('userEmail', values.email);
             navigation.navigate('Welcome');
         } else {
             console.error(errors);
