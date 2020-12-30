@@ -7,7 +7,7 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Cohortes
+        cohorte: Int
         henryCoins: String
         isAdmin:String
         email: String
@@ -18,6 +18,9 @@ const typeDefs = gql`
         standUp: String
         listPM: [String]
         image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     input UsersInput {
@@ -30,6 +33,9 @@ const typeDefs = gql`
         email: String
         password: String
         image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     type Error {
@@ -52,12 +58,11 @@ const typeDefs = gql`
     }
     
     type PairProgramming {
-        horaDeInicio: String
-        horaDeCierre: String
+        _id:String
         dia: String
-        mesas: [Mesas]
-        cohorte: Cohortes
+        cohorte: Int
         users: [Users]
+        linkMeet: String
     }
 
     type Email{
@@ -83,6 +88,7 @@ const typeDefs = gql`
     }
 
     type StandUp{
+        _id:String
         PM: [Users]
         users: [Users]
         cohorte: Int
@@ -91,6 +97,7 @@ const typeDefs = gql`
     }
 
     type DailyStandUp{
+        _id:String
         fecha: String
         users: [Users]
         name: String
@@ -128,8 +135,8 @@ const typeDefs = gql`
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
-        addUserPairProgramming(username:String!, id: String):Mesas
-        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
+        addUserPairProgramming(username:String!, id: String):PairProgramming
+        removeUserPairProgramming(username:String! ):PairProgramming
 
         sendEmail(email: String): Email
 
@@ -142,9 +149,9 @@ const typeDefs = gql`
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
 
-        addDailyUser(username:String): DailyStandUp
-        addDailyStandUp(username:String, name:String): DailyStandUp
-        removeDailyUser(username: String):DailyStandUp
+        addDailyUser(username:String!): DailyStandUp
+        addDailyStandUp(username:String!, name:String!): DailyStandUp
+        removeDailyUser(username: String, name: String!):DailyStandUp
     }
 `;
 

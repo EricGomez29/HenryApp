@@ -18,7 +18,8 @@ const Profile = ({ route, navigation }) => {
                 cohorte
             }
         })
-    }
+    };
+
 
     return (
         <SafeAreaView style={styles.container}>
