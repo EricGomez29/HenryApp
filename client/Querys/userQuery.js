@@ -23,18 +23,16 @@ export const USER_REGISTER = gql`
 `
 
 export const GET_USER = gql`
-    query Users($email: String) {
-        users(where: {email: $email}) {
-            username
-            firstName
-            lastName
-            email
-            cohorte{
-                number
-            }
-            image
-        }
-    }`;
+query Users($email: String) {
+    users(where: {email: $email}) {
+        username
+        firstName
+        lastName
+        email
+        cohorte
+        image
+    }
+}`;
 
 export const EDIT_USER = gql`
     mutation editUser($username: String, $lastName: String, $firstName: String, $email: String, $image: String) {
@@ -53,7 +51,7 @@ export const EDIT_USER = gql`
         }
 }`;
 
-export const GET_TODASMESAS = gql`
+export const GET_TODASMESAS = gql`  //ARREGLAR
 query Mesas{
     mesas{
         users {
@@ -65,7 +63,7 @@ query Mesas{
     }
 }`;
 
-export const GET_MESASCOHORTE = gql`
+export const GET_MESASCOHORTE = gql`    //ARREGLAR
 query Mesas($cohorte: String){
     mesas(where: {cohorte: $cohorte}){
         users {

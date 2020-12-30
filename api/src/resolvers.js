@@ -1,24 +1,18 @@
-import bcrypt from 'bcrypt';
 import auth from '../auth';
+import dotenv from 'dotenv';
 import User from './models/Users';
 import Cohorte from './models/Cohorte';
-import PairProgramming from './models/PairProgramming';
-import { addUserPairProgramming, removeUserPairProgramming } from './resolvers/PairProgramming/pairprogramming';
-import { sendEmail } from './resolvers/Email/sendEmail';
-import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
-import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
-import { compareCode, editUsers, regUser } from "./resolvers/User/user";
-import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
-import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Daily-StandUp/dailyStand'
-import dotenv from 'dotenv';
-dotenv.config()
-
-//Funcion para validación
-//          |
-//          V
-import { isAutenticatedResolver } from '../permissions';
 import StandUp from './models/Stand-Up';
 import DailyStand from './models/DailyStand';
+import PairProgramming from './models/PairProgramming';
+import { sendEmail } from './resolvers/Email/sendEmail';
+import { compareCode, editUsers, regUser } from "./resolvers/User/user";
+import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
+import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Daily-StandUp/dailyStand';
+import { addUserPairProgramming, removeUserPairProgramming } from './resolvers/PairProgramming/pairprogramming';
+import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
+import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
+dotenv.config()
 
 const resolvers = {
     Query: {
@@ -53,16 +47,17 @@ const resolvers = {
         login: async (parent, {email, password}, {models: {User}, ACCESS_TOKEN_SECRET}) => {
             return auth.login(email, password, User, ACCESS_TOKEN_SECRET)
         },
+
         //PAIR-PROGRAMMING / MESAS
         addUserPairProgramming: async (_ , {username, id}) => await addUserPairProgramming(username, id),
         removeUserPairProgramming: async (_ , {username, idMesa}) => await removeUserPairProgramming(username),
         
-
-        //EMAIL
         // Mail de Ingreso a la aplicación
         sendEmail: async (parent, { email }, context) => sendEmail(email),
+
         // FORGOT PASSWORD MAIL
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),
+
         // Comparar codigo de recuperación
         compareCode: async (parent, {codigo, email}, context) => compareCode(codigo, email),
 
@@ -70,16 +65,14 @@ const resolvers = {
         addStandUp: async (parent, { cohorte }, context) => addStandUp(cohorte),
         assignPMStandUp: async (parent, { username, name }, context) => assignPMStandUp(username, name),
         removePMStandUp: async (parent, { username, name }, context) => removePMStandUp(username, name),
-        addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp( username, name),
-        removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp( username ),
+        addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp(username, name),
+        removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp(username),
     
         //Daily Stand-Up
-        addDailyUser: ( parent, { username }, context) => addDailyUser( username ),
-        addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp( username, name ),
-        removeDailyUser:  ( parent, { username, name }, context) => removeDailyUser( username, name ),
+        addDailyUser: ( parent, { username }, context) => addDailyUser(username),
+        addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp(username, name),
+        removeDailyUser:  ( parent, { username, name }, context) => removeDailyUser(username, name),
     }
 }
-        
-
 
 export default resolvers;

@@ -13,7 +13,7 @@ export default function Welcome({ navigation }) {
         }
     });
 
-    const cohorte = data?.users[0].cohorte?.number;
+    const cohorte = data?.users[0].cohorte
     const userName = data?.users[0].username;
     // console.log(data?.users[0].username)
     const cohorteStorage = localStorage.setItem('Cohorte', cohorte)
