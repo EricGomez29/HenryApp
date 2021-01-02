@@ -2,9 +2,10 @@ import React from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import { LOGIN } from '../apollo/user'
 import { useMutation } from '@apollo/client';
 import { styles } from '../styles/LoginStyle'
+import {LOGIN} from '../Querys/userQuery'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
 
@@ -27,8 +28,8 @@ export default function Login({ navigation }) {
         });
         const { errors, success, token } = response.data.login;
         if (success) {
-            localStorage.setItem('token', token);
-            localStorage.setItem('userEmail', values.email);
+            await AsyncStorage.setItem('token', token);
+            await AsyncStorage.setItem('userEmail', values.email);
             navigation.navigate('Welcome');
         } else {
             console.error(errors);
@@ -98,11 +99,6 @@ export default function Login({ navigation }) {
                                 <Icon name="logo-google" style={{fontSize:20}}/>
                             </TouchableOpacity>
                         </View> */}
-                            <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.olvideContraseña} onPress={() => { navigation.navigate('Welcome') }}>
-                                    <Text >-ir a welcome-</Text>
-                                </TouchableOpacity>
-                            </View>
                         </View>
                     )}
                 </Formik>
