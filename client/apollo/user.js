@@ -7,9 +7,8 @@ export const GET_USER = gql`
             firstName
             lastName
             email
-            cohorte{
-                number
-            }
+            cohorte
+            image
         }
     }`;
 

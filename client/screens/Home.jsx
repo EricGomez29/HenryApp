@@ -2,17 +2,29 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
 import { Text, Image } from 'dripsy';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({ navigation }) {
 
-    function findUser() {
-        const dataStorage = localStorage.getItem('userEmail')
-        if(!dataStorage) {
-            navigation.navigate('PruebaBoton')
-        } else {
-            navigation.navigate('Welcome')
-        }
-    }
+    // function findUser() {
+        const findUser = async () => {
+            try {
+              const value = await AsyncStorage.getItem('userEmail')
+              if(!value) {
+                navigation.navigate('PruebaBoton')
+              }
+              else navigation.navigate('Welcome')
+            } catch(e) {
+                console.log(e)
+            }
+          }
+    //     const dataStorage = AsyncStorage.getItem('userEmail')
+    //     if(!dataStorage) {
+    //         navigation.navigate('PruebaBoton')
+    //     } else {
+    //         navigation.navigate('Welcome')
+    //     }
+    // }
 
     return (
         <View style={styles.todo}>

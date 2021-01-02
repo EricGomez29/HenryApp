@@ -34,6 +34,8 @@ export const styles = StyleSheet.create({
         position: 'absolute', 
         borderRadius: 30, 
         // filter: "brightness(0.6)",
+        backgroundColor: 'black',
+        opacity: 0.6
         
     },
     botonCerrar:{
