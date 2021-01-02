@@ -7,11 +7,20 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Cohortes
+        cohorte: Int
+        henryCoins: String
+        isAdmin:String
         email: String
         password: String
         forgotPassword:String
         isInstructor:Boolean
+        isPM: String
+        standUp: String
+        listPM: [String]
+        image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     input UsersInput {
@@ -23,7 +32,10 @@ const typeDefs = gql`
         isAdmin: Boolean
         email: String
         password: String
-        
+        image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     type Error {
@@ -39,17 +51,18 @@ const typeDefs = gql`
     
 
     type Cohortes {
+        _id: ID
         number: Int
         users: [Users!]
         instructor: Users
     }
     
     type PairProgramming {
-        horaDeInicio: String
-        horaDeCierre: String
+        _id:String
         dia: String
-        mesas: [Mesas]
-        cohorte: Cohortes
+        cohorte: Int
+        users: [Users]
+        linkMeet: String
     }
 
     type Email{
@@ -71,7 +84,24 @@ const typeDefs = gql`
         users: [Users]
         estado: Boolean
         linkMeet: String
-        cohorte: Int!
+        cohorte: Int
+    }
+
+    type StandUp{
+        _id:String
+        PM: [Users]
+        users: [Users]
+        cohorte: Int
+        name:String
+        number:Int
+    }
+
+    type DailyStandUp{
+        _id:String
+        fecha: String
+        users: [Users]
+        name: String
+        linkMeet: String
     }
 
     type Query {
@@ -79,6 +109,8 @@ const typeDefs = gql`
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
         mesas(where: JSON): [Mesas]
+        standup(where: JSON): [StandUp]
+        dailyStandUp(where: JSON): [DailyStandUp]
     }
 
     type Mutation {
@@ -103,13 +135,23 @@ const typeDefs = gql`
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
-        addUserPairProgramming(username:String!, id: String):Mesas
-        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
+        addUserPairProgramming(username:String!, id: String):PairProgramming
+        removeUserPairProgramming(username:String! ):PairProgramming
 
         sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:String, email:String): Users
+
+        addStandUp(cohorte:Int): StandUp
+        assignPMStandUp(username:String, name:String): StandUp
+        removePMStandUp(username:String, name:String): StandUp
+        addUserStandUp(username:String, name: String):StandUp
+        removeUserStandUp( username: String ):StandUp
+
+        addDailyUser(username:String!): DailyStandUp
+        addDailyStandUp(username:String!, name:String!): DailyStandUp
+        removeDailyUser(username: String, name: String!):DailyStandUp
     }
 `;
 

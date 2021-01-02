@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { styles } from '../styles/LoginStyle'
 import {LOGIN} from '../Querys/userQuery'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function Login({ navigation }) {
-
-    // const dataStorage = localStorage.getItem('userEmail');
 
     const validations = yup.object().shape({
         email: yup.string()
@@ -20,7 +17,7 @@ export default function Login({ navigation }) {
             .required('Campo obligatorio')
     })
 
-    const [login, { data }] = useMutation(LOGIN);
+    const [login] = useMutation(LOGIN);
 
     const handleSubmit = async (values) => {
         const response = await login({
@@ -38,12 +35,12 @@ export default function Login({ navigation }) {
             console.error(errors);
         }
     }
-    
+
     return (
-        <View style={{flex: 1}}>
-            
-            <View style={{width: 270}}>
-                
+        <View style={{ flex: 1 }}>
+
+            <View style={{ width: 270 }}>
+
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     onSubmit={values => handleSubmit(values)}
@@ -75,25 +72,25 @@ export default function Login({ navigation }) {
                                 </View>
                                 {/* ERROR CONTRASEÑA */}
                                 {touched.password && errors.password &&
-                                <Text style={styles.errorForm}>{errors.password}</Text>}
+                                    <Text style={styles.errorForm}>{errors.password}</Text>}
                             </View>
-                            
-                        <View style={styles.containerBoton}>
-                            <TouchableOpacity  onPress={() => {navigation.navigate('ForgotPassword')}} style={styles.olvideContraseña}>
-                                <Text style={{color: 'black'}}>Olvide mi contraseña</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.containerBoton}>
-                            <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                <Text style={{color: 'black', fontWeight: 'bold'}}>INICIAR SESION</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.containerBoton}>
-                            <TouchableOpacity style={styles.olvideContraseña}>
-                                <Text style={{color: 'black'}}>Tambien podes ingresar con:</Text>
-                            </TouchableOpacity>
-                        </View>
-{/* 
+
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity onPress={() => { navigation.navigate('ForgotPassword') }} style={styles.olvideContraseña}>
+                                    <Text style={{ color: 'black' }}>Olvide mi contraseña</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>INICIAR SESION</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity style={styles.olvideContraseña}>
+                                    <Text style={{ color: 'black' }}>Tambien podes ingresar con:</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {/* 
                         <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
                             <TouchableOpacity style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
                                 <Icon name="logo-facebook" style={{fontSize:20}}/>
@@ -102,12 +99,7 @@ export default function Login({ navigation }) {
                                 <Icon name="logo-google" style={{fontSize:20}}/>
                             </TouchableOpacity>
                         </View> */}
-                        <View style={styles.containerBoton}>
-                            <TouchableOpacity   style={styles.olvideContraseña} onPress={() => {navigation.navigate('Welcome')}}>
-                                <Text >-ir a welcome-</Text>
-                            </TouchableOpacity>
                         </View>
-                    </View>
                     )}
                 </Formik>
             </View>
