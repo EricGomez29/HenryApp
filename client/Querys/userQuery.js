@@ -1,5 +1,16 @@
 import { gql } from '@apollo/client';
 
+export const LOGIN = gql`
+mutation Login($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+        success
+        token
+        errors {
+            message
+        }
+    }
+}`;
+
 export const USER_REGISTER = gql`
  mutation registerUser( 
         $username: String ,
@@ -29,9 +40,7 @@ export const GET_USER = gql`
             firstName
             lastName
             email
-            cohorte{
-                number
-            }
+            cohorte
             image
         }
     }`;
@@ -53,7 +62,7 @@ export const EDIT_USER = gql`
         }
 }`;
 
-export const GET_TODASMESAS = gql`
+export const GET_TODASMESAS = gql`  
 query Mesas{
     mesas{
         users {
@@ -65,7 +74,7 @@ query Mesas{
     }
 }`;
 
-export const GET_MESASCOHORTE = gql`
+export const GET_MESASCOHORTE = gql`    
 query Mesas($cohorte: String){
     mesas(where: {cohorte: $cohorte}){
         users {

@@ -33,7 +33,9 @@ export const styles = StyleSheet.create({
     tarjeta:{
         position: 'absolute', 
         borderRadius: 30, 
-        // filter: "brightness(0.6)",
+        filter: "brightness(0.6)",
+        // backgroundColor: 'black',
+        // opacity: 0.6
         
     },
     botonCerrar:{
@@ -44,7 +46,15 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center',
         marginTop: 20,
-        marginBottom: 20
+        marginBottom: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
     }
 
 })

@@ -1,36 +1,48 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Image, View, Text } from 'dripsy';
+import React, { useEffect, useState } from 'react';
+import {  Switch, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Image, View ,Text} from 'dripsy';
+import { Container } from '../styled-components/Container'
 import { GET_USER } from '../apollo/user';
 import { useQuery } from '@apollo/client';
-import { styles } from '../styles/WelcomeStyle';
+import {styles} from '../styles/WelcomeStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Menu from './MenuDesplegable';
 
 export default function Welcome({ navigation }) {
-    const email = localStorage.getItem('userEmail');
-    const { loading, data, error } = useQuery(GET_USER, {
-        variables: {
-            email,
-        }
-    });
 
-    const cohorte = data?.users[0].cohorte?.number;
+   const email = localStorage.getItem('userEmail')
+
+   const { loading, data, error } = useQuery(GET_USER, {
+       variables: {
+           email,
+       }
+   })
+   console.log(data)
+
+    const cohorte = data?.users[0].cohorte;
+    const name = data?.users[0].firstName;
     const userName = data?.users[0].username;
-    // console.log(data?.users[0].username)
-    const cohorteStorage = localStorage.setItem('Cohorte', cohorte)
-    const userNameStorage = localStorage.setItem('userName', userName)
+    const cohorte2 = localStorage.setItem('Cohorte', cohorte);
+    const name2 = localStorage.setItem('name', name);
+    const userName2 = localStorage.setItem('userName', userName);
+      
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('Cohorte');
+    function handleLogout() {
+        AsyncStorage.removeItem('token');
+        AsyncStorage.removeItem('userEmail');
+        AsyncStorage.removeItem('userName');
+        AsyncStorage.removeItem('Cohorte');
         navigation.navigate('Home');
     }
 
-    if (error) {
-        handleLogout();
+    if(error) {
+        navigation.navigate('Home')
     } else if (loading) {
-        return <View><Text>Loading</Text></View>
+        return <View style= {{flex: 1, justifyContent: "center", flexDirection: "row", padding: 10}}>
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            </View>
     } else {
         return (
             <View style={styles.todo}>
@@ -38,9 +50,9 @@ export default function Welcome({ navigation }) {
                     source={require("../assets/FondoAmarillo.png")}
                     style={{ width: '100%', position: 'absolute', height: '60%' }}
                 ></Image>
-
+                
                 <View style={styles.container}>
-                    <Text style={styles.title} sx={{ fontSize: [30, 50] }}>{'Bienvenido ' + data?.users[0].firstName + '!'}</Text>
+                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
 
                     <View style={styles.boton} sx={{ width: [300, 600], height: [130, 200] }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile', { profileData: data })}>

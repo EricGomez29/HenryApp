@@ -1,4 +1,4 @@
-import User from '../models/Users'
+import User from '../models/Users';
 
 export const existUser = async(username) => {
     const user = await User.findOne({"username": username});
@@ -15,7 +15,6 @@ export const pushUser = async ( id_user, name , place) => {
         }
     })
 };
-
 
 export const pullUser = async ( id_user, name , place) => {
     return await User.findOneAndUpdate({ _id: id_user}, {
