@@ -49,7 +49,6 @@ export default function App() {
             <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
             <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
             <Stack.Screen name="PairProgramming" component={PairProgramming} />
-            {/* <Stack.Screen name="PairProgramming" component={Mesas} /> */}
             <Stack.Screen name="StandUp" component={StandUp} />
           </Stack.Navigator>
         </NavigationContainer>

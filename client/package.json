@@ -46,7 +46,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.1",
-    "yup": "^0.32.1"
+    "yup": "^0.32.1",
+    "expo-web-browser": "~8.5.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

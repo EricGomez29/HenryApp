@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {  Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import {  Switch, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Image, View ,Text} from 'dripsy';
 import { Container } from '../styled-components/Container'
 import { GET_USER } from '../apollo/user';
@@ -37,7 +37,11 @@ export default function Welcome({ navigation }) {
     if(error) {
         navigation.navigate('Home')
     } else if (loading) {
-        return <View><Text>Loading</Text></View>
+        return <View style= {{flex: 1, justifyContent: "center", flexDirection: "row", padding: 10}}>
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            </View>
     } else {
         return (
             <View style={styles.todo}>

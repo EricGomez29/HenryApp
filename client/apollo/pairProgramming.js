@@ -37,3 +37,28 @@ mutation addUserPairProgramming($username: String!, $id: String){
         }
     }
 }`;
+
+export const GET_MESA = gql`
+query pairProgramming($id: String){
+    pairProgramming(where: {_id: $id}){
+      users{
+        firstName
+        lastName
+        nationality
+        image
+      }
+      cohorte
+      _id
+      linkMeet
+    }
+  }`
+
+export const REMOVE_MESA = gql`
+mutation removeUserPairProgramming($username: String!){
+    removeUserPairProgramming(
+      username: $username
+    )
+    {
+      dia
+    }
+  }`

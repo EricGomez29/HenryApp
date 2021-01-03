@@ -8,7 +8,8 @@ import {styles} from '../styles/MesaStyle';
 import Mesa from './Mesas';
 
 export default function Mesas({navigation}){
-    
+
+    const idMesa = localStorage.getItem('idMesa')
     const cohorte = localStorage.getItem('Cohorte');
     const userName = localStorage.getItem('userName')
     const { loading, data, error } = useQuery(GET_MESASCOHORTE, {
@@ -51,11 +52,18 @@ export default function Mesas({navigation}){
                 {
                     data && data?.pairProgramming.map(m => {
                         
-                        return <Mesa users={m.users} id={m._id}/>
+                        return <Mesa navigation={navigation} users={m.users} id={m._id}/>
                     })
                 }
             </View>
         )
+    }
+
+    function mostrar(){
+        if(!idMesa){
+            return Sala()
+        }
+        else return navigation.navigate('SalaDeMesa')   
     }
     return(
         <View style={styles.todo}>
@@ -63,7 +71,7 @@ export default function Mesas({navigation}){
                 source={require("../assets/FondoAmarillo.png")}
                 style={{width: '100%', position: 'absolute', height: '60%'}}
             ></Image>
-            {Sala()}
+            {mostrar()}
         </View>
     )
 }
