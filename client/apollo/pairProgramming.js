@@ -13,23 +13,24 @@ query Mesas{
 }`;
 
 export const GET_MESASCOHORTE = gql`
-query Mesas($cohorte: String){
-    mesas(where: {cohorte: $cohorte}){
+query pairProgramming($cohorte: String! ){
+    pairProgramming(where: {cohorte: $cohorte }){
         _id
         users {
             _id
             username
         }
         linkMeet
-        estado
         cohorte
+        dia
     }
 }`;
 
 export const ADD_USERMESA = gql`
-mutation AddUserPairProgramming($username: String!){
+mutation addUserPairProgramming($username: String!, $id: String){
     addUserPairProgramming(
-        username: $username
+        username: $username,
+        id: $id
     ){
         users{
             username
