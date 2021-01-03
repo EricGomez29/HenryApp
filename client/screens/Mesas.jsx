@@ -3,15 +3,16 @@ import { TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {View, Text} from 'dripsy'
 import { TextInput } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
-import { GET_MESASCOHORTE, ADD_USERMESA } from '../apollo/pairProgramming';
-import { useQuery, useMutation } from '@apollo/client';
+import { ADD_USERMESA } from '../apollo/pairProgramming';
+import { useMutation } from '@apollo/client';
 import {styles} from '../styles/MesaStyle';
 
 export default function Mesa({ navigation, users, id }){
     const [personas, setPersonas] = useState(users.length)
     const [idMesa, setIdMesa] = useState(id)
     const userName = localStorage.getItem('userName')
-    
+    const [mesa, setMesa] = useState()
+
     const [addUserPairProgramming] = useMutation(ADD_USERMESA);
     const handleSubmit = async () => {
         const response = await addUserPairProgramming({
@@ -20,7 +21,9 @@ export default function Mesa({ navigation, users, id }){
                 id: idMesa,
             }
         })
-        console.log(response.data)
+        console.log(response.data.addUserPairProgramming)
+        setMesa(response.data.addUserPairProgramming)
+        const idMesa2 = localStorage.setItem('idMesa', idMesa);
         const { errors, success } = response.data.addUserPairProgramming
         navigation.navigate('SalaDeMesa');
     }

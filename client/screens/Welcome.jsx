@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {  Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import {  Switch, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Image, View ,Text} from 'dripsy';
 import { Container } from '../styled-components/Container'
 import { GET_USER } from '../apollo/user';
 import { useQuery } from '@apollo/client';
 import {styles} from '../styles/WelcomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Menu from './MenuDesplegable';
 
 export default function Welcome({ navigation }) {
 
@@ -37,7 +38,11 @@ export default function Welcome({ navigation }) {
     if(error) {
         navigation.navigate('Home')
     } else if (loading) {
-        return <View><Text>Loading</Text></View>
+        return <View style= {{flex: 1, justifyContent: "center", flexDirection: "row", padding: 10}}>
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            <ActivityIndicator size="large" color="yellow" />
+            </View>
     } else {
         return (
             <View style={styles.todo}>
@@ -45,7 +50,7 @@ export default function Welcome({ navigation }) {
                     source={require("../assets/FondoAmarillo.png")}
                     style={{ width: '100%', position: 'absolute', height: '60%' }}
                 ></Image>
-
+                
                 <View style={styles.container}>
                     <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
 
