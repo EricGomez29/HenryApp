@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {styles} from '../styles/SalaMesaStyle';
 
-export default function SalaDeMesa({navigation}){
+export default function SalaDeMesa({ navigation }){
     return (
         <View style={styles.todo}>
             <Image

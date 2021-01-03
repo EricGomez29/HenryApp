@@ -1,33 +1,69 @@
 import React from 'react';
-import Mesas from '../Components/Mesas';
 import { View, Text } from 'dripsy'
+import { TouchableOpacity, StyleSheet, Image} from 'react-native';
 import { PAIR_PROGRAMMING } from '../constants';
-import { GET_MESASCOHORTE } from '../apollo/pairProgramming';
+import { GET_MESASCOHORTE, ADD_USERMESA } from '../apollo/pairProgramming';
 import { useQuery, useMutation } from '@apollo/client';
+import {styles} from '../styles/MesaStyle';
+import Mesa from './Mesas';
 
-const PairProgramming = ({ navigation }) => {
+export default function Mesas({navigation}){
+    
     const cohorte = localStorage.getItem('Cohorte');
-    const userName = localStorage.getItem('userName');
-
-    const { loading, data } = useQuery(GET_MESASCOHORTE, {
+    const userName = localStorage.getItem('userName')
+    const { loading, data, error } = useQuery(GET_MESASCOHORTE, {
         variables: {
-            cohorte,
-        },
-        pollInterval: 2000,
+            cohorte: cohorte,
+        }
     })
-
-    if (loading) {
-        return <View><Text>Loading...</Text></View>
-    } else {
-        return (
-            <Mesas
-                navigation={navigation}
-                type={PAIR_PROGRAMMING}
-                mesas={data.mesas}
-            />
-        );
+    console.log(data)
+    const [addUserPairProgramming] = useMutation(ADD_USERMESA);
+    
+    const handleSubmit = async () => {
+        const response = await addUserPairProgramming({
+            variables: {
+                username: userName,
+            }
+        })
+        
+        const { errors, success } = response.data.addUserPairProgramming;
+        navigation.navigate('SalaDeMesa');
     }
-
+    
+    
+    
+    function Sala () {
+        if (data?.pairProgramming.length === 0){
+            return (
+                <View style={styles.container}>
+                    <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center'}}>Sala Vacia</Text>
+                    <View style={styles.botonSalaVacia} sx={{width: [250, 400], height: [50, 70]}}>
+                        <TouchableOpacity onPress={handleSubmit}>
+                            <Text style={{textAlign: 'center', fontWeight: 'bold'}} sx={{fontSize: [15, 22]}}>Se el primero en crear una mesa!</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )
+        }
+        else return (
+            <View >  
+                <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center'}}>Sala </Text>  
+                {
+                    data && data?.pairProgramming.map(m => {
+                        
+                        return <Mesa users={m.users} id={m._id}/>
+                    })
+                }
+            </View>
+        )
+    }
+    return(
+        <View style={styles.todo}>
+            <Image
+                source={require("../assets/FondoAmarillo.png")}
+                style={{width: '100%', position: 'absolute', height: '60%'}}
+            ></Image>
+            {Sala()}
+        </View>
+    )
 }
-
-export default PairProgramming;

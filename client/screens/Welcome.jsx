@@ -8,41 +8,25 @@ import {styles} from '../styles/WelcomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Welcome({ navigation }) {
-   const [email2, setEmail2] = useState(false)
-//    const [cohorte2, setCohorte2] = useState([])
-//    const [userName2, setUserName2] = useState([])
 
-   useEffect(() => {
-       async function email() {
-           try{
-                const mail = await AsyncStorage.getItem('userEmail');
-                const {errors, success} = mail;
-                if(success){
+   const email = localStorage.getItem('userEmail')
 
-                    const { loading, data, error } = useQuery(GET_USER, {
-                        variables: {
-                            mail,
-                        }
-                    });
-                    console.log(data)
-                    const cohorte = data?.users[0].cohorte;
-                    const userName = data?.users[0].firstName;
-                     await AsyncStorage.setItem('Cohorte', cohorte);
-                     await AsyncStorage.setItem('userName', userName);
-                }
-                else console.error(errors)
-                }
-           catch(e){
-               console.log(e)
-           }
+   const { loading, data, error } = useQuery(GET_USER, {
+       variables: {
+           email,
        }
+   })
+   console.log(data)
 
-       email()
-    }, []);
+    const cohorte = data?.users[0].cohorte;
+    const name = data?.users[0].firstName;
+    const userName = data?.users[0].username;
+    const cohorte2 = localStorage.setItem('Cohorte', cohorte);
+    const name2 = localStorage.setItem('name', name);
+    const userName2 = localStorage.setItem('userName', userName);
+      
 
-           
-
-    const handleLogout = () => {
+    function handleLogout() {
         AsyncStorage.removeItem('token');
         AsyncStorage.removeItem('userEmail');
         AsyncStorage.removeItem('userName');
@@ -50,11 +34,11 @@ export default function Welcome({ navigation }) {
         navigation.navigate('Home');
     }
 
-    // if(error) {
-    //     navigation.navigate('Home')
-    // } else if (loading) {
-    //     return <View><Text>Loading</Text></View>
-    // } else {
+    if(error) {
+        navigation.navigate('Home')
+    } else if (loading) {
+        return <View><Text>Loading</Text></View>
+    } else {
         return (
             <View style={styles.todo}>
                 <Image
@@ -63,7 +47,7 @@ export default function Welcome({ navigation }) {
                 ></Image>
 
                 <View style={styles.container}>
-                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ '!'}</Text>
+                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
 
                     <View style={styles.boton} sx={{ width: [300, 600], height: [130, 200] }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile', { profileData: data })}>
@@ -115,7 +99,7 @@ export default function Welcome({ navigation }) {
                 </View>
             </View>
         )
-    // }
+    }
 }
 
 
