@@ -29,7 +29,6 @@ const server = new ApolloServer({
     typeDefs, 
     resolvers,
     context: ({req}) => {
-        // console.log("User ID: ", req.user)
         return {
             models,
             ACCESS_TOKEN_SECRET,

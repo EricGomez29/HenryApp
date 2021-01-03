@@ -62,7 +62,7 @@ export const EDIT_USER = gql`
         }
 }`;
 
-export const GET_TODASMESAS = gql`
+export const GET_TODASMESAS = gql`  //ARREGLAR
 query Mesas{
     mesas{
         users {
@@ -74,7 +74,7 @@ query Mesas{
     }
 }`;
 
-export const GET_MESASCOHORTE = gql`
+export const GET_MESASCOHORTE = gql`    //ARREGLAR
 query Mesas($cohorte: String){
     mesas(where: {cohorte: $cohorte}){
         users {

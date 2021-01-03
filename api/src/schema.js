@@ -12,8 +12,8 @@ const typeDefs = gql`
         isAdmin:String
         email: String
         password: String
-        forgotPassword:String
-        isInstructor:Boolean
+        forgotPassword: String
+        isInstructor: Boolean
         isPM: String
         standUp: String
         listPM: [String]
