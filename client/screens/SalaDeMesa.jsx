@@ -61,7 +61,7 @@ export default function SalaDeMesa({ navigation }){
                 </Text>
                 <View style={styles.linkFijado}>
                     <TouchableOpacity onPress={handlePress2}>
-                            <Text style={styles.link}>Link de la reunion: 
+                            <Text style={styles.link}>  Link de la reunion: 
                             <Text style={{color: 'blue'}}>  {link}</Text></Text>
                     </TouchableOpacity>
                 </View>

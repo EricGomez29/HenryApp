@@ -2,6 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { DripsyProvider } from 'dripsy';
 
@@ -19,8 +20,11 @@ import SalaDeMesa from './screens/SalaDeMesa';
 import PhotoProfile from './screens/PhotoProfile';
 import PairProgramming from './screens/PairProgramming';
 import {Mesas} from './screens/Mesas';
+import Admin from './screens/Admin';
+
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const client = new ApolloClient({
   uri: `http://localhost:5000/graphql`,
@@ -52,6 +56,11 @@ export default function App() {
             <Stack.Screen name="StandUp" component={StandUp} />
           </Stack.Navigator>
         </NavigationContainer>
+        {/* <NavigationContainer>
+          <Drawer.Navigator>
+            <Drawer.Screen name='Admin' component={Admin}/>
+          </Drawer.Navigator>
+        </NavigationContainer> */}
       </DripsyProvider>
     </ApolloProvider>
   );
