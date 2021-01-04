@@ -108,7 +108,6 @@ const typeDefs = gql`
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
-        mesas(where: JSON): [Mesas]
         standup(where: JSON): [StandUp]
         dailyStandUp(where: JSON): [DailyStandUp]
     }
@@ -137,6 +136,7 @@ const typeDefs = gql`
 
         addUserPairProgramming(username:String!, id: String):PairProgramming
         removeUserPairProgramming(username:String! ):PairProgramming
+        addLinkMeet(id:String!,link:String!):PairProgramming
 
         sendEmail(email: String): Email
 

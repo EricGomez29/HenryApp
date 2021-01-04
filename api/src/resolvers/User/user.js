@@ -39,7 +39,7 @@ export const editUsers = async (input) =>{
         input.cohorte = await existCohorte(input.cohorte)
     }
     await  User.findOneAndUpdate({ "username": input.username }, input);
-    return await User.findOne({username: input.username}).populate('cohorte');
+    return await User.findOne({username: input.username});
 }
 
 export const compareCode = async (input) =>{
