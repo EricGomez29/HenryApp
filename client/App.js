@@ -21,6 +21,7 @@ import PhotoProfile from './screens/PhotoProfile';
 import PairProgramming from './screens/PairProgramming';
 import {Mesas} from './screens/Mesas';
 import Admin from './screens/Admin';
+import DateTimePicker from './screens/DateTimePicker';
 
 
 const Stack = createStackNavigator();
@@ -41,7 +42,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
+          <Stack.Navigator initialRouteName='DateTimePicker' screenOptions={{ headerShown: true }}>
             <Stack.Screen name="CohorteList" component={CohorteList} />
             <Stack.Screen name="UsersList" component={UsersList} />
             <Stack.Screen name="Home" component={Home} />
@@ -54,6 +55,7 @@ export default function App() {
             <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
             <Stack.Screen name="PairProgramming" component={PairProgramming} />
             <Stack.Screen name="StandUp" component={StandUp} />
+            <Stack.Screen name="DateTimePicker" component={DateTimePicker} />
           </Stack.Navigator>
         </NavigationContainer>
         {/* <NavigationContainer>
