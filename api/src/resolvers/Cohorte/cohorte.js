@@ -9,8 +9,13 @@ export const addCohorte = async() => {
     //Busco los cohortes
     const cohor = await Cohorte.find()
     return await Cohorte.create({"number": cohor.length + 1});
-}
+};
     
+export const editFechaCohorte = async (fecha, id) => {
+    await Cohorte.findOneAndUpdate({_id: id}, {date: fecha});
+    return Cohorte.findOne({_id: id}).populate('users');
+}
+
 //AGREGAR USUARIO AL COHORTE
 
 export const addUserCohorte = async(number, username) => {

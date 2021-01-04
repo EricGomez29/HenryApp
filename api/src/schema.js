@@ -55,6 +55,7 @@ const typeDefs = gql`
         number: Int
         users: [Users!]
         instructor: Users
+        date: String
     }
     
     type PairProgramming {
@@ -122,15 +123,14 @@ const typeDefs = gql`
         email: String
         password: String ): Users
 
-        addCohorte: Cohortes
-
-        login(email: String!, password: String!): AuthData!
-
         editUser( input: UsersInput): Users
-        
         removeUser (username:String): Users
         
+        login(email: String!, password: String!): AuthData!
+        
         addUserCohorte(number: Int!, username: String!): Cohortes
+        addCohorte: Cohortes
+        editFechaCohorte(fecha:String, id:ID):Cohortes
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
