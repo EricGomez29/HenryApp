@@ -28,6 +28,7 @@
     "expo-web-browser": "~8.5.0",
     "formik": "^2.2.5",
     "graphql": "^15.4.0",
+    "moment": "^2.29.1",
     "native-base": "^2.13.15",
     "react": "16.13.1",
     "react-datetime-picker": "^3.0.4",

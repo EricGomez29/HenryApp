@@ -48,8 +48,8 @@ const resolvers = {
         },
 
         //PAIR-PROGRAMMING / MESAS
-        addUserPairProgramming: async (_, {username, id}) => await addUserPairProgramming(username, id),
-        removeUserPairProgramming: async (_, {username, idMesa}) => await removeUserPairProgramming(username),
+        addUserPairProgramming: async (_ , {username, id}) => await addUserPairProgramming(username, id),
+        removeUserPairProgramming: async (_ , {username, dia}) => await removeUserPairProgramming(username, dia),
         addLinkMeet: (_, {id, link}, context) => addLinkMeet(id, link),
         
         // Mail de Ingreso a la aplicación

@@ -58,3 +58,12 @@ mutation Login($email: String!, $password: String! ) {
         }
     }
 }`;
+
+export const FORGOT_PASSWORD_EMAIL = gql`
+    mutation SendForgotPasswordMail($email: String) {
+        sendForgotPasswordMail(email: $email){
+            forgotPassword
+            username
+        }
+    }
+`

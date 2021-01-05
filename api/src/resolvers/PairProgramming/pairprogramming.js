@@ -40,8 +40,7 @@ export const addUserPairProgramming = async(username, id) => {
     return await PairProgramming.findOne({_id:resp._id}).populate('users')
 }
 
-export const removeUserPairProgramming = async (username) => {
-    const fecha = moment(moment.now()).format("DD/MM/YYYY");
+export const removeUserPairProgramming = async (username, dia) => {
     //Veo Si existe el Usuario
     const user = await User.findOne({"username": username});
     //Pregunto si el usuario esta incluido en algun cohorte
@@ -49,19 +48,18 @@ export const removeUserPairProgramming = async (username) => {
         throw new Error(`Usuario ${username}: usted actualmente no se encuentra asignado a ningun cohorte`);
     }
     //Busco si el usuario esta incluido dentro de un PP
-    const existsUser = await PairProgramming.find({users: user._id, cohorte: user.cohorte, dia: fecha});
+    const existsUser = await PairProgramming.find({users: user._id, cohorte: user.cohorte, dia: dia});
     if(existsUser.length === 0){
-        throw new Error(`El usuario ${username} no ha sido agregado a ningun Pair-Programming.`)
+        throw new Error(`El usuario ${username} no ha sido agregado a ningun Pair-Programming o no es la fecha indicada`)
+    }
+    if(existsUser[0].users.length === 1){
+        await PairProgramming.findOneAndDelete({users: user._id, cohorte: user.cohorte, dia: dia})
     }
     await PairProgramming.findOneAndUpdate({_id: existsUser[0]._id}, {
         $pull: {
             users: user._id
         }
     })
-    const mesa = await PairProgramming.find({cohorte: user.cohorte});
-    if(mesa[0].users.length === 0) {
-        await PairProgramming.findOneAndDelete({cohorte: user.cohorte})
-    }
     return await PairProgramming.findOne({_id: existsUser[0]._id}).populate('users')
 };
 

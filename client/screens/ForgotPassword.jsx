@@ -1,16 +1,30 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 import { Formik } from 'formik';
-import  * as yup from 'yup'
-import { styles } from '../styles/styles'
+import  * as yup from 'yup';
+import { styles } from '../styles/styles';
+import { FORGOT_PASSWORD_EMAIL } from '../apollo/user';
+import { useMutation } from '@apollo/client';
 
 export default function ForgotPassword ({navigation}) {
+
+    const [forgotPasswordMail] =useMutation(FORGOT_PASSWORD_EMAIL)
 
     const validations= yup.object().shape({
         email: yup.string()
             .email('Email inválido')
             .required('Campo obligatorio'),
     })
+
+    const  handleSubmit = async (values) => {
+        console.log(values)
+        const response = await forgotPasswordMail({
+            variables: {
+                email: values.email
+            }
+        });
+        console.log(response)
+    }
 
     return (
         <>
@@ -26,7 +40,7 @@ export default function ForgotPassword ({navigation}) {
         <View style={styles.body}>
             <Formik
                 initialValues={{ email: '' }}
-                onSubmit={ values => { console.log(values) }}
+                onSubmit={ values =>  handleSubmit(values) }
                 validationSchema={validations}
             >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
@@ -43,7 +57,7 @@ export default function ForgotPassword ({navigation}) {
                     <Text style={styles.error}>{errors.email}</Text>}                    
                 
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                        <Text style={styles.linkForm} onPress={() => navigation.navigate('Login')}>Confirmar</Text>
+                        <Text style={styles.linkForm} >Confirmar</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>

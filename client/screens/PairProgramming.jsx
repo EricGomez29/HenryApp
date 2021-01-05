@@ -6,15 +6,17 @@ import { GET_MESASCOHORTE, ADD_USERMESA } from '../apollo/pairProgramming';
 import { useQuery, useMutation } from '@apollo/client';
 import {styles} from '../styles/MesaStyle';
 import Mesa from './Mesas';
+import moment from 'moment';
 
 export default function Mesas({navigation}){
-
+    const fecha = moment().format('DD/MM/YYYY');
     const idMesa = localStorage.getItem('idMesa')
     const cohorte = localStorage.getItem('Cohorte');
     const userName = localStorage.getItem('userName')
     const { loading, data, error } = useQuery(GET_MESASCOHORTE, {
         variables: {
             cohorte: cohorte,
+            dia: fecha
         }
     })
     console.log(data)
