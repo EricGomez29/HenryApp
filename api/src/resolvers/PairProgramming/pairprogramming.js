@@ -28,7 +28,7 @@ export const addUserPairProgramming = async(username, id) => {
     }else{ 
         resp = await PairProgramming.findOne(({users : {"$not":{"$size":5}}, dia: fecha, cohorte: user.cohorte}));
         if(!resp){
-            resp = await PairProgramming.create({cohorte: user.cohorte, linkMeet: "http://meet.com/new", users: [user._id]})
+            resp = await PairProgramming.create({cohorte: user.cohorte, linkMeet: "", users: [user._id]})
         }else{
             await PairProgramming.findOneAndUpdate({_id: resp._id}, {
                 $push: {
