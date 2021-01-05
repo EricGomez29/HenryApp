@@ -2,14 +2,15 @@ import React, {useState} from 'react';
 import {View, Text, Image, TouchableOpacity, TextInput} from 'react-native';
 import {styles} from '../styles/SalaMesaStyle';
 import TarjetaUser from '../Components/TarjetaUser';
-import {GET_MESA, REMOVE_MESA} from '../apollo/pairProgramming';
+import {GET_MESA, REMOVE_MESA, ADD_LINK} from '../apollo/pairProgramming';
 import { useQuery, useMutation } from '@apollo/client';
-
+import moment from 'moment';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 
 export default function SalaDeMesa({ navigation }){
-    const [link, setLink] = useState()
+    const fecha = moment().format('DD/MM/YYYY')
+    
     const [value, setValue] = useState()
     const userName = localStorage.getItem('userName')
     const idMesa = localStorage.getItem('idMesa');
@@ -18,8 +19,9 @@ export default function SalaDeMesa({ navigation }){
             id: idMesa,
         }
     })
+    const linkMeet = data?.pairProgramming[0].linkMeet
+    const [link, setLink] = useState(linkMeet)
     const usuarios = data?.pairProgramming[0].users;
-    const linkMeet = data?.pairProgramming[0].linkMeet;
 
     function handlePress (){
         // Linking.openURL('http://meet.google.com/new');
@@ -41,6 +43,17 @@ export default function SalaDeMesa({ navigation }){
         await localStorage.removeItem('idMesa')
         await navigation.navigate('Welcome');
     }
+    const [addLink] =useMutation(ADD_LINK)
+    const handleLink = async () => {
+        await setLink(value)
+        const response = await addLink({
+            variables: {
+                id: idMesa,
+                link: value
+            }
+        })
+    }
+
 
     return (
         <View style={styles.todo}>
@@ -57,7 +70,7 @@ export default function SalaDeMesa({ navigation }){
 
                 <Text style={{marginTop: 10}}>Ponga el codigo de la reunion aqui:   
                     <TextInput style={styles.input} onChangeText={(e) => setValue(e)}/>
-                    <TouchableOpacity onPress={fijar} style={styles.fijar}><Text>Fijar</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={handleLink} style={styles.fijar}><Text>Fijar</Text></TouchableOpacity>
                 </Text>
                 <View style={styles.linkFijado}>
                     <TouchableOpacity onPress={handlePress2}>
