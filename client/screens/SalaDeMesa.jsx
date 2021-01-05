@@ -38,8 +38,8 @@ export default function SalaDeMesa({ navigation }){
                 username: userName,
             }
         })
-        localStorage.removeItem('idMesa')
-        navigation.navigate('Welcome');
+        await localStorage.removeItem('idMesa')
+        await navigation.navigate('Welcome');
     }
 
     return (
