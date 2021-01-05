@@ -35,6 +35,7 @@ mutation addUserPairProgramming($username: String!, $id: String){
         users{
             username
         }
+        _id
     }
 }`;
 

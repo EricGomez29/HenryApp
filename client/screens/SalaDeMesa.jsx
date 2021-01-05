@@ -27,7 +27,7 @@ export default function SalaDeMesa({ navigation }){
         WebBrowser.openBrowserAsync('http://meet.google.com/new');
     }
     function handlePress2 (){
-        WebBrowser.openBrowserAsync(link);
+        WebBrowser.openBrowserAsync(linkMeet);
     }
    
     const [removeMesa] = useMutation(REMOVE_MESA);
@@ -77,12 +77,12 @@ export default function SalaDeMesa({ navigation }){
                     <TouchableOpacity onPress={handleLink} style={styles.fijar}><Text>Fijar</Text></TouchableOpacity>
                 </Text>
                 <View style={styles.linkFijado}>
-                    <TouchableOpacity onPress={handlePress2}>
                             <Text style={styles.link}> Link de la reunion: 
+                    <TouchableOpacity onPress={handlePress2}>
                             {linkk()}
-                            </Text>
 
                     </TouchableOpacity>
+                            </Text>
                 </View>
             </View>
             <View style={{display: 'flex', justifyContent: "center", alignItems: "center", width: '100%', height: '100%'}}>
