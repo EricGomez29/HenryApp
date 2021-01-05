@@ -31,7 +31,8 @@ export const styles = StyleSheet.create({
     },
     apellido:{
         fontSize: 19,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginBottom: 15
     },
     container:{
         display: 'flex',

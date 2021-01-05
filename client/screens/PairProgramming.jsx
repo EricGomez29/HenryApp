@@ -28,7 +28,7 @@ export default function Mesas({navigation}){
                 username: userName,
             }
         })
-        
+        localStorage.setItem('idMesa', idMesa);
         const { errors, success } = response.data.addUserPairProgramming;
         navigation.navigate('SalaDeMesa');
     }
