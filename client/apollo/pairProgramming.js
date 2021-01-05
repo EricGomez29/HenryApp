@@ -54,9 +54,10 @@ query pairProgramming($id: String){
   }`
 
 export const REMOVE_MESA = gql`
-mutation removeUserPairProgramming($username: String!){
+mutation removeUserPairProgramming($username: String!, $dia: String!){
     removeUserPairProgramming(
         username: $username
+        dia: $dia
     )
     {
       dia

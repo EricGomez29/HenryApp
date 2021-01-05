@@ -38,6 +38,7 @@ export default function SalaDeMesa({ navigation }){
         const response = await removeMesa({
             variables: {
                 username: userName,
+                dia: fecha
             }
         })
         await localStorage.removeItem('idMesa')
