@@ -7,16 +7,20 @@ const typeDefs = gql`
         username: String
         firstName: String
         lastName: String
-        cohorte: Cohortes
+        cohorte: Int
         henryCoins: String
         isAdmin:String
         email: String
         password: String
-        forgotPassword:String
-        isInstructor:Boolean
+        forgotPassword: String
+        isInstructor: Boolean
         isPM: String
         standUp: String
         listPM: [String]
+        image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     input UsersInput {
@@ -28,7 +32,10 @@ const typeDefs = gql`
         isAdmin: Boolean
         email: String
         password: String
-        
+        image: String
+        adress: String
+        nationality: String
+        phone: String
     }
 
     type Error {
@@ -44,18 +51,18 @@ const typeDefs = gql`
     
 
     type Cohortes {
+        _id: ID
         number: Int
         users: [Users!]
         instructor: Users
     }
     
     type PairProgramming {
-        horaDeInicio: String
-        horaDeCierre: String
+        _id:String
         dia: String
-        mesas: [Mesas]
-        cohorte: Cohortes
+        cohorte: Int
         users: [Users]
+        linkMeet: String
     }
 
     type Email{
@@ -81,6 +88,7 @@ const typeDefs = gql`
     }
 
     type StandUp{
+        _id:String
         PM: [Users]
         users: [Users]
         cohorte: Int
@@ -89,6 +97,7 @@ const typeDefs = gql`
     }
 
     type DailyStandUp{
+        _id:String
         fecha: String
         users: [Users]
         name: String
@@ -99,7 +108,6 @@ const typeDefs = gql`
         users(where: JSON): [Users]
         cohortes(where: JSON): [Cohortes]
         pairProgramming(where: JSON): [PairProgramming]
-        mesas(where: JSON): [Mesas]
         standup(where: JSON): [StandUp]
         dailyStandUp(where: JSON): [DailyStandUp]
     }
@@ -126,8 +134,9 @@ const typeDefs = gql`
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
-        addUserPairProgramming(username:String!, id: String):Mesas
-        removeUserPairProgramming(username:String!, idMesa: String!):Mesas
+        addUserPairProgramming(username:String!, id: String):PairProgramming
+        removeUserPairProgramming(username:String!, dia: String!):PairProgramming
+        addLinkMeet(id:String!,link:String!):PairProgramming
 
         sendEmail(email: String): Email
 
@@ -140,9 +149,9 @@ const typeDefs = gql`
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
 
-        addDailyUser(username:String): DailyStandUp
-        addDailyStandUp(username:String, name:String): DailyStandUp
-        removeDailyUser(username: String):DailyStandUp
+        addDailyUser(username:String!): DailyStandUp
+        addDailyStandUp(username:String!, name:String!): DailyStandUp
+        removeDailyUser(username: String, name: String!):DailyStandUp
     }
 `;
 
