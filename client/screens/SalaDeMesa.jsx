@@ -5,12 +5,10 @@ import TarjetaUser from '../Components/TarjetaUser';
 import {GET_MESA, REMOVE_MESA, ADD_LINK} from '../apollo/pairProgramming';
 import { useQuery, useMutation } from '@apollo/client';
 import moment from 'moment';
-import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 
 export default function SalaDeMesa({ navigation }){
     const fecha = moment().format('DD/MM/YYYY')
-    
     const [value, setValue] = useState()
     const userName = localStorage.getItem('userName')
     const idMesa = localStorage.getItem('idMesa');
@@ -20,34 +18,32 @@ export default function SalaDeMesa({ navigation }){
         }
     })
     const linkMeet = data?.pairProgramming[0].linkMeet
-    const [link, setLink] = useState(linkMeet)
+    const [link, setLink] = useState(false)
     const usuarios = data?.pairProgramming[0].users;
 
     function handlePress (){
-        // Linking.openURL('http://meet.google.com/new');
+        
         WebBrowser.openBrowserAsync('http://meet.google.com/new');
     }
     function handlePress2 (){
         WebBrowser.openBrowserAsync(link);
     }
-    function fijar(){
-        setLink(value)
-    }
+   
     const [removeMesa] = useMutation(REMOVE_MESA);
     const handleSubmit = async () => {
-        const response = await removeMesa({
+        await removeMesa({
             variables: {
                 username: userName,
                 dia: fecha
             }
         })
-        await localStorage.removeItem('idMesa')
-        await navigation.navigate('Welcome');
+        localStorage.removeItem('idMesa')
+        navigation.navigate('Welcome');
     }
     const [addLink] =useMutation(ADD_LINK)
     const handleLink = async () => {
-        await setLink(value)
-        const response = await addLink({
+        setLink(value)
+        await addLink({
             variables: {
                 id: idMesa,
                 link: value
@@ -55,6 +51,12 @@ export default function SalaDeMesa({ navigation }){
         })
     }
 
+    const linkk = () => {
+        if(link === false){
+            return (<Text style={{color: 'blue'}}>  {linkMeet}</Text>)
+        }
+        else return (<Text style={{color: 'blue'}}>  {link}</Text>)
+    }
 
     return (
         <View style={styles.todo}>
@@ -75,8 +77,10 @@ export default function SalaDeMesa({ navigation }){
                 </Text>
                 <View style={styles.linkFijado}>
                     <TouchableOpacity onPress={handlePress2}>
-                            <Text style={styles.link}>  Link de la reunion: 
-                            <Text style={{color: 'blue'}}>  {link}</Text></Text>
+                            <Text style={styles.link}> Link de la reunion: 
+                            {linkk()}
+                            </Text>
+
                     </TouchableOpacity>
                 </View>
             </View>
