@@ -18,6 +18,7 @@ export default function SalaDeMesa({ navigation }){
         }
     })
     const linkMeet = data?.pairProgramming[0].linkMeet
+    console.log(linkMeet)
     const [link, setLink] = useState(false)
     const usuarios = data?.pairProgramming[0].users;
 
