@@ -135,7 +135,7 @@ const typeDefs = gql`
         addInstructor(username:String, cohorte:Int): Cohortes
 
         addUserPairProgramming(username:String!, id: String):PairProgramming
-        removeUserPairProgramming(username:String! ):PairProgramming
+        removeUserPairProgramming(username:String!, dia: String!):PairProgramming
         addLinkMeet(id:String!,link:String!):PairProgramming
 
         sendEmail(email: String): Email
