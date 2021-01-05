@@ -64,3 +64,8 @@ export const removeUserPairProgramming = async (username) => {
     }
     return await PairProgramming.findOne({_id: existsUser[0]._id}).populate('users')
 };
+
+export const addLinkMeet = async (id, link) => {
+    await PairProgramming.findOneAndUpdate({_id: id}, {linkMeet: link});
+    return PairProgramming.findOne({_id: id}).populate('users');
+}; 
