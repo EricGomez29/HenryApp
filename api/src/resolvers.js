@@ -12,6 +12,7 @@ import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Dail
 import { addUserPairProgramming, removeUserPairProgramming, addLinkMeet } from './resolvers/PairProgramming/pairprogramming';
 import { addUserCohorte, editFechaCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
+import { giveCoins } from './resolvers/CoinsSystem/coinsSystem'
 dotenv.config()
 
 const resolvers = {
@@ -71,6 +72,9 @@ const resolvers = {
         addDailyUser: ( parent, { username }, context) => addDailyUser(username),
         addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp(username, name),
         removeDailyUser:  ( parent, { username, name }, context) => removeDailyUser(username, name),
+        
+        //Coins System
+        giveCoins: (_, {username, coins}, context) => giveCoins(username, coins),
     }
 }
 

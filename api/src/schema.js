@@ -152,6 +152,8 @@ const typeDefs = gql`
         addDailyUser(username:String!): DailyStandUp
         addDailyStandUp(username:String!, name:String!): DailyStandUp
         removeDailyUser(username: String, name: String!):DailyStandUp
+
+        giveCoins(username:String, coins:Int):Users
     }
 `;
 
