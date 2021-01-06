@@ -6,32 +6,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({ navigation }) {
 
-    // function findUser() {
-        const findUser = async () => {
-            try {
-              const value = await AsyncStorage.getItem('userEmail')
-              if(!value) {
-                navigation.navigate('PruebaBoton')
-              }
-              else navigation.navigate('Welcome')
-            } catch(e) {
-                console.log(e)
+    const findUser = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userEmail')
+            if(!value) {
+            navigation.navigate('PruebaBoton')
             }
-          }
-    //     const dataStorage = AsyncStorage.getItem('userEmail')
-    //     if(!dataStorage) {
-    //         navigation.navigate('PruebaBoton')
-    //     } else {
-    //         navigation.navigate('Welcome')
-    //     }
-    // }
+            else navigation.navigate('Welcome')
+        } catch(e) {
+            console.log(e)
+        }
+        }
 
     return (
         <View style={styles.todo}>
-            <Image
-                source={require("../assets/FondoAmarillo2.png")}
-                style={{width: '100%', position: 'absolute', height: '70%'}}
-            ></Image>
+            <View style={{width: '100%', height: 500, position: 'absolute'}}>
+                <Image
+                    source={require("../assets/FondoAmarillo2.png")}
+                    style={{width: '100%', position: 'absolute', height: 500}}
+                ></Image>
+            </View>
             <View style={styles.container}>
                 <Image
                     source={require("../assets/henry.png")}

@@ -5,9 +5,10 @@ import  * as yup from 'yup';
 import { styles } from '../styles/styles';
 import { COMPARE_CODE } from '../apollo/user';
 import { useMutation } from '@apollo/client';
+import { PanResponder } from 'react-native';
 
 export default function CompareCode ({navigation, route}) {
-    
+    console.log(route.params)
     const [compareCode] = useMutation(COMPARE_CODE);
 
     const validations= yup.object().shape({
@@ -25,7 +26,7 @@ export default function CompareCode ({navigation, route}) {
                     email: route.params.email
                 }
             });
-            navigation.navigate("ChangeOnlyPassword")
+            navigation.navigate("ChangeOnlyPassword", { username: response.data?.compareCode.username });
         }catch(err){
             console.log(err);
         }
@@ -38,7 +39,7 @@ export default function CompareCode ({navigation, route}) {
                 source={require("../assets/logoHenry.png")}
                 resizeMode="contain"
                 style={styles.imgHenry}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Home'), {}}
             ></Image>
             
         </View>

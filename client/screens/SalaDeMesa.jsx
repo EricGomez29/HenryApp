@@ -82,6 +82,7 @@ export default function SalaDeMesa({ navigation }){
     
     return (
         <View style={styles.todo}>
+            
             <Image
                 source={require("../assets/FondoAmarillo2.png")}
                 style={{width: '100%', position: 'absolute', height: '70%'}}

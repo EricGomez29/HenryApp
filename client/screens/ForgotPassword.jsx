@@ -24,8 +24,7 @@ export default function ForgotPassword ({navigation}) {
                 }
             });
             navigation.navigate("CompareCode", {
-                email: values.email,
-                pasword: response.data
+                email: values.email
             })
         }catch(err){
             console.log(err)

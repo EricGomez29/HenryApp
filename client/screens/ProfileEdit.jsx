@@ -32,9 +32,8 @@ const ProfileEdit = ({ route, navigation }) => {
                 }
             })
         } catch (error) {
-            console.log(error)    
+            console.log(error);    
         }
-
     }
 
     return (
