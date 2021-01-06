@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'dripsy'
 import { TouchableOpacity, StyleSheet, Image} from 'react-native';
 import { PAIR_PROGRAMMING } from '../constants';
@@ -13,13 +13,13 @@ export default function Mesas({navigation}){
     const idMesa = localStorage.getItem('idMesa')
     const cohorte = localStorage.getItem('Cohorte');
     const userName = localStorage.getItem('userName')
-    const { loading, data, error } = useQuery(GET_MESASCOHORTE, {
+    const { loading, data, error, refetch } = useQuery(GET_MESASCOHORTE, {
         variables: {
             cohorte: cohorte,
             dia: fecha
         }
     })
-    console.log(data)
+    
     const [addUserPairProgramming] = useMutation(ADD_USERMESA);
     
     const handleSubmit = async () => {
@@ -68,6 +68,7 @@ export default function Mesas({navigation}){
         }
         else return navigation.navigate('SalaDeMesa')   
     }
+    
     return(
         <View style={styles.todo}>
             <Image

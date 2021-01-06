@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity, TextInput} from 'react-native';
+import {Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput } from 'dripsy';
 import {styles} from '../styles/SalaMesaStyle';
 import TarjetaUser from '../Components/TarjetaUser';
 import {GET_MESA, REMOVE_MESA, ADD_LINK} from '../apollo/pairProgramming';
@@ -8,6 +9,7 @@ import moment from 'moment';
 import * as WebBrowser from 'expo-web-browser';
 
 export default function SalaDeMesa({ navigation }){
+    const hora = moment().format
     const fecha = moment().format('DD/MM/YYYY')
     const [value, setValue] = useState()
     const userName = localStorage.getItem('userName')
@@ -54,35 +56,43 @@ export default function SalaDeMesa({ navigation }){
 
     const linkk = () => {
         if(link === false){
-            return (<Text style={{color: 'blue'}}>  {linkMeet}</Text>)
+            return (<Text style={{color: '#6200ee'}}>  {linkMeet}</Text>)
         }
-        else return (<Text style={{color: 'blue'}}>  {link}</Text>)
+        else return (<Text style={{color: '#6200ee'}}>  {link}</Text>)
     }
 
     return (
         <View style={styles.todo}>
             <Image
-                source={require("../assets/FondoAmarillo.png")}
+                source={require("../assets/FondoAmarillo2.png")}
                 style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
             <View style={{alignItems: "center"}}>
-                <Text style={{fontSize: 25}}>Crea una reunion:  
-                <TouchableOpacity onPress={handlePress}>
-                    <Text style={{fontSize: 25, color: 'blue'}}>  meet.google.com/new</Text>
-                </TouchableOpacity>
-                </Text>
+                <View style={{marginTop: 20}} >
+                    <Text sx={{fontSize: [20,25], display: 'flex', alignItems: "center"}}>
+                        Crea una reunion:   
+                        <View style={styles.botonLink} sx={{width: [110, 150], height: [35, 40]}} >
+                            <TouchableOpacity onPress={handlePress} >
+                                <Text sx={{fontSize: [20,25], color: 'white'}}>Toca Aqui!</Text>
+                            </TouchableOpacity>
+                        </View> 
+                    </Text>
+                </View>
 
-                <Text style={{marginTop: 10}}>Ponga el codigo de la reunion aqui:   
-                    <TextInput style={styles.input} onChangeText={(e) => setValue(e)}/>
+                <Text style={{marginTop: 10, display: 'flex'}}>
+                    Copie el codigo del meet aqui:   
+                    <TextInput style={styles.input} sx={{width: [100, 200]}} onChangeText={(e) => setValue(e)}/>
                     <TouchableOpacity onPress={handleLink} style={styles.fijar}><Text>Fijar</Text></TouchableOpacity>
                 </Text>
+                
                 <View style={styles.linkFijado}>
-                            <Text style={styles.link}> Link de la reunion: 
-                    <TouchableOpacity onPress={handlePress2}>
-                            {linkk()}
-
-                    </TouchableOpacity>
+                    <Text style={styles.link} sx={{fontSize:[20, 30], display: ['block', 'flex']}}> Link de la reunion: 
+                        <TouchableOpacity onPress={handlePress2} >
+                            <Text sx={{fontSize:[18, 30]}}>
+                                {linkk()}
                             </Text>
+                        </TouchableOpacity>
+                    </Text>
                 </View>
             </View>
             <View style={{display: 'flex', justifyContent: "center", alignItems: "center", width: '100%', height: '100%'}}>
