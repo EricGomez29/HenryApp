@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity } from 'react-native';
 import { View, Text, TextInput } from 'dripsy';
 import {styles} from '../styles/SalaMesaStyle';
@@ -14,18 +14,16 @@ export default function SalaDeMesa({ navigation }){
     const [value, setValue] = useState()
     const userName = localStorage.getItem('userName')
     const idMesa = localStorage.getItem('idMesa');
-    const { loading, data, error } = useQuery(GET_MESA, {
+    const { loading, data, error, refetch } = useQuery(GET_MESA, {
         variables: {
             id: idMesa,
         }
     })
     const linkMeet = data?.pairProgramming[0].linkMeet
-    console.log(linkMeet)
-    const [link, setLink] = useState(false)
-    const usuarios = data?.pairProgramming[0].users;
+    const [link, setLink] = useState(linkMeet)
+    const [usuarios, setUsuarios]= useState(data?.pairProgramming[0].users);
 
-    function handlePress (){
-        
+    function handlePress (){  
         WebBrowser.openBrowserAsync('http://meet.google.com/new');
     }
     function handlePress2 (){
@@ -60,7 +58,26 @@ export default function SalaDeMesa({ navigation }){
         }
         else return (<Text style={{color: '#6200ee'}}>  {link}</Text>)
     }
+    
+    function onRefresh() {
+        refetch()
+        let newLink = data?.pairProgramming[0].linkMeet;
+        setLink(newLink)
+        let newUsers = data?.pairProgramming[0].users
+        setUsuarios(newUsers)
+    }
 
+    useEffect(() => {
+        refetch()
+        onRefresh()
+    }, [data?.pairProgramming[0].users.length])
+
+    useEffect(() => {
+        refetch()
+        onRefresh()
+        setLink(data?.pairProgramming[0].linkMeet)
+    }, [data?.pairProgramming[0].linkMeet])
+    
     return (
         <View style={styles.todo}>
             
@@ -94,6 +111,11 @@ export default function SalaDeMesa({ navigation }){
                             </Text>
                         </TouchableOpacity>
                     </Text>
+                    <TouchableOpacity onPress={onRefresh} >
+                        <Text sx={{fontSize:[15, 27]}}>
+                            ↺
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={{display: 'flex', justifyContent: "center", alignItems: "center",  height: '100%'}}>

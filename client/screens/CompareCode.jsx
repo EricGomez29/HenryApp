@@ -1,33 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native';
 import { Formik } from 'formik';
 import  * as yup from 'yup';
 import { styles } from '../styles/styles';
-import { FORGOT_PASSWORD_EMAIL } from '../apollo/user';
+import { COMPARE_CODE } from '../apollo/user';
 import { useMutation } from '@apollo/client';
+import { PanResponder } from 'react-native';
 
-export default function ForgotPassword ({navigation}) {
+export default function CompareCode ({navigation, route}) {
+    console.log(route.params)
+    const [compareCode] = useMutation(COMPARE_CODE);
 
-    const [forgotPasswordMail] =useMutation(FORGOT_PASSWORD_EMAIL)
-    
     const validations= yup.object().shape({
-        email: yup.string()
-            .email('Email inválido')
-            .required('Campo obligatorio'),
+        code: yup.number('Valor númerico mayor a 0')
+            .positive('No puede ingresar valores menores a 0.')
+            .integer('El valor debe ser un Entero')
+            .required('Valor necesario')
     })
 
     const  handleSubmit = async (values) => {
         try{
-            const response = await forgotPasswordMail({
+            const response = await compareCode({
                 variables: {
-                    email: values.email
+                    codigo: parseInt(values.code),
+                    email: route.params.email
                 }
             });
-            navigation.navigate("CompareCode", {
-                email: values.email
-            })
+            navigation.navigate("ChangeOnlyPassword", { username: response.data?.compareCode.username });
         }catch(err){
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -38,28 +39,27 @@ export default function ForgotPassword ({navigation}) {
                 source={require("../assets/logoHenry.png")}
                 resizeMode="contain"
                 style={styles.imgHenry}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Home'), {}}
             ></Image>
             
         </View>
         <View style={styles.body}>
             <Formik
-                initialValues={{ email: '' }}
+                initialValues={{ code: '' }}
                 onSubmit={ values =>  handleSubmit(values) }
                 validationSchema={validations}
             >
             {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, setFieldTouched }) => (
                 <View style={styles.form}>
-                    <Text style={styles.h1}>RECUPERAR CONTRASEÑA</Text>
-                    <Text style={styles.h2}>Ingrese su email</Text>
+                    <Text style={styles.h1}>INGRESE EL CÓDIGO DE RECUPERACION DE CONTRASEÑA</Text>
                     <TextInput
                         style={styles.input}
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
+                        onChangeText={handleChange('code')}
+                        onBlur={handleBlur('code')}
+                        value={values.code}
                     />
-                    {touched.email && errors.email &&
-                    <Text style={styles.error}>{errors.email}</Text>}                    
+                    {touched.code && errors.code &&
+                    <Text style={styles.error}>{errors.code}</Text>}                    
                 
                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
                         <Text style={styles.linkForm} >Confirmar</Text>

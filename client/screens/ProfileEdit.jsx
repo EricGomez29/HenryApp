@@ -13,22 +13,27 @@ const ProfileEdit = ({ route, navigation }) => {
     const [editProfile] = useMutation(EDIT_USER);
 
     const handleSubmit = async (values) => {
-        const response = await editProfile({
-            variables: {
-                username: values.username,
-                lastName: values.lastName,
-                firstName: values.firstName,
-                email: values.email,
-                cohorte: parseInt(values.cohorte)
-            }
-        })
-        setData(response.data.editUser);
-        navigation.navigate('Profile', {
-            profileData: {
-                users: [response.data.editUser],
-            }
-        })
-
+        try {
+            const response = await editProfile({
+                variables: {
+                    username: values.username,
+                    lastName: values.lastName,
+                    firstName: values.firstName,
+                    email: values.email,
+                    cohorte: parseInt(values.cohorte),
+                    nationality: values.nationality,
+                    phone: values.phone,
+                }
+            })
+            setData(response.data.editUser);
+            navigation.navigate('Profile', {
+                profileData: {
+                    users: [data],
+                }
+            })
+        } catch (error) {
+            console.log(error);    
+        }
     }
 
     return (
@@ -36,13 +41,15 @@ const ProfileEdit = ({ route, navigation }) => {
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{
-                        country: '',
+                        country: data.nationality || '',
                         firstName: data.firstName,
                         lastName: data.lastName,
                         username: data.username,
                         email: data.email,
-                        cohorte: data.cohorte.number,
-                        nroTelefono: 'no definido',
+                        nationality: data.nationality || '',
+                        phone: data.phone || '',
+                        cohorte: data.cohorte || '',
+                        nroTelefono: data.phone || '',
                         image: data.image || 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
                     }}
                     onSubmit={values => handleSubmit(values)}
@@ -51,20 +58,23 @@ const ProfileEdit = ({ route, navigation }) => {
                     {({ handleChange, handleBlur, handleSubmit, values, navigation }) => (
                         <View style={styles.form}>
                             
-                                <Avatar.Image
-                                    size={200}
-                                    source={values.image}
-                                    onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
-                               
-                                />
+                            <Avatar.Image
+                                size={200}
+                                source={values.image}
+                                onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
+                            
+                            />
+                            <View style={styles.warning}>
+                                <Text>Los cambios se verán reflejados la proxima vez que inicies sesión</Text>
+                            </View>
 
                             <Text style={styles.textLabel}>Pais</Text>
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Argentina"
-                                onChangeText={handleChange('country')}
-                                onBlur={handleBlur('country')}
-                                value={values.country}
+                                onChangeText={handleChange('nationality')}
+                                onBlur={handleBlur('nationality')}
+                                value={values.nationality}
                             />
                             <Text style={styles.textLabel}>Nombre</Text>
                             <TextInput
@@ -110,9 +120,9 @@ const ProfileEdit = ({ route, navigation }) => {
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Telefono - Opcional"
-                                onChangeText={handleChange('nroTelefono')}
-                                onBlur={handleBlur('nroTelefono')}
-                                value={values.nroTelefono}
+                                onChangeText={handleChange('phone')}
+                                onBlur={handleBlur('phone')}
+                                value={values.phone}
                             />
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>

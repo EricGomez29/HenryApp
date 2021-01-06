@@ -14,6 +14,9 @@ const CohorteSchema = new Schema({
     },
     instructor:{
         type: Schema.Types.ObjectId, ref: 'User'
+    },
+    date: {
+        type: String
     }
 })
 

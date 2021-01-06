@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, TextInput, TouchableOpacity, Image, ScrollView, Text} from 'react-native';
+import React, {useState} from 'react';
+import { View, TextInput, TouchableOpacity, Image, ScrollView, Text } from 'react-native';
 import {Formik, yupToFormErrors} from 'formik';
 import * as yup from 'yup'
 import { USER_REGISTER } from '../Querys/userQuery.js';
 import {useMutation} from '@apollo/client';
-import { styles } from '../styles/RegisterStyle'
+import { styles } from '../styles/RegisterStyle';
+import Iniciarr from './Login';
 
 export default function Register({navigation}) {
 
@@ -32,6 +33,7 @@ export default function Register({navigation}) {
     })
 
     const [register] = useMutation(USER_REGISTER);
+    const [done, setDone] = useState("")
 
     const handleRegister = (values, {resetForm}) => {
         register({
@@ -45,6 +47,7 @@ export default function Register({navigation}) {
             }
         })
         resetForm()
+        setDone("Registro realizado con éxito, porfavor inicie sesión para continuar")
     }
 
     return (
@@ -160,7 +163,11 @@ export default function Register({navigation}) {
                                     <Text style={{color: 'black', fontWeight: 'bold'}}>Registrarme</Text>
                                 </TouchableOpacity>
                             </View>
-
+                            <View>
+                                <Text style={styles.success}>
+                                    {done}
+                                </Text>
+                            </View>
                         </View>
                     )}
                 </Formik>

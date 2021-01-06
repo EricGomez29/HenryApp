@@ -19,9 +19,11 @@ import IniciaryRegistrar from './screens/PruebaBoton';
 import SalaDeMesa from './screens/SalaDeMesa';
 import PhotoProfile from './screens/PhotoProfile';
 import PairProgramming from './screens/PairProgramming';
-import {Mesas} from './screens/Mesas';
 import{Admin} from './screens/Admin';
 import AgregarStand from './screens/AgregarStandUp';
+import DateTimePicker from './screens/DateTimePicker';
+import CompareCode from './screens/CompareCode';
+import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,7 +54,9 @@ function StackList (){
     <Stack.Screen name="PairProgramming" component={PairProgramming} />
     <Stack.Screen name="StandUp" component={StandUp} />
     <Stack.Screen name="AgregarStandUp" component={AgregarStand} />
-
+    <Stack.Screen name="DateTimePicker" component={DateTimePicker} />
+    <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
+    <Stack.Screen name="CompareCode" component={CompareCode} />
    </Stack.Navigator>
   )
 }
