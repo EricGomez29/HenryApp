@@ -9,10 +9,15 @@ export const addCohorte = async() => {
     //Busco los cohortes
     const cohor = await Cohorte.find()
     return await Cohorte.create({"number": cohor.length + 1});
-}
+};
     
-//AGREGAR USUARIO AL COHORTE
+//AGREGAR FECHA DE INICIO AL COHORTE
+export const editFechaCohorte = async (fecha, id) => {
+    await Cohorte.findOneAndUpdate({_id: id}, {date: fecha});
+    return Cohorte.findOne({_id: id}).populate('users');
+}
 
+//AGREGAR USUARIO AL COHORTE
 export const addUserCohorte = async(number, username) => {
     var user = await existUser(username);
     if(user.cohorte !== null){
@@ -37,7 +42,6 @@ export const addUserCohorte = async(number, username) => {
 };
 
 //REMOVER USUARIO DEL COHORTE
-
 export const removeUserCohorte = async(username) => {
     const user = await existUser(username);
     if(user.cohorte === null){
@@ -53,7 +57,6 @@ export const removeUserCohorte = async(username) => {
 }
 
 //AGREGAR INSTRUCTOR AL COHORTE
-
 export const addCohorteInstructor = async (username, cohorte) => {
     // addCohorteInstructor(username, cohorte),
     const user = await existUser(username);
@@ -72,4 +75,3 @@ export const addCohorteInstructor = async (username, cohorte) => {
     }
     return await Cohorte.findOne({number: cohorte}).populate("users").populate('instructor');
 }
-
