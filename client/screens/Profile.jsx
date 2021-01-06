@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from '../styles/ProfileStyles';
 
 const Profile = ({ route, navigation }) => {
-    const { username, email, firstName, lastName, image, cohorte } = route.params.profileData.users[0];
+    const { username, email, firstName, lastName, image, cohorte, nationality, phone } = route.params.profileData.users[0];
     console.log(route.params.profileData.users[0])
     const handleProfileEdit = () => {
         navigation.navigate('ProfileEdit', {
@@ -15,7 +15,9 @@ const Profile = ({ route, navigation }) => {
                 firstName,
                 lastName,
                 image, 
-                cohorte
+                cohorte, 
+                nationality,
+                phone
             }
         })
     };

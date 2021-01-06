@@ -33,17 +33,20 @@ export const editUsers = async (input) =>{
         input.password= hash;
     }
     if(input.image){
-        input.image= input.image.toString()
+        input.image= input.image.toString();
     }
     if(input.cohorte){
-        input.cohorte = await existCohorte(input.cohorte)
+        const cohorte = await existCohorte(input.cohorte);
+        if(input.cohorte < cohorte.number){
+            throw new Error('No se puede volver a cohortes anteriores')
+        }
+        input.cohorte = cohorte.number;
     }
     await  User.findOneAndUpdate({ "username": input.username }, input);
     return await User.findOne({username: input.username});
 }
 
 export const compareCode = async (codigo, email) =>{
-    console.log(`${codigo} ${email}`)
     const user = await  User.findOne({ "email": email });
     if(!user){
         throw new Error(`El email ${email} no existe`);
@@ -51,8 +54,6 @@ export const compareCode = async (codigo, email) =>{
     if(user.forgotPassword === -1){
         throw new Error(`El email ${email} no ha recibido ningún correo de cambio de contraseña`);
     }
-    console.log(user.forgotPassword - codigo);
-    console.log((user.forgotPassword - codigo) !== 0);
     if((user.forgotPassword - codigo) !== 0){
         throw new Error(`El codigo ingresado es incorrecto`)
     }

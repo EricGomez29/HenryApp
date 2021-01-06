@@ -5,7 +5,7 @@ export const existCohorte = async(cohor) => {
     if (!thisCohorte){
        throw new Error(`El Cohorte ${cohor} no existe.`)
     }
-    return thisCohorte;;
+    return thisCohorte;
 };
 
 export const pushCohorte = async(cohor, id) =>{
