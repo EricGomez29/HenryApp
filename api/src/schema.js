@@ -55,6 +55,7 @@ const typeDefs = gql`
         number: Int
         users: [Users!]
         instructor: Users
+        date: String
     }
     
     type PairProgramming {
@@ -122,15 +123,14 @@ const typeDefs = gql`
         email: String
         password: String ): Users
 
-        addCohorte: Cohortes
-
-        login(email: String!, password: String!): AuthData!
-
         editUser( input: UsersInput): Users
-        
         removeUser (username:String): Users
         
+        login(email: String!, password: String!): AuthData!
+        
         addUserCohorte(number: Int!, username: String!): Cohortes
+        addCohorte: Cohortes
+        editFechaCohorte(fecha:String, id:ID):Cohortes
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
 
@@ -141,7 +141,7 @@ const typeDefs = gql`
         sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
-        compareCode(codigo:String, email:String): Users
+        compareCode(codigo:Int, email:String): Users
 
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp
@@ -152,6 +152,8 @@ const typeDefs = gql`
         addDailyUser(username:String!): DailyStandUp
         addDailyStandUp(username:String!, name:String!): DailyStandUp
         removeDailyUser(username: String, name: String!):DailyStandUp
+
+        giveCoins(username:String, coins:Int):Users
     }
 `;
 
