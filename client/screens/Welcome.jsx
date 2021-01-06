@@ -7,7 +7,6 @@ import { useQuery } from '@apollo/client';
 import {styles} from '../styles/WelcomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Menu from './MenuDesplegable';
-
 export default function Welcome({ navigation }) {
 
    const email = localStorage.getItem('userEmail')
@@ -35,6 +34,7 @@ export default function Welcome({ navigation }) {
         navigation.navigate('Home');
     }
 
+
     if(error) {
         navigation.navigate('Home')
     } else if (loading) {
@@ -50,7 +50,7 @@ export default function Welcome({ navigation }) {
                     source={require("../assets/FondoAmarillo.png")}
                     style={{ width: '100%', position: 'absolute', height: '60%' }}
                 ></Image>
-                
+                <Menu navigation={navigation}/>
                 <View style={styles.container}>
                     <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
 

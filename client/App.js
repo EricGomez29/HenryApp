@@ -19,8 +19,8 @@ import IniciaryRegistrar from './screens/PruebaBoton';
 import SalaDeMesa from './screens/SalaDeMesa';
 import PhotoProfile from './screens/PhotoProfile';
 import PairProgramming from './screens/PairProgramming';
-import {Mesas} from './screens/Mesas';
-import Admin from './screens/Admin';
+import{Admin} from './screens/Admin';
+import AgregarStand from './screens/AgregarStandUp';
 import DateTimePicker from './screens/DateTimePicker';
 import CompareCode from './screens/CompareCode';
 import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
@@ -37,35 +37,40 @@ const client = new ApolloClient({
   }//debugging graphql
 });
 
-export default function App() {
 
+function StackList (){
+  return(
+  <Stack.Navigator initialRouteName='Home'>
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="CohorteList" component={CohorteList} />
+    <Stack.Screen name="UsersList" component={UsersList} />
+    <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
+    <Stack.Screen name="Welcome" component={Welcome} />
+    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+    <Stack.Screen name="Profile" component={Profile} />
+    <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
+    <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
+    <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
+    <Stack.Screen name="PairProgramming" component={PairProgramming} />
+    <Stack.Screen name="StandUp" component={StandUp} />
+    <Stack.Screen name="AgregarStandUp" component={AgregarStand} />
+    <Stack.Screen name="DateTimePicker" component={DateTimePicker} />
+    <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
+    <Stack.Screen name="CompareCode" component={CompareCode} />
+   </Stack.Navigator>
+  )
+}
+export default function App() {
   return (
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="CohorteList" component={CohorteList} />
-            <Stack.Screen name="UsersList" component={UsersList} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
-            <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
-            <Stack.Screen name="CompareCode" component={CompareCode} />
-            <Stack.Screen name="Welcome" component={Welcome} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
-            <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
-            <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
-            <Stack.Screen name="PairProgramming" component={PairProgramming} />
-            <Stack.Screen name="StandUp" component={StandUp} />
-            <Stack.Screen name="DateTimePicker" component={DateTimePicker} />
-          </Stack.Navigator>
-        </NavigationContainer>
-        {/* <NavigationContainer>
-          <Drawer.Navigator>
+        <Drawer.Navigator>
+          {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
+            <Drawer.Screen name="." component={StackList} />
             <Drawer.Screen name='Admin' component={Admin}/>
           </Drawer.Navigator>
-        </NavigationContainer> */}
+        </NavigationContainer>
       </DripsyProvider>
     </ApolloProvider>
   );
