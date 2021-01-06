@@ -35,7 +35,7 @@ export const USER_REGISTER = gql`
         }
     }`;
 
-export const EDIT_USER = gql`mutation editUser($username: String, $lastName: String, $firstName: String, $cohorte: Int, $email: String, $nationality: String, $phone: String) {
+export const EDIT_USER = gql`mutation editUser($username: String, $lastName: String, $firstName: String, $cohorte: Int, $email: String, $nationality: String, $phone: String, $password: String) {
 	    editUser (input: {
             username: $username
             lastName: $lastName
@@ -44,6 +44,7 @@ export const EDIT_USER = gql`mutation editUser($username: String, $lastName: Str
             cohorte: $cohorte
             nationality: $nationality
             phone: $phone
+            password: $password
         }){
             username
             email
@@ -78,7 +79,6 @@ export const COMPARE_CODE = gql`
         compareCode(codigo: $codigo,email: $email){
             email
             username
-
         }
     }
 `;

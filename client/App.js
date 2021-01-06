@@ -23,7 +23,7 @@ import {Mesas} from './screens/Mesas';
 import Admin from './screens/Admin';
 import DateTimePicker from './screens/DateTimePicker';
 import CompareCode from './screens/CompareCode';
-
+import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,6 +48,7 @@ export default function App() {
             <Stack.Screen name="UsersList" component={UsersList} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
+            <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
             <Stack.Screen name="CompareCode" component={CompareCode} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
