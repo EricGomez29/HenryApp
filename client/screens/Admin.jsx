@@ -26,7 +26,16 @@ export function AdminList ({navigation}){
                 <TouchableOpacity onPress={() => navigation.navigate('AgregarStandUp')}>
                     <ListItem key={3} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar Grupo Stand Up</ListItem.Title>
+                            <ListItem.Title>Agregar Stand Up</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Armar grupos de StandUp</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -41,12 +50,22 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => navigation.navigate('CohorteList')}>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Ver Cohortes</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
+
             </View>
         </View>
     )
 }
 
-export function Admin(){  
+export function Admin({navigation}){  
     return(
         <View>
             <View style={{width: '100%', height: 500, position: 'absolute'}}>
@@ -55,7 +74,7 @@ export function Admin(){
                     style={{width: '100%', position: 'absolute', height: 500}}
                 ></Image>
             </View>
-            <AdminList/>
+            <AdminList navigation={navigation}/>
         </View>
     )
 
