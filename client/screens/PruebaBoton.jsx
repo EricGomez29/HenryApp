@@ -90,7 +90,7 @@ export default function Botones({ navigation }) {
         <View style={styles.todo}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '60%'}}
+                style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
             <Image
                 source={require("../assets/logoHenry.png")}

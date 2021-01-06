@@ -163,10 +163,8 @@ export default function Register({navigation}) {
                                     <Text style={{color: 'black', fontWeight: 'bold'}}>Registrarme</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View>
-                                <Text style={styles.success}>
-                                    {done}
-                                </Text>
+                            <View style={styles.success}>
+                                {done}
                             </View>
                         </View>
                     )}

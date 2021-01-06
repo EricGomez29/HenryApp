@@ -36,10 +36,23 @@ export const styles = StyleSheet.create({
         marginBottom: 15
     },
     container:{
-        display: 'flex',
-        width: "100%",
-        justifyContent: "center"
-
+        width: 400,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 10
+    },
+    list: {
+        borderRadius: 20
+    },
+    content: {
+        height: 50
     }
-
 })

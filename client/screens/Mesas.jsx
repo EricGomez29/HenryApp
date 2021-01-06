@@ -30,7 +30,7 @@ export default function Mesa({ navigation, users, id, cant }){
         let userLength = (data?.pairProgramming[0].users.length)
         setPersonas(userLength)
     }
-
+    
     useEffect(() => {
         onRefresh()
     })
@@ -54,7 +54,7 @@ export default function Mesa({ navigation, users, id, cant }){
                     <View style={styles.container}>
                         <View style={styles.cuadroDisabled} sx={{width: [300, 500]}}>
                             <View >
-                                <Text style={{fontSize: 18, fontWeight: 'bold'}}>{idMesa}</Text>
+                                <Text style={{fontSize: 18, fontWeight: 'bold'}}>Mesa Nº{cant}</Text>
                             </View>
                             <Text style={{fontSize: 18, fontWeight: 'bold', marginTop:10}}>Alumnos: {personas}/5</Text>
                             <Text style={{fontSize: 18, fontWeight: 'bold', color: 'red'}}>Mesa Llena!</Text>
