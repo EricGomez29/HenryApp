@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     todo:{
-        display: 'flex', 
         width: '100%', 
         height: '100%', 
         // backgroundColor: '#161b22'
@@ -15,8 +14,6 @@ export const styles = StyleSheet.create({
         
     },
     botonSalir:{
-        width: 200,
-        height: 50,
         backgroundColor: 'yellow',
         borderRadius: 50,
         alignItems: "center",

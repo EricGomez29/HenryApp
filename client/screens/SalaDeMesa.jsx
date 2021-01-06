@@ -95,15 +95,19 @@ export default function SalaDeMesa({ navigation }){
                     </Text>
                 </View>
             </View>
-            <View style={{display: 'flex', justifyContent: "center", alignItems: "center", width: '100%', height: '100%'}}>
+            <View style={{display: 'flex', justifyContent: "center", alignItems: "center",  height: '100%'}}>
                 <TarjetaUser users= {usuarios}/>
                 <View style={styles.containerBoton}>
-                    <TouchableOpacity onPress={handleSubmit} style={styles.botonSalir}>
-                        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>Salir de la mesa</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.botonSalir} onPress={() => navigation.navigate('Welcome')}>
-                        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18 }}>Inicio</Text>
-                    </TouchableOpacity>
+                    <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>
+                        <TouchableOpacity onPress={handleSubmit} >
+                            <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: [15, 18]}}>Salir de la mesa</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>
+                        <TouchableOpacity  onPress={() => navigation.navigate('Welcome')}>
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize:  [15, 18] }}>Inicio</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </View>
