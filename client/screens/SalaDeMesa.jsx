@@ -6,7 +6,9 @@ import TarjetaUser from '../Components/TarjetaUser';
 import {GET_MESA, REMOVE_MESA, ADD_LINK} from '../apollo/pairProgramming';
 import { useQuery, useMutation } from '@apollo/client';
 import moment from 'moment';
+import {ListItem, Avatar} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
+import {Icon} from 'react-native-elements';
 
 export default function SalaDeMesa({ navigation }){
     const hora = moment().format
@@ -27,7 +29,7 @@ export default function SalaDeMesa({ navigation }){
         WebBrowser.openBrowserAsync('http://meet.google.com/new');
     }
     function handlePress2 (){
-        WebBrowser.openBrowserAsync(linkMeet);
+        WebBrowser.openBrowserAsync(link);
     }
    
     const [removeMesa] = useMutation(REMOVE_MESA);
@@ -85,45 +87,39 @@ export default function SalaDeMesa({ navigation }){
                 source={require("../assets/FondoAmarillo2.png")}
                 style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
-            <View style={{alignItems: "center"}}>
-                <View style={{marginTop: 20}} >
-                    <Text sx={{fontSize: [20,25], display: 'flex', alignItems: "center"}}>
-                        Crea una reunion:   
-                        <View style={styles.botonLink} sx={{width: [110, 150], height: [35, 40]}} >
-                            <TouchableOpacity onPress={handlePress} >
-                                <Text sx={{fontSize: [20,25], color: 'white'}}>Toca Aqui!</Text>
-                            </TouchableOpacity>
-                        </View> 
-                    </Text>
-                </View>
+            <View style={{alignItems: "center"}}>  
+                <View style={styles.botonLink} sx={{width: [200, 250], height: [35, 40], marginTop: 30}} >
+                    <TouchableOpacity onPress={handlePress} >
+                        <Text sx={{fontSize: [20,25], color: 'black', fontWeight: 'bold'}}>Generar Link</Text>
+                    </TouchableOpacity>
+                </View> 
 
-                <Text style={{marginTop: 10, display: 'flex'}}>
-                    Copie el codigo del meet aqui:   
-                    <TextInput style={styles.input} sx={{width: [100, 200]}} onChangeText={(e) => setValue(e)}/>
-                    <TouchableOpacity onPress={handleLink} style={styles.fijar}><Text>Fijar</Text></TouchableOpacity>
+                <Text style={{marginTop: 10, display: 'flex'}}> 
+                    <TextInput style={styles.input} placeholder="Pegue el link aqui" sx={{width: [200, 250], height: [40, 50]}} onChangeText={(e) => setValue(e)}/>
+                    <TouchableOpacity onPress={handleLink} style={styles.fijar}><Icon raised type="font-awesome-5" name="thumbtack" size={15}></Icon></TouchableOpacity>
                 </Text>
                 
                 <View style={styles.linkFijado}>
-                    <Text style={styles.link} sx={{fontSize:[20, 30], display: ['block', 'flex']}}> Link de la reunion: 
-                        <TouchableOpacity onPress={handlePress2} >
-                            <Text sx={{fontSize:[18, 30]}}>
-                                {linkk()}
+                    <Text style={styles.link} sx={{fontSize:[20, 30], display:'flex'}}> Link de la reunion   
+                        <TouchableOpacity onPress={onRefresh} >
+                            <Text sx={{fontSize:[15, 27], paddingLeft: 10}}>
+                                ↺
                             </Text>
                         </TouchableOpacity>
                     </Text>
-                    <TouchableOpacity onPress={onRefresh} >
-                        <Text sx={{fontSize:[15, 27]}}>
-                            ↺
+                    <TouchableOpacity onPress={handlePress2} >
+                        <Text sx={{fontSize:[18, 30]}}>
+                            {linkk()}
                         </Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{display: 'flex', justifyContent: "center", alignItems: "center",  height: '100%'}}>
+            <View style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
                 <TarjetaUser users= {usuarios}/>
                 <View style={styles.containerBoton}>
                     <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>
                         <TouchableOpacity onPress={handleSubmit} >
-                            <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: [15, 18]}}>Salir de la mesa</Text>
+                            <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: [15, 18]}}>Salir</Text>
                         </TouchableOpacity>
                     </View>
                     <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>

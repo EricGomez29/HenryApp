@@ -82,29 +82,16 @@ export default function Login({ navigation }) {
                             </View>
 
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity onPress={() => { navigation.navigate('ForgotPassword') }} style={styles.olvideContraseña}>
-                                    <Text style={{ color: 'black' }}>Olvide mi contraseña</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
                                     <Text style={{ color: 'black', fontWeight: 'bold' }}>INICIAR SESION</Text>
                                 </TouchableOpacity>
                             </View>
+                            
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.olvideContraseña}>
-                                    <Text style={{ color: 'black' }}>Tambien podes ingresar con:</Text>
+                                <TouchableOpacity onPress={() => { navigation.navigate('ForgotPassword') }} style={styles.olvideContraseña}>
+                                    <Text style={{ color: 'black' }}>Olvide mi contraseña</Text>
                                 </TouchableOpacity>
                             </View>
-                            {/* 
-                        <View style={{flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
-                            <TouchableOpacity style={{ backgroundColor: '#3B5998', borderRadius: 100, width: 48, height: 48, marginRight: 10 }}>
-                                <Icon name="logo-facebook" style={{fontSize:20}}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: 'red', borderRadius: 100, width: 48, height: 48, marginLeft: 10 }}>
-                                <Icon name="logo-google" style={{fontSize:20}}/>
-                            </TouchableOpacity>
-                        </View> */}
                         </View>
                     )}
                 </Formik>

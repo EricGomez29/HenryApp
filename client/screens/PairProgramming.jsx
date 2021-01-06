@@ -29,10 +29,26 @@ export default function Mesas({navigation}){
         const id = response.data.addUserPairProgramming._id
         localStorage.setItem('idMesa', id);
         navigation.navigate('SalaDeMesa');
-    } 
+    }
+
+    const [btn, setBtn] = useState(false)
+    const btnMesa = () => {
+        var count = 0;
+        data?.pairProgramming.map(m => {
+            count += m.users.length
+        })
+        if(count % 5 === 0) {
+            return (
+                <TouchableOpacity>
+                    <Text>
+                        Crear nueva mesa
+                    </Text>
+                </TouchableOpacity>
+            )
+        }
+    }
 
     function Sala () {
-        var cant = 0;
         if (data?.pairProgramming.length === 0){
             return (
                 <View style={styles.container}>
@@ -49,11 +65,12 @@ export default function Mesas({navigation}){
             <View >  
                 <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center'}}>Salas </Text>
                 {
-                    data?.pairProgramming.map(m => {
-                        cant += 1
-                        return <Mesa navigation={navigation} users={m.users} id={m._id} cant={cant}/>
+                    data?.pairProgramming.map((m, i) => {
+                        i += 1
+                        return <Mesa navigation={navigation} users={m.users} id={m._id} cant={i}/>
                     })
                 }
+                {/* {btn ? <TouchableOpacity><Text>Crear nueva mesa</Text></TouchableOpacity> : null} */}
             </View>
         )
     }
@@ -72,6 +89,7 @@ export default function Mesas({navigation}){
                 style={{width: '100%', position: 'absolute', height: '60%'}}
             ></Image>
             {mostrar()}
+            {btnMesa()}
         </View>
     )
 }
