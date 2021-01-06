@@ -59,12 +59,15 @@ const ProfileEdit = ({ route, navigation }) => {
                     {({ handleChange, handleBlur, handleSubmit, values, navigation }) => (
                         <View style={styles.form}>
                             
-                                <Avatar.Image
-                                    size={200}
-                                    source={values.image}
-                                    onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
-                               
-                                />
+                            <Avatar.Image
+                                size={200}
+                                source={values.image}
+                                onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
+                            
+                            />
+                            <View style={styles.warning}>
+                                <Text>Los cambios se verán reflejados la proxima vez que inicies sesión</Text>
+                            </View>
 
                             <Text style={styles.textLabel}>Pais</Text>
                             <TextInput

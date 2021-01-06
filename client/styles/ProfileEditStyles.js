@@ -36,5 +36,13 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
+    },
+    warning: {
+        borderWidth: 2,
+        borderColor: "red",
+        borderRadius: 5,
+        padding: 10,
+        marginTop: 10,
+        alignItems: "center"
     }
 })

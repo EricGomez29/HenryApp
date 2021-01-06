@@ -37,8 +37,13 @@ export const styles = StyleSheet.create({
         height: 50,
         width: 230,
         borderBottomColor: 'gray',
-        borderBottomWidth: 1
-        
+        borderBottomWidth: 1,
+        paddingLeft: 10
+    },
+    errorMessage: {
+        alignItems: "center",
+        color: "red",
+        fontFamily: "-webkit-pictograph"
     },
    
 })
