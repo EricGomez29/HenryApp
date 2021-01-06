@@ -29,7 +29,7 @@ export default function Home({ navigation }) {
     return (
         <View style={styles.todo}>
             <Image
-                source={require("../assets/FondoAmarillo.png")}
+                source={require("../assets/FondoAmarillo2.png")}
                 style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
             <View style={styles.container}>

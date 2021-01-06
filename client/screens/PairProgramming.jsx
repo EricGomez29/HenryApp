@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'dripsy'
 import { TouchableOpacity, Image} from 'react-native';
 import { GET_MESASCOHORTE, ADD_USERMESA } from '../apollo/pairProgramming';
@@ -18,6 +18,7 @@ export default function Mesas({navigation}){
             dia: fecha
         }
     })
+    
     const [addUserPairProgramming] = useMutation(ADD_USERMESA);
     const handleSubmit = async () => {
         const response = await addUserPairProgramming({
@@ -63,7 +64,7 @@ export default function Mesas({navigation}){
         }
         else return navigation.navigate('SalaDeMesa')   
     }
-
+    
     return(
         <View style={styles.todo}>
             <Image
