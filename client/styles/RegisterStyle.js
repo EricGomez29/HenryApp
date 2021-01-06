@@ -24,7 +24,14 @@ export const styles = StyleSheet.create({
         height: 50,
         width: 230,
         borderBottomColor: 'gray',
-        borderBottomWidth: 1
-        
+        borderBottomWidth: 1,
+        paddingLeft: 10
     },
+    success: {
+        padding: 10,
+        marginTop: 5,
+        marginBottom: 5,
+        color: "green",
+        textAlign: "center"
+    }
 })
