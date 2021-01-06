@@ -141,7 +141,7 @@ const typeDefs = gql`
         sendEmail(email: String): Email
 
         sendForgotPasswordMail(email: String): Users
-        compareCode(codigo:String, email:String): Users
+        compareCode(codigo:Int, email:String): Users
 
         addStandUp(cohorte:Int): StandUp
         assignPMStandUp(username:String, name:String): StandUp

@@ -22,6 +22,7 @@ import PairProgramming from './screens/PairProgramming';
 import {Mesas} from './screens/Mesas';
 import Admin from './screens/Admin';
 import DateTimePicker from './screens/DateTimePicker';
+import CompareCode from './screens/CompareCode';
 
 
 const Stack = createStackNavigator();
@@ -47,6 +48,7 @@ export default function App() {
             <Stack.Screen name="UsersList" component={UsersList} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
+            <Stack.Screen name="CompareCode" component={CompareCode} />
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="Profile" component={Profile} />

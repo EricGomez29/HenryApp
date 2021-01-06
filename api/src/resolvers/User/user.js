@@ -42,11 +42,20 @@ export const editUsers = async (input) =>{
     return await User.findOne({username: input.username});
 }
 
-export const compareCode = async (input) =>{
-    if(input.password ){
-        const hash = await bcrypt.hash(input.password, 9);
-        return await  (User.findOneAndUpdate({ "username": input.username }, {...input, password: hash}))
+export const compareCode = async (codigo, email) =>{
+    console.log(`${codigo} ${email}`)
+    const user = await  User.findOne({ "email": email });
+    if(!user){
+        throw new Error(`El email ${email} no existe`);
     }
-    await  User.findOneAndUpdate({ "username": input.username }, input);
-    return await User.findOne({username: input.username});
+    if(user.forgotPassword === -1){
+        throw new Error(`El email ${email} no ha recibido ningún correo de cambio de contraseña`);
+    }
+    console.log(user.forgotPassword - codigo);
+    console.log((user.forgotPassword - codigo) !== 0);
+    if((user.forgotPassword - codigo) !== 0){
+        throw new Error(`El codigo ingresado es incorrecto`)
+    }
+    await User.findOneAndUpdate({_id: user._id}, {forgotPassword: -1});
+    return User.findOne({_id: user._id});
 }

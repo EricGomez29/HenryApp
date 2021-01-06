@@ -63,7 +63,17 @@ export const FORGOT_PASSWORD_EMAIL = gql`
     mutation SendForgotPasswordMail($email: String) {
         sendForgotPasswordMail(email: $email){
             forgotPassword
-            username
+            email
         }
     }
-`
+`;
+
+export const COMPARE_CODE = gql`
+    mutation compareCode($codigo: Int,$email: String) {
+        compareCode(codigo: $codigo,email: $email){
+            email
+            username
+
+        }
+    }
+`;
