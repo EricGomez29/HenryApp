@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     todo:{
-        display: 'flex', 
         width: '100%', 
         height: '100%', 
+        // backgroundColor: '#161b22'
         backgroundColor: 'white'
     },
     container: {
@@ -14,8 +14,6 @@ export const styles = StyleSheet.create({
         
     },
     botonSalir:{
-        width: 200,
-        height: 50,
         backgroundColor: 'yellow',
         borderRadius: 50,
         alignItems: "center",
@@ -36,13 +34,11 @@ export const styles = StyleSheet.create({
         marginTop: 25
     },
     input:{
-        width: 200,
+        // width: 200,
         borderBottomColor: 'gray',
         borderBottomWidth: 'thin',
         marginLeft: 10,
         marginRight: 10
-        // borderWidth: 1,
-        // borderColor: 'gray'
     },
     fijar:{
         width: 50,
@@ -53,14 +49,16 @@ export const styles = StyleSheet.create({
         borderRadius: 5
     },
     link:{
+        // display: 'flex',
         textAlign: 'center', 
         fontWeight: 'bold', 
-        fontSize: 30
     },
     linkFijado:{
+        display: "flex",
+        alignItems: "center",
         backgroundColor: 'white',
         borderRadius: 10,
-        marginTop: 15,
+        margin: 15,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -70,4 +68,17 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
     },
+    botonLink:{
+        backgroundColor: '#6200ee',
+        borderRadius: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+        alignItems: "center"
+    }
 })

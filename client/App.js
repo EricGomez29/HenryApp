@@ -43,7 +43,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
+          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
             <Stack.Screen name="CohorteList" component={CohorteList} />
             <Stack.Screen name="UsersList" component={UsersList} />
             <Stack.Screen name="Home" component={Home} />

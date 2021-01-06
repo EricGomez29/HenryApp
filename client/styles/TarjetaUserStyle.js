@@ -5,13 +5,14 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     tarjeta:{
         width:200,
-        // height: 300,
+        borderWidth: 0.5,
+        borderColor: '#dbdbdb',
         backgroundColor: 'white',
-        borderRadius: 30,
+        borderRadius: 20,
         margin: 15,
-        shadowColor: "#000",
+        shadowColor: "gray",
         shadowOffset: {
-            width: 0,
+            width: 2,
             height: 4,
         },
         shadowOpacity: 0.32,
@@ -31,12 +32,12 @@ export const styles = StyleSheet.create({
     },
     apellido:{
         fontSize: 19,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginBottom: 15
     },
     container:{
         display: 'flex',
         width: "100%",
-        flexDirection: "row",
         justifyContent: "center"
 
     }
