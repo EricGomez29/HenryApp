@@ -53,21 +53,17 @@ const ProfileEdit = ({ route, navigation }) => {
                         image: data.image || 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
                     }}
                     onSubmit={values => handleSubmit(values)}
-                    navigation = {navigation}
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values, navigation }) => (
+                    {({ handleChange, handleBlur, handleSubmit, values }) => (
                         <View style={styles.form}>
                             
                             <Avatar.Image
                                 size={200}
                                 source={values.image}
-                                onPress={() => navigation.navigate('PhotoProfile',{ data: values})}
-                            
                             />
-                            <View style={styles.warning}>
-                                <Text>Los cambios se verán reflejados la proxima vez que inicies sesión</Text>
-                            </View>
-
+                            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('PhotoProfile',{ data: values})}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Cambiar Imagen</Text>
+                            </TouchableOpacity>
                             <Text style={styles.textLabel}>Pais</Text>
                             <TextInput
                                 style={styles.textInput}
