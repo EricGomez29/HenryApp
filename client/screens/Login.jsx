@@ -52,8 +52,10 @@ export default function Login({ navigation }) {
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                         <View style={{ width: '90%' }}>
                             <View style={styles.containerBoton}>
-                                <View style={styles.errorMessage}>
+                                <View style={{alignItems: "center"}}>
+                                    <Text style={styles.errorMessage}>
                                     {error}
+                                    </Text>
                                 </View>
                                 <View >
                                     <TextInput
@@ -63,7 +65,6 @@ export default function Login({ navigation }) {
                                         value={values.email}
                                         style={styles.input} />
                                 </View>
-                                {/* ERROR EMAIL */}
                                 {errors.email &&
                                     <Text style={styles.errorForm}>{errors.email}</Text>}
 
@@ -76,7 +77,6 @@ export default function Login({ navigation }) {
                                         value={values.password}
                                         style={styles.input} />
                                 </View>
-                                {/* ERROR CONTRASEÑA */}
                                 {touched.password && errors.password &&
                                     <Text style={styles.errorForm}>{errors.password}</Text>}
                             </View>

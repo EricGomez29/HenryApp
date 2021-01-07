@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         
     },
-    
     boton: {
         marginTop: 10,
         width: 180,
@@ -38,9 +37,7 @@ export const styles = StyleSheet.create({
         paddingLeft: 10
     },
     errorMessage: {
-        alignItems: "center",
         color: "red",
         fontFamily: "-webkit-pictograph"
     },
-   
 })
