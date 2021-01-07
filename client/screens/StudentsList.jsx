@@ -10,9 +10,9 @@ import {styles} from '../styles/StudentsListStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { gql, useQuery } from '@apollo/client';
 import {ListItem, Avatar} from 'react-native-elements';
-import logo from '../assets/logoHenry.png';
 import { Icon } from 'react-native-elements';
 import MenuDesplegable from './MenuDesplegable';
+import Particles from './Particles';
 
 const GET_COHORTES = gql`
 query cohortes($number: Int){
@@ -93,7 +93,7 @@ export default function StudentsList ({navigation}) {
                     show && data && data?.cohortes[0]?.users.map((u, i) => {
                         return (
                             <ListItem key={u.username}>
-                                <Image source={u.image || logo} style={{width:40, height:40}}/>
+                                <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/>
                                 <ListItem.Content>
                                     <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
                                         <ListItem.Title>{u.firstName} {''}</ListItem.Title>
@@ -124,7 +124,7 @@ export default function StudentsList ({navigation}) {
                         if(nameMin === nameSearch) {
                             return (
                                 <ListItem key={u.username}>
-                                    <Image source={u.image || logo} style={{width:40, height:40}}/>
+                                    <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/>
                                     <ListItem.Content>
                                         <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
                                             <ListItem.Title>{u.firstName} {''}</ListItem.Title>
@@ -144,11 +144,8 @@ export default function StudentsList ({navigation}) {
 
     return (
         <View style={styles.container}>
-            <View style={{width: '100%', height: 500, position: 'absolute'}}>
-                <Image
-                    source={require("../assets/FondoAmarillo2.png")}
-                    style={{width: '100%', position: 'absolute', height: 500}}
-                ></Image>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
             </View>
             <View style={{alignItems: "flex-start", width: "100%"}}>
                 <MenuDesplegable navigation={navigation}/>
@@ -187,6 +184,7 @@ export default function StudentsList ({navigation}) {
                     <Icon
                         name="search"
                         type="font-awesome-5"
+                        color="white"
                     />
                 </TouchableOpacity>
             </View>

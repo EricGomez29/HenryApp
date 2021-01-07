@@ -4,8 +4,7 @@ export const styles = StyleSheet.create({
     todo:{
         width: '100%', 
         height: '100%', 
-        // backgroundColor: '#161b22',
-        backgroundColor: 'white'
+        backgroundColor: 'black'
     },
     container: {
         flex: 1,

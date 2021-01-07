@@ -5,35 +5,35 @@ export const styles = StyleSheet.create({
         display: 'flex', 
         width: '100%', 
         height: '100%', 
-        backgroundColor: 'white'
+        backgroundColor: 'black'
     },
     boton: {
         display: 'flex',
         alignSelf: 'center',
-        // alignItems: "center",
-        // justifyContent: "center",
         marginTop: 20,
         borderRadius: 30,
-        shadowColor: "#000",
+        shadowColor: "white",
         shadowOffset: {
-            width: 0,
-            height: 4,
+            width: 2,
+            height: 6,
         },
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
         elevation: 9,
-        
+        borderWidth: 1,
+        borderColor: 'white'
     },
     title: {
         marginTop: 20,
         marginBottom: 20,
         fontWeight: "bold",
-        textAlign: "center"
+        textAlign: "center",
+        color: "white"
     },
     tarjeta:{
         position: 'absolute', 
         borderRadius: 30, 
-        filter: "brightness(0.6)",
+        filter: "brightness(0.75)",
         // backgroundColor: 'black',
         // opacity: 0.6
         
@@ -55,6 +55,10 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
         elevation: 9,
+    },
+    container: {
+        zIndex: 5,
+        alignSelf: "center"
     }
 
 })
