@@ -11,10 +11,14 @@ export const styles = StyleSheet.create({
         display: 'flex',
         width: '100%',
         alignItems: 'center',
-        marginLeft: 20,
         marginTop: 20
     },
     title: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        fontFamily: 'ui-rounded',
+    },
+    title2: {
         fontSize: 30,
         fontWeight: 'bold',
         fontFamily: 'ui-rounded',
@@ -59,5 +63,30 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
 
+    },
+    grupos:{
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 50
+    },
+    nombres: {
+        fontSize: 18,
+        // fontWeight: 'bold'
+    },
+    gruposStand:{
+        width: 300,
+        marginBottom: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+    },
+    recuadro:{
+        backgroundColor: '#ffffff99',
+        alignItems: 'center'
     }
 })

@@ -1,23 +1,30 @@
-import React, {useState} from 'react';
-import {Text, TouchableOpacity, TextInput, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, TouchableOpacity, Image} from 'react-native';
 import {View} from 'dripsy';
 import {ADD_GRUPOSTAND, GET_COHORTES, GET_GRUPOSTAND } from '../apollo/standUp';
 import {useMutation, useQuery} from '@apollo/client';
 import {styles} from '../styles/AgregarStandStyles';
 import {AdminList} from './Admin';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import { ListItem, Avatar } from 'react-native-elements';
 
 export default function AgregarStand (){
     const [num, setNum] = useState()
+    const [aparece, setAparece] = useState(false)
+    const [change, setChange] = useState(false)
+    const numNuevo= parseInt(num)
     const {data, error, loading} = useQuery(GET_COHORTES)
-    // const {data, error, loading} = useQuery(GET_GRUPOSTAND)
+    const {data: data2, error: error2, loading: loading2, refetch} = useQuery(GET_GRUPOSTAND, {
+        variables: {
+            cohorte: numNuevo,
+        }
+    })
+    const[nombre, setNombre] = useState()
     const numCohorte = data?.cohortes
     const numero = []
     numCohorte && numCohorte.map(n => {
         numero.push({label: n.number.toString(), value: n.number.toString()})
     })
-    const numNuevo= parseInt(num)
     const [addStand] = useMutation(ADD_GRUPOSTAND);
 
     const handleSubmit = async () => {
@@ -26,12 +33,69 @@ export default function AgregarStand (){
                 cohorte: numNuevo,
             }
         })
-        console.log(response)
+        setNombre(response.data.addStandUp.name)
+        setChange(true)
+    }
+    
+    function onRefresh() {
+        refetch()
+        let newData = data2?.standup
+        setAparece(newData)
+    }
+
+    useEffect(() => {
+        refetch()
+        onRefresh()
+    }, [data2?.standup])
+
+
+    function  grupos() {
+        const numerito = () =>{
+            if(num !== "NaN"){
+                return num
+            }
+            var n = 'Nº'
+            return n;
+        }
+
+        const nuevo = () =>{
+            if(change){
+                return(<Text style={styles.nombres}>{nombre}<Text style={{color: 'red'}}>  Nuevo!</Text></Text>)
+            }
+        }
+        
+        return (
+            <View style={styles.gruposStand}>
+                 <ListItem  bottomDivider>
+                    <ListItem.Content>
+                        <ListItem.Title style={styles.title}>Grupos del cohorte: {num}</ListItem.Title>
+                    </ListItem.Content>
+                </ListItem>
+                {
+                    aparece && aparece.map((n, i) => {
+                        return (
+                            <ListItem key={i} bottomDivider>
+                                <ListItem.Chevron />
+                                <ListItem.Content>
+                                    <ListItem.Title style={styles.nombres}>{n.name}</ListItem.Title>
+                                </ListItem.Content>
+                            </ListItem>
+                        )
+                    })
+                }
+                <ListItem bottomDivider>
+                <ListItem.Chevron />
+                    <ListItem.Content>
+                        <ListItem.Title>{nuevo()}</ListItem.Title>
+                    </ListItem.Content>
+                </ListItem>
+            </View>
+        )
     }
     
 
     return (
-        <View >
+        <View style={{height: '100%', backgroundColor: 'white'}} >
             <View style={{width: '100%', height: 500, position: 'absolute'}}>
                 <Image
                     source={require("../assets/FondoAmarillo2.png")}
@@ -39,31 +103,40 @@ export default function AgregarStand (){
                 ></Image>
             </View>
 
-            <View sx={{position: 'absolute', width: [0, 0, 200], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
+            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
                 <AdminList/>
             </View>
 
-            <View style={styles.container}>
-            
-                <Text style={styles.title}>Agregar grupo de Stand Up</Text>
-                <View style={styles.cuadro}>
-                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <DropDownPicker
-                            items={numero}
-                            placeholder= 'Elegi el cohorte'
-                            defaultValue={num}
-                            containerStyle={{height: 40}}
-                            style={{backgroundColor: '#fafafa'}}
-                            itemStyle={{
-                                justifyContent: 'flex-start'
-                            }}
-                            dropDownStyle={{backgroundColor: '#fafafa'}}
-                            onChangeItem={item => setNum(item.value)}
-                        />
+            <View style={styles.container} sx={{marginLeft: [0, 20]}}>
+                <View style={styles.recuadro} sx={{width: [350, 400]}}>
+                    <Text style={styles.title}>Agregar grupo de Stand Up</Text>
+                    <View style={styles.cuadro}>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <DropDownPicker
+                                items={numero}
+                                placeholder= 'Elegi el cohorte'
+                                defaultValue={num}
+                                containerStyle={{height: 40, width: 150}}
+                                style={{backgroundColor: '#fafafa'}}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                }}
+                                dropDownStyle={{backgroundColor: '#fafafa'}}
+                                onChangeItem={item => {
+                                    onRefresh()
+                                    setChange(false)
+                                    return setNum(item.value)
+                                }}
+                            />
+                            
+                            <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                <Text style={{fontSize: 18, color: 'red'}}>Agregar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    <View style={styles.grupos}>
                         
-                        <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                            <Text style={{fontSize: 18, color: 'red'}}>Agregar</Text>
-                        </TouchableOpacity>
+                        {grupos()}
                     </View>
                 </View>
             </View>
