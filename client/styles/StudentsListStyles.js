@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: "white",
+        backgroundColor: "black",
         textAlign: "center",
         alignItems: "center",
         height: '100%'
@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 50,
         fontWeight: "bold",
-        marginTop: 30
+        marginTop: 30,
+        color: "white"
     },
     line: {
         height: 110,
@@ -37,6 +38,7 @@ export const styles = StyleSheet.create({
         width: '100%',
         height: 30,
         paddingLeft: 20,
-        backgroundColor: '#fff9'
+        backgroundColor: '#fff9',
+        color: "black"
     },
 })

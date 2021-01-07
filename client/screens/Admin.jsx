@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import {styles} from '../styles/AdminStyles';
+import Particles from './Particles';
 import { Icon } from 'react-native-elements';
 
 export function AdminList ({navigation}){
@@ -70,7 +71,7 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('StudentsList')}>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Agregar PM</ListItem.Title>
@@ -95,12 +96,9 @@ export function AdminList ({navigation}){
 
 export function Admin({navigation}){  
     return(
-        <View style={{height:'100%', backgroundColor: 'white'}}>
-            <View style={{width: '100%', height: 500, position: 'absolute'}}>
-                <Image
-                    source={require("../assets/FondoAmarillo2.png")}
-                    style={{width: '100%', position: 'absolute', height: 500}}
-                ></Image>
+        <View style={{backgroundColor: "black", height: "100%"}}>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
             </View>
             <AdminList navigation={navigation}/>
         </View>

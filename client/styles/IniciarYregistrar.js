@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
         display: 'flex', 
         width: '100%', 
         height: '100%', 
-        backgroundColor: 'white'
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     container:{
-        flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        width: '100%',
     },
     botones:{
         // width: 250,
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
         
     },
     cuadro:{
-        width:'80%',
+        
         height: 450,
         borderRadius: 30,
         backgroundColor: 'white',

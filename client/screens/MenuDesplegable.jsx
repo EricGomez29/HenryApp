@@ -9,7 +9,7 @@ export default function Menu ( {navigation}){
         <View style={{width: 50}}>
             {/* <Button title='Menu' onPress={() => navigation.toggleDrawer()}></Button> */}
             <TouchableOpacity onPress={() => navigation.openDrawer()} style={{marginTop: 10}} >
-                <Icon name='bars' type='font-awesome-5'/>
+                <Icon name='bars' type='font-awesome-5' color="white"/>
             </TouchableOpacity>
         </View>
     )
