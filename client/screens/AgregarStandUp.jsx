@@ -9,6 +9,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/Feather';
 import Particles from './Particles'
 import { ListItem, Avatar } from 'react-native-elements';
+import MenuDesplegable from './MenuDesplegable';
 
 export default function AgregarStand ({navigation}){
     const [num, setNum] = useState()
@@ -101,9 +102,11 @@ export default function AgregarStand ({navigation}){
             <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
                 <Particles />
             </View>
-
-            <View sx={{position: 'absolute', width: [0, 0, 200], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
-                <AdminList navigation={navigation}/>
+            <View style={{width: '100%', alignItems:'flex-start'}}>
+                <MenuDesplegable navigation={navigation}/>
+            </View>
+            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
+                <AdminList/>
             </View>
 
             <View style={styles.container} sx={{marginLeft: [0, 20]}}>
