@@ -16,7 +16,7 @@ export function AdminList ({navigation}){
                         </ListItem.Content>
                     </ListItem>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('StudentsList')}>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Ver alumnos</ListItem.Title>

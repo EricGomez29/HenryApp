@@ -7,8 +7,9 @@ import {styles} from '../styles/AgregarStandStyles';
 import {AdminList} from './Admin';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ListItem, Avatar } from 'react-native-elements';
+import MenuDesplegable from './MenuDesplegable';
 
-export default function AgregarStand (){
+export default function AgregarStand ({navigation}){
     const [num, setNum] = useState()
     const [aparece, setAparece] = useState(false)
     const [change, setChange] = useState(false)
@@ -102,7 +103,9 @@ export default function AgregarStand (){
                     style={{width: '100%', position: 'absolute', height: 500}}
                 ></Image>
             </View>
-
+            <View style={{width: '100%', alignItems:'flex-start'}}>
+                <MenuDesplegable navigation={navigation}/>
+            </View>
             <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
                 <AdminList/>
             </View>

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_USER = gql`
-    query Users($email: String) {
-        users(where: {email: $email}) {
+    query Users($email: String, $cohorte: Int) {
+        users(where: {email: $email, cohorte: $cohorte}) {
             username
             firstName
             lastName
@@ -82,3 +82,16 @@ export const COMPARE_CODE = gql`
         }
     }
 `;
+
+export const GET_USERCOHORTES = gql`
+query cohortes($number: Int){
+    cohortes(where: {number: $number}){
+        users {
+            username
+            firstName
+            lastName
+            cohorte
+            image
+        }
+    }
+}`;

@@ -70,8 +70,8 @@ export default function App() {
         <Drawer.Navigator>
           {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
             <Drawer.Screen name="<" component={StackList} />
-            <Drawer.Screen name='Admin' component={Admin}/>
             <Stack.Screen name="Inicio" component={Welcome} />
+            <Drawer.Screen name='Admin' component={Admin}/>
           </Drawer.Navigator>
         </NavigationContainer>
       </DripsyProvider>

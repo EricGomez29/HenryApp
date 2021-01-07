@@ -35,3 +35,19 @@ query cohortes{
     }
   }
 }`
+
+export const ADD_USERSTAND = gql`
+mutation addUserStandUp($username: String!, $name: String!){
+  addUserStandUp(
+    username: $username
+    name: $name
+    
+  ){
+    users{
+      firstName
+    }
+    PM{
+      firstName
+    }
+  }
+}`
