@@ -85,3 +85,16 @@ export const COMPARE_CODE = gql`
         }
     }
 `;
+
+export const GET_USERCOHORTES = gql`
+query cohortes($number: Int){
+    cohortes(where: {number: $number}){
+        users {
+            username
+            firstName
+            lastName
+            cohorte
+            image
+        }
+    }
+}`;

@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import {styles} from '../styles/WelcomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Menu from './MenuDesplegable';
+import Particles from './Particles';
 
 export default function Welcome({ navigation }) {
 
@@ -28,12 +29,14 @@ export default function Welcome({ navigation }) {
       
 
     function handleLogout() {
-        AsyncStorage.removeItem('token');
-        AsyncStorage.removeItem('userEmail');
-        AsyncStorage.removeItem('userName');
-        AsyncStorage.removeItem('Cohorte');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('Cohorte');
+        localStorage.removeItem('name');
         navigation.navigate('Home');
     }
+
 
     if(error) {
         navigation.navigate('Home')
@@ -46,14 +49,14 @@ export default function Welcome({ navigation }) {
     } else {
         return (
             <View style={styles.todo}>
-                <Image
-                    source={require("../assets/FondoAmarillo.png")}
-                    style={{ width: '100%', position: 'absolute', height: '60%' }}
-                ></Image>
-                
+                <View style={{width: '100%', height: '100%', position: 'absolute', zIndex: -1}}>
+                    <Particles />
+                </View>
+                <View style={{zIndex: 5}}>
+                    <Menu navigation={navigation} />
+                </View>
+                <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
                 <View style={styles.container}>
-                    <Text style={styles.title} sx={{fontSize: [30, 50]}}>{'Bienvenido '+ name + '!'}</Text>
-
                     <View style={styles.boton} sx={{ width: [300, 600], height: [130, 200] }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile', { profileData: data })}>
                             <Image

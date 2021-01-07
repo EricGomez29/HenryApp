@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, TextInput, TouchableOpacity, Image, ScrollView, Text} from 'react-native';
+import React, {useState} from 'react';
+import { View, TextInput, TouchableOpacity, Image, ScrollView, Text } from 'react-native';
 import {Formik, yupToFormErrors} from 'formik';
 import * as yup from 'yup'
 import { USER_REGISTER } from '../Querys/userQuery.js';
 import {useMutation} from '@apollo/client';
-import { styles } from '../styles/RegisterStyle'
+import { styles } from '../styles/RegisterStyle';
+import Iniciarr from './Login';
 
 export default function Register({navigation}) {
 
@@ -32,6 +33,7 @@ export default function Register({navigation}) {
     })
 
     const [register] = useMutation(USER_REGISTER);
+    const [done, setDone] = useState("")
 
     const handleRegister = (values, {resetForm}) => {
         register({
@@ -45,6 +47,7 @@ export default function Register({navigation}) {
             }
         })
         resetForm()
+        setDone("Registro realizado con éxito, porfavor inicie sesión para continuar")
     }
 
     return (
@@ -69,11 +72,10 @@ export default function Register({navigation}) {
                                         value={values.username}
                                         style={styles.input}/>
                                 </View>
-                                {/* ERROR USERNAME */}
+
                                 {touched.username && errors.username &&
                                 <Text style={styles.errorForm}>{errors.username}</Text>}
 
-                                {/* CAMPO EMAIL */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                         placeholder='Email'
@@ -82,11 +84,10 @@ export default function Register({navigation}) {
                                         value={values.email}
                                         style={styles.input}/>
                                 </View>
-                                {/* ERROR EMAIL */}
+
                                 {touched.email && errors.email &&
                                 <Text style={styles.errorForm}>{errors.email}</Text>}
 
-                                {/* CAMPO FIRST NAME */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                         placeholder='Nombre'
@@ -95,11 +96,10 @@ export default function Register({navigation}) {
                                         value={values.firstName}
                                         style={styles.input}/>
                                 </View>
-                                {/* ERROR FIRSTNAME */}
+  
                                 {touched.firstName && errors.firstName &&
                                 <Text style={styles.errorForm}>{errors.firstName}</Text>}
 
-                                {/* CAMPO LAST NAME */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                         placeholder='Apellido'
@@ -108,11 +108,10 @@ export default function Register({navigation}) {
                                         value={values.lastName}
                                         style={styles.input}/>
                                 </View>
-                                {/* ERROR LAST NAME */}
+
                                 {touched.lastName && errors.lastName &&
                                 <Text style={styles.errorForm}>{errors.lastName}</Text>}
 
-                                {/* CAMPO  COHORTE */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                     placeholder='Cohorte'
@@ -121,11 +120,10 @@ export default function Register({navigation}) {
                                     value={values.cohorte}
                                     style={styles.input}/>
                                 </View>
-                                {/* ERROR COHORTE */}
+
                                 {touched.cohorte && errors.cohorte &&
                                 <Text style={styles.errorForm}>{errors.cohorte}</Text>}
 
-                                {/* CAMPO PASSWORD */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                     placeholder='Contraseña'
@@ -135,11 +133,10 @@ export default function Register({navigation}) {
                                     value={values.password}
                                     style={styles.input}/>  
                                 </View>
-                                {/* ERROR PASSWORD */}
+
                                 {touched.password && errors.password &&
                                 <Text style={styles.errorForm}>{errors.password}</Text>}
 
-                                {/* CAMPO REPEAT PASSWORD */}
                                 <View style={{marginTop: 10}}>
                                     <TextInput 
                                     placeholder='Repite la contraseña'
@@ -149,18 +146,21 @@ export default function Register({navigation}) {
                                     value={values.repeatPassword}
                                     style={styles.input}/> 
                                 </View>
-                                {/* ERROR REPEAT PASSWORD */}
+
                                 {touched.repeatPassword && errors.repeatPassword &&
                                 <Text style={styles.errorForm}>{errors.repeatPassword}</Text>}
                             </ScrollView>
 
-                            {/* REGISTRARSE */}
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} disabled={!isValid} onPress={handleSubmit}>
                                     <Text style={{color: 'black', fontWeight: 'bold'}}>Registrarme</Text>
                                 </TouchableOpacity>
                             </View>
-
+                            <View stlye={{alignItems: "center"}}>
+                                <Text style={styles.success}>
+                                    {done}
+                                </Text>
+                            </View>
                         </View>
                     )}
                 </Formik>
