@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, TouchableOpacity, TextInput, Image} from 'react-native';
+import {Text, TouchableOpacity, Image} from 'react-native';
 import {View} from 'dripsy';
 import {ADD_GRUPOSTAND, GET_COHORTES, GET_GRUPOSTAND } from '../apollo/standUp';
 import {useMutation, useQuery} from '@apollo/client';
@@ -47,6 +47,7 @@ export default function AgregarStand (){
         refetch()
         onRefresh()
     }, [data2?.standup])
+
 
     function  grupos() {
         const numerito = () =>{
@@ -102,7 +103,7 @@ export default function AgregarStand (){
                 ></Image>
             </View>
 
-            <View sx={{position: 'absolute', width: [0, 0, 200], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
+            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
                 <AdminList/>
             </View>
 

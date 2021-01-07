@@ -24,6 +24,7 @@ import AgregarStand from './screens/AgregarStandUp';
 import DateTimePicker from './screens/DateTimePicker';
 import CompareCode from './screens/CompareCode';
 import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
+import AddUserStand from './screens/AddUserStand';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,7 +41,7 @@ const client = new ApolloClient({
 
 function StackList (){
   return(
-  <Stack.Navigator initialRouteName='Home'>
+  <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="CohorteList" component={CohorteList} />
     <Stack.Screen name="UsersList" component={UsersList} />
@@ -57,6 +58,7 @@ function StackList (){
     <Stack.Screen name="DateTimePicker" component={DateTimePicker} />
     <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
     <Stack.Screen name="CompareCode" component={CompareCode} />
+    <Stack.Screen name="AddUserStand" component={AddUserStand} />
    </Stack.Navigator>
   )
 }
@@ -67,7 +69,7 @@ export default function App() {
         <NavigationContainer>
         <Drawer.Navigator>
           {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
-            <Drawer.Screen name="." component={StackList} />
+            <Drawer.Screen name="<" component={StackList} />
             <Drawer.Screen name='Admin' component={Admin}/>
           </Drawer.Navigator>
         </NavigationContainer>
