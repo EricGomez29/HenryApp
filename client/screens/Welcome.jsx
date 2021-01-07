@@ -29,10 +29,11 @@ export default function Welcome({ navigation }) {
       
 
     function handleLogout() {
-        AsyncStorage.removeItem('token');
-        AsyncStorage.removeItem('userEmail');
-        AsyncStorage.removeItem('userName');
-        AsyncStorage.removeItem('Cohorte');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('Cohorte');
+        localStorage.removeItem('name');
         navigation.navigate('Home');
     }
 
