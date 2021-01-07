@@ -18,7 +18,6 @@ export default function Welcome({ navigation }) {
            email,
        }
    })
-   console.log(data)
 
     const cohorte = data?.users[0].cohorte;
     const name = data?.users[0].firstName;
