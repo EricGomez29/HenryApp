@@ -6,7 +6,7 @@ import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
 import { EDIT_USER } from '../apollo/user';
 import { useMutation } from '@apollo/client';
-import md5 from 'md5'
+
 
 const ProfileUser = ({ route, navigation }) => {
 
@@ -39,6 +39,7 @@ const ProfileUser = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+              
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{
