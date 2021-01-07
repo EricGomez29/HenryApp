@@ -25,6 +25,7 @@ import CompareCode from './screens/CompareCode';
 import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
 import AddUserStand from './screens/AddUserStand';
 import StudentsList from './screens/StudentsList';
+import Particles from './screens/Particles';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -59,6 +60,7 @@ function StackList (){
     <Stack.Screen name="CompareCode" component={CompareCode} />
     <Stack.Screen name="AddUserStand" component={AddUserStand} />
     <Stack.Screen name="StudentsList" component={StudentsList} />
+    <Stack.Screen name="Particles" component={Particles} />
    </Stack.Navigator>
   )
 }

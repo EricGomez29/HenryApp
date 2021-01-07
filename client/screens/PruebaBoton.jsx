@@ -4,6 +4,7 @@ import { styles } from '../styles/IniciarYregistrar';
 import Iniciarr from './Login';
 import Register from './Register';
 import { View } from 'dripsy';
+import Particles from './Particles';
 
 export default function Botones({ navigation }) {
     const traslateAnimation = new Animated.Value(0)
@@ -85,15 +86,18 @@ export default function Botones({ navigation }) {
 
     return (
         <View style={styles.todo}>
-            <Image
-                source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '70%'}}
-            ></Image>
-            <Image
-                source={require("../assets/logoHenry.png")}
-                style={{maxWidth: 130, height: 70, marginTop: 20}}
-            ></Image>
-            <View style={styles.container}>
+
+            <View style={{width: '100%', height: '99%', position: 'absolute'}}>
+                <Particles />
+            </View>
+            <View style={{zIndex: 10}} >
+                <Image
+                    source={require("../assets/logoHenry.png")}
+                    style={{width: 130, height: 70, marginBottom: 10, alignSelf: "flex-start"}}
+                />
+            </View>
+
+            <View style={styles.container} sx={{width: [300, 400]}} >
             
                 <View style={styles.cuadro} sx={{width: [300, 400]}}>
 

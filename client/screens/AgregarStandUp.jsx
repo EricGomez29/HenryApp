@@ -6,9 +6,11 @@ import {useMutation, useQuery} from '@apollo/client';
 import {styles} from '../styles/AgregarStandStyles';
 import {AdminList} from './Admin';
 import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Feather';
+import Particles from './Particles'
 import { ListItem, Avatar } from 'react-native-elements';
 
-export default function AgregarStand (){
+export default function AgregarStand ({navigation}){
     const [num, setNum] = useState()
     const [aparece, setAparece] = useState(false)
     const [change, setChange] = useState(false)
@@ -95,16 +97,13 @@ export default function AgregarStand (){
     
 
     return (
-        <View style={{height: '100%', backgroundColor: 'white'}} >
-            <View style={{width: '100%', height: 500, position: 'absolute'}}>
-                <Image
-                    source={require("../assets/FondoAmarillo2.png")}
-                    style={{width: '100%', position: 'absolute', height: 500}}
-                ></Image>
+        <View style={{height: "100%", backgroundColor: "black"}}>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
             </View>
 
-            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
-                <AdminList/>
+            <View sx={{position: 'absolute', width: [0, 0, 200], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
+                <AdminList navigation={navigation}/>
             </View>
 
             <View style={styles.container} sx={{marginLeft: [0, 20]}}>

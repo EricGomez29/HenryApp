@@ -9,6 +9,7 @@ import moment from 'moment';
 import {ListItem, Avatar} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
 import {Icon} from 'react-native-elements';
+import Particles from './Particles';
 
 export default function SalaDeMesa({ navigation }){
     const hora = moment().format
@@ -83,10 +84,9 @@ export default function SalaDeMesa({ navigation }){
     return (
         <View style={styles.todo}>
             
-            <Image
-                source={require("../assets/FondoAmarillo2.png")}
-                style={{width: '100%', position: 'absolute', height: '70%'}}
-            ></Image>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>
             <View style={{alignItems: "center"}}>  
                 <View style={styles.botonLink} sx={{width: [200, 250], height: [35, 40], marginTop: 30}} >
                     <TouchableOpacity onPress={handlePress} >
