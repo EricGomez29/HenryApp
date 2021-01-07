@@ -10,7 +10,6 @@ export default function Botones({ navigation }) {
     const fadeRegister = new Animated.Value(0)
     const fadeIniciar = new Animated.Value(1)
     const index = new Animated.Value(3)
-
     function Iniciar() {
         return (
             <Animated.View style={[{ width: 200, height: 200, position: "absolute" },
@@ -24,7 +23,6 @@ export default function Botones({ navigation }) {
         return (
             <Animated.View style={[{ width: 250, height: 350 },
             { opacity: fadeRegister }]}>
-
                 <Register />
             </Animated.View>
         )
@@ -85,12 +83,11 @@ export default function Botones({ navigation }) {
         desaparecer();
     }
 
-
     return (
         <View style={styles.todo}>
             <Image
                 source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '60%'}}
+                style={{width: '100%', position: 'absolute', height: '70%'}}
             ></Image>
             <Image
                 source={require("../assets/logoHenry.png")}

@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         
     },
-    
     boton: {
         marginTop: 10,
         width: 180,
@@ -18,6 +17,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center'   
     },
     containerBoton:{
+        marginTop: 20,
         alignSelf: "center"
     },
     errorForm: {
@@ -27,11 +27,7 @@ export const styles = StyleSheet.create({
     },
     olvideContraseña:{
         backgroundColor: 'transparent',
-        marginTop: 30
-    },
-    olvideContraseña:{
-        backgroundColor: 'transparent',
-        marginTop: 30
+        marginTop: 8
     },
     input:{
         height: 50,
@@ -41,9 +37,7 @@ export const styles = StyleSheet.create({
         paddingLeft: 10
     },
     errorMessage: {
-        alignItems: "center",
         color: "red",
         fontFamily: "-webkit-pictograph"
     },
-   
 })

@@ -10,7 +10,6 @@ import { DripsyProvider } from 'dripsy';
 import Home from './screens/Home';
 import Welcome from './screens/Welcome';
 import ForgotPassword from './screens/ForgotPassword';
-import UsersList from './screens/UsersList'
 import CohorteList from './screens/CohorteList'
 import Profile from './screens/Profile';
 import ProfileEdit from './screens/ProfileEdit';
@@ -25,6 +24,7 @@ import DateTimePicker from './screens/DateTimePicker';
 import CompareCode from './screens/CompareCode';
 import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
 import AddUserStand from './screens/AddUserStand';
+import StudentsList from './screens/StudentsList';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -44,7 +44,6 @@ function StackList (){
   <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="CohorteList" component={CohorteList} />
-    <Stack.Screen name="UsersList" component={UsersList} />
     <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
     <Stack.Screen name="Welcome" component={Welcome} />
     <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -59,6 +58,7 @@ function StackList (){
     <Stack.Screen name="ChangeOnlyPassword" component={ChangeOnlyPassword} />
     <Stack.Screen name="CompareCode" component={CompareCode} />
     <Stack.Screen name="AddUserStand" component={AddUserStand} />
+    <Stack.Screen name="StudentsList" component={StudentsList} />
    </Stack.Navigator>
   )
 }
@@ -71,6 +71,7 @@ export default function App() {
           {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
             <Drawer.Screen name="<" component={StackList} />
             <Drawer.Screen name='Admin' component={Admin}/>
+            <Stack.Screen name="Inicio" component={Welcome} />
           </Drawer.Navigator>
         </NavigationContainer>
       </DripsyProvider>

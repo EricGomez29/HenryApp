@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     todo:{
         width: '100%', 
         height: '100%', 
-        // backgroundColor: '#161b22'
+        // backgroundColor: '#161b22',
         backgroundColor: 'white'
     },
     container: {
@@ -38,12 +38,10 @@ export const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         borderBottomWidth: 'thin',
         marginLeft: 10,
-        marginRight: 10
+        marginRight: 10,
+        textAlign: "center"
     },
     fijar:{
-        width: 50,
-        height: 20,
-        backgroundColor: '#d7d2d2',
         alignItems: "center",
         justifyContent: 'center',
         borderRadius: 5
@@ -69,7 +67,7 @@ export const styles = StyleSheet.create({
         elevation: 9,
     },
     botonLink:{
-        backgroundColor: '#6200ee',
+        backgroundColor: 'yellow',
         borderRadius: 5,
         shadowColor: "#000",
         shadowOffset: {
@@ -80,5 +78,11 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
         alignItems: "center"
+    },
+    list: {
+        borderRadius: 50
+    },
+    content: {
+        paddingVertical: 4
     }
 })
