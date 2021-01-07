@@ -1,4 +1,4 @@
-import { StyleSheet, YellowBox } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
@@ -9,11 +9,34 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontSize: 50,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginTop: 30
     },
     line: {
-        height: 73,
+        height: 110,
         borderBottomWidth: 21,
         borderBottomColor: "yellow",
-    }
+    },
+    containerInput: {
+        display: "flex", 
+        flexDirection: "row", 
+        width: '90%', 
+        paddingVertical: 20
+    },
+    dropDrown: {
+        marginTop: 40, 
+        marginBottom: 30, 
+        display: "flex", 
+        zIndex: 2,
+        fontSize: 30,
+        backgroundColor: '#fff9',
+        width: '40%',
+        padding: 5
+    },
+    textInput: {
+        width: '100%',
+        height: 30,
+        paddingLeft: 20,
+        backgroundColor: '#fff9'
+    },
 })

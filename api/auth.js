@@ -55,14 +55,14 @@ const auth = {
         if(!user) {
             return {
                 success: false,
-                errors: [{path:"email", message:"Email no existe"}]
+                errors: [{path:"email", message:"Este email no se encuentra registrado"}]
             }
         }
         const validPassword = await bcrypt.compare(password, user.password)
         if(!validPassword) {
             return {
                 success: false,
-                errors: [{path:"password", message:"Password inválido"}]
+                errors: [{path:"password", message:"La contraseña es incorrecta"}]
             }
         }
 
