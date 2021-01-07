@@ -10,15 +10,15 @@ import { ListItem, Avatar } from 'react-native-elements';
 
 export default function AgregarStand (){
     const [num, setNum] = useState()
-    
+    const [aparece, setAparece] = useState(false)
+    const [change, setChange] = useState(false)
     const numNuevo= parseInt(num)
     const {data, error, loading} = useQuery(GET_COHORTES)
-    const {data: data2, error: error2, loading: loading2} = useQuery(GET_GRUPOSTAND, {
+    const {data: data2, error: error2, loading: loading2, refetch} = useQuery(GET_GRUPOSTAND, {
         variables: {
             cohorte: numNuevo,
         }
     })
-    console.log(data2)
     const[nombre, setNombre] = useState()
     const numCohorte = data?.cohortes
     const numero = []
@@ -34,20 +34,32 @@ export default function AgregarStand (){
             }
         })
         setNombre(response.data.addStandUp.name)
+        setChange(true)
     }
     
+    function onRefresh() {
+        refetch()
+        let newData = data2?.standup
+        setAparece(newData)
+    }
+
+    useEffect(() => {
+        refetch()
+        onRefresh()
+    }, [data2?.standup])
 
     function  grupos() {
         const numerito = () =>{
             if(num !== "NaN"){
                 return num
             }
-            else return "-"
+            var n = 'Nº'
+            return n;
         }
 
         const nuevo = () =>{
-            if(nombre){
-                return(<Text style={styles.nombres}>{nombre}<Text style={{color: 'red'}}>  Nuevo grupo!</Text></Text>)
+            if(change){
+                return(<Text style={styles.nombres}>{nombre}<Text style={{color: 'red'}}>  Nuevo!</Text></Text>)
             }
         }
         
@@ -55,11 +67,11 @@ export default function AgregarStand (){
             <View style={styles.gruposStand}>
                  <ListItem  bottomDivider>
                     <ListItem.Content>
-                        <ListItem.Title style={styles.title}>Grupos del cohorte: {numerito()}</ListItem.Title>
+                        <ListItem.Title style={styles.title}>Grupos del cohorte: {num}</ListItem.Title>
                     </ListItem.Content>
                 </ListItem>
                 {
-                    data2 && data2.standup.map((n, i) => {
+                    aparece && aparece.map((n, i) => {
                         return (
                             <ListItem key={i} bottomDivider>
                                 <ListItem.Chevron />
@@ -109,7 +121,11 @@ export default function AgregarStand (){
                                     justifyContent: 'flex-start'
                                 }}
                                 dropDownStyle={{backgroundColor: '#fafafa'}}
-                                onChangeItem={item => setNum(item.value)}
+                                onChangeItem={item => {
+                                    onRefresh()
+                                    setChange(false)
+                                    return setNum(item.value)
+                                }}
                             />
                             
                             <TouchableOpacity style={styles.boton} onPress={handleSubmit}>

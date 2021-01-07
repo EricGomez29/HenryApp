@@ -40,7 +40,7 @@ const client = new ApolloClient({
 
 function StackList (){
   return(
-  <Stack.Navigator initialRouteName='AgregarStandUp'>
+  <Stack.Navigator initialRouteName='Home'>
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="CohorteList" component={CohorteList} />
     <Stack.Screen name="UsersList" component={UsersList} />

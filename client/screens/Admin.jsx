@@ -14,10 +14,28 @@ export function AdminList ({navigation}){
                     </ListItem.Content>
                 </ListItem>
 
+                <TouchableOpacity>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Ver alumnos</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('CohorteList')}>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Ver Cohortes</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
                 <TouchableOpacity >
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar Cohorte</ListItem.Title>
+                            <ListItem.Title>Agregar/Eliminar Cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -44,21 +62,20 @@ export function AdminList ({navigation}){
                 <TouchableOpacity>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Ver alumnos</ListItem.Title>
+                            <ListItem.Title>Agregar PM</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('CohorteList')}>
+                <TouchableOpacity>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Ver Cohortes</ListItem.Title>
+                            <ListItem.Title>Agregar Administrador</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
                 </TouchableOpacity>
-
 
             </View>
         </View>
