@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, Image, TouchableOpacity} from 'react-native';
 import {View} from 'dripsy'
 import {AdminList} from './Admin';
@@ -9,17 +9,17 @@ import { useMutation, useQuery} from '@apollo/client';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ListItem, Avatar, CheckBox} from 'react-native-elements';
 import logo from '../assets/logoHenry.png';
-
+import Particles from './Particles'
+import MenuDesplegable from './MenuDesplegable';
 
 export default function AddUserStand({navigation}){
     const {data, error, loading} = useQuery(GET_COHORTES)    //primero: llama a la query
-    console.log(data) 
     const numCohorte = data?.cohortes;                      //segundo: guarda la data en una constante
     const [cohorte, setCohorte] = useState()                //cuarto: en este estado guarda el value del DropDown
     const numNuevo= parseInt(cohorte)                       // parsea el numero de cohorte xq se guarda como string
     const numero = []
     numCohorte && numCohorte.map(n => {                      //tercero: mapea la constante y lo guarda en el array de arriba
-        numero.push({label: n.number.toString(), value: n.number.toString()})
+        numero.push({label: `Cohorte ${n.number.toString()}`, value: n.number.toString()})
     })
     const {data: data2, error: error2, loading: loading2} = useQuery(GET_GRUPOSTAND, {  //para ver los grupos de cada cohorte
         variables: {
@@ -33,7 +33,7 @@ export default function AddUserStand({navigation}){
         array.push({label: n.name, value: n.name})
     })
     
-    const {loading: loading3, data: data3, error: erorr3} = useQuery(GET_USERCOHORTES, {
+    const {loading: loading3, data: data3, error: erorr3, refetch} = useQuery(GET_USERCOHORTES, {
         variables: {
             number: numNuevo
         }
@@ -42,7 +42,7 @@ export default function AddUserStand({navigation}){
     function Cohorte(){
         if(cohorte){
             return (
-                <Text>Cohorte: {cohorte}</Text>
+                <Text style={{fontSize: 18, fontWeight: 'bold', marginVertical: 10}}>Cohorte: {cohorte}</Text>
             )
         }
     }
@@ -50,14 +50,14 @@ export default function AddUserStand({navigation}){
     function Nombres(){
         if(nuevaData && nuevaData[7] === cohorte){
             return (
-                <Text>Grupo: {nuevaData}</Text>
+                <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10}}>Grupo: {nuevaData}</Text>
             )
         }
     }
-
+    const [agregado, setAgregado] = useState(false)
     const [addUserStand] = useMutation(ADD_USERSTAND)
-
     const handleSubmit = async (e) => {
+        try{
         const response = await addUserStand({
             variables: {
                 username: e,
@@ -65,88 +65,108 @@ export default function AddUserStand({navigation}){
 
             }
         })
-        console.log(response.data)
+        onRefresh()
+    }catch (e){
+        setErr(true)
+    }
+        
     }
 
+    function onRefresh() {
+        refetch()
+        let agregar = data3?.cohortes[0]?.users
+        setAgregado(agregar)
+    }
 
+    useEffect(() => {
+        refetch()
+        onRefresh()
+    }, [data3?.cohortes[0]?.users])
+
+    const[err, setErr] = useState(false)
+    function Error(){
+        if(err){
+            return (<Text style={{color: 'red', fontSize: 18}}>No se ha elegido un grupo.</Text>)
+        }
+    }
 
     function listUsers() {
         return (
-            <View style={{width: 300, alignSelf: "center"}}>
+            <View style={{marginBottom: 20, width: 350}} >
                 {
                     data3 && data3?.cohortes[0]?.users.map((u, i) => {
-                        return (
-                            <ListItem key={u.username}>
-                                <Image source={u.image || logo} style={{width:40, height:40}}/>
-                                <ListItem.Content>
-                                    <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
-                                        <ListItem.Title>{u.firstName} {''}</ListItem.Title>
-                                        <ListItem.Title>{u.lastName}</ListItem.Title>
-                                    </View>
-                                <ListItem.Subtitle>{u.username}</ListItem.Subtitle>
-                                <ListItem.Subtitle>Cohorte: {u.cohorte}</ListItem.Subtitle>
-                                </ListItem.Content>
-                                <TouchableOpacity onPress={ () => handleSubmit(u.username)}>
-                                    <Text>Agregar</Text>
-                                </TouchableOpacity>
-                            </ListItem>
-                        )
+                        if(!u.standUp){
+                            return (
+                                <ListItem key={u.username} bottomDivider>
+                                    <Image source={u.image || logo} style={{width:40, height:40}}/>
+                                    <ListItem.Content>
+                                        <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
+                                            <ListItem.Title>{u.firstName} {''}</ListItem.Title>
+                                            <ListItem.Title>{u.lastName}</ListItem.Title>
+                                        </View>
+                                    <ListItem.Subtitle>{u.username}</ListItem.Subtitle>
+                                    <ListItem.Subtitle>Cohorte: {u.cohorte}</ListItem.Subtitle>
+                                    </ListItem.Content>
+                                    <TouchableOpacity onPress={ () => handleSubmit(u.username)} style={styles.botoncito}>
+                                        <Text style={{color: 'green'}}>Agregar</Text>
+                                    </TouchableOpacity>
+                                </ListItem>    
+                            )
+                        }
                     })
                 }
             </View>
         )
     }
 
+
     return(
-        <View style={{height: '100%', backgroundColor: 'white'}} >
-            <View style={{width: '100%', height: 500, position: 'absolute'}}>
-                <Image
-                    source={require("../assets/FondoAmarillo2.png")}
-                    style={{width: '100%', position: 'absolute', height: 500}}
-                ></Image>
+        <View style={{height: '100%', backgroundColor: 'black'}} >
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
             </View>
-            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
-                <AdminList/>
+            <View style={{width: '100%', alignItems:'flex-start'}}>
+                <MenuDesplegable navigation={navigation}/>
             </View>
-            <View style={styles.container} sx={{marginLeft: [0, 20]}}>
-                <Text>Hola</Text>
-                <View style={styles.cuadro}>
-                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <DropDownPicker
-                            items={numero}
-                            placeholder= 'Elegi el cohorte'
-                            defaultValue={cohorte}
-                            
-                            containerStyle={{height: 40, width: 150}}
-                            style={{backgroundColor: '#fafafa'}}
-                            itemStyle={{
-                                justifyContent: 'flex-start'
-                            }}
-                            dropDownStyle={{backgroundColor: '#fafafa'}}
-                            onChangeItem={item => setCohorte(item.value)}
-                        />
-                        <DropDownPicker
-                            items={array}
-                            placeholder= 'Elegi el grupo'
-                            defaultValue={nuevaData}
-                            containerStyle={{height: 40, width: 150}}
-                            style={{backgroundColor: '#fafafa'}}
-                            itemStyle={{
-                                justifyContent: 'flex-start'
-                            }}
-                            dropDownStyle={{backgroundColor: '#fafafa'}}
-                            onChangeItem={item => setNuevaData(item.value)}
-                        />
-                        
+            <View style={styles.container}>
+                    <Text style={styles.titulo}>Asignar usuarios a un grupo</Text>
+                <View style={styles.cuadroTransparent} >
+                    <View style={styles.cuadro}>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <DropDownPicker
+                                items={numero}
+                                placeholder= 'Cohorte Nº:'
+                                defaultValue={cohorte}
+                                
+                                containerStyle={{height: 40, width: 120}}
+                                style={{backgroundColor: '#fafafa'}}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                }}
+                                dropDownStyle={{backgroundColor: '#fafafa'}}
+                                onChangeItem={item => setCohorte(item.value)}
+                            />
+                            <DropDownPicker
+                                items={array}
+                                placeholder= 'Elegi el grupo'
+                                defaultValue={nuevaData}
+                                containerStyle={{height: 40, width: 150}}
+                                style={{backgroundColor: '#fafafa'}}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                }}
+                                dropDownStyle={{backgroundColor: '#fafafa'}}
+                                onChangeItem={item => {
+                                    setErr(false)
+                                    return setNuevaData(item.value)
+                                }}
+                            />
+                        </View>
                     </View>
-                </View>
-                {Cohorte()}
-                {Nombres()}
-                {listUsers()}
-                <View>
-                    <TouchableOpacity onPress={handleSubmit}>
-                        <Text>Agregar</Text>
-                    </TouchableOpacity>
+                    {Cohorte()}
+                    {Nombres()}
+                    {Error()}
+                    {listUsers()}
                 </View>
             </View>
         </View>

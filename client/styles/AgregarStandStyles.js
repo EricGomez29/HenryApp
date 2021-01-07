@@ -17,11 +17,15 @@ export const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         fontFamily: 'ui-rounded',
+        
     },
     title2: {
         fontSize: 30,
         fontWeight: 'bold',
         fontFamily: 'ui-rounded',
+        color: 'white',
+        textShadowColor: 'black',
+        textShadowOffset: {width: 1, height: 2},
     },
     subtitle: {
         fontSize: 20,
