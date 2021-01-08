@@ -17,5 +17,10 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff9',
         padding: 10
+    },
+    pm:{
+        alignSelf: 'center',
+        fontSize: 30,
+        fontWeight: 'bold',
     }
 })
