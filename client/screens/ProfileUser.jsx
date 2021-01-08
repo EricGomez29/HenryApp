@@ -27,6 +27,37 @@ mutation editUser($username: String, $isAdmin: Boolean, $isPM:Boolean, $isInstru
 
 const ProfileUser = ({ route, navigation }) => {
 
+    const email = localStorage.getItem('userEmail')
+    const { loading, data: dataNew, error } = useQuery(GET_USER, {
+    variables: {
+        email: email
+    }
+    })
+    const admin2 = dataNew && dataNew?.users[0]?.isAdmin;
+    function Administrador() {
+    if(admin2 === true){
+        return (
+            <View style={styles.boxBoton}>
+                <View style={styles.containerBoton}>
+                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!admin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.containerBoton}>
+                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit1} >
+                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!ispm ? "Hacerlo PM" : "Deshacer PM"}</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.containerBoton}>
+                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit2} >
+                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!isinstructor ? "Hacerlo Instructor" : "Deshacer Instructor"}</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    }
+
     const [data, setData] = useState(route.params.data);
     const [admin, setAdmin] = useState(data.isAdmin);          
     const [ispm, setPM] = useState(data.isPM)                
@@ -197,24 +228,8 @@ const ProfileUser = ({ route, navigation }) => {
                                 value={isinstructor ? "SI" : "NO"}
                                 editable={false}
                             />
+                            {Administrador()}
                             
-                            <View style={styles.boxBoton}>
-                                <View style={styles.containerBoton}>
-                                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!admin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.containerBoton}>
-                                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit1} >
-                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!ispm ? "Hacerlo PM" : "Deshacer PM"}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={styles.containerBoton}>
-                                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit2} >
-                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!isinstructor ? "Hacerlo Instructor" : "Deshacer Instructor"}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
                         </View>
                     )}
                 </Formik>

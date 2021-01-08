@@ -46,7 +46,7 @@ export default function AddCohorte ({navigation}){
             </View>
             {!bool ? null : 
                 <DateTimePicker id={newCohorte._id} /> 
-             }
+            }
         </View>
     )
 }

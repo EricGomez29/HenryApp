@@ -3,8 +3,10 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery } from '@apollo/client';
 import { DripsyProvider } from 'dripsy';
+
+import {GET_USER} from './apollo/user';
 
 //Screens
 import Home from './screens/Home';
@@ -35,6 +37,7 @@ import SalaDeMesaNew from './screens/SalaDeMesaNew';
 import InviteUsers from './screens/InviteUsers';
 import AddCohorte from './screens/AddCohorte';
 
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -50,7 +53,7 @@ const client = new ApolloClient({
 
 function StackList() {
   return (
-    <Stack.Navigator initialRouteName='AddCohorte' screenOptions={{ headerShown: true }}>
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="CohorteList" component={CohorteList} />
       <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
@@ -79,16 +82,25 @@ function StackList() {
   )
 }
 
-export default function App() {
 
+
+export default function App() {
   return (
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>
         <NavigationContainer>
-          <Drawer.Navigator>
-            {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
+          <Drawer.Navigator 
+            screenOptions={{ headerShown: false }}
+            drawerStyle={{
+              backgroundColor: '#fff080'
+            }}
+            drawerContentOptions={{
+              activeBackgroundColor: 'white'
+            }}
+          >
             <Drawer.Screen name="<" component={StackList} />
             <Stack.Screen name="Inicio" component={Welcome} />
+            {/* {Administrador()} */}
             <Drawer.Screen name='Admin' component={Admin} />
             <Drawer.Screen name='Ver Compañeros' component={Compañeros} />
             <Drawer.Screen name='Instructor del cohorte' component={InstructorProfile} />
