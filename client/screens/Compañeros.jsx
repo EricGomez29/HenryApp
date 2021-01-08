@@ -4,6 +4,7 @@ import {GET_USERCOHORTES} from '../apollo/user';
 import Particles from './Particles';
 import { useQuery } from '@apollo/client';
 import { ListItem, Avatar } from 'react-native-elements';
+import ImagenDefecto from '../Components/ImagenDefecto';
 
 export default function Compañeros({navigation}){
     const cohorte = localStorage.getItem('Cohorte')
@@ -28,7 +29,8 @@ export default function Compañeros({navigation}){
                         usuarios && usuarios.map((u, i) => {
                             return (
                                 <ListItem key={i} onPress={() => navigation.navigate('ProfileUser', { data: u })}>
-                                    <Image source={u.image || `https://cdn.theorg.com/d3119e0e-8202-4034-85ce-d0356382515e_thumb.jpg`} style={{width:40, height:40}}/>
+                                    <ImagenDefecto nombre={u.firstName}/>
+                                    {/* <Image source={u.image || `https://cdn.theorg.com/d3119e0e-8202-4034-85ce-d0356382515e_thumb.jpg`} style={{width:40, height:40}}/> */}
                                     <ListItem.Content>
                                         <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
                                             <ListItem.Title>{u.firstName} {''}</ListItem.Title>
