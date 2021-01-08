@@ -148,7 +148,7 @@ const typeDefs = gql`
         removePMStandUp(username:String, name:String): StandUp
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
-        addLinkMeetStandUp(id: String, link: String, username. String): StandUp    
+        addLinkMeetStandUp(id: String, link: String, username: String): StandUp    
 
         addDailyUser(username:String!): DailyStandUp
         addDailyStandUp(username:String!, name:String!): DailyStandUp
