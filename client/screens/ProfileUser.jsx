@@ -6,13 +6,13 @@ import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
 import { EDIT_USER } from '../apollo/user';
 import { useMutation } from '@apollo/client';
-
+import Particles from './Particles';
+import MenuDesplegable from './MenuDesplegable';
 
 const ProfileUser = ({ route, navigation }) => {
 
     const [data, setData] = useState(route.params.modifyData);
     const [editProfile] = useMutation(EDIT_USER);
-    console.log(data)
     const handleSubmit = async (values) => {
         try {
             const response = await editProfile({
@@ -39,7 +39,12 @@ const ProfileUser = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-              
+            <View style={{width: 50, zIndex: 5}}>
+                <MenuDesplegable navigation={navigation} />
+            </View>
+            <View style={{width: '100%', height: "98%", position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{
@@ -129,17 +134,17 @@ const ProfileUser = ({ route, navigation }) => {
                                 editable={false}
                             />
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.boton}>
                                     <Text style={{ color: 'black', fontWeight: 'bold' }}>Cambiar de Cohorte</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.boton}>
                                     <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo Administrador</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                <TouchableOpacity style={styles.boton}>
                                     <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo PM</Text>
                                 </TouchableOpacity>
                             </View>

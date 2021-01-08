@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'black',
     },
     btn: {
         backgroundColor: '#FFFF01',
@@ -24,16 +24,18 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
+        color:"white"
     },
     caption: {
         fontSize: 14,
         lineHeight: 14,
         fontWeight: '500',
+        color: "white"
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 10
     },
     form: {
         marginTop: 20,
