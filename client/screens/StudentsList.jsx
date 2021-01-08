@@ -31,6 +31,7 @@ query cohortes($number: Int){
             listPM
             nationality
             phone
+            isInstructor
         }
     }
 }`;

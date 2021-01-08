@@ -9,12 +9,12 @@ const typeDefs = gql`
         lastName: String
         cohorte: Int
         henryCoins: String
-        isAdmin:String
+        isAdmin:Boolean
         email: String
         password: String
         forgotPassword: String
         isInstructor: Boolean
-        isPM: String
+        isPM: Boolean
         standUp: String
         listPM: [String]
         image: String
@@ -30,6 +30,8 @@ const typeDefs = gql`
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        isPM: Boolean
+        isInstructor: Boolean
         email: String
         password: String
         image: String
