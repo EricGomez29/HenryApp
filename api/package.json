@@ -13,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jitsi-meet": "https://meet.jit.si/external_api.js",
     "apollo-resolvers": "^1.4.2",
     "apollo-server-express": "^2.19.0",
     "bcrypt": "^5.0.0",
