@@ -99,10 +99,29 @@ query cohortes($number: Int){
             username
             firstName
             lastName
-            cohorte
             image
             standUp
+            isAdmin
+            isPM
+            email
+            cohorte
+            standUp
+            nationality
         }
+        instructor{
+            username
+            firstName
+            lastName
+            image
+            standUp
+            isAdmin
+            isPM
+            email
+            cohorte
+            standUp
+            nationality
+        }
+
     }
 }`;
 
@@ -122,3 +141,4 @@ export const GET_USER_FOR_ADMIN = gql`
             listPM
         }
     }`;
+
