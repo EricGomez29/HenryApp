@@ -18,9 +18,17 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fff9',
         padding: 10
     },
-    pm:{
+    pmNombre:{
         alignSelf: 'center',
         fontSize: 30,
         fontWeight: 'bold',
+        marginBottom: 10,
+        marginLeft: -20
+    },
+    pm:{
+        backgroundColor: 'white',
+        borderRadius: 5,
+        width: 250,
+        alignSelf: 'center'
     }
 })

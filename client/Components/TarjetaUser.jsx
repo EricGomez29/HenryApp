@@ -14,8 +14,8 @@ export default function TarjetaUser({users}){
                         <ListItem key={i} bottomDivider>
                             <Image source={l.image || icon} style={{width: 50, height: 50, borderRadius: 100}}/>
                             <ListItem.Content style={styles.content}>
-                                <ListItem.Title style={{fontSize: 17}}>{l.firstName}</ListItem.Title>
-                                <ListItem.Subtitle style={{fontSize: 15}}>{l.lastName}</ListItem.Subtitle>
+                                <ListItem.Title style={{fontSize: 20, fontWeight: 'bold'}}>{l.firstName}</ListItem.Title>
+                                <ListItem.Subtitle style={{fontSize: 18}}>{l.lastName}</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
                     )

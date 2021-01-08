@@ -41,23 +41,15 @@ export default function StandUp({navigation}){
             <View style={{alignSelf: 'center'}}>
                 <Text style={styles.title} sx={{fontSize: [25, 30]}}>Grupo:  {nombreGrupo}</Text>
                 <View style={styles.recuadro}>
-                    <View style={{width: '100%'}}>
+                    <View style={{width:'80%', backgroundColor: '#ffff6d', marginTop: 20}}>
                         <Text style={{fontSize: 27}}>PM's:</Text>
-                        {
-                            pms && pms.map(u => {
-                                return(
-                                    <View>
-                                        <Text style={styles.pm}>{u.firstName} {u.lastName}</Text>
-                                    </View>
-
-                                )
-                            })
-                        }
-                        {/* <TarjetaUser users={pms} /> */}
-
+                    </View>
+                    <TarjetaUser users={pms} />
+                    <View style={{width:'80%', backgroundColor: '#ffff6d', marginTop: 20}}>
+                        <Text style={{fontSize: 27}}>Alumnos:</Text>
                     </View>
                     <TarjetaUser users={usuarios} />
-                </View>
+                </View>       
             </View>
         </View>
     )
