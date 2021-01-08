@@ -52,9 +52,21 @@ mutation addUserStandUp($username: String!, $name: String!){
   }
 }`
 
+export const ADD_LINK = gql`
+mutation addLinkMeetStandUp($id: String!, $username: String!, $link: String!){
+  addLinkMeetStandUp(
+    username: $username
+    id: $id
+    link: $link
+  ) {
+    linkMeet
+  }
+}`
+
 export const GET_GRUPO = gql`
 query standup($name: String!){
   standup(where: {name: $name}){
+    _id
     PM{
       firstName
       lastName
@@ -65,5 +77,6 @@ query standup($name: String!){
     }
     name
     cohorte
+    linkMeet
   }
 }`

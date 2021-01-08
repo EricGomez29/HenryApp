@@ -62,8 +62,8 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                    <ListItem key={4} bottomDivider onPress={() => navigation.navigate('RolesList')}>
+                <TouchableOpacity onPress={() => navigation.navigate('RolesList')}>
+                    <ListItem key={4} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Ver Administradores y PMs</ListItem.Title>
                         </ListItem.Content>

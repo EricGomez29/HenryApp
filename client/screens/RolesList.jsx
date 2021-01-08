@@ -20,31 +20,24 @@ export default function RolesList() {
     const usersMap = () => {
         let usuariosPM = []
         let usuariosAdmin = []
-        data && data?.users.map((u, i) => {
-            if(u.isPM  && u.isAdmin ){
+        data?.users?.map((u, i) => {
+            if(u.isPM && u.isAdmin){
                 usuariosPM.push(u)
                 usuariosAdmin.push(u)
-            } else if(u.isPM ) {
+            } else if(u.isPM) {
                 usuariosPM.push(u)
             } else if(u.isAdmin) {
                 usuariosAdmin.push(u)
             }
         })
-        refetch()
         setUsers(true)
         setUsersPM(usuariosPM)
-        console.log(usersPM)
         setUsersAdmin(usuariosAdmin)
-        console.log(usersAdmin)
     }
 
     useEffect(() => {
         refetch()
         usersMap()
-    }, [data && data?.users])
-
-    useEffect(() => {
-        refetch()
     })
 
     return (

@@ -99,7 +99,8 @@ export const removeUserStandUp = async ( username ) => {
 }
 
 export const addLinkMeetStandUp = async (id, link, username) => {
-    const user = User.findOne({username: username});
+    const user = await User.findOne({username: username});
+    console.log(user)
     if(!user){
         throw new Error(`El usuario ${username} no existe`);
     }
