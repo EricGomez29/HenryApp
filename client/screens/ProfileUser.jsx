@@ -41,7 +41,6 @@ const ProfileUser = ({ route, navigation }) => {
                 isAdmin: !admin
             }
         })
-        console.log(response.data.editUser.isAdmin); 
         setAdmin(response.data.editUser.isAdmin)                                            //lo seteo en el estado para que cambie al instante el input
     }
     const handleSubmit1 = async () => {
@@ -50,9 +49,7 @@ const ProfileUser = ({ route, navigation }) => {
                 username: data.username,
                 isPM: !ispm
             }
-        })
-        console.log((response));
-        console.log(response.data.editUser.isPM);    
+        })  
         setPM(response.data.editUser.isPM)                                       
     }
 
@@ -63,7 +60,6 @@ const ProfileUser = ({ route, navigation }) => {
                 isInstructor: !isinstructor
             }
         })
-        console.log(response.data.editUser.isInstructor);
         setInstructor(response.data.editUser.isInstructor)                                       
     }
     return (
