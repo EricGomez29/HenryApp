@@ -54,7 +54,7 @@ const ProfileEdit = ({ route, navigation }) => {
                         phone: data.phone || '',
                         cohorte: data.cohorte || '',
                         nroTelefono: data.phone || '',
-                        image: data.image || `https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50s=200`,
+                        image: data.image || `https://cdn.theorg.com/d3119e0e-8202-4034-85ce-d0356382515e_thumb.jpg`,
                     }}
                     onSubmit={values => handleSubmit(values)}
                 >
@@ -92,14 +92,14 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onBlur={handleBlur('lastName')}
                                 value={values.lastName}
                             />
-                            <Text style={styles.textLabel}>Usuario</Text>
+                            {/* <Text style={styles.textLabel}>Usuario</Text>
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Nombre de Usuario"
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}
                                 value={values.username}
-                            />
+                            /> */}
                             <Text style={styles.textLabel}>Email</Text>
                             <TextInput
                                 style={styles.textInput}
@@ -108,14 +108,14 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onBlur={handleBlur('email')}
                                 value={values.email}
                             />
-                            <Text style={styles.textLabel}>Cohorte</Text>
+                            {/* <Text style={styles.textLabel}>Cohorte</Text>
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Cohorte"
                                 onChangeText={handleChange('cohorte')}
                                 onBlur={handleBlur('cohorte')}
                                 value={values.cohorte}
-                            />
+                            /> */}
                             <Text style={styles.textLabel}>Telefono</Text>
                             <TextInput
                                 style={styles.textInput}
