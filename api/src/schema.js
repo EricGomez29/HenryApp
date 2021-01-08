@@ -9,12 +9,12 @@ const typeDefs = gql`
         lastName: String
         cohorte: Int
         henryCoins: String
-        isAdmin:String
+        isAdmin:Boolean
         email: String
         password: String
         forgotPassword: String
         isInstructor: Boolean
-        isPM: String
+        isPM: Boolean
         standUp: String
         listPM: [String]
         image: String
@@ -30,6 +30,8 @@ const typeDefs = gql`
         cohorte: Int
         henryCoins: Int
         isAdmin: Boolean
+        isPM: Boolean
+        isInstructor: Boolean
         email: String
         password: String
         image: String
@@ -138,7 +140,7 @@ const typeDefs = gql`
         removeUserPairProgramming(username:String!, dia: String!):PairProgramming
         addLinkMeet(id:String!,link:String!):PairProgramming
 
-        sendEmail(email: String): Email
+        sendEmail(email: String, link: String): Email
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:Int, email:String): Users

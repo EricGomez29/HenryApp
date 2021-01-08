@@ -53,7 +53,7 @@ const resolvers = {
         addLinkMeet: (_, {id, link}, context) => addLinkMeet(id, link),
         
         // Mail de Ingreso a la aplicación
-        sendEmail: async (parent, { email }, context) => sendEmail(email),
+        sendEmail: async (parent, { email, link }, context) => sendEmail(email, link),
 
         // FORGOT PASSWORD MAIL
         sendForgotPasswordMail: async (parent, { email }, context) => forgotPasswordMail(email),

@@ -8,6 +8,7 @@ import Mesa from './Mesas';
 import moment from 'moment';
 import Particles from './Particles';
 import MenuDesplegable from './MenuDesplegable';
+import zzz from '../assets/zzz.png';
 
 export default function Mesas({navigation}){
     const fecha = moment().format('DD/MM/YYYY');
@@ -35,30 +36,47 @@ export default function Mesas({navigation}){
 
     const [btn, setBtn] = useState(false)
     const btnMesa = () => {
-        var count = 0;
-        data?.pairProgramming.map(m => {
-            count += m.users.length
-        })
-        if(count % 5 === 0) {
+        // var count = 0;
+        var count = data?.pairProgramming.length
+        var count2 = data?.pairProgramming[count - 1].users.length
+        if(count2 % 5 === 0) {
             return (
-                <TouchableOpacity>
-                    <Text>
-                        Crear nueva mesa
-                    </Text>
-                </TouchableOpacity>
+                <View style={styles.container}>
+                    <View style={styles.botonSalaVacia} sx={{width: [250, 400], height: [50, 70]}}>
+                        <TouchableOpacity onPress={handleSubmit}>
+                            <Text style={{textAlign: 'center', fontWeight: 'bold'}} sx={{fontSize: [15, 22]}}>Crear Mesa</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
             )
         }
     }
+    const [mesas, setMesas] = useState()
+    function onRefresh() {
+        var mesasActuales = []
+        data && data?.pairProgramming.map((m, i) => {
+            mesasActuales.push(m)
+        })
+        setMesas(mesasActuales)
+        refetch()
+    }
+
+    useEffect(() => {
+        refetch
+        onRefresh()
+    }, [data && data?.pairProgramming.length])
+
+    useEffect(() => {
+        refetch()
+    })
 
     function Sala () {
         if (data?.pairProgramming.length === 0){
             return (
-                <View style={styles.container}>
+                <View style={styles.container2}>
                     <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center', color: "white"}}>Sala Vacia</Text>
-                    <View style={styles.botonSalaVacia} sx={{width: [250, 400], height: [50, 70]}}>
-                        <TouchableOpacity onPress={handleSubmit}>
-                            <Text style={{textAlign: 'center', fontWeight: 'bold'}} sx={{fontSize: [15, 22]}}>Se el primero en crear una mesa!</Text>
-                        </TouchableOpacity>
+                    <View style={{width: 150, height: 150, marginTop: 40}}>
+                        <Image source={zzz} style={{width: 150, height: 150}}/>
                     </View>
                 </View>
             )
@@ -67,12 +85,11 @@ export default function Mesas({navigation}){
             <View >  
                 <Text sx={{fontSize: [30, 50], fontWeight: 'bold', textAlign: 'center', color: "white"}}>Salas</Text>
                 {
-                    data?.pairProgramming.map((m, i) => {
+                    mesas && mesas.map((m, i) => {
                         i += 1
                         return <Mesa key={i} navigation={navigation} users={m.users} id={m._id} cant={i}/>
                     })
                 }
-                {/* {btn ? <TouchableOpacity><Text>Crear nueva mesa</Text></TouchableOpacity> : null} */}
             </View>
         )
     }
@@ -81,7 +98,7 @@ export default function Mesas({navigation}){
         if(!idMesa){
             return Sala()
         }
-        else return navigation.navigate('SalaDeMesa')   
+        else return navigation.navigate('SalaDeMesaNew')   
     }
     
     return(
