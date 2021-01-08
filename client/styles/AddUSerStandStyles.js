@@ -48,4 +48,24 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
     },
+    cuadroTransparent:{
+        width: 400,
+        backgroundColor: '#ffffff99',
+        alignItems: 'center'
+    },
+    botoncito:{
+        width: 60,
+        height: 25,
+        borderWidth: 1,
+        borderColor: 'green',
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    titulo:{
+        color: 'white', 
+        fontSize: 25, 
+        fontWeight: 'bold',
+        marginBottom: 20
+    }
 })

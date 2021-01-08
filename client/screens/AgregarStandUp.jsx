@@ -26,7 +26,7 @@ export default function AgregarStand ({navigation}){
     const numCohorte = data?.cohortes
     const numero = []
     numCohorte && numCohorte.map(n => {
-        numero.push({label: n.number.toString(), value: n.number.toString()})
+        numero.push({label: `Cohorte ${n.number.toString()}`, value: n.number.toString()})
     })
     const [addStand] = useMutation(ADD_GRUPOSTAND);
 
@@ -105,13 +105,13 @@ export default function AgregarStand ({navigation}){
             <View style={{width: '100%', alignItems:'flex-start'}}>
                 <MenuDesplegable navigation={navigation}/>
             </View>
-            <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 1]}}>
-                <AdminList/>
-            </View>
+            {/* <View sx={{position: 'absolute', width: [0, 0, 300], opacity: [0, 0, 100], zIndex: [-1, -1, 6]}}>
+                <AdminList navigation={navigation}/>
+            </View> */}
 
             <View style={styles.container} sx={{marginLeft: [0, 20]}}>
                 <View style={styles.recuadro} sx={{width: [350, 400]}}>
-                    <Text style={styles.title}>Agregar grupo de Stand Up</Text>
+                    <Text style={styles.title2}>Agregar grupo de Stand Up</Text>
                     <View style={styles.cuadro}>
                         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <DropDownPicker
