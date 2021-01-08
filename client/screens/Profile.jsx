@@ -3,10 +3,11 @@ import { View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar, Title, Caption, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from '../styles/ProfileStyles';
+import Particles from './Particles';
+import MenuDesplegable from './MenuDesplegable';
 
 const Profile = ({ route, navigation }) => {
     const { username, email, firstName, lastName, image, cohorte, nationality, phone } = route.params.profileData.users[0];
-    console.log(route.params.profileData.users[0])
     const handleProfileEdit = () => {
         navigation.navigate('ProfileEdit', {
             modifyData: {
@@ -25,6 +26,12 @@ const Profile = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={{width: 50, position: 'absolute', zIndex: 5}}>
+                <MenuDesplegable navigation={navigation} />
+            </View>
+            <View style={{width: '100%', height: '-webkit-fill-available', position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>
             <View style={styles.userInfoSection}>
                 <View style={{ flexDirection: 'row', marginTop: 15 }}>
                     <Avatar.Image

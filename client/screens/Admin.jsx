@@ -20,7 +20,7 @@ export function AdminList ({navigation}){
                 <TouchableOpacity onPress={() => navigation.navigate('StudentsList')}>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Ver alumnos / Asignar Roles</ListItem.Title>
+                            <ListItem.Title>Ver alumnos / Asignar Roles / Eliminar de un cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -39,15 +39,6 @@ export function AdminList ({navigation}){
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Agregar/Eliminar Cohorte</ListItem.Title>
-                        </ListItem.Content>
-                        <ListItem.Chevron />
-                    </ListItem>
-                </TouchableOpacity>
-
-                <TouchableOpacity >
-                    <ListItem key={2} bottomDivider>
-                        <ListItem.Content>
-                            <ListItem.Title>Agregar/Eliminar Alumnos de un cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>

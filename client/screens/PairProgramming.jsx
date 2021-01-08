@@ -69,7 +69,7 @@ export default function Mesas({navigation}){
                 {
                     data?.pairProgramming.map((m, i) => {
                         i += 1
-                        return <Mesa navigation={navigation} users={m.users} id={m._id} cant={i}/>
+                        return <Mesa key={i} navigation={navigation} users={m.users} id={m._id} cant={i}/>
                     })
                 }
                 {/* {btn ? <TouchableOpacity><Text>Crear nueva mesa</Text></TouchableOpacity> : null} */}
