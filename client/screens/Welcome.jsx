@@ -3,21 +3,23 @@ import {  Switch, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-
 import { Image, View ,Text} from 'dripsy';
 import { Container } from '../styled-components/Container'
 import { GET_USER } from '../apollo/user';
-import { useQuery } from '@apollo/client';
+import { REMOVE_MESA } from '../apollo/pairProgramming'
+import { useQuery, useMutation } from '@apollo/client';
 import {styles} from '../styles/WelcomeStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Menu from './MenuDesplegable';
 import Particles from './Particles';
+import moment from 'moment'
 
 export default function Welcome({ navigation }) {
 
    const email = localStorage.getItem('userEmail')
 
-   const { loading, data, error } = useQuery(GET_USER, {
-       variables: {
-           email,
-       }
-   })
+    const { loading, data, error } = useQuery(GET_USER, {
+        variables: {
+            email,
+        }
+    })
     const idMesa = localStorage.getItem('idMesa')
     const cohorte = data?.users[0].cohorte;
     const name = data?.users[0].firstName;
@@ -25,9 +27,19 @@ export default function Welcome({ navigation }) {
     const cohorte2 = localStorage.setItem('Cohorte', cohorte);
     const name2 = localStorage.setItem('name', name);
     const userName2 = localStorage.setItem('userName', userName);
-      
+    const fecha = moment().format('DD/MM/YYYY')
 
-    function handleLogout() {
+    const [removeMesa] = useMutation(REMOVE_MESA);
+    async function handleLogout() {
+        if(localStorage.getItem('idMesa')){
+            await removeMesa({
+                variables: {
+                    username: userName,
+                    dia: fecha
+                }
+            })
+            localStorage.clear()
+        }
         localStorage.clear()
         navigation.navigate('Home');
     }
