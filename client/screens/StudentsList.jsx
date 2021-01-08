@@ -15,6 +15,7 @@ import { Icon } from 'react-native-elements';
 import MenuDesplegable from './MenuDesplegable';
 import CreateUserCohorte from './CreateUserCohorte';
 import Particles from './Particles';
+import ImagenDefecto from '../Components/ImagenDefecto';
 
 const GET_COHORTES = gql`
 query cohortes($number: Int){
@@ -125,18 +126,19 @@ export default function StudentsList({ navigation }) {
                     show && data && data?.cohortes[0]?.users.map((u, i) => {
                         return (
                             <ListItem key={u.username} onPress={() => navigation.navigate('ProfileUser', { data: u })}>
-                                <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/>
+                                <ImagenDefecto nombre={u.firstName}/>
+                                {/* <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/> */}
                                 <ListItem.Content>
                                     <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
                                         <ListItem.Title>{u.firstName} {''}</ListItem.Title>
                                         <ListItem.Title>{u.lastName}</ListItem.Title>
                                     </View>
+                                </ListItem.Content>
                                     <View>
-                                        <TouchableOpacity style={{ backgroundColor: '#e53935', padding: '10px', borderRadius: '5px' }} onPress={() => handleDeleteUser(u.username)}>
-                                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>Eliminar</Text>
+                                        <TouchableOpacity style={{padding: '10px', borderRadius: '5px' }} onPress={() => handleDeleteUser(u.username)}>
+                                            <Icon type='font-awesome-5' name='trash' color='red'/>
                                         </TouchableOpacity>
                                     </View>
-                                </ListItem.Content>
                             </ListItem>
                         )
                     })
@@ -211,11 +213,11 @@ export default function StudentsList({ navigation }) {
                     />
                 </Text>
             </View>
-            <View style={{marginTop: 15}}>
+            {/* <View style={{marginTop: 15}}>
                 <TouchableOpacity style={{ backgroundColor: '#F2FF00', padding: '10px', borderRadius: '5px' }} onPress={() => setToggle(!toggle)}>
                     <Text style={{ color: 'black', fontWeight: 'bold', fontSize: '14px' }}>Nuevo Alumno</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <View style={styles.containerInput}>
                 <TextInput

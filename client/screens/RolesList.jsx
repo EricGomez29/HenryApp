@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { gql, useQuery } from '@apollo/client';
+import TarjetaUSer from '../Components/TarjetaUser'
 
 const GET_USER = gql`
 query Users{
@@ -41,22 +42,22 @@ export default function RolesList() {
 
     return (
         <View>
-            <Text style={{ fontSize: 80, textAlign: "center"}}>
-                Hola Mundo
-            </Text>
+           
             <Text>PMs: </Text>
-            {
+            <TarjetaUSer users={usersPM}/>
+            {/* {
                 users && usersPM.map((u, i) => {
                     return (<Text key={i}>{u.username}</Text>)
                 })
-            }
+            } */}
             <hr/>
             <Text>Admins: </Text>
-            {
+            <TarjetaUSer users={usersAdmin}/>
+            {/* {
                 users && usersAdmin.map((u, i) => {
                     return (<Text key={i}>{u.username}</Text>)
                 })
-            }
+            } */}
         </View>
     )
 }

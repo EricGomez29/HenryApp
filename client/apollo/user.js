@@ -14,6 +14,7 @@ export const GET_USER = gql`
             standUp
             listPM
             isPM
+            isAdmin
         }
     }`;
 
