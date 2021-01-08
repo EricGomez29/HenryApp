@@ -35,7 +35,7 @@ const forgotPasswordMail = async(email) => {
                                     </tr>
                                     <tr>
                                         <td height="1" colspan="3" style="line-height:1px">
-                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${user.firstName} ${user.lastName}: Hemos recibido una solicitud para modificar la contraseña de Facebook. Introduce el siguiente código para restablecer la contraseña: ${x} </span>
+                                            <span style="color:#ffffff;font-size:1px">&nbsp; Hola, ${user.firstName} ${user.lastName}: Hemos recibido una solicitud para modificar la contraseña de la Henry App. Introduce el siguiente código para restablecer la contraseña: ${x} </span>
                                         </td>
                                     </tr>
                                     <tr>

@@ -11,92 +11,57 @@ import {GET_USER} from '../apollo/user';
 
 
 const IS_ADMIN = gql`
-mutation editUser($username: String, $isAdmin: Boolean) {
+mutation editUser($username: String, $isAdmin: Boolean, $isPM:Boolean, $isInstructor: Boolean) {
     editUser (input: {
         username: $username
         isAdmin: $isAdmin
-    }){
-        username 
-        isAdmin
-        isPM
-    }
-}`;
-const IS_PM = gql`
-mutation editUser($username: String, $isAdmin: Boolean, $isPM: Boolean) {
-    editUser (input: {
-        username: $username
         isPM: $isPM
+        isInstructor: $isInstructor
     }){
         username 
         isAdmin
         isPM
+        isInstructor
     }
 }`;
 
 const ProfileUser = ({ route, navigation }) => {
 
-    const [data, setData] = useState(route.params.data)
-    const bool = JSON.parse(data.isAdmin)                    //llega como string asi que lo parseo a booleano
-    const [admin, setAdmin] = useState(bool)                 // guardo ese booleano en un estado
+    const [data, setData] = useState(route.params.data);
+    const [admin, setAdmin] = useState(data.isAdmin);          
+    const [ispm, setPM] = useState(data.isPM)                
+    const [isinstructor, setInstructor] = useState(data.isInstructor)
     
     const [isAdmin] = useMutation(IS_ADMIN);                //hago la mutacion solo con isAmin
+       
     const handleSubmit = async () => {
-        const response = await isAdmin({
+        var response = await isAdmin({
             variables: {
                 username: data.username,
                 isAdmin: !admin
             }
         })
-        const nuevoBool = JSON.parse(response.data.editUser.isAdmin)    //parseo de nuevo la respuesta xq llega como string
-        setAdmin(nuevoBool)                                            //lo seteo en el estado para que cambie al instante el input
+        setAdmin(response.data.editUser.isAdmin)                                            //lo seteo en el estado para que cambie al instante el input
     }
-    
-//     const EDIT_USER = gql`mutation editUser($username: String, $isAdmin: Boolean, $isPM: Boolean) {
-// 	    editUser (input: {
-//             username: $username
-//             isAdmin: $isAdmin
-//             isPM: $isPM
-//         }){
-//             username
-//             firstName
-//             lastName
-//             nationality
-//             phone
-//             email
-//             cohorte
-//             image
-//             isPM
-//             isAdmin
-//             listPM
-//         }
-// }`;
+    const handleSubmit1 = async () => {
+        var response = await isAdmin({
+            variables: {
+                username: data.username,
+                isPM: !ispm
+            }
+        })  
+        setPM(response.data.editUser.isPM)                                       
+    }
 
-
-//     const [data, setData] = useState(route.params.data)
-//     console.log(data)
-//     const [editProfile] = useMutation(EDIT_USER);
-//     const handleSubmit = async (values, str) => {
-//         var y;
-//         if(str){
-//             y = values.isAdmin === true ? false : true;
-//         }else{
-//             str= "isPM";
-//             y = values.isPM === true ? false : true;
-//         }
-//         try {
-//             console.log(y)
-//             const response = await editProfile({
-//                 variables: {
-//                     username: values.username,
-//                     [str]: y,
-//                 }
-//             })
-//             navigation.navigate("ProfileUser", {data: response.data.editProfile})
-//         } catch (error) {
-//             console.log(error);    
-//         }
-//     }
-
+    const handleSubmit2 = async () => {
+        var response = await isAdmin({
+            variables: {
+                username: data.username,
+                isInstructor: !isinstructor
+            }
+        })
+        setInstructor(response.data.editUser.isInstructor)                                       
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={{width: 50, zIndex: 5}}>
@@ -123,9 +88,8 @@ const ProfileUser = ({ route, navigation }) => {
                         listPM: data.listPM
 
                     }}
-                    onSubmit={handleSubmit}
 >
-                    {({ handleChange, handleBlur, handleSubmit, values }) => (
+                    {({ handleChange, handleBlur, values }) => (
                         <View style={styles.form}>
                             
                             <Avatar.Image
@@ -211,7 +175,7 @@ const ProfileUser = ({ route, navigation }) => {
                                     placeholder="Cohorte"
                                     onChangeText={handleChange('isAdmin')}
                                     onBlur={handleBlur('isAdmin')}
-                                    value={admin}
+                                    value={admin ? "SI" : "NO"}
                                     editable={false}
                                 />
 
@@ -221,21 +185,34 @@ const ProfileUser = ({ route, navigation }) => {
                                 style={styles.textInput}
                                 placeholder="Es PM"
                                 
-                                value={values.isPM}
+                                value={ispm ? "SI" : "NO"}
+                                editable={false}
+                            />
+                            <Text style={styles.textLabel}>Es Instructor</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Es PM"
+                                
+                                value={isinstructor ? "SI" : "NO"}
                                 editable={false}
                             />
                             
-                                
-                            
-                            <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!admin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!data.isPM ? "Hacerlo PM" : "Deshacer PM"}</Text>
-                                </TouchableOpacity>
+                            <View style={styles.boxBoton}>
+                                <View style={styles.containerBoton}>
+                                    <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!admin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.containerBoton}>
+                                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit1} >
+                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!ispm ? "Hacerlo PM" : "Deshacer PM"}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.containerBoton}>
+                                    <TouchableOpacity style={styles.boton}  onPress={handleSubmit2} >
+                                        <Text style={{ color: 'black', fontWeight: 'bold' }}>{!isinstructor ? "Hacerlo Instructor" : "Deshacer Instructor"}</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     )}
@@ -243,7 +220,6 @@ const ProfileUser = ({ route, navigation }) => {
             </View>
         </SafeAreaView>
     )
-    
 }
 
 export default ProfileUser;
