@@ -29,7 +29,7 @@ const Profile = ({ route, navigation }) => {
                 <View style={{ flexDirection: 'row', marginTop: 15 }}>
                     <Avatar.Image
                         size={200}
-                        source={image}
+                        source={image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" }
                     />
                     <View style={{ marginLeft: 20 }}>
                         <Title style={[styles.title, {
@@ -43,11 +43,11 @@ const Profile = ({ route, navigation }) => {
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                     <Icon name="map-marker-radius" color="#3b3b3b" size={20} />
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>Argentina</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{nationality || "Argentina"}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="phone" color="#3b3b3b" size={20} />
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>+54 XXXXX-XXXX</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{phone || "+54 XXXXX-XXXX"}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="email" color="#3b3b3b" size={20} />
