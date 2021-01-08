@@ -35,7 +35,7 @@ export const USER_REGISTER = gql`
         }
     }`;
 
-export const EDIT_USER = gql`mutation editUser($username: String, $lastName: String, $firstName: String, $cohorte: Int, $email: String, $nationality: String, $phone: String, $password: String) {
+export const EDIT_USER = gql`mutation editUser($username: String, $lastName: String, $firstName: String, $cohorte: Int, $email: String, $nationality: String, $phone: String, $password: String, $listPM: String, $isAdmin: Boolean) {
 	    editUser (input: {
             username: $username
             lastName: $lastName
@@ -45,6 +45,8 @@ export const EDIT_USER = gql`mutation editUser($username: String, $lastName: Str
             nationality: $nationality
             phone: $phone
             password: $password
+            listPM: $listPM
+            isAdmin: $isAdmin
         }){
             username
             firstName
@@ -54,6 +56,9 @@ export const EDIT_USER = gql`mutation editUser($username: String, $lastName: Str
             email
             cohorte
             image
+            isPM
+            isAdmin
+            listPM
         }
 }`;
 
@@ -99,3 +104,20 @@ query cohortes($number: Int){
         }
     }
 }`;
+
+export const GET_USER_FOR_ADMIN = gql`
+    query Users($email: String) {
+        users(where: {email: $email}) {
+            username
+            firstName
+            lastName
+            nationality
+            phone
+            email
+            cohorte
+            image
+            isPM
+            isAdmin
+            listPM
+        }
+    }`;
