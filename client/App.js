@@ -30,6 +30,7 @@ import ProfileUser from './screens/ProfileUser';
 import CreateUserCohorte from './screens/CreateUserCohorte';
 import RolesList from './screens/RolesList';
 import SalaDeMesaNew from './screens/SalaDeMesaNew';
+import InviteUsers from './screens/InviteUsers';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -68,6 +69,7 @@ function StackList() {
       <Stack.Screen name="CreateUserCohorte" component={CreateUserCohorte} />
       <Stack.Screen name="RolesList" component={RolesList} />
       <Stack.Screen name="SalaDeMesaNew" component={SalaDeMesaNew} />
+      <Stack.Screen name="InviteUsers" component={InviteUsers} />
     </Stack.Navigator>
   )
 }

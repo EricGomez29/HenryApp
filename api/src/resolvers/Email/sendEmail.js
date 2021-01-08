@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import User from '../../models/Users';
 dotenv.config();
 const sendEmail = async(email, link) => {
-    const from = "henryapp-project@gmail.com";
-    const subject = "Bienvenido/a a Henry"
+    const from = process.env.EMAIL;
+    const subject = "Bienvenido/a a Henry";
     var transporter =  await nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
