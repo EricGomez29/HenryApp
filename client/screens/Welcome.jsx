@@ -28,19 +28,15 @@ export default function Welcome({ navigation }) {
       
 
     function handleLogout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('Cohorte');
-        localStorage.removeItem('name');
+        localStorage.clear()
         navigation.navigate('Home');
     }
 
     function handleMesa() {
-        if(!idMesa) {
-            return navigation.navigate('PairProgramming')
-        } else {
+        if(localStorage.getItem('idMesa')) {
             return navigation.navigate('SalaDeMesaNew')
+        } else {
+            return navigation.navigate('PairProgramming')
         }
     }
 

@@ -21,8 +21,10 @@ export default function SalaDeMesaNew({navigation}) {
     //STATES
     const [value, setValue] = useState()
     const [users, setUsers] = useState([])
+    const [cacheLink, setCacheLink] = useState('')
     //GUARDAR LINK
     var actualLink = data && data?.pairProgramming[0].linkMeet
+    localStorage.setItem('linkMeetLocal', data?.pairProgramming[0].linkMeet)
     const defectLink = "meet.google.com/new"
     //LINKEAR UNA REUNION
     const [addLink] =useMutation(ADD_LINK)
@@ -56,15 +58,21 @@ export default function SalaDeMesaNew({navigation}) {
     //FIJAR LINK
     function handlePress2 (){
         if(!actualLink) {
-            actualLink = false
+            actualLink = localStorage.getItem('linkMeetLocal')
         }
+        setCacheLink(actualLink)
         WebBrowser.openBrowserAsync(actualLink);
     }
 
     //MAPEO DE LOS USUARIOS
     function mapUsers () {
         let usuarios = [];
-        data && data?.pairProgramming[0].users.map((u, i) => {
+        if(data?.pairProgramming[0] === undefined) {
+            users.map((u, i) => {
+                usuarios.push(u)
+            })
+        }
+        data?.pairProgramming[0].users.map((u, i) => {
             usuarios.push(u)
         })
         refetch()
