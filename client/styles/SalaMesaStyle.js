@@ -4,7 +4,9 @@ export const styles = StyleSheet.create({
     todo:{
         width: '100%', 
         height: '100%', 
-        backgroundColor: 'black'
+        backgroundColor: "black",
+        textAlign: "center",
+        alignItems: "center"
     },
     container: {
         flex: 1,
@@ -14,23 +16,11 @@ export const styles = StyleSheet.create({
     },
     botonSalir:{
         backgroundColor: 'yellow',
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: 'center',
-        margin: 20,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.32,
-        shadowRadius: 5.46,
-        elevation: 9,
+        marginTop: 5
     },
     containerBoton: {
         display: 'flex',
-        flexDirection: 'row',
-        marginTop: 25
+        width: "100%",
     },
     input:{
         // width: 200,
@@ -83,5 +73,33 @@ export const styles = StyleSheet.create({
     },
     content: {
         paddingVertical: 4
+    }, 
+    btnLink:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: -4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+        backgroundColor: "yellow", 
+        padding: 10, 
+        fontSize: 15, 
+        fontWeight: "bold"
+    },
+    btnLink2:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+        backgroundColor: "yellow", 
+        padding: 10, 
+        fontSize: 15, 
+        fontWeight: "bold"
     }
 })

@@ -28,8 +28,8 @@ mutation editUser($username: String, $isAdmin: Boolean, $isPM:Boolean, $isInstru
 const ProfileUser = ({ route, navigation }) => {
 
     const [data, setData] = useState(route.params.data);
-    const [admin, setAdmin] = useState(data.isAdmin);            // guardo ese booleano en un estado
-    const [ispm, setPM] = useState(data.isPM)                // guardo ese booleano en un estado
+    const [admin, setAdmin] = useState(data.isAdmin);          
+    const [ispm, setPM] = useState(data.isPM)                
     const [isinstructor, setInstructor] = useState(data.isInstructor)
     
     const [isAdmin] = useMutation(IS_ADMIN);                //hago la mutacion solo con isAmin
@@ -197,7 +197,6 @@ const ProfileUser = ({ route, navigation }) => {
                                 editable={false}
                             />
                             
-                                
                             <View style={styles.boxBoton}>
                                 <View style={styles.containerBoton}>
                                     <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
@@ -214,7 +213,6 @@ const ProfileUser = ({ route, navigation }) => {
                                         <Text style={{ color: 'black', fontWeight: 'bold' }}>{!isinstructor ? "Hacerlo Instructor" : "Deshacer Instructor"}</Text>
                                     </TouchableOpacity>
                                 </View>
-
                             </View>
                         </View>
                     )}
@@ -222,7 +220,6 @@ const ProfileUser = ({ route, navigation }) => {
             </View>
         </SafeAreaView>
     )
-    
 }
 
 export default ProfileUser;

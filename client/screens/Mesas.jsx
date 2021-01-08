@@ -26,13 +26,18 @@ export default function Mesa({ navigation, users, id, cant }){
     })
 
     function onRefresh() {
-        refetch()
         let userLength = (data?.pairProgramming[0].users.length)
         setPersonas(userLength)
+        refetch()
     }
     
     useEffect(() => {
+        refetch()
         onRefresh()
+    }, [data?.pairProgramming[0].users.length])
+
+    useEffect(() => {
+        refetch()
     })
 
     const [addUserPairProgramming] = useMutation(ADD_USERMESA);
@@ -44,7 +49,7 @@ export default function Mesa({ navigation, users, id, cant }){
             }
         })
         localStorage.setItem('idMesa', idMesa);
-        navigation.navigate('SalaDeMesa');
+        navigation.navigate('SalaDeMesaNew');
     }
 
     const mesaLlena = () =>{
