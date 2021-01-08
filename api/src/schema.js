@@ -138,7 +138,7 @@ const typeDefs = gql`
         removeUserPairProgramming(username:String!, dia: String!):PairProgramming
         addLinkMeet(id:String!,link:String!):PairProgramming
 
-        sendEmail(email: String): Email
+        sendEmail(email: String, link: String): Email
 
         sendForgotPasswordMail(email: String): Users
         compareCode(codigo:Int, email:String): Users
@@ -148,7 +148,7 @@ const typeDefs = gql`
         removePMStandUp(username:String, name:String): StandUp
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
-        addLinkMeetStandUp(id: String, link: String, username. String): StandUp    
+        addLinkMeetStandUp(id: String, link: String, username: String): StandUp    
 
         addDailyUser(username:String!): DailyStandUp
         addDailyStandUp(username:String!, name:String!): DailyStandUp
