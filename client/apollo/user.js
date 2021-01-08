@@ -12,6 +12,8 @@ export const GET_USER = gql`
             cohorte
             image
             standUp
+            listPM
+            isPM
         }
     }`;
 
