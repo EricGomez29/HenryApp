@@ -73,7 +73,7 @@ export default function SalaDeMesaNew({navigation}) {
     
     //PARA OBTENER LOS DATOS ACTUALIZADOS DE LA API
     useEffect(() => {
-        refetch()
+        // refetch()
         mapUsers()
     }, [data && data?.pairProgramming[0].users.length])
 
@@ -131,7 +131,7 @@ export default function SalaDeMesaNew({navigation}) {
                     {
                         users && users.map((u, i) => {
                             return (
-                                <ListItem key={i} bottomDivider onPress={() => navigation.navigate('ProfileUser', { modifyData: u })}>
+                                <ListItem key={i} bottomDivider onPress={() => navigation.navigate('ProfileUser', { data: u })}>
                                     <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
                                         <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{ width: 40, height: 40 }} />
                                         <ListItem.Content>
