@@ -47,6 +47,7 @@ query pairProgramming($id: String){
         lastName
         nationality
         image
+        username
       }
       cohorte
       _id

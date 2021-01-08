@@ -10,6 +10,7 @@ import {ListItem, Avatar} from 'react-native-elements';
 import * as WebBrowser from 'expo-web-browser';
 import {Icon} from 'react-native-elements';
 import Particles from './Particles';
+import icon from '../assets/logoHenry.png';
 
 export default function SalaDeMesa({ navigation }){
     const hora = moment().format
@@ -22,7 +23,7 @@ export default function SalaDeMesa({ navigation }){
             id: idMesa,
         }
     })
-    const linkMeet = data?.pairProgramming[0].linkMeet
+    const linkMeet = data && data?.pairProgramming[0].linkMeet
     const [link, setLink] = useState(linkMeet)
     const [usuarios, setUsuarios]= useState(data?.pairProgramming[0].users);
 
@@ -63,11 +64,11 @@ export default function SalaDeMesa({ navigation }){
     }
     
     function onRefresh() {
-        refetch()
         let newLink = data?.pairProgramming[0].linkMeet;
-        setLink(newLink)
         let newUsers = data?.pairProgramming[0].users
+        setLink(newLink)
         setUsuarios(newUsers)
+        refetch()
     }
 
     useEffect(() => {
@@ -80,6 +81,10 @@ export default function SalaDeMesa({ navigation }){
         onRefresh()
         setLink(data?.pairProgramming[0].linkMeet)
     }, [data?.pairProgramming[0].linkMeet])
+
+    useEffect(() => {
+        refetch()
+    })
     
     return (
         <View style={styles.todo}>
@@ -109,13 +114,28 @@ export default function SalaDeMesa({ navigation }){
                     </Text>
                     <TouchableOpacity onPress={handlePress2} >
                         <Text sx={{fontSize:[18, 30]}}>
-                            {linkk()}
+                            {link && link}
                         </Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <View style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-                <TarjetaUser users= {usuarios}/>
+                {/* <TarjetaUser users= {usuarios && usuarios}/> */}
+                <View style={styles.container}>
+                    {
+                        usuarios && usuarios.map((l, i) => {
+                            return (
+                                <ListItem key={i} bottomDivider>
+                                    <Image source={l.image || icon} style={{width: 60, height: 60, borderRadius: 100}}/>
+                                    <ListItem.Content style={styles.content}>
+                                        <ListItem.Title style={{fontSize: 20}}>{l.firstName}</ListItem.Title>
+                                        <ListItem.Subtitle>{l.lastName}</ListItem.Subtitle>
+                                    </ListItem.Content>
+                                </ListItem>
+                            )
+                        })
+                    }
+                </View>
                 <View style={styles.containerBoton}>
                     <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>
                         <TouchableOpacity onPress={handleSubmit} >

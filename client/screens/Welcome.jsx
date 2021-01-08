@@ -18,7 +18,7 @@ export default function Welcome({ navigation }) {
            email,
        }
    })
-
+    const idMesa = localStorage.getItem('idMesa')
     const cohorte = data?.users[0].cohorte;
     const name = data?.users[0].firstName;
     const userName = data?.users[0].username;
@@ -34,6 +34,14 @@ export default function Welcome({ navigation }) {
         localStorage.removeItem('Cohorte');
         localStorage.removeItem('name');
         navigation.navigate('Home');
+    }
+
+    function handleMesa() {
+        if(!idMesa) {
+            return navigation.navigate('PairProgramming')
+        } else {
+            return navigation.navigate('SalaDeMesaNew')
+        }
     }
 
 
@@ -71,7 +79,7 @@ export default function Welcome({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.boton} sx={{ width: [300, 600], height: [130, 200] }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('PairProgramming')}>
+                        <TouchableOpacity onPress={handleMesa}>
                             <Image
                                 source={require("../assets/PairPrograming.jpg")}
                                 style={styles.tarjeta} sx={{ width: [300, 600], height: [130, 200] }}
