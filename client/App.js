@@ -46,7 +46,7 @@ const client = new ApolloClient({
 
 function StackList() {
   return (
-    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="CohorteList" component={CohorteList} />
       <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
