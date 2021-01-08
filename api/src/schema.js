@@ -95,6 +95,7 @@ const typeDefs = gql`
         cohorte: Int
         name:String
         number:Int
+        linkMeet: String
     }
 
     type DailyStandUp{
@@ -102,7 +103,6 @@ const typeDefs = gql`
         fecha: String
         users: [Users]
         name: String
-        linkMeet: String
     }
 
     type Query {
@@ -148,6 +148,7 @@ const typeDefs = gql`
         removePMStandUp(username:String, name:String): StandUp
         addUserStandUp(username:String, name: String):StandUp
         removeUserStandUp( username: String ):StandUp
+        addLinkMeetStandUp(id: String, link: String): StandUp    
 
         addDailyUser(username:String!): DailyStandUp
         addDailyStandUp(username:String!, name:String!): DailyStandUp

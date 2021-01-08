@@ -13,7 +13,8 @@ export const addStandUp = async ( cohorte ) =>{
     return await StandUp.create({
         name: `WEB_FT_${cohorte}_GROUP_${stand.length + 1}`,
         cohorte: cohorte,
-        number: stand.length + 1
+        number: stand.length + 1,
+        linkMeet: "http://meet.google.com/new"
     });
 }
 
@@ -96,3 +97,8 @@ export const removeUserStandUp = async ( username ) => {
     await User.findOneAndUpdate({username: username}, {standUp: null})
     return await StandUp.findOne({name: user.standUp}).populate("users").populate('PM')
 }
+
+export const addLinkMeetStandUp = async (id, link) => {
+    await StandUp.findOneAndUpdate({_id: id}, {linkMeet: link});
+    return StandUp.findOne({_id: id}).populate('users').populate('PM');
+}; 

@@ -11,7 +11,7 @@ import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Daily-StandUp/dailyStand';
 import { addUserPairProgramming, removeUserPairProgramming, addLinkMeet } from './resolvers/PairProgramming/pairprogramming';
 import { addUserCohorte, editFechaCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
-import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
+import { addLinkMeetStandUp, addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
 import { giveCoins } from './resolvers/CoinsSystem/coinsSystem'
 dotenv.config()
 
@@ -67,6 +67,7 @@ const resolvers = {
         removePMStandUp: async (parent, { username, name }, context) => removePMStandUp(username, name),
         addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp(username, name),
         removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp(username),
+        addLinkMeetStandUp: (_, {id, link }, __) => addLinkMeetStandUp(id, link),
     
         //Daily Stand-Up
         addDailyUser: ( parent, { username }, context) => addDailyUser(username),
