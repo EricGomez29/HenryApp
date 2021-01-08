@@ -47,10 +47,13 @@ export const EDIT_USER = gql`mutation editUser($username: String, $lastName: Str
             password: $password
         }){
             username
-            email
             firstName
             lastName
-    
+            nationality
+            phone
+            email
+            cohorte
+            image
         }
 }`;
 

@@ -6,13 +6,13 @@ import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
 import { EDIT_USER } from '../apollo/user';
 import { useMutation } from '@apollo/client';
-import md5 from 'md5'
 
-const ProfileEdit = ({ route, navigation }) => {
+
+const ProfileUser = ({ route, navigation }) => {
 
     const [data, setData] = useState(route.params.modifyData);
     const [editProfile] = useMutation(EDIT_USER);
-
+    console.log(data)
     const handleSubmit = async (values) => {
         try {
             const response = await editProfile({
@@ -39,6 +39,7 @@ const ProfileEdit = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+              
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{
@@ -62,9 +63,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 size={200}
                                 source={values.image}
                             />
-                            <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('PhotoProfile',{ data: values})}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Cambiar Imagen</Text>
-                            </TouchableOpacity>
+                            
                             <Text style={styles.textLabel}>Pais</Text>
                             <TextInput
                                 style={styles.textInput}
@@ -72,6 +71,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('nationality')}
                                 onBlur={handleBlur('nationality')}
                                 value={values.nationality}
+                                editable={false}
                             />
                             <Text style={styles.textLabel}>Nombre</Text>
                             <TextInput
@@ -80,6 +80,8 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('firstName')}
                                 onBlur={handleBlur('firstName')}
                                 value={values.firstName}
+                                editable={false}
+
                             />
                             <Text style={styles.textLabel}>Apellido</Text>
                             <TextInput
@@ -88,6 +90,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('lastName')}
                                 onBlur={handleBlur('lastName')}
                                 value={values.lastName}
+                                editable={false}
                             />
                             <Text style={styles.textLabel}>Usuario</Text>
                             <TextInput
@@ -96,6 +99,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}
                                 value={values.username}
+                                editable={false}
                             />
                             <Text style={styles.textLabel}>Email</Text>
                             <TextInput
@@ -104,6 +108,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('email')}
                                 onBlur={handleBlur('email')}
                                 value={values.email}
+                                editable={false}
                             />
                             <Text style={styles.textLabel}>Cohorte</Text>
                             <TextInput
@@ -112,6 +117,7 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('cohorte')}
                                 onBlur={handleBlur('cohorte')}
                                 value={values.cohorte}
+                                editable={false}
                             />
                             <Text style={styles.textLabel}>Telefono</Text>
                             <TextInput
@@ -120,10 +126,21 @@ const ProfileEdit = ({ route, navigation }) => {
                                 onChangeText={handleChange('phone')}
                                 onBlur={handleBlur('phone')}
                                 value={values.phone}
+                                editable={false}
                             />
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Guardar</Text>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Cambiar de Cohorte</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo Administrador</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.containerBoton}>
+                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo PM</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -134,4 +151,4 @@ const ProfileEdit = ({ route, navigation }) => {
     )
 }
 
-export default ProfileEdit;
+export default ProfileUser;

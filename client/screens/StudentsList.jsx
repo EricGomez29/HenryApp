@@ -111,7 +111,7 @@ export default function StudentsList({ navigation }) {
                 {
                     show && data && data?.cohortes[0]?.users.map((u, i) => {
                         return (
-                            <ListItem key={u.username}>
+                            <ListItem key={u.username} onPress={() => navigation.navigate('ProfileUser', { modifyData: u })}>
                                 <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row' }}>
                                         <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{ width: 40, height: 40 }} />
@@ -120,8 +120,6 @@ export default function StudentsList({ navigation }) {
                                                 <ListItem.Title>{u.firstName} {''}</ListItem.Title>
                                                 <ListItem.Title>{u.lastName}</ListItem.Title>
                                             </View>
-                                            <ListItem.Subtitle>{u.username}</ListItem.Subtitle>
-                                            <ListItem.Subtitle>Cohorte: {u.cohorte}</ListItem.Subtitle>
                                         </ListItem.Content>
                                     </View>
                                     <View>

@@ -26,7 +26,7 @@ import ChangeOnlyPassword from './screens/ChangeOnlyPassword';
 import AddUserStand from './screens/AddUserStand';
 import StudentsList from './screens/StudentsList';
 import Particles from './screens/Particles';
-import CreateUserCohorte from './screens/CreateUserCohorte';
+import ProfileUser from './screens/ProfileUser';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -62,7 +62,7 @@ function StackList() {
       <Stack.Screen name="AddUserStand" component={AddUserStand} />
       <Stack.Screen name="StudentsList" component={StudentsList} />
       <Stack.Screen name="Particles" component={Particles} />
-      <Stack.Screen name="CreateUserCohorte" component={CreateUserCohorte} />
+      <Stack.Screen name="ProfileUser" component={ProfileUser} />
     </Stack.Navigator>
   )
 }
