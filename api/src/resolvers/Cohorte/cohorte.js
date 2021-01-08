@@ -5,9 +5,16 @@ import { existCohorte, pullCohorte, pushCohorte } from '../../consultasBD/cohort
 import { pullStandUp } from '../../consultasBD/standUp';
 
 //AGREGAR COHORTE
-export const addCohorte = async() => {
+export const addCohorte = async(fecha) => {
     //Busco los cohortes
     const cohor = await Cohorte.find()
+    if (fecha){
+        const hoy = moment(moment.now()).format("DD/MM/YYYY");
+        if(fecha <= hoy){
+            throw new Error(`El cohorte ${cohor.length + 1} no puede iniciar las clases la fecha: ${fecha} porque, o sino, ya habría empezado (hoy es ${hoy}).`)
+        }
+        return await Cohorte.create({"number": cohor.length + 1, date: fecha});
+    }
     return await Cohorte.create({"number": cohor.length + 1});
 };
     

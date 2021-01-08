@@ -36,7 +36,7 @@ const resolvers = {
         removeUser: async (parent, { username }, context) => await  User.findOneAndRemove({"username":username}),
 
         //COHORTES
-        addCohorte:  (parent, context) => addCohorte(),
+        addCohorte:  (parent, { fecha }, context) => addCohorte(fecha),
         editFechaCohorte: (_, { fecha, id }, context) => editFechaCohorte(fecha, id),
         addUserCohorte: async (parent, { number, username }, context) =>  addUserCohorte(number, username),
         addInstructor: async (parent, { username, cohorte }, context) => addCohorteInstructor(username, cohorte),

@@ -35,7 +35,7 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
-                <TouchableOpacity >
+                <TouchableOpacity onPress={navigation.navigate("AddCohorte")}>
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Agregar Cohorte</ListItem.Title>

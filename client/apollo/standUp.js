@@ -33,6 +33,7 @@ query cohortes{
     users{
       firstName
     }
+    date
   }
 }`
 

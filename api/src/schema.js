@@ -131,7 +131,7 @@ const typeDefs = gql`
         login(email: String!, password: String!): AuthData!
         
         addUserCohorte(number: Int!, username: String!): Cohortes
-        addCohorte: Cohortes
+        addCohorte(fecha: String): Cohortes
         editFechaCohorte(fecha:String, id:ID):Cohortes
         removeUserCohorte(username:String!):Cohortes!
         addInstructor(username:String, cohorte:Int): Cohortes
