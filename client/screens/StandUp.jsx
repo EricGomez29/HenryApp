@@ -28,6 +28,7 @@ export default function StandUp({navigation}){
 
     const usuarios = data2?.standup[0]?.users
     const pms = data2?.standup[0]?.PM
+    console.log(pms)
 
     return (
         <View style={styles.todo}>
@@ -40,10 +41,15 @@ export default function StandUp({navigation}){
             <View style={{alignSelf: 'center'}}>
                 <Text style={styles.title} sx={{fontSize: [25, 30]}}>Grupo:  {nombreGrupo}</Text>
                 <View style={styles.recuadro}>
-                    
-                        <TarjetaUser users={usuarios} />
-                    
-                </View>
+                    <View style={{width:'80%', backgroundColor: '#ffff6d', marginTop: 20}}>
+                        <Text style={{fontSize: 27}}>PM's:</Text>
+                    </View>
+                    <TarjetaUser users={pms} />
+                    <View style={{width:'80%', backgroundColor: '#ffff6d', marginTop: 20}}>
+                        <Text style={{fontSize: 27}}>Alumnos:</Text>
+                    </View>
+                    <TarjetaUser users={usuarios} />
+                </View>       
             </View>
         </View>
     )

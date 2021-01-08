@@ -53,6 +53,8 @@ export const styles = StyleSheet.create({
         borderRadius: 20
     },
     content: {
-        height: 50
+        height: 30,
+        padding: 10,
+        borderColor: '#0000005c'
     }
 })

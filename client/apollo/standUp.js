@@ -57,6 +57,7 @@ query standup($name: String!){
   standup(where: {name: $name}){
     PM{
       firstName
+      lastName
     }
     users{
       firstName
