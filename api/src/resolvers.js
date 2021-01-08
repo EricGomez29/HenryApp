@@ -67,7 +67,7 @@ const resolvers = {
         removePMStandUp: async (parent, { username, name }, context) => removePMStandUp(username, name),
         addUserStandUp: async ( parent, { username, name }, context) => addUserStandUp(username, name),
         removeUserStandUp: async ( parent, { username }, context) => removeUserStandUp(username),
-        addLinkMeetStandUp: (_, {id, link }, __) => addLinkMeetStandUp(id, link),
+        addLinkMeetStandUp: (_, {id, link }, __) => addLinkMeetStandUp(id, link, username),
     
         //Daily Stand-Up
         addDailyUser: ( parent, { username }, context) => addDailyUser(username),

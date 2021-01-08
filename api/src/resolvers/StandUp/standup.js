@@ -98,7 +98,14 @@ export const removeUserStandUp = async ( username ) => {
     return await StandUp.findOne({name: user.standUp}).populate("users").populate('PM')
 }
 
-export const addLinkMeetStandUp = async (id, link) => {
+export const addLinkMeetStandUp = async (id, link, username) => {
+    const user = User.findOne({username: username});
+    if(!user){
+        throw new Error(`El usuario ${username} no existe`);
+    }
+    if(!user.isPM){
+        throw new Error(`El usuario ${username} no PM, por lo tanto, no puede cambiar el link de Meet.`);
+    }
     await StandUp.findOneAndUpdate({_id: id}, {linkMeet: link});
     return StandUp.findOne({_id: id}).populate('users').populate('PM');
 }; 
