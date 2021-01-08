@@ -6,6 +6,7 @@ import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
 import { EDIT_USER } from '../apollo/user';
 import { useMutation } from '@apollo/client';
+import Particles from './Particles';
 
 const ProfileEdit = ({ route, navigation }) => {
 
@@ -38,6 +39,9 @@ const ProfileEdit = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{

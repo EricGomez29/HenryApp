@@ -4,34 +4,53 @@ import { View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { Text } from 'react-native-paper';
 import { styles } from '../styles/ProfileEditStyles';
-import { EDIT_USER } from '../apollo/user';
-import { useMutation } from '@apollo/client';
-
+import { gql, useMutation } from '@apollo/client';
+import Particles from './Particles';
+import MenuDesplegable from './MenuDesplegable';
 
 const ProfileUser = ({ route, navigation }) => {
+    
+    const EDIT_USER = gql`mutation editUser($username: String, $isAdmin: Boolean, $isPM: Boolean) {
+	    editUser (input: {
+            username: $username
+            isAdmin: $isAdmin
+            isPM: $isPM
+        }){
+            username
+            firstName
+            lastName
+            nationality
+            phone
+            email
+            cohorte
+            image
+            isPM
+            isAdmin
+            listPM
+        }
+}`;
 
-    const [data, setData] = useState(route.params.modifyData);
-    const [editProfile] = useMutation(EDIT_USER);
+
+    const [data, setData] = useState(route.params.data)
     console.log(data)
-    const handleSubmit = async (values) => {
+    const [editProfile] = useMutation(EDIT_USER);
+    const handleSubmit = async (values, str) => {
+        var y;
+        if(str){
+            y = values.isAdmin === true ? false : true;
+        }else{
+            str= "isPM";
+            y = values.isPM === true ? false : true;
+        }
         try {
+            console.log(y)
             const response = await editProfile({
                 variables: {
                     username: values.username,
-                    lastName: values.lastName,
-                    firstName: values.firstName,
-                    email: values.email,
-                    cohorte: parseInt(values.cohorte),
-                    nationality: values.nationality,
-                    phone: values.phone,
+                    [str]: y,
                 }
             })
-            setData(response.data.editUser);
-            navigation.navigate('Profile', {
-                profileData: {
-                    users: [data],
-                }
-            })
+            navigation.navigate("ProfileUser", {data: response.data.editProfile})
         } catch (error) {
             console.log(error);    
         }
@@ -39,7 +58,12 @@ const ProfileUser = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-              
+            <View style={{width: 50, zIndex: 5}}>
+                <MenuDesplegable navigation={navigation} />
+            </View>
+            <View style={{width: '100%', height: "98%", position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>  
             <View style={styles.userInfoSection}>
                 <Formik
                     initialValues={{
@@ -53,9 +77,13 @@ const ProfileUser = ({ route, navigation }) => {
                         cohorte: data.cohorte || '',
                         nroTelefono: data.phone || '',
                         image: data.image || `https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50s=200`,
+                        isAdmin: data.isAdmin,
+                        isPM: data.isPM,
+                        listPM: data.listPM
+
                     }}
-                    onSubmit={values => handleSubmit(values)}
-                >
+                    onSubmit={handleSubmit}
+>
                     {({ handleChange, handleBlur, handleSubmit, values }) => (
                         <View style={styles.form}>
                             
@@ -111,6 +139,7 @@ const ProfileUser = ({ route, navigation }) => {
                                 editable={false}
                             />
                             <Text style={styles.textLabel}>Cohorte</Text>
+                            
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Cohorte"
@@ -123,24 +152,48 @@ const ProfileUser = ({ route, navigation }) => {
                             <TextInput
                                 style={styles.textInput}
                                 placeholder="Telefono - Opcional"
-                                onChangeText={handleChange('phone')}
-                                onBlur={handleBlur('phone')}
+                                
                                 value={values.phone}
                                 editable={false}
                             />
+                            <Text style={styles.textLabel}>Grupo de Stand-Up</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="No definido"
+                                value={values.standUp}
+                                editable={false}
+                            />
+                            <Text style={styles.textLabel}>Es Administrador</Text>
+                            <View>
+                                <TextInput
+                                    style={styles.textInput}
+                                    placeholder="Cohorte"
+                                    onChangeText={handleChange('isAdmin')}
+                                    onBlur={handleBlur('isAdmin')}
+                                    value={values.isAdmin}
+                                    editable={false}
+                                />
+
+                            </View>
+                            <Text style={styles.textLabel}>Es PM</Text>
+                            <TextInput
+                                style={styles.textInput}
+                                placeholder="Es PM"
+                                
+                                value={values.isPM}
+                                editable={false}
+                            />
+                            
+                                
+                            
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Cambiar de Cohorte</Text>
+                                <TouchableOpacity style={styles.boton} onPress={() => handleSubmit(values, "admin")}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!values.isAdmin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo Administrador</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo PM</Text>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!values.isPM ? "Hacerlo PM" : "Deshacer PM"}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -149,6 +202,7 @@ const ProfileUser = ({ route, navigation }) => {
             </View>
         </SafeAreaView>
     )
+    
 }
 
 export default ProfileUser;
