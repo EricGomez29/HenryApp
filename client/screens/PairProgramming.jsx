@@ -36,10 +36,12 @@ export default function Mesas({navigation}){
 
     const [btn, setBtn] = useState(false)
     const btnMesa = () => {
-        // var count = 0;
-        var count = data?.pairProgramming.length
-        var count2 = data?.pairProgramming[count - 1].users.length
-        if(count2 % 5 === 0) {
+        var count = 0;
+        data?.pairProgramming.map((u,i) => {
+            count += 1
+        })
+        // var count2 = data?.pairProgramming[count - 1].users.length || 0
+        if(count % 5 === 0) {
             return (
                 <View style={styles.container}>
                     <View style={styles.botonSalaVacia} sx={{width: [250, 400], height: [50, 70]}}>

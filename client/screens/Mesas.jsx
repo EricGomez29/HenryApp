@@ -34,7 +34,7 @@ export default function Mesa({ navigation, users, id, cant }){
     useEffect(() => {
         refetch()
         onRefresh()
-    }, [data?.pairProgramming[0].users.length])
+    })
 
     useEffect(() => {
         refetch()

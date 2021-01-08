@@ -23,7 +23,7 @@ export default function SalaDeMesaNew({navigation}) {
     const [users, setUsers] = useState([])
     const [cacheLink, setCacheLink] = useState('')
     //GUARDAR LINK
-    var actualLink = data && data?.pairProgramming[0].linkMeet
+    var actualLink = data?.pairProgramming[0].linkMeet
     localStorage.setItem('linkMeetLocal', data?.pairProgramming[0].linkMeet)
     const defectLink = "meet.google.com/new"
     //LINKEAR UNA REUNION
@@ -60,7 +60,6 @@ export default function SalaDeMesaNew({navigation}) {
         if(!actualLink) {
             actualLink = localStorage.getItem('linkMeetLocal')
         }
-        setCacheLink(actualLink)
         WebBrowser.openBrowserAsync(actualLink);
     }
 
