@@ -27,6 +27,7 @@ import AddUserStand from './screens/AddUserStand';
 import StudentsList from './screens/StudentsList';
 import Particles from './screens/Particles';
 import ProfileUser from './screens/ProfileUser';
+import CreateUserCohorte from './screens/CreateUserCohorte';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -63,6 +64,7 @@ function StackList() {
       <Stack.Screen name="StudentsList" component={StudentsList} />
       <Stack.Screen name="Particles" component={Particles} />
       <Stack.Screen name="ProfileUser" component={ProfileUser} />
+      <Stack.Screen name="CreateUserCohorte" component={CreateUserCohorte} />
     </Stack.Navigator>
   )
 }

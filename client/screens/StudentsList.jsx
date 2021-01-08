@@ -183,12 +183,7 @@ export default function StudentsList({ navigation }) {
                     Alumnos
                 </Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '90%', alignItems: 'center' }}>
-                <View>
-                    <TouchableOpacity style={{ backgroundColor: '#F2FF00', padding: '10px', borderRadius: '5px' }} onPress={() => setToggle(!toggle)}>
-                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: '14px' }}>Nuevo Alumno</Text>
-                    </TouchableOpacity>
-                </View>
+            {/* <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', width: '90%', alignItems: 'center', height: 200 }}> */}
                 <View style={styles.dropDrown}>
                     <Text style={{ fontSize: 15 }}>
                         Cohorte: Nº<DropDownPicker
@@ -208,7 +203,12 @@ export default function StudentsList({ navigation }) {
                         />
                     </Text>
                 </View>
-            </View>
+                <View style={{marginTop: 15}}>
+                    <TouchableOpacity style={{ backgroundColor: '#F2FF00', padding: '10px', borderRadius: '5px' }} onPress={() => setToggle(!toggle)}>
+                        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: '14px' }}>Nuevo Alumno</Text>
+                    </TouchableOpacity>
+                </View>
+            {/* </View> */}
 
             <View style={styles.containerInput}>
                 <TextInput
