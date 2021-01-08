@@ -86,13 +86,16 @@ export default function AddUserStand({navigation}){
     const[err, setErr] = useState(false)
     function Error(){
         if(err){
-            return (<Text style={{color: 'red', fontSize: 18}}>No se ha elegido un grupo.</Text>)
+            return (
+            <Text style={{color: 'red', fontSize: 18,fontWeight: 'bold', backgroundColor: 'white', marginVertical: 5}}>
+                No se ha elegido un grupo.
+            </Text>)
         }
     }
 
     function listUsers() {
         return (
-            <View style={{marginBottom: 20, width: 350}} >
+            <View style={{marginBottom: 20, width: 350, zIndex: 8}} >
                 {
                     data3 && data3?.cohortes[0]?.users.map((u, i) => {
                         if(!u.standUp){
@@ -132,30 +135,37 @@ export default function AddUserStand({navigation}){
                     <Text style={styles.titulo}>Asignar usuarios a un grupo</Text>
                 <View style={styles.cuadroTransparent} >
                     <View style={styles.cuadro}>
-                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={{fontSize: 18, marginBottom: 10}}>Elige Cohorte y Grupo:</Text>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', zIndex: 10}}>
                             <DropDownPicker
                                 items={numero}
                                 placeholder= 'Cohorte Nº:'
                                 defaultValue={cohorte}
                                 
                                 containerStyle={{height: 40, width: 120}}
-                                style={{backgroundColor: '#fafafa'}}
+                                style={{backgroundColor: 'black', zIndex: 10}}
+                                labelStyle={{color: 'white'}}
                                 itemStyle={{
-                                    justifyContent: 'flex-start'
+                                    justifyContent: 'flex-start',
+                                    color: 'white'
                                 }}
-                                dropDownStyle={{backgroundColor: '#fafafa'}}
-                                onChangeItem={item => setCohorte(item.value)}
+                                dropDownStyle={{backgroundColor: 'black'}}
+                                onChangeItem={item => {
+                                    setErr(false)
+                                    return setCohorte(item.value)
+                                }}
                             />
                             <DropDownPicker
                                 items={array}
                                 placeholder= 'Elegi el grupo'
                                 defaultValue={nuevaData}
-                                containerStyle={{height: 40, width: 150}}
-                                style={{backgroundColor: '#fafafa'}}
+                                containerStyle={{height: 40, width: 150, margin: 5}}
+                                style={{backgroundColor: 'black', zIndex: 10}}
+                                labelStyle={{color: 'white'}}
                                 itemStyle={{
                                     justifyContent: 'flex-start'
                                 }}
-                                dropDownStyle={{backgroundColor: '#fafafa'}}
+                                dropDownStyle={{backgroundColor: 'black'}}
                                 onChangeItem={item => {
                                     setErr(false)
                                     return setNuevaData(item.value)

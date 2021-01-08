@@ -31,7 +31,7 @@ export const addDailyStandUp = async( username, name ) => {
         })
         return await DailyStand.findOne({_id: daily._id}).populate('users').populate('PM');
     }else{
-        const number = await DailyStand.create({fecha: fecha, linkMeet: "http://meet.com.ar", name: name, users: [user._id]});
+        const number = await DailyStand.create({fecha: fecha, name: name, users: [user._id]});
         return await DailyStand.findOne({_id: number._id}).populate('users').populate('PM');
     }
 }

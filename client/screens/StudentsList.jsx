@@ -25,6 +25,12 @@ query cohortes($number: Int){
             lastName
             cohorte
             image
+            email
+            isPM
+            isAdmin
+            listPM
+            nationality
+            phone
         }
     }
 }`;
@@ -44,6 +50,10 @@ query users($firstName: String){
         lastName
         cohorte
         image
+        email
+        isPM
+        isAdmin
+        listPM
     }
 }`
 
@@ -53,6 +63,8 @@ query users{
         username
         firstName
         lastName
+        cohorte
+        image
     }
 }`
 
@@ -111,23 +123,19 @@ export default function StudentsList({ navigation }) {
                 {
                     show && data && data?.cohortes[0]?.users.map((u, i) => {
                         return (
-                            <ListItem key={u.username} onPress={() => navigation.navigate('ProfileUser', { modifyData: u })}>
-                                <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{ width: 40, height: 40 }} />
-                                        <ListItem.Content>
-                                            <View style={{ display: "flex", width: "100%", flexDirection: "row" }}>
-                                                <ListItem.Title>{u.firstName} {''}</ListItem.Title>
-                                                <ListItem.Title>{u.lastName}</ListItem.Title>
-                                            </View>
-                                        </ListItem.Content>
+                            <ListItem key={u.username} onPress={() => navigation.navigate('ProfileUser', { data: u })}>
+                                <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/>
+                                <ListItem.Content>
+                                    <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
+                                        <ListItem.Title>{u.firstName} {''}</ListItem.Title>
+                                        <ListItem.Title>{u.lastName}</ListItem.Title>
                                     </View>
                                     <View>
                                         <TouchableOpacity style={{ backgroundColor: '#e53935', padding: '10px', borderRadius: '5px' }} onPress={() => handleDeleteUser(u.username)}>
                                             <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: '14px' }}>Eliminar</Text>
                                         </TouchableOpacity>
                                     </View>
-                                </View>
+                                </ListItem.Content>
                             </ListItem>
                         )
                     })

@@ -137,7 +137,7 @@ export default function SalaDeMesa({ navigation }){
                     }
                 </View>
                 <View style={styles.containerBoton}>
-                    <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}>
+                    <View sx={{width: [130, 200], height: [40, 50]}} style={styles.botonSalir}  >
                         <TouchableOpacity onPress={handleSubmit} >
                             <Text sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: [15, 18]}}>Salir</Text>
                         </TouchableOpacity>

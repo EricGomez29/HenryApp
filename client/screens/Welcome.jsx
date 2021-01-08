@@ -48,11 +48,10 @@ export default function Welcome({ navigation }) {
     if(error) {
         navigation.navigate('Home')
     } else if (loading) {
-        return <View style= {{flex: 1, justifyContent: "center", flexDirection: "row", padding: 10}}>
-            <ActivityIndicator size="large" color="yellow" />
-            <ActivityIndicator size="large" color="yellow" />
-            <ActivityIndicator size="large" color="yellow" />
-            </View>
+        return (
+        <View style= {{flex: 1, justifyContent: "center", flexDirection: "row", padding: 10, backgroundColor: 'black'}}>
+            <ActivityIndicator size={50} color="yellow" />
+        </View>)
     } else {
         return (
             <View style={styles.todo}>

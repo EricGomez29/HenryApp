@@ -38,7 +38,7 @@ export function AdminList ({navigation}){
                 <TouchableOpacity >
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar/Eliminar Cohorte</ListItem.Title>
+                            <ListItem.Title>Agregar Cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
