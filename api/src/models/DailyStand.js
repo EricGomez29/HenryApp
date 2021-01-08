@@ -10,9 +10,6 @@ const DailyStandStandSchema = new Schema({
     name: {
         type: String
     },
-    linkMeet: {
-        type: String
-    }
 })
 
 const DailyStand = mongoose.model('DailyStand', DailyStandStandSchema);

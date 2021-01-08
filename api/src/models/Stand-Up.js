@@ -15,6 +15,9 @@ const StandUpSchema = new Schema({
     }],
     cohorte: {
         type: Number
+    },
+    linkMeet: {
+        type: String
     }
 })
 
