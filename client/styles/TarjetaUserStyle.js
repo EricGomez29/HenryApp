@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
         marginBottom: 15
     },
     container:{
-        width: 400,
+        width: '80%',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
         backgroundColor: "white",
-        borderRadius: 20,
+        borderRadius: 5,
         padding: 10
     },
     list: {
