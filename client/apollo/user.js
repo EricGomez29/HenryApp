@@ -6,6 +6,8 @@ export const GET_USER = gql`
             username
             firstName
             lastName
+            nationality
+            phone
             email
             cohorte
             image
@@ -33,18 +35,25 @@ export const USER_REGISTER = gql`
         }
     }`;
 
-export const EDIT_USER = gql`
-    mutation editUser($username: String, $lastName: String, $firstName: String, $email: String) {
+export const EDIT_USER = gql`mutation editUser($username: String, $lastName: String, $firstName: String, $cohorte: Int, $email: String, $nationality: String, $phone: String, $password: String) {
 	    editUser (input: {
             username: $username
             lastName: $lastName
 		    firstName: $firstName
             email: $email
+            cohorte: $cohorte
+            nationality: $nationality
+            phone: $phone
+            password: $password
         }){
             username
-            email
             firstName
             lastName
+            nationality
+            phone
+            email
+            cohorte
+            image
         }
 }`;
 
@@ -55,6 +64,37 @@ mutation Login($email: String!, $password: String! ) {
         token
         errors {
             message
+        }
+    }
+}`;
+
+export const FORGOT_PASSWORD_EMAIL = gql`
+    mutation SendForgotPasswordMail($email: String) {
+        sendForgotPasswordMail(email: $email){
+            forgotPassword
+            email
+        }
+    }
+`;
+
+export const COMPARE_CODE = gql`
+    mutation compareCode($codigo: Int,$email: String) {
+        compareCode(codigo: $codigo,email: $email){
+            email
+            username
+        }
+    }
+`;
+
+export const GET_USERCOHORTES = gql`
+query cohortes($number: Int){
+    cohortes(where: {number: $number}){
+        users {
+            username
+            firstName
+            lastName
+            cohorte
+            image
         }
     }
 }`;

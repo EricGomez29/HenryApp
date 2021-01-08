@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'black',
     },
     containerBoton: {
         alignSelf: "center"
@@ -36,5 +36,14 @@ export const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
+        backgroundColor: "#FFF9"
+    },
+    warning: {
+        borderWidth: 2,
+        borderColor: "red",
+        borderRadius: 5,
+        padding: 10,
+        marginTop: 10,
+        alignItems: "center"
     }
 })

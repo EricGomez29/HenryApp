@@ -3,35 +3,27 @@ import { View, TouchableOpacity } from 'react-native';
 import { styles } from '../styles/HomeStyle'
 import { Text, Image } from 'dripsy';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Particles from './Particles';
 
 export default function Home({ navigation }) {
 
-    // function findUser() {
-        const findUser = async () => {
-            try {
-              const value = await AsyncStorage.getItem('userEmail')
-              if(!value) {
-                navigation.navigate('PruebaBoton')
-              }
-              else navigation.navigate('Welcome')
-            } catch(e) {
-                console.log(e)
+    const findUser = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userEmail')
+            if(!value) {
+            navigation.navigate('PruebaBoton')
             }
-          }
-    //     const dataStorage = AsyncStorage.getItem('userEmail')
-    //     if(!dataStorage) {
-    //         navigation.navigate('PruebaBoton')
-    //     } else {
-    //         navigation.navigate('Welcome')
-    //     }
-    // }
+            else navigation.navigate('Welcome')
+        } catch(e) {
+            console.log(e)
+        }
+        }
 
     return (
         <View style={styles.todo}>
-            <Image
-                source={require("../assets/FondoAmarillo.png")}
-                style={{width: '100%', position: 'absolute', height: '70%'}}
-            ></Image>
+            <View style={{width: '100%', height: '99%', position: 'absolute', zIndex: 1}}>
+                <Particles />
+            </View>
             <View style={styles.container}>
                 <Image
                     source={require("../assets/henry.png")}

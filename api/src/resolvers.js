@@ -10,8 +10,9 @@ import { compareCode, editUsers, regUser } from "./resolvers/User/user";
 import { forgotPasswordMail } from './resolvers/Email/sendForgotPassword';
 import { addDailyStandUp, addDailyUser, removeDailyUser } from './resolvers/Daily-StandUp/dailyStand';
 import { addUserPairProgramming, removeUserPairProgramming, addLinkMeet } from './resolvers/PairProgramming/pairprogramming';
-import { addUserCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
+import { addUserCohorte, editFechaCohorte, addCohorteInstructor, removeUserCohorte, addCohorte } from "./resolvers/Cohorte/cohorte";
 import { addStandUp, addUserStandUp, assignPMStandUp, removePMStandUp, removeUserStandUp } from './resolvers/StandUp/standup';
+import { giveCoins } from './resolvers/CoinsSystem/coinsSystem'
 dotenv.config()
 
 const resolvers = {
@@ -36,8 +37,9 @@ const resolvers = {
 
         //COHORTES
         addCohorte:  (parent, context) => addCohorte(),
+        editFechaCohorte: (_, { fecha, id }, context) => editFechaCohorte(fecha, id),
         addUserCohorte: async (parent, { number, username }, context) =>  addUserCohorte(number, username),
-        addInstructor: async (parent ,{ username, cohorte }, context) => addCohorteInstructor(username, cohorte),
+        addInstructor: async (parent, { username, cohorte }, context) => addCohorteInstructor(username, cohorte),
         removeUserCohorte: (parent, { username }, context) => removeUserCohorte(username),
         
         //AUTH
@@ -70,6 +72,9 @@ const resolvers = {
         addDailyUser: ( parent, { username }, context) => addDailyUser(username),
         addDailyStandUp: ( parent, { username, name }, context) => addDailyStandUp(username, name),
         removeDailyUser:  ( parent, { username, name }, context) => removeDailyUser(username, name),
+        
+        //Coins System
+        giveCoins: (_, {username, coins}, context) => giveCoins(username, coins),
     }
 }
 
