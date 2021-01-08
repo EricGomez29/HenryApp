@@ -71,6 +71,15 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => navigation.navigate('InviteUsers')}>
+                    <ListItem key={5} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Invitar Usuarios</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
             </View>
         </View>
     )
