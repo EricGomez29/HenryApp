@@ -2,7 +2,7 @@ var nodemailer = require('nodemailer');
 import dotenv from 'dotenv';
 import User from '../../models/Users';
 dotenv.config();
-const sendEmail = async(email) => {
+const sendEmail = async(email, link) => {
     const from = "henryapp-project@gmail.com";
     const subject = "Bienvenido/a a Henry"
     var transporter =  await nodemailer.createTransport({
@@ -69,7 +69,7 @@ const sendEmail = async(email) => {
                                                             <span class="m_5856674466128473302mb_text" style="font-family:Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif;font-size:16px;line-height:21px;color:#141823">
                                                                 <p>Hola, ${email}:</p>
                                                                 <p></p>
-                                                                <div>Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="http://localhost:19006/">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
+                                                                <div>Has sido aceptado para sumarte a la comunidad de HENRY. Ingresa a este Link: <a href="${link}/">AQUÍ</a> para ser redirigido a la App de Alumnos de Henry.</span>
                                                                     <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:9px;margin-bottom:15px">
                                                                         <tbody>
                                                                             <tr>
