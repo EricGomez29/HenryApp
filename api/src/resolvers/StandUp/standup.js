@@ -13,7 +13,8 @@ export const addStandUp = async ( cohorte ) =>{
     return await StandUp.create({
         name: `WEB_FT_${cohorte}_GROUP_${stand.length + 1}`,
         cohorte: cohorte,
-        number: stand.length + 1
+        number: stand.length + 1,
+        linkMeet: "http://meet.google.com/new"
     });
 }
 
