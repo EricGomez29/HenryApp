@@ -123,7 +123,7 @@ export default function StudentsList ({navigation}) {
                         var nameSearch = name.toLocaleLowerCase()
                         if(nameMin === nameSearch) {
                             return (
-                                <ListItem key={u.username}>
+                                <ListItem key={u.username} onPress={() => navigation.navigate('ProfileUser', { modifyData: u })}>
                                     <Image source={u.image || "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"} style={{width:40, height:40}}/>
                                     <ListItem.Content>
                                         <View style={{display: "flex", width:"100%", flexDirection: "row"}}>
