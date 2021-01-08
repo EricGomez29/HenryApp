@@ -74,6 +74,7 @@ const ProfileUser = ({ route, navigation }) => {
                 <Formik
                     initialValues={{
                         country: data.nationality,
+                        standUp: data.standUp,
                         firstName: data.firstName,
                         lastName: data.lastName,
                         username: data.username,
@@ -82,7 +83,7 @@ const ProfileUser = ({ route, navigation }) => {
                         phone: data.phone ,
                         cohorte: data.cohorte ,
                         nroTelefono: data.phone ,
-                        image: data.image || `https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50s=200`,
+                        image: data.image || `https://cdn.theorg.com/d3119e0e-8202-4034-85ce-d0356382515e_thumb.jpg`,
                         isAdmin: data.isAdmin,
                         isPM: data.isPM,
                         listPM: data.listPM
