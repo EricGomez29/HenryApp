@@ -67,6 +67,7 @@ function StackList (){
   )
 }
 export default function App() {
+
   return (
     <ApolloProvider client={client}>
       <DripsyProvider theme={theme}>

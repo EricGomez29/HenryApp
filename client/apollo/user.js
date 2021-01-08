@@ -95,6 +95,7 @@ query cohortes($number: Int){
             lastName
             cohorte
             image
+            standUp
         }
     }
 }`;
