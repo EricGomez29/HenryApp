@@ -10,10 +10,11 @@ import MenuDesplegable from './MenuDesplegable';
 
 const ProfileUser = ({ route, navigation }) => {
     
-    const EDIT_USER = gql`mutation editUser($username: String $isAdmin: Boolean) {
+    const EDIT_USER = gql`mutation editUser($username: String, $isAdmin: Boolean, $isPM: Boolean) {
 	    editUser (input: {
             username: $username
             isAdmin: $isAdmin
+            isPM: $isPM
         }){
             username
             firstName
@@ -33,23 +34,28 @@ const ProfileUser = ({ route, navigation }) => {
     const [data, setData] = useState(route.params.data)
     console.log(data)
     const [editProfile] = useMutation(EDIT_USER);
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, str) => {
+        var y;
+        if(str){
+            y = values.isAdmin === true ? false : true;
+        }else{
+            str= "isPM";
+            y = values.isPM === true ? false : true;
+        }
         try {
-            console.log(!values.isAdmin)
+            console.log(y)
             const response = await editProfile({
                 variables: {
                     username: values.username,
-                    isAdmin: !values.isAdmin,
+                    [str]: y,
                 }
             })
-            console.log(response.data);
             navigation.navigate("ProfileUser", {data: response.data.editProfile})
         } catch (error) {
             console.log(error);    
         }
     }
-  
-        
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{width: 50, zIndex: 5}}>
@@ -73,10 +79,11 @@ const ProfileUser = ({ route, navigation }) => {
                         image: data.image || `https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50s=200`,
                         isAdmin: data.isAdmin,
                         isPM: data.isPM,
-                        listPM: data.isPM
+                        listPM: data.listPM
+
                     }}
-                    onSubmit={values => handleSubmit(values)}
-                >
+                    onSubmit={handleSubmit}
+>
                     {({ handleChange, handleBlur, handleSubmit, values }) => (
                         <View style={styles.form}>
                             
@@ -180,13 +187,13 @@ const ProfileUser = ({ route, navigation }) => {
                                 
                             
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo Administrador</Text>
+                                <TouchableOpacity style={styles.boton} onPress={() => handleSubmit(values, "admin")}>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!values.isAdmin ? "Hacerlo Administrador" : "Deshacer Administrador"}</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerBoton}>
                                 <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
-                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>Hacerlo PM</Text>
+                                    <Text style={{ color: 'black', fontWeight: 'bold' }}>{!values.isPM ? "Hacerlo PM" : "Deshacer PM"}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

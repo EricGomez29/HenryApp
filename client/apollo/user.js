@@ -45,7 +45,7 @@ export const EDIT_USER = gql`mutation editUser($username: String, $lastName: Str
             nationality: $nationality
             phone: $phone
             password: $password
-            listPM: $lisPM
+            listPM: $listPM
             isAdmin: $isAdmin
         }){
             username
