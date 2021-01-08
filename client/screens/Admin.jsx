@@ -7,7 +7,7 @@ import { Icon } from 'react-native-elements';
 
 export function AdminList ({navigation}){
     return (
-        <View style={{width: '100%'}}>
+        <View style={{width: '80%', alignSelf: "center"}}>
             <View style={styles.container} >
 
                 <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -20,7 +20,7 @@ export function AdminList ({navigation}){
                 <TouchableOpacity onPress={() => navigation.navigate('StudentsList')}>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Ver alumnos</ListItem.Title>
+                            <ListItem.Title>Ver alumnos / Asignar Roles</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -47,7 +47,7 @@ export function AdminList ({navigation}){
                 <TouchableOpacity >
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar/Eliminar Alumnos del cohorte</ListItem.Title>
+                            <ListItem.Title>Agregar/Eliminar Alumnos de un cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -71,19 +71,10 @@ export function AdminList ({navigation}){
                     </ListItem>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('StudentsList')}>
-                    <ListItem key={4} bottomDivider>
-                        <ListItem.Content>
-                            <ListItem.Title>Agregar PM</ListItem.Title>
-                        </ListItem.Content>
-                        <ListItem.Chevron />
-                    </ListItem>
-                </TouchableOpacity>
-
                 <TouchableOpacity>
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar Administrador</ListItem.Title>
+                            <ListItem.Title>Ver Administradores y PMs</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
