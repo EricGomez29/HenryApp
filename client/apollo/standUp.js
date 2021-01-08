@@ -51,3 +51,18 @@ mutation addUserStandUp($username: String!, $name: String!){
     }
   }
 }`
+
+export const GET_GRUPO = gql`
+query standup($name: String!){
+  standup(where: {name: $name}){
+    PM{
+      firstName
+    }
+    users{
+      firstName
+      lastName
+    }
+    name
+    cohorte
+  }
+}`

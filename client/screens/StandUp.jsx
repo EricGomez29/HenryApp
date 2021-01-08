@@ -1,99 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {View} from 'react-native';
+import {Text} from 'dripsy'
 import Mesas from '../Components/Mesas';
-import { STAND_UP } from '../constants/index';
+import Particles from './Particles';
+import {styles} from '../styles/StandUpStyles';
+import { useMutation, useQuery } from '@apollo/client';
+import {GET_USER} from '../apollo/user';
+import {GET_GRUPO} from '../apollo/standUp';
+import Menu from './MenuDesplegable';
+import TarjetaUser from '../Components/TarjetaUser';
 
-const StandUp = ({ navigation, me }) => {
+export default function StandUp({navigation}){
+    const email = localStorage.getItem('userEmail')
+    const { loading, data, error } = useQuery(GET_USER, {
+        variables: {
+            email,
+        }
+    })
+    const [newData, setNewData] = useState()
+    const nombreGrupo = data?.users[0]?.standUp
+    
+    const {loading: loading2, data: data2, error: error2 } = useQuery(GET_GRUPO, {
+        variables: {
+            name: nombreGrupo
+        }
+    })
 
-    const pairProgrammingCohorte3Example = {
-        mesas: [
-            {
-                id: 1,
-                linkMeet: "http://meet.com.ar",
-                users: [
-                    {
-                        username: 'Bryan00'
-                    }, {
-                        username: 'HBL20'
-                    }, {
-                        username: 'ROlden'
-                    }, {
-                        username: 'kkl2'
-                    }, {
-                        username: 'Chingon'
-                    }
-                ],
-                leads: [
-                    {
-                        id: 123,
-                        username: 'FIlds',
-                        firstName: 'Bryan',
-                        lastName: 'Plata',
-                    }, {
-                        id: 124,
-                        username: 'Golds',
-                        firstName: 'GOnzales',
-                        lastName: 'Roris'
-                    }
-                ]
-            },
-            {
-                id: 2,
-                linkMeet: "http://meet2.com.ar",
-                users: [
-                    {
-                        username: 'Brsadn00'
-                    }, {
-                        username: 'HBL20'
-                    }
-                ],
-                leads: [
-                    {
-                        id: 120,
-                        username: 'FIlds',
-                        firstName: 'Bryan',
-                        lastName: 'Plata',
-                    }, {
-                        id: 121,
-                        username: 'Golds',
-                        firstName: 'GOnzales',
-                        lastName: 'Roris'
-                    }
-                ]
-            }, {
-                id: 3,
-                linkMeet: "http://meet3.com.ar",
-                users: [
-                    {
-                        username: 'Brsdsdn00'
-                    }, {
-                        username: 'HBL20'
-                    }, {
-                        userame: 'reiren'
-                    }
-                ],
-                leads: [
-                    {
-                        id: 4,
-                        username: 'FIlds',
-                        firstName: 'Bryan',
-                        lastName: 'Plata',
-                    }, {
-                        id: 5,
-                        username: 'Golds',
-                        firstName: 'GOnzales',
-                        lastName: 'Roris'
-                    }
-                ]
-            }
-        ]
-    }
+    const usuarios = data2?.standup[0]?.users
+    const pms = data2?.standup[0]?.PM
+
     return (
-        <Mesas
-            navigation={navigation}
-            type={STAND_UP}
-            mesas={pairProgrammingCohorte3Example.mesas}
-        />
-    );
+        <View style={styles.todo}>
+            <View style={{width: '100%', height: '100%', position: 'absolute', zIndex: -1}}>
+                <Particles />
+            </View>
+            <View style={{zIndex: 5}}>
+                    <Menu navigation={navigation} />
+                </View>
+            <View style={{alignSelf: 'center'}}>
+                <Text style={styles.title} sx={{fontSize: [25, 30]}}>Grupo:  {nombreGrupo}</Text>
+                <View style={styles.recuadro}>
+                    
+                        <TarjetaUser users={usuarios} />
+                    
+                </View>
+            </View>
+        </View>
+    )
 }
-
-export default StandUp;

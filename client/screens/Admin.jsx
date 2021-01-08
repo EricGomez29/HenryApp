@@ -38,7 +38,7 @@ export function AdminList ({navigation}){
                 <TouchableOpacity >
                     <ListItem key={2} bottomDivider>
                         <ListItem.Content>
-                            <ListItem.Title>Agregar/Eliminar Cohorte</ListItem.Title>
+                            <ListItem.Title>Agregar Cohorte</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
@@ -66,6 +66,24 @@ export function AdminList ({navigation}){
                     <ListItem key={4} bottomDivider>
                         <ListItem.Content>
                             <ListItem.Title>Armar grupos de StandUp</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('AddUserStand')}>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Asignar un PM a StandUp</ListItem.Title>
+                        </ListItem.Content>
+                        <ListItem.Chevron />
+                    </ListItem>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('AddUserStand')}>
+                    <ListItem key={4} bottomDivider>
+                        <ListItem.Content>
+                            <ListItem.Title>Ver los grupos de StandUp</ListItem.Title>
                         </ListItem.Content>
                         <ListItem.Chevron />
                     </ListItem>
