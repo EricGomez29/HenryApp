@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
         backgroundColor: 'black'
     },
     container:{
-        flex: 1,
         alignItems: "center",
         justifyContent: "center"
     },
@@ -77,6 +76,9 @@ export const styles = StyleSheet.create({
         shadowRadius: 5.46,
         elevation: 9,
     },
-    
-
+    container2: {
+        alignItems: "center",
+        justifyContent: "center",
+        height: "60%"
+    }
 })

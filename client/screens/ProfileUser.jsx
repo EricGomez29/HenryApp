@@ -233,7 +233,7 @@ const ProfileUser = ({ route, navigation }) => {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.containerBoton}>
-                                <TouchableOpacity style={styles.boton} onPress={handleSubmit2}>
+                                <TouchableOpacity style={styles.boton} onPress={handleSubmit}>
                                     <Text style={{ color: 'black', fontWeight: 'bold' }}>{!data.isPM ? "Hacerlo PM" : "Deshacer PM"}</Text>
                                 </TouchableOpacity>
                             </View>

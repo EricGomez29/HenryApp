@@ -28,13 +28,15 @@ import StudentsList from './screens/StudentsList';
 import Particles from './screens/Particles';
 import ProfileUser from './screens/ProfileUser';
 import CreateUserCohorte from './screens/CreateUserCohorte';
+import RolesList from './screens/RolesList';
+import SalaDeMesaNew from './screens/SalaDeMesaNew';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const client = new ApolloClient({
   uri: `http://localhost:5000/graphql`,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache,
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors)
     console.log('networkError', networkError)
@@ -44,7 +46,7 @@ const client = new ApolloClient({
 
 function StackList() {
   return (
-    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="CohorteList" component={CohorteList} />
       <Stack.Screen name="PruebaBoton" component={IniciaryRegistrar} />
@@ -52,7 +54,6 @@ function StackList() {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="ProfileEdit" component={ProfileEdit} />
-      <Stack.Screen name="SalaDeMesa" component={SalaDeMesa} />
       <Stack.Screen name="PhotoProfile" component={PhotoProfile} />
       <Stack.Screen name="PairProgramming" component={PairProgramming} />
       <Stack.Screen name="StandUp" component={StandUp} />
@@ -65,6 +66,8 @@ function StackList() {
       <Stack.Screen name="Particles" component={Particles} />
       <Stack.Screen name="ProfileUser" component={ProfileUser} />
       <Stack.Screen name="CreateUserCohorte" component={CreateUserCohorte} />
+      <Stack.Screen name="RolesList" component={RolesList} />
+      <Stack.Screen name="SalaDeMesaNew" component={SalaDeMesaNew} />
     </Stack.Navigator>
   )
 }
