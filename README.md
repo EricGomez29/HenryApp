@@ -15,11 +15,11 @@
 ## Sobre el Proyecto
 Este proyecto es una aplicacion para  que los alumnos de [Henry](https://www.soyhenry.com/), en este caso, puedan hacer Pair Proogramming, vean su grupo de Stand Up y puedan reunirse con sus PM's. Tambien pueden ver sus perfiles y modificarlos, los administradores pueden ver otras serie de cosas como por ejemplo: ver la lista de alumnos, filtrarlos por cohorte, modificar el cohorte de cada chico, armar grupos de stand Up, etc
 
-### Built With
+### Contruido con:
 
-* [React Native]()
-* [Graphql]()
-* [MongoDB]()
+* [React Native](https://reactnative.dev/)
+* [Graphql](https://graphql.org/)
+* [MongoDB](https://www.mongodb.com/)
 
 ## Empezar a correr el proyecto
 
