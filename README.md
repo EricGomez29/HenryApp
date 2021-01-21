@@ -36,17 +36,13 @@ To get a local copy up and running follow these simple example steps.
   
 Distributed under the MIT License. See `LICENSE` for more information.
 
+
 [contributors-shield]: https://img.shields.io/github/contributors/EricGomez29/HenryApp.svg?style=for-the-badge
-
 [contributors-url]: https://github.com/EricGomez29/HenryApp/graphs/contributors
-
 [forks-shield]: https://img.shields.io/github/forks/EricGomez29/HenryApp.svg?style=for-the-badge
-
 [forks-url]: https://github.com/EricGomez29/HenryApp/network/members
-
 [stars-shield]: https://img.shields.io/github/stars/EricGomez29/HenryApp.svg?style=for-the-badge
-
 [stars-url]: https://github.com/EricGomez29/HenryApp/stargazers
-
 [issues-shield]: https://img.shields.io/github/issues/EricGomez29/HenryApp.svg?style=for-the-badge
+[issues-url]: https://github.com/EricGomez29/HenryApp/issues
   
