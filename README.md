@@ -12,7 +12,7 @@
     <img src="" alt="Henry App Logo" width="80" height="80">
   </a>
 
-## About The Project
+## Sobre el Proyecto
 Este proyecto es una aplicacion para  que los alumnos de [Henry](https://www.soyhenry.com/), en este caso, puedan hacer Pair Proogramming, vean su grupo de Stand Up y puedan reunirse con sus PM's. Tambien pueden ver sus perfiles y modificarlos, los administradores pueden ver otras serie de cosas como por ejemplo: ver la lista de alumnos, filtrarlos por cohorte, modificar el cohorte de cada chico, armar grupos de stand Up, etc
 
 ### Built With
@@ -26,11 +26,9 @@ Este proyecto es una aplicacion para  que los alumnos de [Henry](https://www.soy
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-  >```` 
-  npm install
-  npm start
-  ```
-
+  > ```npm install```
+  > ```npm start```
+  
 ### Installation
 
 1. Get a free API Key at [https://example.com](https://example.com)
