@@ -13,7 +13,7 @@
   </a>
 
 ## About The Project
-Henry app description
+Este proyecto es una aplicacion para  que los alumnos de [Henry](https://www.soyhenry.com/), en este caso, puedan hacer Pair Proogramming, vean su grupo de Stand Up y puedan reunirse con sus PM's. Tambien pueden ver sus perfiles y modificarlos, los administradores pueden ver otras serie de cosas como por ejemplo: ver la lista de alumnos, filtrarlos por cohorte, modificar el cohorte de cada chico, armar grupos de stand Up, etc
 
 ### Built With
 
@@ -26,9 +26,7 @@ Henry app description
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-  ```sh
+  >```` 
   npm install
   npm start
   ```
